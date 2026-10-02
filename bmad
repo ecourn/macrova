@@ -1,0 +1,17 @@
+   Trouver des idées                                  $bmad-brainstorming
+  ─────────────────────────────────────────────────  ─────────────────────
+   Éprouver une idée                                  $bmad-forge-idea
+  ─────────────────────────────────────────────────  ─────────────────────
+   Clarifier un produit encore peu défini             $bmad-product-brief
+  ─────────────────────────────────────────────────  ─────────────────────
+   Transformer des notes précises en spécification    $bmad-spec
+  ─────────────────────────────────────────────────  ─────────────────────
+   Définir l’interface et les parcours                $bmad-ux
+  ─────────────────────────────────────────────────  ─────────────────────
+   Décider de l’architecture technique                $bmad-architecture
+  ─────────────────────────────────────────────────  ─────────────────────
+   Découper une spécification en tickets              $bmad-ticket
+  ─────────────────────────────────────────────────  ─────────────────────
+   Réaliser une fonctionnalité ou corriger un bug     $bmad-build
+  ─────────────────────────────────────────────────  ─────────────────────
+   Examiner des changements de code                   $bmad-code-review
