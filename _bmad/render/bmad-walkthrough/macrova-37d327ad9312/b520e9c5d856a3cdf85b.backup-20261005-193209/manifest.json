@@ -1,0 +1,36 @@
+{
+  "generation_hash": "b520e9c5d856a3cdf85b",
+  "inputs": {
+    "jinja2_version": "3.1.6",
+    "project_root": "/home/ubuntu/macrova",
+    "renderer_sha256": "a622fd5d9f633690323bdecf6cc9dc28625ef0d7b9d971fcc3cd101ed271fa19",
+    "resolved_values": {
+      "config.core.output_folder": "/home/ubuntu/macrova/_bmad-output",
+      "customization.workflow.on_activation": "",
+      "customization.workflow.on_block_activation": "",
+      "customization.workflow.on_block_complete": "",
+      "customization.workflow.on_complete": "",
+      "customization.workflow.persistent_facts": []
+    },
+    "skill_root": "/home/ubuntu/.agents/skills/bmad-walkthrough",
+    "source_sha256": {
+      "step-01-orientation.md": "6ba18633dd1f0cb83f9b76c83dd9b4632405372d1bbe3cbc76ddb2dd5532fe9f",
+      "step-02-narrative.md": "adfb54009c18844b5fd733450b5a5199a3ffd2a441308945e71ea57ecb03a7ff",
+      "step-03-walkthrough.md": "32fd4ffab64e1829789f941e37ce830c95257bf6ed5d5a8ae539ec3a564945f9",
+      "templates/log-template.md": "ebf59c7f6a85dfccea6f580e8a35363a0a8641e66067427ec803592d297ae770",
+      "workflow.md": "6500f78846c1c27922932bb800de9f4bdf1c5e440204379371ee7ea2d805f45e"
+    }
+  },
+  "outputs": {
+    "step-01-orientation.md": "de5eb30b64c2f4cf187eba83c7e0d196e84017d3679d444929927f84eea728a4",
+    "step-02-narrative.md": "013a06ba99ba63bb339b278a6358adaf40a580d65dff4b4192b99714719da735",
+    "step-03-walkthrough.md": "ef6e6e7dcef093956467175db9e24ae4b49f3ac7817a9d4b0b86db17deb48bea",
+    "templates/log-template.md": "e4992dcf11a8c0c798c8f63c75417a8777f2b2c74c1b38bdaf3f676513f0875d",
+    "workflow.md": "79933fcb425e43df67349928934a369ac6b2c94e95f1edf4b2d9eea4ace5d8e3"
+  },
+  "project_root": "/home/ubuntu/macrova",
+  "project_slug": "macrova",
+  "root_hash": "37d327ad9312",
+  "schema_version": 1,
+  "skill": "bmad-walkthrough"
+}
