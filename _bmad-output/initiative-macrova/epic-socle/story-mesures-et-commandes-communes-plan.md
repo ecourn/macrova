@@ -3,7 +3,7 @@ title: 'Mesures et commandes communes'
 type: 'feature'
 ticket: 4
 created: '2026-10-05'
-status: built
+status: done
 baseline_revision: '7a97fad51a481741c8c93ca1b6d8565d90857adb'
 route: 'full'
 route_source: 'auto'
