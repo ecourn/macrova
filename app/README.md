@@ -14,7 +14,7 @@ bun run format     # Formate les fichiers pris en charge
 bun run check      # Vérifie le lint et le formatage sans modifier les fichiers
 bun run typecheck  # Vérifie les types TypeScript
 bun run build     # Compile l'application
-bun run test      # Vérifie les sessions avec le backend Convex simulé
+bun run test      # Vérifie les sessions simulées et la configuration E2E
 ```
 
 La configuration `biome.json` conserve le style JavaScript/TypeScript existant
@@ -97,6 +97,13 @@ Le socle utilise le déploiement cloud `dev/socle-auth-tests`, séparé du
 déploiement de développement habituel et de la production. Le sélectionner
 avec le compte Convex autorisé :
 
+Pour cette procédure locale, retirer `CONVEX_DEPLOY_KEY` et
+`CONVEX_DEPLOYMENT_TOKEN` de l'environnement du terminal ainsi que de `.env`
+et `.env.local` si elles y figurent : ces clés peuvent prendre priorité sur la
+sélection et faire viser un autre backend aux commandes suivantes. Conserver
+les éventuelles clés nécessaires ailleurs, hors Git, puis utiliser la connexion
+du CLI avec le compte Convex autorisé.
+
 ```bash
 bunx convex deployment select dev/socle-auth-tests
 bun run convex:dev --once
@@ -112,16 +119,25 @@ Better Auth de cet environnement, pas dans le backend habituel.
 
 Pour recréer cet environnement dans un autre projet Convex autorisé :
 
+Remplacer `mon-equipe` et `mon-projet` par les identifiants du projet cible.
+Le sélecteur complet évite de créer le déploiement dans le projet actuellement
+sélectionné ; dans le projet courant, `dev/socle-auth-tests` suffit.
+
 ```bash
-bunx convex deployment create dev/socle-auth-tests --type dev --select
+bunx convex deployment create mon-equipe:mon-projet:dev/socle-auth-tests --type dev --select
 bunx convex env set BETTER_AUTH_SECRET "$(openssl rand -base64 32)"
 bunx convex env set SITE_URL http://localhost:3000
 bun run convex:dev --once
 ```
 
-Créer ensuite le compte de test via `/login` et exécuter la suite réelle comme
-indiqué ci-dessus. Vérifier que le port 3000 est libre. Pour reprendre le backend
-habituel, le sélectionner explicitement avec `convex deployment select`.
+Après la synchronisation, démarrer `bun run dev`, ouvrir
+`http://localhost:3000/login` et créer le compte de test. Arrêter ensuite Vite
+avec Ctrl+C pour libérer le port 3000. Fournir `E2E_AUTH_EMAIL` et
+`E2E_AUTH_PASSWORD` au terminal ou aux secrets de CI, comme indiqué dans la
+section de connexion réelle, puis lancer
+`E2E_AUTH_PORT=3000 bun run test:e2e:auth`.
+Pour reprendre le backend habituel, le sélectionner explicitement avec
+`convex deployment select`.
 
 ## Adding components
 
