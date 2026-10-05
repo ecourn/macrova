@@ -19,6 +19,15 @@ if (liveAuth) {
       "Les tests d'auth exigent un déploiement Convex dev configuré."
     )
   }
+  const deployment = env.CONVEX_DEPLOYMENT.slice(4).split(/\s/)[0]
+  if (
+    env.VITE_CONVEX_URL !== `https://${deployment}.convex.cloud` ||
+    env.VITE_CONVEX_SITE_URL !== `https://${deployment}.convex.site`
+  ) {
+    throw new Error(
+      "Les URL cloud et site doivent correspondre au déploiement Convex dev déclaré."
+    )
+  }
   if (!process.env.E2E_AUTH_EMAIL || !process.env.E2E_AUTH_PASSWORD) {
     throw new Error(
       "Définir E2E_AUTH_EMAIL et E2E_AUTH_PASSWORD (compte de test)."

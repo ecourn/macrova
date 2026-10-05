@@ -78,6 +78,8 @@ session après rechargement → redirection d'un utilisateur connecté →
 déconnexion → refus d'accès privé. Elle échoue dès la configuration si les
 identifiants manquent ou si le déploiement déclaré n'est pas `dev:`.
 Vérifier que les URL Convex correspondent effectivement à ce déploiement.
+La configuration refuse les URL cloud/site qui ne correspondent pas au nom
+du déploiement cloud `dev:` déclaré, avant de lancer le serveur ou les tests.
 Le test d'inscription crée un compte dédié avec une adresse unique
 `auth-signup-…@example.com`, conservé dans le composant pour inspection.
 Le port choisi doit être libre et correspondre à `SITE_URL` côté Convex.
@@ -88,6 +90,38 @@ les rapports peuvent contenir l'adresse du compte de test en cas d'échec.
 La configuration est dans `playwright.config.ts`, les scénarios dans `tests/e2e/`.
 Le périmètre initial utilise Chromium ; d'autres navigateurs pourront être
 ajoutés lorsqu'un besoin de compatibilité le justifiera.
+
+### Environnement dédié aux tests de session
+
+Le socle utilise le déploiement cloud `dev/socle-auth-tests`, séparé du
+déploiement de développement habituel et de la production. Le sélectionner
+avec le compte Convex autorisé :
+
+```bash
+bunx convex deployment select dev/socle-auth-tests
+bun run convex:dev --once
+E2E_AUTH_PORT=3000 bun run test:e2e:auth
+```
+
+La sélection met à jour les URL dans `.env.local`, ignoré par Git. Ce backend
+possède son propre `BETTER_AUTH_SECRET`, conservé uniquement dans Convex, et
+`SITE_URL=http://localhost:3000`. Utiliser uniquement des comptes de test ;
+fournir leurs identifiants au processus E2E, jamais aux variables `VITE_*`.
+Les tests créent des comptes d’inscription supplémentaires dans le composant
+Better Auth de cet environnement, pas dans le backend habituel.
+
+Pour recréer cet environnement dans un autre projet Convex autorisé :
+
+```bash
+bunx convex deployment create dev/socle-auth-tests --type dev --select
+bunx convex env set BETTER_AUTH_SECRET "$(openssl rand -base64 32)"
+bunx convex env set SITE_URL http://localhost:3000
+bun run convex:dev --once
+```
+
+Créer ensuite le compte de test via `/login` et exécuter la suite réelle comme
+indiqué ci-dessus. Vérifier que le port 3000 est libre. Pour reprendre le backend
+habituel, le sélectionner explicitement avec `convex deployment select`.
 
 ## Adding components
 
