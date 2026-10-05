@@ -8,7 +8,7 @@
   ─────────────────────────────────────────────────  ─────────────────────
    Définir l’interface et les parcours                $bmad-ux => fait
   ─────────────────────────────────────────────────  ─────────────────────
-   Décider de l’architecture technique                $bmad-architecture
+   Décider de l’architecture technique                $bmad-architecture => fait
   ─────────────────────────────────────────────────  ─────────────────────
    Découper une spécification en tickets              $bmad-ticket
   ─────────────────────────────────────────────────  ─────────────────────
