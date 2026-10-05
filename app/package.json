@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "check": "biome check .",
+    "check": "biome check . --error-on-warnings",
     "typecheck": "tsc --noEmit",
     "convex:dev": "bash scripts/convex-dev.sh",
     "convex:deploy": "convex deploy",

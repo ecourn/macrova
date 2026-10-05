@@ -17,7 +17,7 @@ import {
 } from "lucide-react"
 
 function Calendar({
-  className,
+  className: calendarClassName,
   classNames,
   showOutsideDays = true,
   captionLayout = "label",
@@ -25,7 +25,7 @@ function Calendar({
   locale,
   formatters,
   components,
-  ...props
+  ...calendarProps
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
 }) {
@@ -38,7 +38,7 @@ function Calendar({
         "group/calendar bg-background p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
-        className
+        calendarClassName
       )}
       captionLayout={captionLayout}
       locale={locale}
@@ -108,7 +108,7 @@ function Calendar({
         ),
         day: cn(
           "group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)",
-          props.showWeekNumber
+          calendarProps.showWeekNumber
             ? "[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)"
             : "[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)",
           defaultClassNames.day
@@ -182,7 +182,7 @@ function Calendar({
         },
         ...components,
       }}
-      {...props}
+      {...calendarProps}
     />
   )
 }

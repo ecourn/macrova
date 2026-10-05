@@ -1,3 +1,12 @@
+## Vérification obligatoire
+
+Avant de terminer une modification dans `app/`, exécuter `bun run check`
+depuis ce répertoire et corriger tous les diagnostics jusqu’à obtenir zéro
+erreur et zéro avertissement, avec un code de sortie égal à 0.
+Ne pas désactiver de règle, ajouter de suppression ou exclure un fichier pour
+contourner un diagnostic. Le script `check` doit conserver l’option
+`--error-on-warnings` pour rendre les avertissements bloquants.
+
 <!-- convex-ai-start -->
 
 This project uses [Convex](https://convex.dev) as its backend.
