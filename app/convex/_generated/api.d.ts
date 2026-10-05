@@ -11,6 +11,8 @@
 import type * as account from "../account.js";
 import type * as auth from "../auth.js";
 import type * as contracts_access from "../contracts/access.js";
+import type * as contracts_commands from "../contracts/commands.js";
+import type * as contracts_events from "../contracts/events.js";
 import type * as contracts_food from "../contracts/food.js";
 import type * as http from "../http.js";
 import type * as lib_access from "../lib/access.js";
@@ -26,6 +28,8 @@ declare const fullApi: ApiFromModules<{
   account: typeof account;
   auth: typeof auth;
   "contracts/access": typeof contracts_access;
+  "contracts/commands": typeof contracts_commands;
+  "contracts/events": typeof contracts_events;
   "contracts/food": typeof contracts_food;
   http: typeof http;
   "lib/access": typeof lib_access;

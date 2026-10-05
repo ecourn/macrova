@@ -45,11 +45,22 @@ export const portionValidator = v.object({
   step: v.optional(v.string()),
 })
 export const errorValidator: Validator<DomainError, "required", string> =
-  v.object({
-    code: v.union(...ERROR_CODES.map((code) => v.literal(code))),
-    fields: v.array(v.string()),
-    retryable: v.literal(false),
-  })
+  v.union(
+    v.object({
+      code: v.union(
+        ...ERROR_CODES.filter((code) => code !== "UNAVAILABLE").map((code) =>
+          v.literal(code)
+        )
+      ),
+      fields: v.array(v.string()),
+      retryable: v.literal(false),
+    }),
+    v.object({
+      code: v.literal("UNAVAILABLE"),
+      fields: v.array(v.string()),
+      retryable: v.literal(true),
+    })
+  )
 const exact = v.object({
   numerator: v.string(),
   denominator: v.string(),

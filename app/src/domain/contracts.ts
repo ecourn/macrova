@@ -3,6 +3,8 @@ export const ERROR_CODES = [
   "UNAUTHENTICATED",
   "ACCESS_DENIED",
   "NOT_FOUND",
+  "CONFLICT",
+  "UNAVAILABLE",
   "ENTITLEMENT_REQUIRED",
   "ACCOUNT_CLOSED",
   "UNSUPPORTED_VERSION",
@@ -14,11 +16,13 @@ export const ERROR_CODES = [
   "MISSING_DENSITY",
 ] as const
 export type ErrorCode = (typeof ERROR_CODES)[number]
-export type DomainError = {
-  code: ErrorCode
-  fields: string[]
-  retryable: false
-}
+export type DomainError =
+  | {
+      code: Exclude<ErrorCode, "UNAVAILABLE">
+      fields: string[]
+      retryable: false
+    }
+  | { code: "UNAVAILABLE"; fields: string[]; retryable: true }
 export type Result<T> =
   | { ok: true; value: T }
   | { ok: false; error: DomainError }
@@ -26,6 +30,8 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   UNAUTHENTICATED: "Une session valide est requise.",
   ACCESS_DENIED: "Cette référence appartient à un autre compte.",
   NOT_FOUND: "Référence introuvable.",
+  CONFLICT: "Le contenu a changé. Relire avant de confirmer.",
+  UNAVAILABLE: "Service temporairement indisponible.",
   ENTITLEMENT_REQUIRED: "Un droit confirmé actif est requis.",
   ACCOUNT_CLOSED: "Le compte est fermé.",
   UNSUPPORTED_VERSION: "Version de contrat inconnue.",
@@ -37,7 +43,9 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   MISSING_DENSITY: "Une densité sourcée est nécessaire à la conversion.",
 }
 export function failure(code: ErrorCode, ...fields: string[]): Result<never> {
-  return { ok: false, error: { code, fields, retryable: false } }
+  return code === "UNAVAILABLE"
+    ? { ok: false, error: { code, fields, retryable: true } }
+    : { ok: false, error: { code, fields, retryable: false } }
 }
 export type QuantityUnit = "g" | "ml"
 export const NUTRIENTS = ["protein", "carbohydrate", "fat", "energy"] as const

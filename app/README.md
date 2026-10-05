@@ -344,3 +344,71 @@ Les fixtures dans `tests/fixtures/access-functions.ts` sont exclusivement
 synthétiques et chargées par la module map de `convex-test` ; elles se trouvent
 hors du répertoire déployable `convex/`. Les bindings `api.d.ts` ont été mis à jour
 localement, sans commande de codegen susceptible de téléverser le backend.
+
+## Intentions, reçus et mesures communes v1
+
+`src/domain/commands.ts` et `events.ts` définissent les contrats purs v1,
+sans IO ni autorisation. Les validateurs de `convex/contracts/` refusent les
+champs supplémentaires et versions inconnues. Leur validation structurelle doit
+être suivie des validations sémantiques du domaine (identifiants, dates UTC,
+condensat). Chaque propriétaire injecte un validateur fermé de contenu/résultat
+aux fabriques `commandIntentValidator` et `commandReceiptValidator` ; aucun
+validateur JSON générique permissif n'est fourni. Les identifiants de contrat
+sont des chaînes ASCII de 1 à 256 caractères, commençant par une lettre ou un
+chiffre, puis lettres/chiffres/`_ . : -` ; aucune adresse e-mail n'est acceptée.
+
+Le navigateur conserve `operationId`, contenu, `expectedRevision` et
+`contentDigest` pour une intention, y compris après panne. La canonicalisation
+v1 trie récursivement les clés d'objets par unités UTF-16, conserve l'ordre des
+tableaux et utilise les primitives `JSON.stringify` (nombres finis, `-0` → `0`).
+Elle refuse BigInt, undefined, trous, cycles, accesseurs, symboles et prototypes
+non JSON. Le condensat est `sha256:` suivi de 64 caractères hexadécimaux minuscules,
+SHA-256 de l'UTF-8 de `{ content, expectedRevision }` canonicalisé. Le SHA-256
+synchrone pur évite une dépendance aux API crypto des différents runtimes et
+reste utilisable directement dans la décision de replay client/serveur ; les
+tests le comparent à l'implémentation native sur vecteurs connus et plusieurs
+blocs. Ce condensat assure la cohérence du contenu, aucune authentification.
+
+Exemple : une confirmation avec destinations favori **et** journal conserve une
+seule clé. Le module repas/journal dérive ownerId via Better Auth, vérifie propriété,
+droit et fermeture avec `requirePersonalWrite` dans sa mutation, recherche son
+reçu par ownerId + operationId puis appelle `decideReplay`. Même contenu et reçu
+rendent le résultat acquis, avant contrôle de la révision actuelle, sans nouvelle
+écriture ni événement. Un autre contenu ou une révision attendue périmée rendent
+`CONFLICT`, non réessayable : relire et confirmer une nouvelle intention avec une
+nouvelle clé. Un reçu d'un autre propriétaire rend `ACCESS_DENIED`.
+
+Après effet effectif, `selectMealEvents` reçoit la preuve serveur de confirmation
+personnelle, destinations et première confirmation. Une double destination ne
+produit qu'un `first_personal_meal` ; copie/reprise exige filiation `sourceMealId`
+et confirmation pour `meal_reused`. Les IDs sont déterministes par propriétaire,
+clé d'intention et type. Démo, absence de confirmation ou absence d'effet ne
+produisent aucune mesure personnelle. Le module abonnement fournit l'encaissement
+réel confirmé serveur et sa clé interne `paymentId` à `selectPaymentEvents` ;
+retour navigateur et droit actif ne sont pas des preuves. Déduplication de paiement
+par propriétaire/paymentId reste indépendante du nombre de notifications.
+Remboursements et renouvellements relèvent du rapprochement de ce propriétaire.
+
+Le propriétaire enregistre son résultat typé, reçu et événements **atomiquement
+avec l'effet** dans ses propres structures. Aucun schéma/table de reçus ou mesures,
+API publique de collecte, tracker ni module repas/paiement n'est ajouté ici.
+Les mutations internes vérifient `requireInternalWrite` dans la même transaction.
+Les preuves des helpers purs proviennent exclusivement de ces propriétaires ;
+elles ne sont jamais une autorisation ni des arguments clients faisant autorité.
+Les erreurs communes gardent code stable et fields ; seul `UNAVAILABLE`, panne
+explicitement transitoire, porte `retryable: true`. Absence, refus et conflit
+restent distincts et aucune panne backend n'est absorbée.
+
+Les événements privés minimaux comportent version, eventId, ownerId serveur et
+horodatage UTC en millisecondes ; seuls la filiation de réutilisation ou l'identifiant
+interne de paiement s'ajoutent pour ces types. Leur collecte reste serveur ;
+les mesures identifiantes rejoignent export/delete orchestrés par le futur module
+demandes de données, selon la politique à approuver. Les mesures publiques
+`calculator_completed` et `demo_completed` ont un contrat séparé, sans ownerId,
+profil ni contenu nutritionnel. Aucun profil de calculateur/démo n'est enregistré.
+Le futur propriétaire de cohorte conserve `invitationAt` pour **chaque invité**,
+y compris sans usage ; fenêtres J6–J8 et dénominateurs suivent le protocole de
+validation, sans calcul de seuil ajouté par ce socle.
+
+Les fixtures de transport et mesures sont dans `tests/fixtures/`, chargées
+uniquement par convex-test et hors du répertoire déployable.
