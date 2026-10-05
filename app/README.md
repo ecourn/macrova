@@ -1,0 +1,154 @@
+# TanStack Start + shadcn/ui
+
+This is a template for a new TanStack Start project with React, TypeScript, and shadcn/ui.
+
+## Qualité du code
+
+Le projet utilise Biome, avec une version exacte verrouillée dans `package.json`
+et `bun.lock`.
+
+```bash
+bun install --frozen-lockfile
+bun run lint       # Analyse statique
+bun run format     # Formate les fichiers pris en charge
+bun run check      # Vérifie le lint et le formatage sans modifier les fichiers
+bun run typecheck  # Vérifie les types TypeScript
+bun run build     # Compile l'application
+```
+
+La configuration `biome.json` conserve le style JavaScript/TypeScript existant
+(deux espaces, LF, guillemets doubles, sans points-virgules, virgules finales ES5,
+largeur de 80 caractères). Elle reprend les règles ESLint compatibles et conserve
+les désactivations explicites du projet. Certaines règles ESLint n'ont pas
+d'équivalent exact ; TypeScript reste responsable de la vérification des types.
+Le tri automatique des imports reste désactivé.
+
+Les fichiers ignorés par Git et l'arbre de routes généré `src/routeTree.gen.ts`
+sont exclus. Les fichiers CSS et JSON sont également formatés ; le parseur CSS
+accepte les directives Tailwind.
+
+Le tri automatique des classes Tailwind n'est plus effectué : la règle Biome
+[`useSortedClasses`](https://biomejs.dev/linter/rules/use-sorted-classes/)
+est expérimentale et ne couvre pas entièrement les utilitaires et variantes
+personnalisés de Tailwind. Les classes existantes sont conservées.
+Prettier peut rester installé comme dépendance transitive du générateur TanStack,
+mais aucun script du projet ne l'utilise.
+
+Dans l'éditeur, utiliser l'extension Biome comme formateur pour ce projet.
+
+## Adding components
+
+To add components to your app, run the following command:
+
+```bash
+npx shadcn@latest add button
+```
+
+This will place the ui components in the `components` directory.
+
+## Using components
+
+To use the components in your app, import them as follows:
+
+```tsx
+import { Button } from "@/components/ui/button";
+```
+
+## Convex et Better Auth (Bun)
+
+L'application utilise le composant officiel `@convex-dev/better-auth` :
+Better Auth et ses tables tournent dans Convex. TanStack Start relaie les
+requêtes via `/api/auth/$`, fournit la session au rendu serveur et initialise
+le provider React Convex. Les exemples Next.js ne s'appliquent pas à ce projet.
+
+La connexion e-mail/mot de passe et la création de compte sont accessibles sur
+`/login`. La route `/dashboard` vérifie l'utilisateur côté serveur avant
+d'afficher une requête Convex authentifiée. La fonction
+`convex/auth.ts:getCurrentUser` vérifie aussi l'authentification dans le backend.
+Chaque future fonction privée doit vérifier l'utilisateur dans Convex ; la
+protection d'une page ne suffit pas à protéger ses données.
+
+### À faire avec ton compte Convex
+
+1. Installer les dépendances, puis lancer la configuration :
+
+   ```bash
+   bun install --frozen-lockfile
+   bun run convex:dev
+   ```
+
+   Connecte-toi dans le navigateur, sélectionne ou crée ton projet et choisis
+   un **déploiement cloud** pour le retrouver sur
+   [dashboard.convex.dev](https://dashboard.convex.dev/).
+   Garde ce terminal ouvert : Convex synchronise les fonctions et régénère
+   `convex/_generated/`. Le premier déploiement peut demander les variables
+   ci-dessous avant de terminer.
+
+2. Dans un autre terminal, configure les variables **du backend Convex** :
+
+   ```bash
+   bunx convex env set BETTER_AUTH_SECRET "$(openssl rand -base64 32)"
+   bunx convex env set SITE_URL http://localhost:3000
+   ```
+
+   Le secret doit rester dans Convex (Settings → Environment Variables).
+   Ne le mets jamais dans une variable `VITE_*` ni dans Git.
+
+3. Complète le fichier `.env.local` créé par Convex à partir de
+   `.env.example`. Conserve la valeur réelle de `CONVEX_DEPLOYMENT` :
+
+   ```dotenv
+   CONVEX_DEPLOYMENT=dev:ton-deploiement
+   VITE_CONVEX_URL=https://ton-deploiement.convex.cloud
+   VITE_CONVEX_SITE_URL=https://ton-deploiement.convex.site
+   VITE_SITE_URL=http://localhost:3000
+   ```
+
+   Copie les URL exactes depuis le dashboard. L'URL `.cloud` sert au client
+   Convex ; l'URL `.site` sert au proxy HTTP Better Auth.
+   `VITE_SITE_URL` indique l'origine de l'application ; configure également
+   cette même origine dans `SITE_URL` côté Convex.
+
+4. Démarre le frontend dans un autre terminal :
+
+   ```bash
+   bun run dev
+   ```
+
+   Ouvre http://localhost:3000/login, crée un compte, vérifie l'accès à
+   `/dashboard`, puis déconnecte-toi. Un accès anonyme à `/dashboard` doit
+   rediriger vers `/login`. Dans le dashboard Convex, sélectionne le composant
+   `betterAuth` pour voir les tables de comptes et de sessions.
+
+Aucun déploiement cloud n'est créé automatiquement dans le dépôt : cette étape
+nécessite ton compte. Sans variables Convex, la page publique reste accessible,
+le formulaire est désactivé et l'API d'authentification renvoie HTTP 503.
+
+### Commandes et déploiement
+
+```bash
+bun run convex:dev      # Synchronisation du backend de développement
+bun run convex:codegen  # Régénération des types après configuration du projet
+bun run convex:deploy  # Publication du backend de production
+bun run typecheck
+bun run check
+bun run build
+```
+
+Les fichiers `convex/_generated/` sont versionnés pour permettre la compilation
+avant connexion au compte. Ils ont été initialisés à partir des modèles du SDK
+Convex et des types du composant ; `convex dev` les régénère depuis le déploiement.
+
+Pour la production, configure un secret propre au déploiement de production
+et `SITE_URL` avec l'origine HTTPS réelle (`bunx convex env set --prod ...`).
+Configure les URL **de production** `VITE_CONVEX_URL` et
+`VITE_CONVEX_SITE_URL` dans l'environnement de l'hébergeur avant la compilation,
+et rends-les aussi disponibles au serveur TanStack Start à l'exécution.
+Publie le backend avec `bun run convex:deploy`, puis compile le frontend.
+
+La vérification d'e-mail est désactivée pour cette installation initiale.
+Aucun fournisseur OAuth, envoi d'e-mail ou récupération de mot de passe n'est
+configuré. Ces fonctionnalités nécessitent un fournisseur et sa configuration.
+
+Documentation :
+[TanStack Start + Convex + Better Auth](https://labs.convex.dev/better-auth/framework-guides/tanstack-start).

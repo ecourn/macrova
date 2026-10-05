@@ -1,0 +1,35 @@
+import { betterAuth } from "better-auth/minimal"
+import { createClient } from "@convex-dev/better-auth"
+import type { GenericCtx } from "@convex-dev/better-auth"
+import { convex } from "@convex-dev/better-auth/plugins"
+import { components } from "./_generated/api"
+import type { DataModel } from "./_generated/dataModel"
+import { query } from "./_generated/server"
+import authConfig from "./auth.config"
+
+export const authComponent = createClient<DataModel>(components.betterAuth)
+
+export const createAuth = (ctx: GenericCtx<DataModel>) => {
+  const siteUrl = process.env.SITE_URL
+  const secret = process.env.BETTER_AUTH_SECRET
+  if (!siteUrl || !secret) {
+    throw new Error("Configurer SITE_URL et BETTER_AUTH_SECRET dans Convex.")
+  }
+  return betterAuth({
+    appName: "Macrova",
+    baseURL: siteUrl,
+    secret,
+    database: authComponent.adapter(ctx),
+    emailAndPassword: {
+      enabled: true,
+      requireEmailVerification: false,
+    },
+    plugins: [convex({ authConfig })],
+  })
+}
+
+// L'authentification est vérifiée dans Convex, même pour les appels directs.
+export const getCurrentUser = query({
+  args: {},
+  handler: async (ctx) => authComponent.getAuthUser(ctx),
+})
