@@ -3,7 +3,7 @@ title: 'Parcours public et session sur environnement isolé'
 type: 'chore'
 ticket: 1
 created: '2026-10-05'
-status: 'built'
+status: done
 baseline_revision: 'f2af0670311047e05359c2515ad665300aed092a'
 route: 'oneshot'
 route_source: 'auto'
