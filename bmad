@@ -6,7 +6,7 @@
   ─────────────────────────────────────────────────  ─────────────────────
    Transformer des notes précises en spécification    $bmad-spec => fait
   ─────────────────────────────────────────────────  ─────────────────────
-   Définir l’interface et les parcours                $bmad-ux
+   Définir l’interface et les parcours                $bmad-ux => fait
   ─────────────────────────────────────────────────  ─────────────────────
    Décider de l’architecture technique                $bmad-architecture
   ─────────────────────────────────────────────────  ─────────────────────
