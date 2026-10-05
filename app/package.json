@@ -11,7 +11,7 @@
     "format": "biome format --write .",
     "check": "biome check .",
     "typecheck": "tsc --noEmit",
-    "convex:dev": "mkdir -p .convex-tmp && CONVEX_TMPDIR=\"$PWD/.convex-tmp\" convex dev",
+    "convex:dev": "bash scripts/convex-dev.sh",
     "convex:deploy": "convex deploy",
     "convex:codegen": "convex codegen",
     "test:e2e": "playwright test",
