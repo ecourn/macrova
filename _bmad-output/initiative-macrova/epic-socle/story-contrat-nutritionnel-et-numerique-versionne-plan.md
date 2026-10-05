@@ -3,7 +3,7 @@ title: 'Contrat nutritionnel et numérique versionné'
 type: 'feature'
 ticket: 2
 created: '2026-10-05'
-status: 'built'
+status: done
 baseline_revision: 'aa522a3550f18230b6be4a68655deb458cbf02bc'
 route: 'full'
 route_source: 'auto'
@@ -123,3 +123,11 @@ Vérification finale depuis app/ : bun run test — 57/57 ; bun run typecheck �
 Réparation préalable de BMad : installation core-tools/method 6.13.0-next à jour, scripts et configuration courants. Génération incohérente conservée dans _bmad/render/bmad-code-review/macrova-37d327ad9312/7c80709213f8581b4331.backup-20261005T164029077779, puis régénérée depuis les sources installées. Toutes les empreintes du manifeste régénéré vérifiées. Ne pas éditer les fichiers générés ; employer les personnalisations BMad pour modifier les instructions.
 
 Workflow terminé selon la délégation utilisateur (corrections appliquées, choix final : terminer).
+
+## Validation finale du ticket 1.2 — 2026-10-05
+
+Walkthrough achevé : les sept blocs ont été examinés et acceptés selon la délégation explicite de l’utilisateur. Aucun défaut concret relevé dans le périmètre du ticket. Récit et journal : [walkthrough 1.2](../walkthrough-contrat-nutritionnel-1-2/walkthrough-contrat-nutritionnel-1-2.md).
+
+Vérifications locales relancées depuis app/ : 57 tests réussis dans quatre fichiers ; typecheck, check (108 fichiers, zéro diagnostic) et build client/SSR réussis, tous avec sortie 0. Aucun backend distant sollicité. AD-12 reste une hypothèse à éprouver lors de l’audit catalogue.
+
+Génération bmad-walkthrough incohérente sauvegardée, puis recréée ; toutes les empreintes du manifeste sont conformes. Ticket marqué done via tickets.py selon la délégation utilisateur.

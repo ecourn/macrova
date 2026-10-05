@@ -54,4 +54,4 @@ the review narrative.
   this work was for (e.g. merge the PR, write the review, commit
   and push if they edited) and ask the user if that is what they
   want. Do not do it until they say so. Do not end with only a
-  summary in chat.
+  summary in chat. 
