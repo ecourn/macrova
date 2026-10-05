@@ -3,7 +3,7 @@ title: 'Autorisation et fermeture communes'
 type: 'feature'
 ticket: 3
 created: '2026-10-05'
-status: built
+status: done
 baseline_revision: '80a2334829e84a6144b7b2753a565e9c92f618e1'
 route: 'full'
 route_source: 'auto'
