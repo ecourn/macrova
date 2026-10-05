@@ -9,7 +9,9 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as contracts_food from "../contracts/food.js";
 import type * as http from "../http.js";
+import type * as nutrition from "../nutrition.js";
 
 import type {
   ApiFromModules,
@@ -19,7 +21,9 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  "contracts/food": typeof contracts_food;
   http: typeof http;
+  nutrition: typeof nutrition;
 }>;
 
 /**

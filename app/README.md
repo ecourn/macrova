@@ -258,3 +258,37 @@ configuré. Ces fonctionnalités nécessitent un fournisseur et sa configuration
 
 Documentation :
 [TanStack Start + Convex + Better Auth](https://labs.convex.dev/better-auth/framework-guides/tanstack-start).
+
+## Contrat nutritionnel v1
+
+Le domaine pur `src/domain/` partage les règles AD-12 avec les validateurs
+structurels Convex dans `convex/contracts/food.ts`. `FoodSnapshot` porte une
+version (`1`), une révision source explicite, l'identifiant source, le nom, la
+marque éventuelle, la provenance (nom et référence), la date UTC en millisecondes
+(entier sûr positif ou nul), l'état `raw` / `cooked` / `unknown` et la nutrition.
+La base connue représente **100 g** ou **100 ml** ; une base ambiguë conserve
+son `sourceField`. Protéines, glucides et lipides sont en g, l'énergie en kcal.
+Chaque valeur est une chaîne décimale canonique ou `null` (absence).
+
+Les chaînes sources ne sont jamais normalisées : sans exposant, signe, zéros
+initiaux superflus ni zéros décimaux finaux, de `0` à `1000000`, avec au plus six
+décimales. Le pas et la densité sont strictement positifs. Ces bornes v1 restent
+une **hypothèse technique AD-12 à éprouver dans l'audit catalogue**.
+`normalizeFrenchDecimal` normalise explicitement les saisies utilisateur telles
+que ` 12,50 ` vers `12.5` et refuse les séparateurs mixtes.
+
+`api.nutrition.inspect({ snapshot, portion? })` est une query publique anonyme,
+sans accès DB ni persistance. Elle retourne l'instantané intact, sa calculabilité
+et, si demandé, les totaux de la portion (`quantity`, `unit`, `step?`). Une absence
+nutritionnelle ou une base ambiguë bloque tout calcul, même pour une quantité
+nulle ; aucune énergie n'est inférée. Une conversion g/ml exige une densité en
+g/ml avec référence et date. Les résultats exacts sont des fractions réduites
+(`numerator` / `denominator`, chaînes entières), avec un `display` au centième
+arrondi demi supérieur. Aucun BigInt ne traverse l'API. Les totaux ne subissent
+pas la borne des valeurs sources ni d'arrondi intermédiaire.
+`api.nutrition.normalizeInput({ input, positive? })` expose la normalisation
+explicite. Les erreurs partagées ont un code stable, `fields` et `retryable: false` ;
+les messages français sont séparés dans `ERROR_MESSAGES`.
+
+Cette API est un consommateur minimal du contrat ; elle ne constitue pas la
+démonstration CAP-2 et ne corrige aucun catalogue.
