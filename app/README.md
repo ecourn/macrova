@@ -36,6 +36,51 @@ mais aucun script du projet ne l'utilise.
 
 Dans l'éditeur, utiliser l'extension Biome comme formateur pour ce projet.
 
+## Tests de parcours avec Playwright
+
+```bash
+bunx playwright install chromium  # Une fois ; --with-deps en CI Linux
+bun run test:e2e
+bun run test:e2e:ui               # Mode interactif
+bun run test:e2e:report           # Dernier rapport HTML
+```
+
+Playwright démarre son propre serveur sur `http://localhost:3001` et l'arrête
+après les tests. Le port doit être libre. Par défaut, les variables Convex sont
+neutralisées, même si `.env.local` est configuré : les quatre tests vérifient
+la navigation publique, la redirection des visiteurs anonymes, le message de
+configuration et la réponse HTTP 503 de l'API d'authentification.
+Cette suite peut tourner sans compte ni connexion au backend Convex.
+Les rapports, captures et traces d'échec sont ignorés par Git.
+
+### Connexion réelle sur un backend de développement
+
+Configurer `.env.local` avec un déploiement `dev:` et les deux URL Convex
+correspondantes. Le backend doit déjà fonctionner. Dans Convex, `SITE_URL`
+doit autoriser `http://localhost:3001` pour les requêtes du serveur de test ;
+ce réglage peut nécessiter un déploiement de développement dédié aux tests.
+
+Créer un compte de test depuis `/login` sur cet environnement, puis fournir
+`E2E_AUTH_EMAIL` et `E2E_AUTH_PASSWORD` dans l'environnement du terminal ou les
+secrets de CI. Ne pas versionner ces identifiants ni utiliser un compte réel.
+
+```bash
+bun run test:e2e:auth
+```
+
+Cette commande exécute les deux tests publics et le parcours connexion →
+session après rechargement → redirection d'un utilisateur connecté →
+déconnexion → refus d'accès privé. Elle échoue dès la configuration si les
+identifiants manquent ou si le déploiement déclaré n'est pas `dev:`.
+Vérifier que les URL Convex correspondent effectivement à ce déploiement.
+Aucun compte n'est créé automatiquement. Les traces et captures sont désactivées
+pour ce parcours afin de limiter l'enregistrement des données d'authentification ;
+les rapports peuvent contenir l'adresse du compte de test en cas d'échec.
+
+La configuration est dans `playwright.config.ts`, les scénarios dans `tests/e2e/`.
+Le périmètre initial utilise Chromium ; d'autres navigateurs pourront être
+ajoutés lorsqu'un besoin de compatibilité le justifiera.
+
 ## Adding components
 
 To add components to your app, run the following command:

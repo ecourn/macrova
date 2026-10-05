@@ -4,14 +4,14 @@ import type { GenericCtx } from "@convex-dev/better-auth"
 import { convex } from "@convex-dev/better-auth/plugins"
 import { components } from "./_generated/api"
 import type { DataModel } from "./_generated/dataModel"
-import { query } from "./_generated/server"
+import { env, query } from "./_generated/server"
 import authConfig from "./auth.config"
 
 export const authComponent = createClient<DataModel>(components.betterAuth)
 
 export const createAuth = (ctx: GenericCtx<DataModel>) => {
-  const siteUrl = process.env.SITE_URL
-  const secret = process.env.BETTER_AUTH_SECRET
+  const siteUrl = env.SITE_URL
+  const secret = env.BETTER_AUTH_SECRET
   if (!siteUrl || !secret) {
     throw new Error("Configurer SITE_URL et BETTER_AUTH_SECRET dans Convex.")
   }
