@@ -301,3 +301,46 @@ l'admissibilité sur une grille de portions relève du futur moteur AD-4.
 
 Cette API est un consommateur minimal du contrat ; elle ne constitue pas la
 démonstration CAP-2 et ne corrige aucun catalogue.
+
+## Autorisation et fermeture communes
+
+`api.account.getAccess({})` exige une session Better Auth valide et retourne la
+projection brute `entitlement` (ou `null`) et `closure` (ou `null`). Le propriétaire
+est toujours le `_id` Better Auth obtenu côté serveur. La query n'invente aucun
+droit effectif dépendant du temps : chaque écriture vérifie sa propre horloge
+serveur. La projection v1 `{ version: 1, enabled, validUntil }` appartient au futur
+module abonnement ; le socle n'expose aucune commande pour accorder un droit.
+`validUntil` est une date UTC en millisecondes, entière et représentable ; un
+contrat inconnu, une date invalide, une absence, un droit désactivé ou une échéance
+atteinte refusent les écritures personnelles, sans grâce.
+
+Dans `convex/lib/access.ts`, les consommateurs utilisent `requireOwner` pour
+l'identité et `requireOwned` après chaque lecture par ID. `requirePersonalWrite`
+vérifie identité, ouverture puis droit actif dans la mutation. Les index privés
+commencent par `ownerId`. Les opérations compte, abonnement, résiliation et
+demandes de données restent accessibles au propriétaire sans droit actif : ne
+pas leur appliquer la garde personnelle. Les erreurs `ConvexError` partagent
+`code`, `fields` et `retryable: false` ; `UNAUTHENTICATED`, `ACCESS_DENIED`,
+`NOT_FOUND`, `ENTITLEMENT_REQUIRED` et `ACCOUNT_CLOSED` sont distincts. Seul le
+refus explicite de session du composant est traduit ; toute panne réelle remonte.
+
+`api.account.close({ confirmation: "CLOSE_ACCOUNT" })` requiert une confirmation
+distincte et une identité valide, sans abonnement. Elle persiste un marqueur
+irréversible et retourne le même `closedAt` aux appels suivants. Ce marqueur est
+conservé indépendamment des tables auth. Il bloque les écritures personnelles,
+mais cette API ne supprime aucune donnée ni session et ne promet aucun nettoyage.
+Le futur module de demandes de données orchestrera le nettoyage après fermeture.
+
+Chaque transaction interne créatrice ou modificatrice doit appeler
+`requireInternalWrite(ctx, ownerId)` **dans la même mutation que son écriture**.
+Le propriétaire provient du travail durable relu côté serveur, jamais du
+navigateur ; cette garde fonctionne même après suppression du compte auth et
+n'exige pas de session. Les opérations de nettoyage pourront uniquement supprimer
+et avancer leur progression. Ne jamais supprimer le marqueur lors du nettoyage.
+Les règles fournisseur, génération de rapprochement, réconciliation, délais et
+politique de conservation restent à construire dans leurs modules respectifs.
+
+Les fixtures dans `tests/fixtures/access-functions.ts` sont exclusivement
+synthétiques et chargées par la module map de `convex-test` ; elles se trouvent
+hors du répertoire déployable `convex/`. Les bindings `api.d.ts` ont été mis à jour
+localement, sans commande de codegen susceptible de téléverser le backend.

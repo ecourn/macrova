@@ -1,5 +1,10 @@
 export const FOOD_SNAPSHOT_VERSION = 1
 export const ERROR_CODES = [
+  "UNAUTHENTICATED",
+  "ACCESS_DENIED",
+  "NOT_FOUND",
+  "ENTITLEMENT_REQUIRED",
+  "ACCOUNT_CLOSED",
   "UNSUPPORTED_VERSION",
   "INVALID_METADATA",
   "INVALID_DECIMAL",
@@ -18,6 +23,11 @@ export type Result<T> =
   | { ok: true; value: T }
   | { ok: false; error: DomainError }
 export const ERROR_MESSAGES: Record<ErrorCode, string> = {
+  UNAUTHENTICATED: "Une session valide est requise.",
+  ACCESS_DENIED: "Cette référence appartient à un autre compte.",
+  NOT_FOUND: "Référence introuvable.",
+  ENTITLEMENT_REQUIRED: "Un droit confirmé actif est requis.",
+  ACCOUNT_CLOSED: "Le compte est fermé.",
   UNSUPPORTED_VERSION: "Version de contrat inconnue.",
   INVALID_METADATA: "Métadonnées invalides.",
   INVALID_DECIMAL: "Valeur décimale canonique invalide.",
