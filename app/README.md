@@ -14,6 +14,7 @@ bun run format     # Formate les fichiers pris en charge
 bun run check      # Vérifie le lint et le formatage sans modifier les fichiers
 bun run typecheck  # Vérifie les types TypeScript
 bun run build     # Compile l'application
+bun run test      # Vérifie les sessions avec le backend Convex simulé
 ```
 
 La configuration `biome.json` conserve le style JavaScript/TypeScript existant
@@ -66,14 +67,21 @@ secrets de CI. Ne pas versionner ces identifiants ni utiliser un compte réel.
 
 ```bash
 bun run test:e2e:auth
+# Si SITE_URL est déjà http://localhost:3000, arrêter le serveur Vite puis :
+E2E_AUTH_PORT=3000 bun run test:e2e:auth
 ```
 
-Cette commande exécute les deux tests publics et le parcours connexion →
+Cette commande exécute les deux tests publics, un parcours inscription →
+session après rechargement → révocation de session sans clic de déconnexion →
+retour automatique à la connexion, puis le parcours connexion →
 session après rechargement → redirection d'un utilisateur connecté →
 déconnexion → refus d'accès privé. Elle échoue dès la configuration si les
 identifiants manquent ou si le déploiement déclaré n'est pas `dev:`.
 Vérifier que les URL Convex correspondent effectivement à ce déploiement.
-Aucun compte n'est créé automatiquement. Les traces et captures sont désactivées
+Le test d'inscription crée un compte dédié avec une adresse unique
+`auth-signup-…@example.com`, conservé dans le composant pour inspection.
+Le port choisi doit être libre et correspondre à `SITE_URL` côté Convex.
+Les traces et captures sont désactivées
 pour ce parcours afin de limiter l'enregistrement des données d'authentification ;
 les rapports peuvent contenir l'adresse du compte de test en cas d'échec.
 
@@ -110,6 +118,9 @@ La connexion e-mail/mot de passe et la création de compte sont accessibles sur
 `/login`. La route `/dashboard` vérifie l'utilisateur côté serveur avant
 d'afficher une requête Convex authentifiée. La fonction
 `convex/auth.ts:getCurrentUser` vérifie aussi l'authentification dans le backend.
+Cette lecture retourne `null` lorsque la session est absente, expirée ou révoquée,
+et le tableau de bord revient à la connexion. Les opérations privées doivent
+utiliser `authComponent.getAuthUser(ctx)` pour refuser les appels sans session.
 Chaque future fonction privée doit vérifier l'utilisateur dans Convex ; la
 protection d'une page ne suffit pas à protéger ses données.
 

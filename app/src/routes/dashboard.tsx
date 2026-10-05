@@ -1,6 +1,17 @@
 import { useState } from "react"
-import { createFileRoute, redirect } from "@tanstack/react-router"
-import { Authenticated, AuthLoading, useQuery } from "convex/react"
+import {
+  createFileRoute,
+  Navigate,
+  redirect,
+  useHydrated,
+  useNavigate,
+} from "@tanstack/react-router"
+import {
+  Authenticated,
+  AuthLoading,
+  Unauthenticated,
+  useQuery,
+} from "convex/react"
 import { api } from "../../convex/_generated/api"
 import { getCurrentUser } from "@/lib/auth.functions"
 import { authClient } from "@/lib/auth-client"
@@ -17,6 +28,7 @@ export const Route = createFileRoute("/dashboard")({
 
 function CurrentUser() {
   const user = useQuery(api.auth.getCurrentUser)
+  if (user === null) return <Navigate to="/login" replace />
   return (
     <p>
       {user ? `Connecté à Convex : ${user.email}` : "Chargement du compte…"}
@@ -26,6 +38,8 @@ function CurrentUser() {
 
 function Dashboard() {
   const { user } = Route.useRouteContext()
+  const ready = useHydrated()
+  const navigate = useNavigate()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   async function signOut() {
@@ -34,7 +48,7 @@ function Dashboard() {
     try {
       const result = await authClient.signOut()
       if (result.error) throw new Error(result.error.message)
-      window.location.assign("/login")
+      await navigate({ to: "/login", replace: true })
     } catch {
       setError("La déconnexion a échoué. Réessaie.")
       setBusy(false)
@@ -46,15 +60,16 @@ function Dashboard() {
       <AuthLoading>
         <p>Connexion à Convex…</p>
       </AuthLoading>
-      <Authenticated>
-        <CurrentUser />
-      </Authenticated>
+      <Authenticated>{!busy && <CurrentUser />}</Authenticated>
+      <Unauthenticated>
+        {!busy && <Navigate to="/login" replace />}
+      </Unauthenticated>
       {error && (
         <p role="alert" className="text-destructive">
           {error}
         </p>
       )}
-      <Button onClick={signOut} disabled={busy}>
+      <Button onClick={signOut} disabled={busy || !ready}>
         {busy ? "Déconnexion…" : "Se déconnecter"}
       </Button>
     </main>

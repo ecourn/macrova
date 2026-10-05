@@ -1,6 +1,11 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
-import { createFileRoute, Link, redirect } from "@tanstack/react-router"
+import {
+  createFileRoute,
+  Link,
+  redirect,
+  useHydrated,
+} from "@tanstack/react-router"
 import { authClient } from "@/lib/auth-client"
 import { getCurrentUser } from "@/lib/auth.functions"
 import { Button } from "@/components/ui/button"
@@ -16,6 +21,7 @@ export const Route = createFileRoute("/login")({
 
 function Login() {
   const { convexClient } = Route.useRouteContext()
+  const ready = useHydrated()
   const [signUp, setSignUp] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
@@ -58,7 +64,7 @@ function Login() {
         <p>La connexion sera disponible après la configuration de Convex.</p>
       ) : (
         <>
-          <form onSubmit={submit} className="flex flex-col gap-4">
+          <form method="post" onSubmit={submit} className="flex flex-col gap-4">
             {signUp && (
               <div className="space-y-2">
                 <Label htmlFor="name">Nom</Label>
@@ -98,7 +104,7 @@ function Login() {
                 {error}
               </p>
             )}
-            <Button type="submit" disabled={busy}>
+            <Button type="submit" disabled={busy || !ready}>
               {busy
                 ? "Veuillez patienter…"
                 : signUp
@@ -108,7 +114,7 @@ function Login() {
           </form>
           <Button
             variant="link"
-            disabled={busy}
+            disabled={busy || !ready}
             onClick={() => {
               setSignUp(!signUp)
               setError("")

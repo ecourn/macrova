@@ -28,8 +28,9 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
   })
 }
 
-// L'authentification est vérifiée dans Convex, même pour les appels directs.
+// Une session absente ou révoquée est un état normal pour cette lecture.
+// Les opérations privées doivent continuer à utiliser getAuthUser.
 export const getCurrentUser = query({
   args: {},
-  handler: async (ctx) => authComponent.getAuthUser(ctx),
+  handler: async (ctx) => (await authComponent.safeGetAuthUser(ctx)) ?? null,
 })

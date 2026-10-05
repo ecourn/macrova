@@ -3,7 +3,11 @@ import { loadEnv } from "vite"
 
 const liveAuth = process.env.E2E_AUTH === "1"
 const env = loadEnv("development", process.cwd(), "")
-const baseURL = "http://localhost:3001"
+const port = liveAuth ? Number(process.env.E2E_AUTH_PORT ?? 3001) : 3001
+if (!Number.isInteger(port) || port < 1 || port > 65535) {
+  throw new Error("E2E_AUTH_PORT doit être un port valide.")
+}
+const baseURL = `http://localhost:${port}`
 
 if (liveAuth) {
   if (
@@ -39,7 +43,7 @@ export default defineConfig({
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    command: "bun run dev --host localhost --port 3001 --strictPort",
+    command: `bun run dev --host localhost --port ${port} --strictPort`,
     url: baseURL,
     reuseExistingServer: false,
     timeout: 120_000,
