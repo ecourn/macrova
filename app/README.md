@@ -412,3 +412,10 @@ validation, sans calcul de seuil ajouté par ce socle.
 
 Les fixtures de transport et mesures sont dans `tests/fixtures/`, chargées
 uniquement par convex-test et hors du répertoire déployable.
+
+## Hébergement de test
+
+La [décision d’hébergement isolé](docs/hebergement-test.md) fixe Render SSR à
+Francfort, le budget sans dépense, les variables et la remise des accès pour
+les stories 1.7 et 1.5. Elle distingue la préparation des accès distants encore
+à fournir ; le serveur de production Nitro reste à préparer dans la story 1.5.
