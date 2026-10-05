@@ -1,0 +1,111 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Parcours public et session sur environnement isolé"
+description = "Configurer un backend dev dédié et relier le parcours public, la connexion et la lecture privée existants en préservant SSR, POST avant hydratation et traitement explicite des sessions absentes, expirées ou révoquées."
+verify = "Sur le backend dev dédié, exécuter les parcours réels du README et vérifier que la lecture privée refuse une session révoquée sans masquer une erreur backend."
+covers = ["SOC-1"]
+after = []
+hitl = true
+risk = "high"
+unknown = "Compte Convex et secrets de test nécessaires ; toute intervention de compte est une étape humaine, jamais une valeur inventée."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 2
+type = "story"
+title = "Contrat nutritionnel et numérique versionné"
+description = "Créer le domaine pur FoodSnapshot et les validateurs communs de décimales, unités, provenance, valeurs absentes et erreurs selon AD-3 et AD-12, avec un consommateur public minimal vérifiable."
+verify = "Vérifier des fixtures de zéro, absence, base ambiguë, précision excessive et saisie française dans le domaine et le validateur Convex, sans arrondi caché."
+covers = ["SOC-2"]
+after = [1]
+hitl = false
+risk = "high"
+unknown = "AD-12 reste une hypothèse technique à tester plus largement dans l’audit catalogue ; aucune limite locale concurrente."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Autorisation et fermeture communes"
+description = "À partir des validateurs et erreurs versionnés du contrat nutritionnel, établir les contrôles serveur de propriétaire, la fermeture durable de compte et le contrat de lecture du droit enabled/validUntil avec refus par défaut, sans adopter de statut fournisseur."
+verify = "Chaque compte de test peut lire ses propres références et se voit refuser celles de l’autre ; un compte fermé ou sans droit confirmé ne peut écrire et une panne backend conserve son erreur distincte ; vérifier aussi qu’une mutation interne après fermeture refuse de recréer des données dans sa transaction."
+covers = ["SOC-3"]
+after = [2]
+hitl = false
+risk = "high"
+unknown = "Le module abonnement fournira la projection de droits ; le socle fournit son contrat et un dispositif de test exclusivement isolé du paiement public."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 4
+type = "story"
+title = "Mesures et commandes communes"
+description = "En réutilisant le contrat propriétaire et fermeture du ticket 3, définir les contrats versionnés des événements, des intentions idempotentes et des erreurs partagés par les propriétaires sans créer de persistance générique ni enregistrer de profil public."
+verify = "Vérifier les contrats pour première confirmation, copie, double destination et paiement encaissé, ainsi que leur séparation avec les événements publics et la minimisation des champs ; vérifier les fixtures code, champs concernés et retryable pour absence, refus, conflit et indisponibilité."
+covers = ["SOC-2", "SOC-3"]
+after = [3]
+hitl = false
+risk = "high"
+unknown = "La persistance des reçus et événements appartient ensuite aux modules repas et abonnement ; les identifiants et sémantiques suivent AD-5 et AD-11."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Choix et préparation de l’hébergement isolé"
+description = "Choisir et documenter l’hébergeur compatible SSR, les régions, le budget et les accès de test, puis préparer la séparation des secrets et le déploiement de test selon AD-10."
+verify = "Un responsable dispose d’une décision documentée, d’un budget et d’accès au frontend de test et au backend associé, sans secret versionné ni données réelles."
+covers = ["SOC-4"]
+after = [1]
+hitl = true
+risk = "high"
+unknown = "Accès et comptes fournisseurs nécessitent une intervention humaine ; aucune dépense ou ressource réelle ne doit être présumée disponible."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 5
+type = "story"
+title = "Livraison SSR isolée et parcours intégré"
+description = "Sur l’hébergement de test choisi par le ticket 7, publier le backend puis le frontend SSR intégrant les contrats des tickets 2 à 4, avec secrets distincts et logs limités aux codes d’erreur et identifiants techniques."
+verify = "Depuis une installation verrouillée, publier sur l’environnement isolé et vérifier le parcours public → connexion SSR → lecture privée, les erreurs backend, le refus intercompte et la session révoquée."
+covers = ["SOC-1", "SOC-4"]
+after = [4, 7]
+hitl = true
+risk = "high"
+unknown = "L’accès fournisseur suit le ticket 7 ; la livraison reste limitée au socle, sans ouverture publique ni instrumentation métier fictive."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 8
+type = "story"
+title = "Reprise et exploitation du socle"
+description = "Sur le socle de test livré par le ticket 5, configurer les alertes techniques et exercer une restauration et une évolution de schéma additive avec retour à un consommateur compatible, à partir de fixtures sans données réelles."
+verify = "Un exercice traçable restaure les fixtures du socle et maintient le parcours privé après ajout compatible de schéma et retour frontend, tandis qu’une panne déclenche une alerte sans données sensibles."
+covers = ["SOC-4"]
+after = [5]
+hitl = true
+risk = "high"
+unknown = "L’exercice est strictement limité au socle et à ses données de test ; les migrations et reprises des modules métier sont vérifiées dans leurs epics."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 6
+type = "story"
+title = "Nettoyage de clôture du socle"
+description = "Traiter les duplications et dettes limitées au socle relevées dans les plans et revues de ses tickets sans déplacer de fonctionnalité métier."
+verify = "Exécuter les contrôles statiques et les vérifications ciblées des zones nettoyées avec une liste traçable des constats traités."
+covers = ["SOC-1", "SOC-2", "SOC-3", "SOC-4"]
+after = [1, 2, 3, 4, 5, 7, 8]
+hitl = false
+risk = "high"
+unknown = "Le périmètre exact dépend des constats de construction ; toute fonctionnalité manquante reste un ticket distinct."
+plan_checkpoint = false
+done_checkpoint = false

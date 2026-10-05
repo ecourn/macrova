@@ -10,7 +10,7 @@
   ─────────────────────────────────────────────────  ─────────────────────
    Décider de l’architecture technique                $bmad-architecture => fait
   ─────────────────────────────────────────────────  ─────────────────────
-   Découper une spécification en tickets              $bmad-ticket
+   Découper une spécification en tickets              $bmad-ticket => fait
   ─────────────────────────────────────────────────  ─────────────────────
    Réaliser une fonctionnalité ou corriger un bug     $bmad-build
   ─────────────────────────────────────────────────  ─────────────────────
