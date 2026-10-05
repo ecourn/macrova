@@ -94,3 +94,32 @@ Depuis app : `bun run test`, `bun run typecheck`, `bun run check` (zéro erreur/
 - Vérification principale : bun run test (40/40), bun run typecheck (sortie 0), bun run check (108 fichiers, zéro diagnostic, sortie 0), bun run build (client et SSR, sortie 0).
 - Écart opérationnel : bun run convex:codegen a contacté le backend de test configuré et annoncé le téléversement des fonctions malgré l'intention de génération locale. Aucun changement de données métier ; plus aucune opération distante exécutée ensuite. Les bindings générés sont inclus. Les limites AD-12 restent une hypothèse à éprouver lors de l'audit catalogue.
 - Aucun changement des tickets : le plan porte built conformément au workflow ; aucune opération de publication ou push effectuée.
+
+## Code Review
+
+### 2026-10-05T16:43:58.786489+00:00
+
+Revue approfondie : 0 décision, 3 corrections, 0 report, 4 constats rejetés. Examens blind-hunter, verification-gap et intent-alignment terminés ; edge-case-hunter a renvoyé une liste vide, comptée comme couche sans résultat selon le workflow.
+
+- [x] [Review][Patch] Préciser les erreurs structurelles et les préconditions du domaine [app/README.md:156] — low ; blind-hunter + intent-alignment. Convex rejette les structures malformées avant le handler ; les erreurs communes concernent la sémantique. Documenter cette frontière et vérifier un rejet structurel.
+- [x] [Review][Patch] Vérifier les métadonnées obligatoires et les densités non sourcées [app/src/domain/food.test.ts:112] — medium ; blind-hunter + verification-gap. La suppression des contrôles density.reference/capturedAt ne serait détectée par aucun test actuel et autoriserait une conversion non sourcée. Ajouter des attentes explicites dans le domaine et Convex, ainsi que les champs textuels obligatoires manquants de la matrice.
+- [x] [Review][Patch] Protéger les totaux exacts au-delà du plafond des sources [app/convex/nutrition.test.ts:59] — low ; blind-hunter. Garantie explicite du README sans oracle indépendant aux frontières ; vérifier une densité minimale et les entrées maximales, sans plafond ou arrondi de sortie.
+
+### Rejected
+
+- Liens walkthrough cassés — false : ../../../app résout /home/ubuntu/macrova/app depuis le dossier du walkthrough ; les fichiers existent.
+- Types validés insuffisamment restreints — false comme défaut actuel : les types représentent les entrées à valider, et chaque consommateur existant passe par les contrôles sémantiques ; aucun appel divergent démontré.
+- Validation du domaine sur JSON incomplet — false comme défaut atteignable : validateFoodSnapshot prend FoodSnapshot, non unknown ; l’entrée publique impose la structure via Convex avant son appel. La précondition sera précisée dans la documentation.
+- Pas non respecté par le calcul de totaux — false dans le périmètre : calculatePortion calcule une portion et valide la positivité du pas ; le solveur et l’admissibilité AD-4 sont explicitement hors de ce ticket.
+
+L’audit d’intention confirme le socle pur et le consommateur anonyme sans persistance. Deux queries exposent inspection et normalisation explicite ; aucune livraison CAP-2 ni compatibilité catalogue réel n’est annoncée. Le constat structurel est intégré à la première correction et les lacunes de métadonnées à la deuxième. Statut built conservé.
+
+### Actions et vérification
+
+Les trois corrections sont appliquées : documentation des préconditions structurelles et du périmètre du pas ; 17 cas de test supplémentaires pour métadonnées, densités non sourcées, rejet structurel Convex et résultat exact 10^16. Aucun changement de logique métier.
+
+Vérification finale depuis app/ : bun run test — 57/57 ; bun run typecheck — sortie 0 ; bun run check — 108 fichiers, zéro erreur et zéro avertissement, sortie 0. Aucun déploiement, commit, push ou changement de statut de ticket.
+
+Réparation préalable de BMad : installation core-tools/method 6.13.0-next à jour, scripts et configuration courants. Génération incohérente conservée dans _bmad/render/bmad-code-review/macrova-37d327ad9312/7c80709213f8581b4331.backup-20261005T164029077779, puis régénérée depuis les sources installées. Toutes les empreintes du manifeste régénéré vérifiées. Ne pas éditer les fichiers générés ; employer les personnalisations BMad pour modifier les instructions.
+
+Workflow terminé selon la délégation utilisateur (corrections appliquées, choix final : terminer).

@@ -191,4 +191,96 @@ describe("instantané et portion", () => {
       error: { code: "POSITIVE_REQUIRED", fields: ["portion.step"] },
     })
   })
+  test.each(["revision", "sourceId", "name", "brand"] as const)(
+    "refuse le champ %s vide sans perdre le champ d'erreur",
+    (field) => {
+      for (const value of ["", " \t "]) {
+        const snapshot = fixture()
+        snapshot[field] = value
+        expect(validateFoodSnapshot(snapshot)).toEqual({
+          ok: false,
+          error: {
+            code: "INVALID_METADATA",
+            fields: [field],
+            retryable: false,
+          },
+        })
+      }
+    }
+  )
+  test.each(["name", "reference"] as const)(
+    "refuse provenance.%s vide",
+    (field) => {
+      const snapshot = fixture()
+      snapshot.provenance[field] = " "
+      expect(validateFoodSnapshot(snapshot)).toMatchObject({
+        ok: false,
+        error: { code: "INVALID_METADATA", fields: [`provenance.${field}`] },
+      })
+    }
+  )
+  test("refuse une ambiguïté sans champ source", () => {
+    const snapshot = fixture()
+    snapshot.basis = { kind: "ambiguous", sourceField: " " }
+    expect(validateFoodSnapshot(snapshot)).toMatchObject({
+      ok: false,
+      error: { code: "INVALID_METADATA", fields: ["basis.sourceField"] },
+    })
+  })
+  test.each([
+    ["density.reference", " ", 0],
+    ["density.capturedAt", "mesure", -1],
+    ["density.capturedAt", "mesure", 0.5],
+    ["density.capturedAt", "mesure", Number.NaN],
+    ["density.capturedAt", "mesure", Number.MAX_SAFE_INTEGER + 1],
+  ] as const)(
+    "bloque la conversion avec %s invalide",
+    (field, reference, capturedAt) => {
+      const snapshot = fixture()
+      snapshot.density = { gramsPerMl: "3", reference, capturedAt }
+      const expected = {
+        ok: false,
+        error: { code: "INVALID_METADATA", fields: [field], retryable: false },
+      }
+      expect(validateFoodSnapshot(snapshot)).toEqual(expected)
+      expect(calculatePortion(snapshot, { quantity: "1", unit: "ml" })).toEqual(
+        expected
+      )
+    }
+  )
+  test("conserve les grands totaux exacts avec une densité minimale", () => {
+    const snapshot = fixture()
+    snapshot.basis = { kind: "known", unit: "ml" }
+    snapshot.density = {
+      gramsPerMl: "0.000001",
+      reference: "mesure",
+      capturedAt: 0,
+    }
+    snapshot.nutrition = {
+      protein: "1000000",
+      carbohydrate: "0",
+      fat: "0",
+      energy: "1000000",
+    }
+    // 10^6 g / 10^-6 g/ml * 10^6 nutriments / 100 ml = 10^16.
+    expect(
+      calculatePortion(snapshot, { quantity: "1000000", unit: "g" })
+    ).toEqual({
+      ok: true,
+      value: {
+        protein: {
+          numerator: "10000000000000000",
+          denominator: "1",
+          display: "10000000000000000.00",
+        },
+        carbohydrate: { numerator: "0", denominator: "1", display: "0.00" },
+        fat: { numerator: "0", denominator: "1", display: "0.00" },
+        energy: {
+          numerator: "10000000000000000",
+          denominator: "1",
+          display: "10000000000000000.00",
+        },
+      },
+    })
+  })
 })

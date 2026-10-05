@@ -82,3 +82,65 @@ test("saisie française dans Convex", async () => {
     await t.query(api.nutrition.normalizeInput, { input: "0", positive: true })
   ).toMatchObject({ error: { code: "POSITIVE_REQUIRED" } })
 })
+test.each([
+  ["density.reference", " ", 0],
+  ["density.capturedAt", "mesure", -1],
+] as const)(
+  "query : refuse %s avant conversion",
+  async (field, reference, capturedAt) => {
+    const t = convexTest(schema, modules)
+    const snapshot = fixture()
+    snapshot.density = { gramsPerMl: "3", reference, capturedAt }
+    expect(
+      await t.query(api.nutrition.inspect, {
+        snapshot,
+        portion: { quantity: "1", unit: "ml" },
+      })
+    ).toEqual({
+      ok: false,
+      error: { code: "INVALID_METADATA", fields: [field], retryable: false },
+    })
+  }
+)
+test("query : les types structurels incorrects sont rejetés par Convex", async () => {
+  const t = convexTest(schema, modules)
+  const snapshot = fixture()
+  // Simulation d'un appel JavaScript malformé, hors du contrat TypeScript.
+  Object.assign(snapshot.nutrition, { energy: 100 })
+  await expect(t.query(api.nutrition.inspect, { snapshot })).rejects.toThrow()
+})
+test("query : conserve un total exact supérieur aux entiers sûrs JS", async () => {
+  const t = convexTest(schema, modules)
+  const snapshot = fixture()
+  snapshot.basis = { kind: "known", unit: "ml" }
+  snapshot.density = {
+    gramsPerMl: "0.000001",
+    reference: "mesure",
+    capturedAt: 0,
+  }
+  snapshot.nutrition = {
+    protein: "1000000",
+    carbohydrate: "0",
+    fat: "0",
+    energy: "1000000",
+  }
+  const result = await t.query(api.nutrition.inspect, {
+    snapshot,
+    portion: { quantity: "1000000", unit: "g" },
+  })
+  expect(result).toMatchObject({
+    ok: true,
+    snapshot,
+    totals: {
+      ok: true,
+      value: {
+        energy: {
+          numerator: "10000000000000000",
+          denominator: "1",
+          display: "10000000000000000.00",
+        },
+      },
+    },
+  })
+  expect(() => JSON.stringify(result)).not.toThrow()
+})

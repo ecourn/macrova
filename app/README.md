@@ -290,5 +290,14 @@ pas la borne des valeurs sources ni d'arrondi intermédiaire.
 explicite. Les erreurs partagées ont un code stable, `fields` et `retryable: false` ;
 les messages français sont séparés dans `ERROR_MESSAGES`.
 
+Ces erreurs communes concernent la validation sémantique d'arguments dont la
+structure est correcte. Un champ obligatoire absent, un type incorrect ou une
+propriété supplémentaire est refusé par les validateurs Convex avant le handler,
+avec une erreur de validation Convex. Les fonctions du domaine prennent des
+objets `FoodSnapshot` et `Portion` structurellement conformes ; un adaptateur
+recevant du JSON inconnu doit en valider la structure avant de les appeler.
+Le calcul des totaux vérifie la positivité de `step` lorsqu'il est fourni ;
+l'admissibilité sur une grille de portions relève du futur moteur AD-4.
+
 Cette API est un consommateur minimal du contrat ; elle ne constitue pas la
 démonstration CAP-2 et ne corrige aucun catalogue.
