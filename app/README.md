@@ -422,3 +422,17 @@ décrit le serveur Nitro autonome (`bun run start` après build), le blueprint
 Render Free, la synchronisation backend puis frontend, la recette HTTPS
 explicite (`E2E_BASE_URL` avec `bun run test:e2e:remote`) et le retour localhost.
 La fiche effective y distingue les vérifications locales de la publication réelle.
+
+## Exploitation et reprise du socle
+
+`bun run monitor:socle` surveille SSR et une query publique Convex sans secret,
+avec timeout borné, codes fixes et annotations GitHub en cas de panne. Le workflow
+horaire/manuellement déclenchable reste à activer par publication sur la branche
+par défaut ; aucun cron distant n'est présumé actif.
+
+`bun run recovery:socle prepare` crée une copie locale privée, sans `.env` courant,
+pour l'exercice réel export/perte/import ; `exercise <copie>` refuse toute cible
+cloud. Lire la [procédure d'exploitation](docs/exploitation-socle.md) avant de
+lancer le backend local par le wrapper, configurer ses secrets ou exercer la
+restauration. Elle distingue simulations, preuve CLI native et recette SSR avec
+le frontend historique, ainsi que le backfill optionnel et le retour compatible.

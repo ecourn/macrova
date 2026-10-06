@@ -20,7 +20,9 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:auth": "E2E_AUTH=1 playwright test",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "monitor:socle": "bun scripts/monitor-socle.ts",
+    "recovery:socle": "bun scripts/recovery-socle.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -68,6 +70,7 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6",
     "convex-test": "^0.0.60",
+    "dotenv": "17.4.2",
     "nitro": "3.0.260903-beta",
     "typescript": "^6.0.2",
     "vite": "^8",
