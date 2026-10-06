@@ -12,7 +12,10 @@ const config = defineConfig({
     devtools(),
     tailwindcss(),
     tanstackStart(),
-    nitro({ errorHandler: "./server/error-handler.ts" }),
+    nitro({
+      errorHandler: "./server/error-handler.ts",
+      plugins: ["./server/h3-errors.ts"],
+    }),
     viteReact(),
   ],
 })

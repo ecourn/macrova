@@ -73,6 +73,8 @@ Implémentation locale : Nitro exact 3.0.260903-beta, start Node, blueprint Free
 
 Investigation de recette HTTPS : le fallback Nitro journalisait aussi les erreurs de transport `aborted` avec cause `ECONNRESET`. Un handler personnalisé via l’option officielle `errorHandler` renvoie une erreur JSON technique et conserve le status HTTP utile ; les logs sont limités aux codes transport connus ou `HTTP_ERROR` / `UNAVAILABLE`, plus un ID d’incident. Aucun changement de console globale ni absorption de panne. Cinq tests ciblés couvrent message/cause/payload/en-têtes sensibles, déconnexion réseau et codes inconnus ; typecheck, check et build `render-com` réussis. Le serveur compilé place ce handler avant le fallback Nitro.
 
+Audit suivant : H3 journalise les erreurs `unhandled` dans `prepareResponse` avant son appel `onError`, donc avant le handler Nitro personnalisé. Un plugin Nitro configure l’option officielle `silent` de cette seule instance H3 pour retirer ce doublon brut ; le handler continue de journaliser code/ID et renvoyer la panne. Le test d’intégration ouvre un vrai socket HTTP puis interrompt la lecture JSON : un seul log `ECONNRESET`/UUID et serveur encore utilisable. Une sonde éphémère locale sur le serveur compilé `render-com` a reproduit trois corps interrompus et contrôlé stderr : exactement trois logs techniques, aucune stack/cause/message, réponse publique HTTP 200 ensuite. Aucune route de sonde ni fixture ajoutée au build déployable.
+
 ## Plan Change Log
 
 ## Review Triage Log
