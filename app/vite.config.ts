@@ -14,7 +14,7 @@ const config = defineConfig({
     tanstackStart(),
     nitro({
       errorHandler: "./server/error-handler.ts",
-      plugins: ["./server/h3-errors.ts"],
+      plugins: ["./server/h3-errors.ts", "./server/abort-response.ts"],
     }),
     viteReact(),
   ],

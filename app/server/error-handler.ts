@@ -25,15 +25,29 @@ function technicalCode(error: unknown, status: number): string {
   return status >= 500 ? "UNAVAILABLE" : "HTTP_ERROR"
 }
 
-export default defineErrorHandler((error) => {
+export function runtimeErrorResponse(error: unknown): Response {
+  if (error instanceof Response) return error
+  const rawStatus =
+    error && typeof error === "object"
+      ? "status" in error
+        ? error.status
+        : "statusCode" in error
+          ? error.statusCode
+          : undefined
+      : undefined
   const status =
-    Number.isInteger(error.status) && error.status >= 400 && error.status <= 599
-      ? error.status
+    typeof rawStatus === "number" &&
+    Number.isInteger(rawStatus) &&
+    rawStatus >= 400 &&
+    rawStatus <= 599
+      ? rawStatus
       : 500
   const code = technicalCode(error, status)
   const incidentId = crypto.randomUUID()
   console.error(code, incidentId)
-  // Une réponse explicite empêche le fallback Nitro de journaliser l'erreur
+  // Une réponse explicite empêche les adaptateurs H3 de journaliser l'erreur
   // brute. Le status utile reste présent, sans cause, stack ou payload.
   return Response.json({ code, incidentId }, { status })
-})
+}
+
+export default defineErrorHandler((error) => runtimeErrorResponse(error))
