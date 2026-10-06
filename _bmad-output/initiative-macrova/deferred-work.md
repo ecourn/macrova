@@ -14,3 +14,11 @@
 - source_plan: `/home/ubuntu/macrova/_bmad-output/initiative-macrova/epic-socle/story-choix-et-preparation-de-lhebergement-isole-plan.md`
   summary: Confirmer le plan commercial et les quotas Convex pour vérifier le budget de test ; le contrôle de région de l’entrée précédente est résolu.
   evidence: Mise à jour du 2026-10-06 après poursuite autonome : accès Convex et région aws-us-east-1 confirmés en lecture via l’API de gestion. Ne pas reprendre le relevé de région indiqué historiquement comme manquant. Le CLI retourne 249 appels de fonctions ce mois-ci et aucune limite personnalisée, sans prouver le plan commercial ni les quotas inclus ; ces deux éléments restent à confirmer dans le dashboard.
+
+- source_plan: `/home/ubuntu/macrova/_bmad-output/initiative-macrova/epic-socle/story-choix-et-preparation-de-lhebergement-isole-plan.md`
+  summary: Suivi après connexion Render : accès fournisseur, inventaire, région et plan Convex résolus ; vérifier la facturation Render avant 1.5, puis remettre la preuve HTTPS.
+  evidence: Le 6 octobre 2026, CLI Render authentifié sur My Workspace (tea-db2fsavlot8c73f24nr0), inventaire API services/previews vide. Abonnement Convex null et logique du dashboard officiel identifiant Free ; quotas inclus documentés. Les demandes historiques de connexion Render et de relevé du plan Convex ne sont plus à reprendre. Le CLI/modèle API Render n’expose pas plan, moyen de paiement ni quotas restants ; page Billing à contrôler pour respecter le budget nul. Le frontend sera créé et recetté par 1.5.
+
+- source_plan: `/home/ubuntu/macrova/_bmad-output/initiative-macrova/epic-socle/story-choix-et-preparation-de-lhebergement-isole-plan.md`
+  summary: Résolution des prérequis de 1.7 : accès Render/Convex, régions et budgets vérifiés ; seule la remise du frontend et la recette HTTPS restent à réaliser par 1.5.
+  evidence: Preuve Billing fournie par le propriétaire le 6 octobre 2026 : Hobby sans carte ni charges, quotas inutilisés de 750 h Free, 5 GB de bande passante, 500 min pipeline, 25 services et 2 domaines. Les demandes historiques de contrôle Billing et de connexion fournisseur sont résolues ; ne pas les reprendre comme blocages. Conserver Free sans ajout de carte ou supplément et surveiller les quotas partagés avant publication. Aucun frontend distant créé par la préparation.
