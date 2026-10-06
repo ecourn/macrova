@@ -15,10 +15,10 @@ Vercel et Netlify sont également décrits par ce guide ; Render est retenu pour
 | Élément | Cible | État constaté |
 |---|---|---|
 | Frontend SSR | Render Frankfurt | Service non créé, accès fournisseur absent |
-| Backend de recette | Convex `dev:dazzling-puffin-856`, référence `socle-auth-tests` | Créé et testé par 1.1 ; région à relever dans le dashboard |
+| Backend de recette | Convex `dev:dazzling-puffin-856`, référence `socle-auth-tests` | Accès vérifié le 6 octobre 2026 ; région observée `aws-us-east-1` |
 | Futur backend européen | `aws-eu-west-1` (Irlande) | À sélectionner seulement si un nouveau déploiement est nécessaire ; aucune migration effectuée |
 
-[Render](https://render.com/docs/regions) propose Francfort ; déplacer un service nécessite de le recréer. [Convex](https://docs.convex.dev/production/regions) propose l’Irlande avec surcharge régionale de 30 % sur l’usage et ne déplace pas un déploiement existant. Le choix européen est une cible technique, sans garantie de résidence européenne de tous les services annexes ni conformité présumée. Garder le backend synthétique actuel pour la recette ; relever sa région avant de valider la fiche d’accès.
+[Render](https://render.com/docs/regions) propose Francfort ; déplacer un service nécessite de le recréer. [Convex](https://docs.convex.dev/production/regions) propose l’Irlande avec surcharge régionale de 30 % sur l’usage et ne déplace pas un déploiement existant. Le choix européen est une cible technique, sans garantie de résidence européenne de tous les services annexes ni conformité présumée. Garder le backend synthétique actuel pour la recette : sa région américaine est confirmée par une lecture authentifiée de l’API de gestion, pas déduite du DNS. Aucune migration effectuée.
 
 Budget de test autorisé : **0 € de dépense nouvelle**, aucune carte ou offre payante ajoutée. [Render Free](https://render.com/docs/free) met le service en veille après 15 minutes et le réveil peut prendre environ une minute ; le stockage local est éphémère. Les quotas de bande passante et de compilation sont partagés au niveau workspace. Sans moyen de paiement, leur dépassement suspend le service ou les nouvelles compilations. Vérifier que le workspace choisi n’a pas de facturation automatique avant création ; sinon utiliser un workspace gratuit séparé ou attendre une décision explicite.
 
@@ -40,6 +40,23 @@ Budget de test autorisé : **0 € de dépense nouvelle**, aucune carte ou offre
 
 Aucune clé de déploiement Convex nécessaire au serveur frontend. Les secrets de publication restent sur le poste autorisé ou dans la CI, distincts pour test/production. Aucun backend prod, clé prod, donnée réelle ou paiement réel dans une prévisualisation. Si le paiement est ajouté ultérieurement, utiliser uniquement son mode test et des secrets de test côté backend.
 
+## Prérequis d’accès avant la livraison 1.5
+
+Contrôle repris le **6 octobre 2026** : intégration Render trouvée mais non installée, aucun CLI `render`, aucune variable d’environnement Render et aucune configuration dans `~/.render` ou `~/.config/render`. Le navigateur collaboratif est indisponible dans cet environnement. Ces constats ne prouvent ni l’absence d’un compte Render du propriétaire, ni l’absence de services distants : aucun accès authentifié n’a permis de les consulter.
+
+Suite à la délégation du propriétaire, la voie CLI a été retenue. Le CLI officiel **2.28.0** est installé dans `/home/ubuntu/.local/bin/render`, archive et SHA-256 vérifiés depuis la release `render-oss/cli`. `render --version` réussit ; `render workspaces -o json` refuse l’accès sans connexion. Le téléchargement direct a échoué (HTTP 500), puis `gh release download` a réussi. Aucun jeton Render n’a été créé à ce stade.
+
+La [connexion officielle](https://render.com/docs/cli#2-log-in) via `render login` exige une validation dans le dashboard du propriétaire. L’accès GitHub du terminal ne remplace pas cette validation. Ne pas coller de clé dans la conversation. Après authentification, utiliser `render workspaces -o json`, sélectionner le workspace vérifié avec `render workspace set <identifiant>`, puis lire `render services -o json`. Ces commandes préparent l’inventaire ; ne pas créer ni publier de service pendant cette vérification d’accès.
+
+Avant toute publication par 1.5, relever les preuves suivantes avec cet accès :
+
+- **Workspace** : nom et identifiant observés, accès effectif du responsable, plan, facturation et quotas compatibles avec le budget de 0 € de dépense nouvelle. État : non vérifié.
+- **Dépôt** : `https://github.com/ecourn/macrova`, branche `main`, répertoire applicatif `app`. Dépôt public confirmé par GitHub ; lecture Git anonyme de `refs/heads/main` réussie, révision distante observée `8468aa47f06aaf1a4db9e73567d19305e4b4cda2`. Le compte GitHub local possède les droits ADMIN. Aucune autorisation GitHub privée nécessaire pour lire cette source publique ; la sélection de cette source dans Render reste à vérifier. Ne pas supposer que les commits locaux sont publiés : 1.5 doit livrer une révision distante contenant ses changements validés.
+- **Service existant** : rechercher `macrova-socle-test` dans le workspace avant toute création. S’il existe, relever son identifiant, son URL, sa région, son offre et ses réglages de déploiement ; ne pas créer de doublon. État : inventaire distant non effectué.
+- **Backend associé** : accès authentifié vérifié par `GET /v1/deployments/dazzling-puffin-856` et lecture du projet `macrova` (3148832). Type `dev`, référence `dev/socle-auth-tests`, région `aws-us-east-1`. Lecture CLI explicite de l’usage : 249 appels de fonctions sur le mois courant ; limites personnalisées retournées : aucune (`[]`). Le plan commercial et les quotas inclus restent à confirmer : l’absence de limite personnalisée ne signifie pas usage illimité ni gratuité. Aucun secret affiché, aucune écriture ou publication Convex.
+
+La levée de ces prérequis permet la livraison 1.5 ; elle n’exige pas un frontend déjà publié. La création ou configuration du service, son URL définitive et la recette HTTPS appartiennent à 1.5. La remise finale prévue par 1.7 sera complétée avec ces preuves de livraison. Tant que les accès restent non vérifiés, la livraison 1.5 reste bloquée ; la préparation documentaire ne vaut pas acceptation distante.
+
 ## Remise des accès et publication préparée
 
 1. Le propriétaire crée/connecte son compte Render, autorise le dépôt et vérifie le workspace gratuit et sa facturation. Accorder au responsable l’accès au service Render et au projet Convex par invitation fournisseur ; ne pas transmettre de mot de passe ou de clé dans le dépôt.
@@ -54,6 +71,6 @@ Aucune clé de déploiement Convex nécessaire au serveur frontend. Les secrets 
 
 - Backend associé : `https://dazzling-puffin-856.convex.cloud` et endpoint auth `.site` ci-dessus ; [dashboard Convex](https://dashboard.convex.dev/) pour le propriétaire autorisé.
 - Frontend accessible existant : `http://localhost:3000` après `bun run dev` avec la configuration locale du README ; accès local uniquement, aucun service Render livré.
-- Accès Render : non configuré dans la session ; intégration disponible mais non connectée. Action externe nécessaire : installer/connecter Render avec le compte autorisé, ou fournir l’accès via son CLI sécurisé.
-- Région backend, plan et quotas du compte : à confirmer par accès dashboard, non déduits du nom DNS.
+- Accès Render : CLI installé et testé, connexion fournisseur non validée ; intégration toujours non installée. Action externe restante : autoriser `render login` avec le compte du projet. Workspace, budget et inventaire de services restent non vérifiés.
+- Backend : accès et région `aws-us-east-1` vérifiés en lecture le 6 octobre 2026 ; plan commercial et quotas inclus encore à confirmer dans le dashboard. Les lectures de métadonnées ne prouvent pas le parcours SSR distant.
 - Acceptation distante de 1.7 : **en attente des accès fournisseur et de la remise du frontend de test par 1.5**. Décision et préparation terminées ; aucune réussite distante présumée.
