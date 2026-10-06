@@ -20,6 +20,15 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
     baseURL: siteUrl,
     secret,
     database: authComponent.adapter(ctx),
+    logger: {
+      // Better Auth peut joindre requêtes et credentials aux arguments.
+      // Conserver uniquement un code stable et un identifiant technique.
+      log: (level) => {
+        if (level === "error" || level === "warn") {
+          console.error("AUTH_PROVIDER_ERROR", crypto.randomUUID())
+        }
+      },
+    },
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,

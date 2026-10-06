@@ -28,7 +28,10 @@ function loadConfig(overrides: Record<string, string> = {}) {
   // et le cache des modules de modifier les cas ; aucun serveur ne démarre.
   return spawnSync(
     "bun",
-    ["--eval", `await import(${JSON.stringify(config)})`],
+    [
+      "--eval",
+      `const { default: config } = await import(${JSON.stringify(config)}); console.log(JSON.stringify({ baseURL: config.use.baseURL, localServer: Boolean(config.webServer) }))`,
+    ],
     {
       cwd: directory,
       env: { ...inheritedEnv, ...validEnv, ...overrides },
@@ -83,5 +86,46 @@ describe("configuration Playwright de l'authentification réelle", () => {
     })
     expect(result.error).toBeUndefined()
     expect(result.status, result.stderr).toBe(0)
+  })
+})
+
+describe("recette distante explicite", () => {
+  const remote = {
+    E2E_REMOTE: "1",
+    E2E_BASE_URL: "https://macrova-test.onrender.com",
+    VITE_SITE_URL: "https://macrova-test.onrender.com",
+    E2E_AUTH_EMAIL: "",
+    E2E_AUTH_PASSWORD: "",
+  }
+  test.each(["", undefined])(
+    "refuse le mode distant sans origine : %s",
+    (origin) => {
+      const result = loadConfig(
+        origin === undefined
+          ? { E2E_REMOTE: "1" }
+          : { E2E_REMOTE: "1", E2E_BASE_URL: origin }
+      )
+      expect(result.status).toBe(1)
+      expect(result.stderr).toContain("La recette distante exige E2E_BASE_URL.")
+    }
+  )
+  test("utilise HTTPS sans serveur local et sans compte préalable", () => {
+    const result = loadConfig(remote)
+    expect(result.status, result.stderr).toBe(0)
+    expect(JSON.parse(result.stdout)).toEqual({
+      baseURL: remote.E2E_BASE_URL,
+      localServer: false,
+    })
+  })
+  test.each<Record<string, string>>([
+    { E2E_AUTH: "" },
+    { E2E_BASE_URL: "http://macrova-test.onrender.com" },
+    { E2E_BASE_URL: "https://macrova-test.onrender.com/" },
+    { E2E_BASE_URL: "https://macrova-test.onrender.com/path" },
+    { E2E_BASE_URL: "https://user:password@macrova-test.onrender.com" },
+    { VITE_SITE_URL: "https://other.onrender.com" },
+    { VITE_CONVEX_SITE_URL: "https://other.convex.site" },
+  ])("refuse une cible ambiguë ou incohérente : %j", (overrides) => {
+    expect(loadConfig({ ...remote, ...overrides }).status).toBe(1)
   })
 })

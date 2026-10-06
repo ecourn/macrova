@@ -417,5 +417,8 @@ uniquement par convex-test et hors du répertoire déployable.
 
 La [décision d’hébergement isolé](docs/hebergement-test.md) fixe Render SSR à
 Francfort, le budget sans dépense, les variables et la remise des accès pour
-les stories 1.7 et 1.5. Elle distingue la préparation des accès distants encore
-à fournir ; le serveur de production Nitro reste à préparer dans la story 1.5.
+les stories 1.7 et 1.5. La [procédure de livraison SSR](docs/livraison-ssr-test.md)
+décrit le serveur Nitro autonome (`bun run start` après build), le blueprint
+Render Free, la synchronisation backend puis frontend, la recette HTTPS
+explicite (`E2E_BASE_URL` avec `bun run test:e2e:remote`) et le retour localhost.
+La fiche effective y distingue les vérifications locales de la publication réelle.

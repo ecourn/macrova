@@ -88,10 +88,26 @@ test("inscription, session persistante et session révoquée", async ({
 
 test("connexion, session persistante et déconnexion", async ({ page }) => {
   const pageErrors = collectClientErrors(page)
-  const email = process.env.E2E_AUTH_EMAIL
-  const password = process.env.E2E_AUTH_PASSWORD
-  if (!email || !password)
-    throw new Error("Identifiants du compte de test absents.")
+  const email =
+    process.env.E2E_AUTH_EMAIL ||
+    `auth-login-${crypto.randomUUID()}@example.com`
+  const password = process.env.E2E_AUTH_PASSWORD || crypto.randomUUID()
+  if (!process.env.E2E_AUTH_EMAIL) {
+    const signup = await page.request.post("/api/auth/sign-up/email", {
+      headers: {
+        Origin: new URL(test.info().project.use.baseURL as string).origin,
+      },
+      data: { email, password, name: "Test connexion" },
+    })
+    expect(signup.ok()).toBe(true)
+    const signout = await page.request.post("/api/auth/sign-out", {
+      headers: {
+        Origin: new URL(test.info().project.use.baseURL as string).origin,
+      },
+      data: {},
+    })
+    expect(signout.ok()).toBe(true)
+  }
 
   await page.goto("/login")
   await page.getByLabel("E-mail", { exact: true }).fill(email)
