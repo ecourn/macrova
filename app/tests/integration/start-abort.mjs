@@ -6,6 +6,7 @@ import { createConnection } from "node:net"
 import { once } from "node:events"
 import { setTimeout } from "node:timers/promises"
 import { test } from "node:test"
+import { toJSON } from "seroval"
 
 // À lancer après bun run build : ce test exerce le serveur compilé et les
 // vrais endpoints Start. Le backend HTTP synthétique est uniquement loopback.
@@ -88,6 +89,51 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
       body: "{}",
     })
     assert.equal(csrf.status, 403, "CSRF RPC doit refuser avant exécution")
+    const invalidPayloads = [
+      "synthetic-private-token",
+      '{"private":"synthetic-private-token"',
+      JSON.stringify({ private: "synthetic-private-token" }),
+      JSON.stringify({ t: "synthetic-private-token", v: {}, f: 0, m: [] }),
+    ]
+    for (const payload of invalidPayloads) {
+      const endpoint = new URL(`/_serverFn/${id}`, origin)
+      endpoint.searchParams.set("payload", payload)
+      const invalid = await fetch(endpoint, {
+        headers: { Origin: origin, "x-tsr-serverFn": "true" },
+      })
+      assert.equal(
+        invalid.status,
+        400,
+        "Payload RPC invalide doit être refusé avant le handler"
+      )
+      const text = await invalid.text()
+      assert.equal(
+        text.includes("synthetic-private-token"),
+        false,
+        "Contenu invalide exposé dans la réponse"
+      )
+      const body = JSON.parse(text)
+      assert.equal(body.code, "HTTP_ERROR")
+      assert.match(body.incidentId, /^[a-f0-9-]{36}$/)
+    }
+    const validEndpoint = new URL(`/_serverFn/${id}`, origin)
+    validEndpoint.searchParams.set(
+      "payload",
+      JSON.stringify(toJSON({ data: undefined, context: {} }))
+    )
+    const validRpc = await fetch(validEndpoint, {
+      headers: { Origin: origin, "x-tsr-serverFn": "true" },
+    })
+    assert.equal(
+      validRpc.status,
+      200,
+      "Le RPC anonyme valide doit rester fonctionnel"
+    )
+    assert.equal(
+      logs.includes("synthetic-private-token"),
+      false,
+      "Contenu invalide exposé dans les logs"
+    )
     for (let index = 0; index < 3; index++) {
       const socket = createConnection({ host: "127.0.0.1", port })
       await once(socket, "connect")
@@ -120,7 +166,7 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
       "Un log non technique a été émis"
     )
     console.log(
-      `POST auth Start compilé : ${authPosts} corps interrompus ; ${lines.length} logs code/UUID uniquement ; CSRF 403 ; accueil 200.`
+      `POST auth Start compilé : ${authPosts} corps interrompus ; ${lines.length} logs code/UUID uniquement ; CSRF 403 ; RPC invalides 400 sans fuite ; RPC valide et accueil 200.`
     )
   } finally {
     child.kill("SIGTERM")

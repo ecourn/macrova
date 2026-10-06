@@ -4,6 +4,7 @@ import {
   createStart,
 } from "@tanstack/react-start"
 import { runtimeErrorResponse } from "../server/error-handler"
+import { validateRpcGet } from "../server/rpc-transport"
 
 const safeErrors = createMiddleware().server(async ({ next }) => {
   try {
@@ -19,6 +20,14 @@ const csrf = createCsrfMiddleware({
   filter: (ctx) => ctx.handlerType === "serverFn",
 })
 
+const rpcTransport = createMiddleware().server(
+  ({ handlerType, request, next }) => {
+    const invalid =
+      handlerType === "serverFn" ? validateRpcGet(request) : undefined
+    return invalid ?? next()
+  }
+)
+
 export const startInstance = createStart(() => ({
-  requestMiddleware: [safeErrors, csrf],
+  requestMiddleware: [safeErrors, csrf, rpcTransport],
 }))
