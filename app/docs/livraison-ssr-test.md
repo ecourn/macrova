@@ -15,6 +15,7 @@ bun run test
 bun run typecheck
 bun run check
 bun run build
+node tests/integration/start-abort.mjs
 HOST=0.0.0.0 PORT=3000 bun run start
 ```
 
@@ -43,7 +44,7 @@ privé ; aucun secret dans les logs ou dans les variables `VITE_*`.
 ## Backend puis frontend
 
 L'orchestrateur effectue les opérations distantes après vérification et revue du
-commit. Le fichier `../render.yaml` décrit un seul service Free Frankfurt,
+commit. Le fichier [`render.yaml`](../../render.yaml) décrit un seul service Free Frankfurt,
 `macrova-socle-test`, déploiements et previews automatiques désactivés. Utiliser
 le workspace `tea-db2fsavlot8c73f24nr0`. Recontrôler quotas et absence de carte ;
 aucune offre payante, supplément de build, base, disque ou domaine acheté.
@@ -109,6 +110,19 @@ avec identifiant technique et demeure une erreur. Les messages/cause backend
 bruts ne sont transmis ni au framework SSR ni à son sérialiseur ; le logger
 Better Auth ne conserve que code stable et ID technique.
 
+Le test d'intégration du serveur compilé utilise uniquement un backend HTTP
+synthétique sur loopback. Trois POST auth interrompus doivent traverser le vrai
+relais Start, produire seulement des logs code/UUID, puis laisser l'accueil
+accessible. Il vérifie aussi le refus 403 d'un RPC compilé envoyé depuis une
+origine étrangère. Quatre payloads GET RPC JSON/Seroval invalides sont refusés
+avec une réponse 400 code/UUID, sans contenu dans les logs ou la réponse ; un
+appel Seroval valide reste fonctionnel. La prévalidation précède le décodeur
+interne TanStack et reprend sa limite GET, après le contrôle CSRF.
+Le middleware Start reprend explicitement le CSRF par défaut ;
+le plugin Nitro normalise le motif du signal d'abandon avant les courses internes
+de Start. Le handler d'erreurs et l'instance H3 extérieure conservent eux aussi
+les logs techniques ; aucune console globale ou dépendance n'est remplacée.
+
 ## Retour localhost
 
 Arrêter les parcours Render puis sélectionner explicitement le même backend de
@@ -118,16 +132,58 @@ serveur compilé est utilisé. L'auth Render cesse alors d'être la cible valide
 Pour une recette Render ultérieure, restaurer explicitement les deux origines
 HTTPS identiques. Aucun changement de secret n'est nécessaire.
 
-## Fiche effective (à compléter par l'orchestrateur)
+## Fiche effective — 6 octobre 2026
 
 | Preuve | Résultat |
 | --- | --- |
-| URL HTTPS attribuée | En attente de publication |
-| Service / workspace | `macrova-socle-test` / `tea-db2fsavlot8c73f24nr0` ; ID à relever |
-| Instance / région frontend | Free / Frankfurt ; à confirmer après création |
+| URL HTTPS attribuée | https://macrova-socle-test.onrender.com |
+| Service / workspace | `srv-db2g7nqjnfac73cohoi0` (`macrova-socle-test`) / `tea-db2fsavlot8c73f24nr0` |
+| Instance / région frontend | `free` / `frankfurt`, vérifiés dans la réponse API de création |
 | Backend | `dev:dazzling-puffin-856`, `aws-us-east-1` observé par 1.7 |
-| Révision manuellement déployée | À relever |
-| Recette HTTPS / assets / logs | À relever, sans secret |
+| Révision manuellement déployée | `95bc8899e88aeb3ef9f8bfb965a0b411a21cb226` ; déploiement `dep-db2gq3h42hec73ane5s0` |
+| Recette HTTPS / assets / logs | 6/6 scénarios Chromium réussis sur la révision active ; 6 assets HTTP 200 ; logs Render et Convex sans credentials dans les échantillons contrôlés |
 | Accès responsable | CLI Render et Convex déjà authentifiés selon 1.7 |
 
-Les contrôles locaux ne constituent pas une preuve de publication distante.
+Backend dédié synchronisé à 14:20 UTC avant première publication frontend ;
+`SITE_URL` relu et identique à l'origine HTTPS. Seuls `BETTER_AUTH_SECRET` et
+`SITE_URL` existent côté backend ; le secret existant n'a pas été extrait.
+Les sept variables Render correspondent au blueprint et à cette origine,
+sans clé Convex ni secret auth. Déploiements automatiques et previews désactivés.
+Le responsable conserve les accès fournisseur déjà vérifiés par 1.7 :
+[service Render](https://dashboard.render.com/web/srv-db2g7nqjnfac73cohoi0) et
+[backend Convex](https://dashboard.convex.dev/t/h-michelpique/macrova/dazzling-puffin-856).
+
+Publication finale active à **15:02:02 UTC**, vérifiée par l'API Render avec
+la révision complète ci-dessus. Recette HTTPS explicite : **6/6** en **22,8 s**,
+sans serveur local, traces ni captures. Elle couvre protections avant hydratation,
+inscription, connexion POST, SSR après rechargement, déconnexion, refus anonyme,
+JWT révoqué, fermeture propre de A et isolation de B, refus d'arguments ownerId
+usurpés et erreur nutritionnelle canonique. Contrôle de six assets distants :
+HTTP 200, aucun credential Render/Convex du poste présent. Un getter générique
+Better Auth conserve le seul nom `BETTER_AUTH_SECRET` dans une dépendance client,
+sans valeur backend ; aucun secret n'a été extrait pour la compilation.
+
+Contrôle RPC supplémentaire sur la cible HTTPS : quatre payloads invalides
+HTTP400 sans contenu synthétique dans les réponses, GET valide HTTP200 et
+CSRF403. Les headers de navigation same-origin sont conservés pour ce contrôle.
+
+Audit après cette recette et ce contrôle : **15 lignes Render**, dont **8 erreurs code/UUID**,
+aucune erreur brute `aborted`, stack/cause de cette interruption, payload RPC
+synthétique, erreur de décodage brute, e-mail ou JWT.
+Les messages de plateforme de démarrage sont distingués des logs applicatifs.
+Échantillon Convex : 100 événements contrôlés sans e-mail, JWT ni assignation de
+credential. Ces contrôles portent sur la recette et ses échantillons, pas une
+garantie de tous les journaux futurs. Les premiers essais ont révélé les émissions
+H3 brutes ; la normalisation Start/Nitro a été vérifiée localement puis sur cette
+révision distante, sans changer les attentes fonctionnelles.
+
+Vérification locale finale : **146 tests unitaires**, types et `bun run check`
+(138 fichiers, zéro diagnostic), build `render-com` et test d'intégration du
+vrai POST Start interrompu réussis. Le build conserve des avertissements tiers
+`MODULE_LEVEL_DIRECTIVE` sur `use client` ; Nitro beta est verrouillé exactement,
+et la recette confirme les assets et l'hydratation sur les parcours du socle.
+
+La région américaine du backend existant est conservée ; aucune migration
+européenne ou ouverture publique n'est annoncée. L'instance Free peut dormir
+après inactivité. Les fonctions nutrition, commandes, mesures et accès restent
+limitées aux contrats du socle ; aucune fonctionnalité métier fictive ajoutée.

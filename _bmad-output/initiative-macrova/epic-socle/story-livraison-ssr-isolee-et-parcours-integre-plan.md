@@ -3,13 +3,13 @@ title: 'Livraison SSR isolée et parcours intégré'
 type: 'feature'
 ticket: 5
 created: '2026-10-06'
-status: 'in-progress'
+status: 'built'
 baseline_revision: 'c25398b3a8c93ed81b8890217baf219d2fef572b'
 route: 'full'
 route_source: 'auto'
-review: ''
-review_source: ''
-lenses_ran: []
+review: 'quick'
+review_source: 'pinned'
+lenses_ran: ['quick']
 review_loop_iteration: 0
 context: ['app/AGENTS.md', 'app/convex/_generated/ai/guidelines.md', 'app/docs/hebergement-test.md']
 ---
@@ -54,11 +54,11 @@ context: ['app/AGENTS.md', 'app/convex/_generated/ai/guidelines.md', 'app/docs/h
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `app/vite.config.ts`, `package.json`, `bun.lock`, `render.yaml` — Nitro exact compatible, serveur autonome et configuration Free explicite ; installation verrouillée.
-- [ ] `app/playwright.config.ts`, `tests/config/playwright.test.ts`, `tests/e2e/` — origine distante auth HTTPS contrôlée, sans serveur local, session et probes contrats/intercompte ; valider la matrice sans credential externe requis pour les nouveaux comptes.
-- [ ] Points d'émission serveur identifiés par investigation — logs réduits aux codes/IDs techniques, sans masquer une panne ; tests appropriés si code ajouté.
-- [ ] `app/README.md`, `docs/livraison-ssr-test.md`, `docs/hebergement-test.md` — procédure backend puis frontend, secrets, commandes locales et distantes ; fiche effective complétée par orchestrateur.
-- [ ] Orchestrateur — publier backend dev puis commit testé sur Render Free, exécuter recette HTTPS et relever service, région, révision et contrôles des assets/logs.
+- [x] `app/vite.config.ts`, `package.json`, `bun.lock`, `render.yaml` — Nitro exact compatible, serveur autonome et configuration Free explicite ; installation verrouillée.
+- [x] `app/playwright.config.ts`, `tests/config/playwright.test.ts`, `tests/e2e/` — origine distante auth HTTPS contrôlée, sans serveur local, session et probes contrats/intercompte ; valider la matrice sans credential externe requis pour les nouveaux comptes.
+- [x] Points d'émission serveur identifiés par investigation — logs réduits aux codes/IDs techniques, sans masquer une panne ; tests appropriés si code ajouté.
+- [x] `app/README.md`, `docs/livraison-ssr-test.md`, `docs/hebergement-test.md` — procédure backend puis frontend, secrets, commandes locales et distantes ; fiche effective complétée par orchestrateur.
+- [x] Orchestrateur — publier backend dev puis commit testé sur Render Free, exécuter recette HTTPS et relever service, région, révision et contrôles des assets/logs.
 
 **Acceptance Criteria:**
 - Étant donné une installation verrouillée, lorsque le serveur compilé puis la cible Render sont testés, alors le parcours public → connexion SSR → lecture privée réussit avec assets et POST fonctionnels.
@@ -81,8 +81,24 @@ Audit suivant : H3 journalise les erreurs `unhandled` dans `prepareResponse` ava
 
 Revue préalable à publication du 6 octobre : medium / patch, auth.spec.ts, chaînes vides conservées par ?? malgré leur autorisation distante ; fallback synthétique corrigé. Medium / patch, package.json et playwright.config.ts, commande remote pouvait lancer localhost sans E2E_BASE_URL ; marqueur de mode imposant l'origine distante et test de refus ajoutés. Medium / tâche restante, fiche effective sans URL/ID/révision et recette HTTPS non exécutée ; preuves connues manquantes à ce point, publication et recette prises en charge avant revue finale, aucun report ni acceptation prématurée.
 
+Revue finale indépendante : medium / patch, `app/src/start.ts`, le décodeur RPC TanStack attrape en interne puis journalise et sérialise un payload GET malformé avant notre catch. Reproduction sur un RPC compilé : SyntaxError avec extrait synthétique et stack. Le contrat de logs était déjà explicite ; correction limitée à la validation du transport exposé avant ce décodeur, sans API publique ni remplacement de console/dépendance. Test réel compilé étendu aux payloads JSON/Seroval invalides et au RPC valide. Aucun report. Revue indépendante du diff corrigé : aucun bug, critère manquant ou violation confirmé ; panne backend 503 sondée sur le RPC compilé, erreur UNAVAILABLE préservée sans fuite.
+
 ## Verification
 
 Depuis `app/` : `bun install --frozen-lockfile`, `bun run test`, `bun run typecheck`, `bun run check` (zéro diagnostic), `bun run build`, serveur `bun run start` avec PORT/HOST, suite offline et auth locale si backend localhost. Recette distante explicite sur Render, tests contrats (nutrition/accès/intercompte) et sessions ; contrôler assets et logs sans imprimer secrets. Revue indépendante du diff complet, corriger puis répéter uniquement les contrôles affectés. Les gardes de références par ID restent vérifiées dans les tests existants, aucune API de test publique ajoutée.
 
 Vérification locale du 6 octobre : installation frozen, 127/127 tests (11 fichiers, aucun skip), types et check (128 fichiers, aucun diagnostic), builds node-server et render-com réussis. Avertissements tiers MODULE_LEVEL_DIRECTIVE pendant build seulement. Offline Vite 4/4 et compilé render-com 4/4 ; smoke Node HOST=0.0.0.0 PORT=3099, pages public/login SSR et privé anonyme, formulaire POST et six assets HTTP 200. Orchestrateur : tests 127/127, typecheck et check relus/exécutés avec sortie 0. Matrice config distante couverte par tests/config/playwright.test.ts, panne/401 par auth-server.test.ts et server-errors.test.ts ; sessions et isolation réelles attendent recette HTTPS.
+
+### Livraison et validation finales
+
+Backend dédié sélectionné et URL cloud/site vérifiées ; absence de clé prioritaire locale contrôlée. SITE_URL passé à https://macrova-socle-test.onrender.com, secret auth existant conservé sans extraction ; `bun run convex:dev --once --tail-logs disable` réussit à 14:20 UTC, backend publié avant frontend. Render : srv-db2g7nqjnfac73cohoi0, workspace tea-db2fsavlot8c73f24nr0, free/frankfurt, autoDeploy no, previews off, sept variables publiques exactes et aucune clé backend. Budget Hobby sans carte conservé, aucune nouvelle offre, base, disque ou domaine. Révision applicative active `95bc8899e88aeb3ef9f8bfb965a0b411a21cb226`, déploiement `dep-db2gq3h42hec73ane5s0`, live 2026-10-06T15:02:02.443767Z, relevé API canonique. Les commits de livraison intermédiaires ont permis de corriger les erreurs observées, sans changement de contrats ou backend production.
+
+Matrice auditée : serveur compilé et six assets HTTP200 sur Render ; configuration distante et refus couverts par 17 tests config ; absence/401 et pannes par auth-server/server-errors ; sessions par trois scénarios auth réels et deux publics ; intercompte, refus d'ownerId et JWT révoqué par contracts.spec.ts sur backend réel. Les guards par référence ID restent dans les tests Convex existants exécutés. Erreurs nutrition/access transportées pendant la recette ; sanitation Nitro/H3/Start couverte par tests dédiés et `node tests/integration/start-abort.mjs` (trois POST auth réellement interrompus, backend HTTP synthétique loopback, logs techniques seulement, CSRF RPC403, accueil200). Aucun test fixture déployé, aucun skip.
+
+Résultats orchestrateur : 146/146 tests, 15 fichiers ; typecheck0 ; check138 fichiers, zéro diagnostic ; build render-com0 ; intégration Start1/1 ; recette HTTPS finale6/6 en22,8s, sans webServer local. Après recette : quinze lignes Render dont huit erreurs code/UUID, aucun aborted brut, e-mail ou JWT ; cent événements Convex sans pattern e-mail/JWT/credential. Six assets HTTP200 sans credentials locaux. Le getter BetterAuth contenant le nom de variable BETTER_AUTH_SECRET est du code générique sans sa valeur ; aucun secret backend n'a été extrait. Les avertissements MODULE_LEVEL_DIRECTIVE du build tiers sont distincts du check, qui est sans avertissement. Nitro beta exact reste un risque de mise à jour à surveiller ; service Free peut dormir.
+
+Preuves de session locales : /tmp/macrova-story15-e2e-final.log, /tmp/macrova-story15-final-proof.json, /tmp/macrova-story15-deploys-final.json et test d'intégration persistant dans app/tests/integration/start-abort.mjs. Aucun log brut ou secret ajouté à Git. Fiche effective et retour localhost documentés dans app/docs/livraison-ssr-test.md ; `.env.local` ignoré aligné sur la cible HTTPS. Le périmètre livré est le socle de test, sans ouverture produit publique, restauration (1.8) ni modules métier fictifs.
+
+Validation complémentaire du décodage RPC : neuf tests ciblés et intégration compilée réussis ; quatre payloads JSON/Seroval malformés HTTP400, réponses/logs limités à code/UUID, GET Seroval valide HTTP200, CSRF403 et trois abandons auth sans fuite. Seroval 1.6.8 déclaré directement, version déjà verrouillée ; plugins officiels identiques client/server confirmés, aucun adaptateur additionnel dans le runtime.
+
+Clôture : révision corrigée 95bc8899e88aeb3ef9f8bfb965a0b411a21cb226 active sur Render, six parcours HTTPS réussis en 22,8s ; contrôle RPC distant quatre refus400 sans fuite, GET valide200 et CSRF403. Audit post-recette : quinze lignes Render dont huit codes/UUID, aucun payload synthétique ou erreur de décodage brute ; cent événements Convex contrôlés. Revue finale du diff corrigé sans finding confirmé, aucun élément différé.

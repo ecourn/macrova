@@ -14,7 +14,7 @@ Vercel et Netlify sont également décrits par ce guide ; Render est retenu pour
 
 | Élément | Cible | État constaté |
 |---|---|---|
-| Frontend SSR | Render Frankfurt | Accès fournisseur vérifié ; inventaire vide, service à créer par 1.5 |
+| Frontend SSR | Render Frankfurt | Service Free `srv-db2g7nqjnfac73cohoi0` créé par 1.5 ; [fiche SSR](livraison-ssr-test.md) |
 | Backend de recette | Convex `dev:dazzling-puffin-856`, référence `socle-auth-tests` | Accès vérifié le 6 octobre 2026 ; région observée `aws-us-east-1` |
 | Futur backend européen | `aws-eu-west-1` (Irlande) | À sélectionner seulement si un nouveau déploiement est nécessaire ; aucune migration effectuée |
 
@@ -74,7 +74,7 @@ Avant toute publication par 1.5, relever les preuves suivantes avec cet accès :
 ## Fiche de remise actuelle
 
 - Backend associé : `https://dazzling-puffin-856.convex.cloud` et endpoint auth `.site` ci-dessus ; [dashboard Convex](https://dashboard.convex.dev/) pour le propriétaire autorisé.
-- Frontend accessible existant : `http://localhost:3000` après `bun run dev` avec la configuration locale du README ; accès local uniquement, aucun service Render livré.
-- Accès Render : CLI authentifié, workspace My Workspace sélectionné, inventaire vide vérifié. Hobby sans carte ni charges, quotas disponibles confirmés par le propriétaire. Installation de l’intégration facultative ; aucune nouvelle connexion nécessaire.
+- Frontend de recette livré par 1.5 : https://macrova-socle-test.onrender.com ; service `srv-db2g7nqjnfac73cohoi0`, Free Frankfurt, auto-deploy et previews désactivés. La [fiche SSR](livraison-ssr-test.md) contient la révision et les preuves HTTPS. L'origine autorisée du backend est désormais cette URL ; le retour localhost exige la procédure explicite.
+- Accès Render : CLI authentifié, workspace My Workspace sélectionné, un service de recette créé après l'inventaire initial vide. Hobby sans carte ni charges, quotas disponibles confirmés par le propriétaire avant création. Installation de l’intégration facultative ; aucune nouvelle connexion nécessaire.
 - Backend : accès, région `aws-us-east-1` et plan Free vérifiés le 6 octobre 2026 ; quotas inclus documentés, usage du déploiement relevé. Les lectures de métadonnées ne prouvent pas le parcours SSR distant.
-- Préparation 1.7 : **accès, budget et régions renseignés ; prérequis résolus pour lancer 1.5**. Acceptation du frontend distant : **en attente de sa livraison et de la recette HTTPS par 1.5**. Aucun service créé ni résultat HTTPS présumé par ce ticket de préparation.
+- Préparation 1.7 : **accès, budget et régions renseignés ; prérequis résolus**. Le service a ensuite été créé et la recette HTTPS exécutée par 1.5, selon sa fiche de livraison. Les paragraphes précédents conservent l'historique des vérifications de préparation ; ils ne décrivent pas un second service à créer.
