@@ -3,7 +3,7 @@ title: 'Livraison SSR isolée et parcours intégré'
 type: 'feature'
 ticket: 5
 created: '2026-10-06'
-status: 'built'
+status: done
 baseline_revision: 'c25398b3a8c93ed81b8890217baf219d2fef572b'
 route: 'full'
 route_source: 'auto'
@@ -102,3 +102,7 @@ Preuves de session locales : /tmp/macrova-story15-e2e-final.log, /tmp/macrova-st
 Validation complémentaire du décodage RPC : neuf tests ciblés et intégration compilée réussis ; quatre payloads JSON/Seroval malformés HTTP400, réponses/logs limités à code/UUID, GET Seroval valide HTTP200, CSRF403 et trois abandons auth sans fuite. Seroval 1.6.8 déclaré directement, version déjà verrouillée ; plugins officiels identiques client/server confirmés, aucun adaptateur additionnel dans le runtime.
 
 Clôture : révision corrigée 95bc8899e88aeb3ef9f8bfb965a0b411a21cb226 active sur Render, six parcours HTTPS réussis en 22,8s ; contrôle RPC distant quatre refus400 sans fuite, GET valide200 et CSRF403. Audit post-recette : quinze lignes Render dont huit codes/UUID, aucun payload synthétique ou erreur de décodage brute ; cent événements Convex contrôlés. Revue finale du diff corrigé sans finding confirmé, aucun élément différé.
+
+## Clôture acceptée — 6 octobre 2026
+
+Decision: Passage à `done` demandé par le propriétaire au vu des preuves de livraison et de recette finale consignées ci-dessus et dans `app/docs/livraison-ssr-test.md`, « Fiche effective — 6 octobre 2026 ». Backend publié avant frontend, révision `95bc8899e88aeb3ef9f8bfb965a0b411a21cb226` livrée, recette HTTPS 6/6 et six assets HTTP 200 ; sessions, révocation, isolation intercompte, erreurs et logs contrôlés. Les vérifications locales finales et la revue corrigée sont réussies, sans élément différé. La restauration et l'exploitation restent dans le périmètre de 1.8.

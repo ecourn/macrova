@@ -3,7 +3,7 @@ title: 'Choix et préparation de l’hébergement isolé'
 type: 'chore'
 ticket: 7
 created: '2026-10-05'
-status: 'built'
+status: done
 baseline_revision: '9e3b1e10fc3fef90e89bf6fe2827156c21ea71d1'
 route: 'oneshot'
 route_source: 'auto'
@@ -70,3 +70,9 @@ Après succès de `render login` : `render workspaces -o json` et `render worksp
 Preuve humaine ultérieure du 2026-10-06 : Billing My Workspace Hobby sans carte, sans charges en attente, sans factures ; usage 0/750 heures Free, 0 MB/5 GB bande passante, 0/500 min pipeline, 0/25 services, 0/2 domaines, crédit 0 $. Budget levé, données attribuées au propriétaire et non à une lecture API. Les choix Free sans carte ni supplément respectent le budget nul ; surveiller les quotas partagés avant livraison. Objectif de reprise (résoudre les prérequis d’accès avant 1.5) atteint ; l’acceptation du frontend distant attend légitimement la livraison 1.5. Ne pas déclarer le ticket done avant cette recette.
 
 Résultat actuel : prérequis d’accès et de budget résolus, fiche et registre mis à jour, revue quick indépendante sans nouveau défaut. `bun run check` depuis app : sortie 0, 124 fichiers, aucun diagnostic ; liens locaux valides, `git diff --check` sortie 0. Aucun service créé ni publication, aucun secret versionné. Le ticket 1.5 peut commencer sa livraison sur ce workspace dans le budget documenté ; la remise HTTPS finale reste à réaliser par ce ticket.
+
+## Clôture acceptée — 6 octobre 2026
+
+Decision: Passage à `done` demandé par le propriétaire au vu des preuves de livraison et de recette finale. La livraison de 1.5 lève la dernière réserve historique de 1.7 : frontend HTTPS accessible, accès responsable Render/Convex vérifiés, régions et budget nul documentés, secrets séparés et comptes exclusivement synthétiques. Les mentions d'attente ci-dessus décrivent les étapes antérieures à cette livraison.
+
+Preuves : `app/docs/hebergement-test.md`, « Fiche de remise actuelle » ; `app/docs/livraison-ssr-test.md`, « Fiche effective — 6 octobre 2026 » ; plan de la story 1.5, « Livraison et validation finales ». Service `srv-db2g7nqjnfac73cohoi0`, Free Frankfurt, backend `dev:dazzling-puffin-856` en `aws-us-east-1`, révision livrée `95bc8899e88aeb3ef9f8bfb965a0b411a21cb226`, recette HTTPS finale 6/6. La remise requise par 1.7 est satisfaite.
