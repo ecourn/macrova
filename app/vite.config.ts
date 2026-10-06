@@ -8,7 +8,13 @@ import { nitro } from "nitro/vite"
 const config = defineConfig({
   ssr: { noExternal: ["@convex-dev/better-auth"] },
   resolve: { tsconfigPaths: true },
-  plugins: [devtools(), tailwindcss(), tanstackStart(), nitro(), viteReact()],
+  plugins: [
+    devtools(),
+    tailwindcss(),
+    tanstackStart(),
+    nitro({ errorHandler: "./server/error-handler.ts" }),
+    viteReact(),
+  ],
 })
 
 export default config

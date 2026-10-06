@@ -71,6 +71,8 @@ Estimation supérieure à 100 lignes et plusieurs couches : route full. Le propr
 
 Implémentation locale : Nitro exact 3.0.260903-beta, start Node, blueprint Free et versions Bun/Node exactes. Recette distante sans webServer, fermeture/isolation via APIs existantes et comptes synthétiques autonomes. Lecture JWT SSR explicite : seul HTTP 401 devient null ; les erreurs du SDK betterFetch pouvaient auparavant absorber les 5xx. Client Convex SSR sans logger et erreurs techniques UNAVAILABLE avec incidentId sans cause sensible, logger Better Auth minimisé. Aucun contrat ou schéma modifié.
 
+Investigation de recette HTTPS : le fallback Nitro journalisait aussi les erreurs de transport `aborted` avec cause `ECONNRESET`. Un handler personnalisé via l’option officielle `errorHandler` renvoie une erreur JSON technique et conserve le status HTTP utile ; les logs sont limités aux codes transport connus ou `HTTP_ERROR` / `UNAVAILABLE`, plus un ID d’incident. Aucun changement de console globale ni absorption de panne. Cinq tests ciblés couvrent message/cause/payload/en-têtes sensibles, déconnexion réseau et codes inconnus ; typecheck, check et build `render-com` réussis. Le serveur compilé place ce handler avant le fallback Nitro.
+
 ## Plan Change Log
 
 ## Review Triage Log

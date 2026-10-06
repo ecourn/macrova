@@ -10,8 +10,10 @@ function collectClientErrors(page: Page) {
       // Le provider peut demander un JWT après la révocation : HTTP 401 attendu.
       const expiredToken =
         url.endsWith("/api/auth/convex/token") &&
-        message.text() ===
-          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+          "Failed to load resource: the server responded with a status of 401 ()",
+        ].includes(message.text())
       if (!expiredToken) errors.push(`${message.text()} (${url})`)
     }
   })
