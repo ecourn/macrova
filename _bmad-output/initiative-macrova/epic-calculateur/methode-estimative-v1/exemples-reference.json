@@ -1,0 +1,1223 @@
+{
+  "version": "methode-estimative-v1",
+  "statut": "proposition-non-approuvee",
+  "date_verification": "2026-10-07",
+  "convention": "Rationnels documentaires réduits n/d ; aucune réinjection des affichages. Les gardes sont testées sous disponibilité hypothétique, jamais réelle.",
+  "profils": [
+    {
+      "id": "A",
+      "profil": {
+        "age": "30",
+        "taille_cm": "175",
+        "poids_kg": "70",
+        "coefficient": "5",
+        "pal": "1.6",
+        "eligibilite": "oui"
+      },
+      "intermediaires": {
+        "R": "6595/4",
+        "IMC": "160/7",
+        "minimum_P": "581/10"
+      },
+      "cible": {
+        "exact": {
+          "E": "2638/1",
+          "P": "3957/40",
+          "G": "11871/40",
+          "L": "5276/45"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "98,93",
+          "G": "296,78",
+          "L": "117,24"
+        }
+      }
+    },
+    {
+      "id": "B",
+      "profil": {
+        "age": "40",
+        "taille_cm": "165",
+        "poids_kg": "60",
+        "coefficient": "-161",
+        "pal": "1.4",
+        "eligibilite": "oui"
+      },
+      "intermediaires": {
+        "R": "5081/4",
+        "IMC": "8000/363",
+        "minimum_P": "249/5"
+      },
+      "cible": {
+        "exact": {
+          "E": "35567/20",
+          "P": "106701/1600",
+          "G": "320103/1600",
+          "L": "35567/450"
+        },
+        "affichage": {
+          "E": "1778,35",
+          "P": "66,69",
+          "G": "200,06",
+          "L": "79,04"
+        }
+      }
+    },
+    {
+      "id": "C",
+      "profil": {
+        "age": "25",
+        "taille_cm": "180",
+        "poids_kg": "80",
+        "coefficient": "5",
+        "pal": "1.8",
+        "eligibilite": "oui"
+      },
+      "intermediaires": {
+        "R": "1805/1",
+        "IMC": "2000/81",
+        "minimum_P": "332/5"
+      },
+      "cible": {
+        "exact": {
+          "E": "3249/1",
+          "P": "9747/80",
+          "G": "29241/80",
+          "L": "722/5"
+        },
+        "affichage": {
+          "E": "3249,00",
+          "P": "121,84",
+          "G": "365,51",
+          "L": "144,40"
+        }
+      }
+    }
+  ],
+  "modifications": [
+    {
+      "id": "E-haut",
+      "depart": "A",
+      "champ": "E",
+      "saisie": "2901.8",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "14509/5",
+          "P": "43527/400",
+          "G": "130581/400",
+          "L": "29018/225"
+        },
+        "affichage": {
+          "E": "2901,80",
+          "P": "108,82",
+          "G": "326,45",
+          "L": "128,97"
+        }
+      }
+    },
+    {
+      "id": "E-bas",
+      "depart": "A",
+      "champ": "E",
+      "saisie": "2374.2",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "11871/5",
+          "P": "35613/400",
+          "G": "106839/400",
+          "L": "2638/25"
+        },
+        "affichage": {
+          "E": "2374,20",
+          "P": "89,03",
+          "G": "267,10",
+          "L": "105,52"
+        }
+      }
+    },
+    {
+      "id": "P",
+      "depart": "A",
+      "champ": "P",
+      "saisie": "110",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "2638/1",
+          "P": "110/1",
+          "G": "2857/10",
+          "L": "5276/45"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "110,00",
+          "G": "285,70",
+          "L": "117,24"
+        }
+      }
+    },
+    {
+      "id": "G",
+      "depart": "A",
+      "champ": "G",
+      "saisie": "310",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "2638/1",
+          "P": "3957/40",
+          "G": "310/1",
+          "L": "3341/30"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "98,93",
+          "G": "310,00",
+          "L": "111,37"
+        }
+      }
+    },
+    {
+      "id": "L",
+      "depart": "A",
+      "champ": "L",
+      "saisie": "110",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "2638/1",
+          "P": "3957/40",
+          "G": "12523/40",
+          "L": "110/1"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "98,93",
+          "G": "313,08",
+          "L": "110,00"
+        }
+      }
+    },
+    {
+      "id": "E-haut-puis-bas",
+      "depart": "E-haut confirmé",
+      "champ": "E",
+      "saisie": "2374.2",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "11871/5",
+          "P": "35613/400",
+          "G": "106839/400",
+          "L": "2638/25"
+        },
+        "affichage": {
+          "E": "2374,20",
+          "P": "89,03",
+          "G": "267,10",
+          "L": "105,52"
+        }
+      }
+    },
+    {
+      "id": "B-P-minimum",
+      "depart": "B",
+      "champ": "P",
+      "saisie": "49.8",
+      "attendu": "PREVISUALISATION",
+      "candidat": {
+        "exact": {
+          "E": "35567/20",
+          "P": "249/5",
+          "G": "86781/400",
+          "L": "35567/450"
+        },
+        "affichage": {
+          "E": "1778,35",
+          "P": "49,80",
+          "G": "216,95",
+          "L": "79,04"
+        }
+      }
+    }
+  ],
+  "matrice": [
+    {
+      "id": "methode-absente",
+      "etape": "disponibilite",
+      "attendu": "METHODE_INDISPONIBLE",
+      "statut": "absente"
+    },
+    {
+      "id": "methode-non-approuvee",
+      "etape": "disponibilite",
+      "attendu": "METHODE_INDISPONIBLE",
+      "statut": "non-approuvee"
+    },
+    {
+      "id": "methode-retiree",
+      "etape": "disponibilite",
+      "attendu": "METHODE_INDISPONIBLE",
+      "statut": "retiree"
+    },
+    {
+      "id": "methode-version-differente",
+      "etape": "disponibilite",
+      "attendu": "METHODE_INDISPONIBLE",
+      "statut": "version-differente"
+    },
+    {
+      "id": "syntaxe-4",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": ""
+    },
+    {
+      "id": "syntaxe-5",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "-1"
+    },
+    {
+      "id": "syntaxe-6",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "+19"
+    },
+    {
+      "id": "syntaxe-7",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "1e2"
+    },
+    {
+      "id": "syntaxe-8",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "1 000"
+    },
+    {
+      "id": "syntaxe-9",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "1,2.3"
+    },
+    {
+      "id": "syntaxe-10",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "19.0000000"
+    },
+    {
+      "id": "syntaxe-11",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "NaN"
+    },
+    {
+      "id": "syntaxe-12",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "1000000.000001"
+    },
+    {
+      "id": "normalisation-13",
+      "etape": "AD-12",
+      "attendu": "NORMALISE",
+      "saisie": " 019,000000 ",
+      "canonique": "19"
+    },
+    {
+      "id": "normalisation-14",
+      "etape": "AD-12",
+      "attendu": "NORMALISE",
+      "saisie": "70,5",
+      "canonique": "70.5"
+    },
+    {
+      "id": "normalisation-15",
+      "etape": "AD-12",
+      "attendu": "NORMALISE",
+      "saisie": "70.50",
+      "canonique": "70.5"
+    },
+    {
+      "id": "normalisation-16",
+      "etape": "AD-12",
+      "attendu": "NORMALISE",
+      "saisie": "0",
+      "canonique": "0"
+    },
+    {
+      "id": "normalisation-17",
+      "etape": "AD-12",
+      "attendu": "NORMALISE",
+      "saisie": "1000000",
+      "canonique": "1000000"
+    },
+    {
+      "id": "age-18",
+      "etape": "borne-champ",
+      "attendu": "AGE_HORS_DOMAINE",
+      "champ": "age",
+      "saisie": "18"
+    },
+    {
+      "id": "age-19",
+      "etape": "borne-champ",
+      "attendu": "GARDE_PASSEE",
+      "champ": "age",
+      "saisie": "19"
+    },
+    {
+      "id": "age-64",
+      "etape": "borne-champ",
+      "attendu": "GARDE_PASSEE",
+      "champ": "age",
+      "saisie": "64"
+    },
+    {
+      "id": "age-65",
+      "etape": "borne-champ",
+      "attendu": "AGE_HORS_DOMAINE",
+      "champ": "age",
+      "saisie": "65"
+    },
+    {
+      "id": "age-19.5",
+      "etape": "borne-champ",
+      "attendu": "AGE_HORS_DOMAINE",
+      "champ": "age",
+      "saisie": "19.5"
+    },
+    {
+      "id": "taille_cm-119.999999",
+      "etape": "borne-champ",
+      "attendu": "TAILLE_HORS_DOMAINE",
+      "champ": "taille_cm",
+      "saisie": "119.999999"
+    },
+    {
+      "id": "taille_cm-120",
+      "etape": "borne-champ",
+      "attendu": "GARDE_PASSEE",
+      "champ": "taille_cm",
+      "saisie": "120"
+    },
+    {
+      "id": "taille_cm-220",
+      "etape": "borne-champ",
+      "attendu": "GARDE_PASSEE",
+      "champ": "taille_cm",
+      "saisie": "220"
+    },
+    {
+      "id": "taille_cm-220.000001",
+      "etape": "borne-champ",
+      "attendu": "TAILLE_HORS_DOMAINE",
+      "champ": "taille_cm",
+      "saisie": "220.000001"
+    },
+    {
+      "id": "poids_kg-29.999999",
+      "etape": "borne-champ",
+      "attendu": "POIDS_HORS_DOMAINE",
+      "champ": "poids_kg",
+      "saisie": "29.999999"
+    },
+    {
+      "id": "poids_kg-30",
+      "etape": "borne-champ",
+      "attendu": "GARDE_PASSEE",
+      "champ": "poids_kg",
+      "saisie": "30"
+    },
+    {
+      "id": "poids_kg-200",
+      "etape": "borne-champ",
+      "attendu": "GARDE_PASSEE",
+      "champ": "poids_kg",
+      "saisie": "200"
+    },
+    {
+      "id": "poids_kg-200.000001",
+      "etape": "borne-champ",
+      "attendu": "POIDS_HORS_DOMAINE",
+      "champ": "poids_kg",
+      "saisie": "200.000001"
+    },
+    {
+      "id": "IMC-47.359999",
+      "etape": "IMC",
+      "attendu": "IMC_HORS_DOMAINE",
+      "taille_cm": "160",
+      "poids_kg": "47.359999",
+      "IMC": "47359999/2560000"
+    },
+    {
+      "id": "IMC-47.36",
+      "etape": "IMC",
+      "attendu": "GARDE_PASSEE",
+      "taille_cm": "160",
+      "poids_kg": "47.36",
+      "IMC": "37/2"
+    },
+    {
+      "id": "IMC-47.360001",
+      "etape": "IMC",
+      "attendu": "GARDE_PASSEE",
+      "taille_cm": "160",
+      "poids_kg": "47.360001",
+      "IMC": "47360001/2560000"
+    },
+    {
+      "id": "IMC-76.799999",
+      "etape": "IMC",
+      "attendu": "GARDE_PASSEE",
+      "taille_cm": "160",
+      "poids_kg": "76.799999",
+      "IMC": "76799999/2560000"
+    },
+    {
+      "id": "IMC-76.8",
+      "etape": "IMC",
+      "attendu": "IMC_HORS_DOMAINE",
+      "taille_cm": "160",
+      "poids_kg": "76.8",
+      "IMC": "30/1"
+    },
+    {
+      "id": "IMC-76.800001",
+      "etape": "IMC",
+      "attendu": "IMC_HORS_DOMAINE",
+      "taille_cm": "160",
+      "poids_kg": "76.800001",
+      "IMC": "76800001/2560000"
+    },
+    {
+      "id": "poids200-profil",
+      "etape": "IMC",
+      "attendu": "IMC_HORS_DOMAINE",
+      "taille_cm": "220",
+      "poids_kg": "200",
+      "IMC": "5000/121"
+    },
+    {
+      "id": "coefficient-absent",
+      "etape": "choix",
+      "attendu": "COEFFICIENT_NON_APPLICABLE",
+      "coefficient": "absent"
+    },
+    {
+      "id": "coefficient-incertain",
+      "etape": "choix",
+      "attendu": "COEFFICIENT_NON_APPLICABLE",
+      "coefficient": "incertain"
+    },
+    {
+      "id": "coefficient-autre",
+      "etape": "choix",
+      "attendu": "COEFFICIENT_NON_APPLICABLE",
+      "coefficient": "autre"
+    },
+    {
+      "id": "coefficient-5",
+      "etape": "choix",
+      "attendu": "GARDE_PASSEE",
+      "coefficient": "5"
+    },
+    {
+      "id": "coefficient--161",
+      "etape": "choix",
+      "attendu": "GARDE_PASSEE",
+      "coefficient": "-161"
+    },
+    {
+      "id": "PAL-1.4",
+      "etape": "choix",
+      "attendu": "GARDE_PASSEE",
+      "pal": "1.4"
+    },
+    {
+      "id": "PAL-1.6",
+      "etape": "choix",
+      "attendu": "GARDE_PASSEE",
+      "pal": "1.6"
+    },
+    {
+      "id": "PAL-1.8",
+      "etape": "choix",
+      "attendu": "GARDE_PASSEE",
+      "pal": "1.8"
+    },
+    {
+      "id": "PAL-2.0",
+      "etape": "choix",
+      "attendu": "GARDE_PASSEE",
+      "pal": "2.0"
+    },
+    {
+      "id": "PAL-absent",
+      "etape": "choix",
+      "attendu": "PAL_INVALIDE",
+      "pal": "absent"
+    },
+    {
+      "id": "PAL-1.5",
+      "etape": "choix",
+      "attendu": "PAL_INVALIDE",
+      "pal": "1.5"
+    },
+    {
+      "id": "PAL-2.1",
+      "etape": "choix",
+      "attendu": "PAL_INVALIDE",
+      "pal": "2.1"
+    },
+    {
+      "id": "eligibilite-absente",
+      "etape": "choix",
+      "attendu": "ELIGIBILITE_ABSENTE",
+      "eligibilite": "absente"
+    },
+    {
+      "id": "eligibilite-inconnue",
+      "etape": "choix",
+      "attendu": "ELIGIBILITE_ABSENTE",
+      "eligibilite": "autre"
+    },
+    {
+      "id": "eligibilite-oui",
+      "etape": "exclusion",
+      "attendu": "GARDE_PASSEE",
+      "eligibilite": "oui"
+    },
+    {
+      "id": "grossesse-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "grossesse"
+    },
+    {
+      "id": "grossesse-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "grossesse"
+    },
+    {
+      "id": "allaitement-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "allaitement"
+    },
+    {
+      "id": "allaitement-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "allaitement"
+    },
+    {
+      "id": "trouble-alimentaire-actuel-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "trouble-alimentaire-actuel"
+    },
+    {
+      "id": "trouble-alimentaire-actuel-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "trouble-alimentaire-actuel"
+    },
+    {
+      "id": "trouble-alimentaire-anterieur-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "trouble-alimentaire-anterieur"
+    },
+    {
+      "id": "trouble-alimentaire-anterieur-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "trouble-alimentaire-anterieur"
+    },
+    {
+      "id": "pathologie-influente-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "pathologie-influente"
+    },
+    {
+      "id": "pathologie-influente-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "pathologie-influente"
+    },
+    {
+      "id": "traitement-influent-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "traitement-influent"
+    },
+    {
+      "id": "traitement-influent-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "traitement-influent"
+    },
+    {
+      "id": "prescription-nutritionnelle-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "prescription-nutritionnelle"
+    },
+    {
+      "id": "prescription-nutritionnelle-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "prescription-nutritionnelle"
+    },
+    {
+      "id": "sport-intensif-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "sport-intensif"
+    },
+    {
+      "id": "sport-intensif-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "sport-intensif"
+    },
+    {
+      "id": "competition-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "competition"
+    },
+    {
+      "id": "competition-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "competition"
+    },
+    {
+      "id": "coefficient-inapplicable-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "coefficient-inapplicable"
+    },
+    {
+      "id": "coefficient-inapplicable-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "coefficient-inapplicable"
+    },
+    {
+      "id": "contexte-hormonal-non-couvert-non",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "non",
+      "motif_documentaire": "contexte-hormonal-non-couvert"
+    },
+    {
+      "id": "contexte-hormonal-non-couvert-incertain",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "eligibilite": "incertain",
+      "motif_documentaire": "contexte-hormonal-non-couvert"
+    },
+    {
+      "id": "cardinalite-75",
+      "etape": "edition",
+      "attendu": "MODIFICATION_NON_UNIQUE",
+      "champs": []
+    },
+    {
+      "id": "cardinalite-76",
+      "etape": "edition",
+      "attendu": "MODIFICATION_NON_UNIQUE",
+      "champs": [
+        "E",
+        "P"
+      ]
+    },
+    {
+      "id": "cardinalite-77",
+      "etape": "edition",
+      "attendu": "MODIFICATION_NON_UNIQUE",
+      "champs": [
+        "P",
+        "G",
+        "L"
+      ]
+    },
+    {
+      "id": "cardinalite-78",
+      "etape": "edition",
+      "attendu": "MODIFICATION_NON_UNIQUE",
+      "champs": [
+        "inconnu"
+      ]
+    },
+    {
+      "id": "edition-sans-cible",
+      "etape": "edition",
+      "attendu": "CIBLE_ABSENTE"
+    },
+    {
+      "id": "energie-2374.199999",
+      "etape": "edition",
+      "attendu": "ENERGIE_HORS_PLAGE",
+      "depart": "A",
+      "champ": "E",
+      "saisie": "2374.199999"
+    },
+    {
+      "id": "energie-2374.2",
+      "etape": "edition",
+      "attendu": "PREVISUALISATION",
+      "depart": "A",
+      "champ": "E",
+      "saisie": "2374.2"
+    },
+    {
+      "id": "energie-2901.8",
+      "etape": "edition",
+      "attendu": "PREVISUALISATION",
+      "depart": "A",
+      "champ": "E",
+      "saisie": "2901.8"
+    },
+    {
+      "id": "energie-2901.800001",
+      "etape": "edition",
+      "attendu": "ENERGIE_HORS_PLAGE",
+      "depart": "A",
+      "champ": "E",
+      "saisie": "2901.800001"
+    },
+    {
+      "id": "energie-cumul-interdit",
+      "etape": "edition",
+      "attendu": "ENERGIE_HORS_PLAGE",
+      "depart": "E-haut confirmé",
+      "champ": "E",
+      "saisie": "3191.98",
+      "E0": "2638"
+    },
+    {
+      "id": "edition-P-0",
+      "etape": "edition",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "depart": "A",
+      "champ": "P",
+      "saisie": "0"
+    },
+    {
+      "id": "edition-P-1000",
+      "etape": "edition",
+      "attendu": "CIBLE_INCOHERENTE",
+      "depart": "A",
+      "champ": "P",
+      "saisie": "1000"
+    },
+    {
+      "id": "edition-G-1000",
+      "etape": "edition",
+      "attendu": "CIBLE_INCOHERENTE",
+      "depart": "A",
+      "champ": "G",
+      "saisie": "1000"
+    },
+    {
+      "id": "edition-L-1000",
+      "etape": "edition",
+      "attendu": "CIBLE_INCOHERENTE",
+      "depart": "A",
+      "champ": "L",
+      "saisie": "1000"
+    },
+    {
+      "id": "edition-P--1",
+      "etape": "edition",
+      "attendu": "ENTREE_INVALIDE",
+      "depart": "A",
+      "champ": "P",
+      "saisie": "-1"
+    },
+    {
+      "id": "fraction-P-0.10-egal",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "50/1",
+        "G": "275/1",
+        "L": "700/9"
+      }
+    },
+    {
+      "id": "fraction-P-0.10-dehors",
+      "etape": "cible",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "99999/2000",
+        "G": "550001/2000",
+        "L": "700/9"
+      }
+    },
+    {
+      "id": "fraction-P-0.20-egal",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "100/1",
+        "G": "200/1",
+        "L": "800/9"
+      }
+    },
+    {
+      "id": "fraction-P-0.20-dehors",
+      "etape": "cible",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "200001/2000",
+        "G": "399999/2000",
+        "L": "800/9"
+      }
+    },
+    {
+      "id": "fraction-G-0.40-egal",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "100/1",
+        "G": "200/1",
+        "L": "800/9"
+      }
+    },
+    {
+      "id": "fraction-G-0.40-dehors",
+      "etape": "cible",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "200001/2000",
+        "G": "399999/2000",
+        "L": "800/9"
+      }
+    },
+    {
+      "id": "fraction-G-0.55-egal",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "50/1",
+        "G": "275/1",
+        "L": "700/9"
+      }
+    },
+    {
+      "id": "fraction-G-0.55-dehors",
+      "etape": "cible",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "99999/2000",
+        "G": "550001/2000",
+        "L": "700/9"
+      }
+    },
+    {
+      "id": "fraction-L-0.35-egal",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "75/1",
+        "G": "250/1",
+        "L": "700/9"
+      }
+    },
+    {
+      "id": "fraction-L-0.35-dehors",
+      "etape": "cible",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "75/1",
+        "G": "500001/2000",
+        "L": "349999/4500"
+      }
+    },
+    {
+      "id": "fraction-L-0.40-egal",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "75/1",
+        "G": "225/1",
+        "L": "800/9"
+      }
+    },
+    {
+      "id": "fraction-L-0.40-dehors",
+      "etape": "cible",
+      "attendu": "REPARTITION_HORS_DOMAINE",
+      "poids_kg": "30",
+      "cible_exacte": {
+        "E": "2000/1",
+        "P": "75/1",
+        "G": "449999/2000",
+        "L": "400001/4500"
+      }
+    },
+    {
+      "id": "minimum-P-49.799999",
+      "etape": "cible",
+      "attendu": "PROTEINES_INSUFFISANTES",
+      "poids_kg": "60",
+      "minimum_P": "249/5",
+      "cible_exacte": {
+        "E": "1900/1",
+        "P": "49799999/1000000",
+        "G": "235200001/1000000",
+        "L": "760/9"
+      }
+    },
+    {
+      "id": "minimum-P-49.8",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "60",
+      "minimum_P": "249/5",
+      "cible_exacte": {
+        "E": "1900/1",
+        "P": "249/5",
+        "G": "1176/5",
+        "L": "760/9"
+      }
+    },
+    {
+      "id": "minimum-P-49.800001",
+      "etape": "cible",
+      "attendu": "GARDE_PASSEE",
+      "poids_kg": "60",
+      "minimum_P": "249/5",
+      "cible_exacte": {
+        "E": "1900/1",
+        "P": "49800001/1000000",
+        "G": "235199999/1000000",
+        "L": "760/9"
+      }
+    },
+    {
+      "id": "B-P-sous-minimum",
+      "etape": "edition",
+      "attendu": "PROTEINES_INSUFFISANTES",
+      "depart": "B",
+      "champ": "P",
+      "saisie": "49.799999"
+    },
+    {
+      "id": "edition-methode-indisponible",
+      "etape": "edition",
+      "attendu": "METHODE_INDISPONIBLE",
+      "statut": "non-approuvee",
+      "depart": "A",
+      "champ": "P",
+      "saisie": "110"
+    },
+    {
+      "id": "reset-sans-cible",
+      "etape": "reset",
+      "attendu": "CIBLE_ABSENTE"
+    },
+    {
+      "id": "reset-methode-indisponible",
+      "etape": "reset",
+      "attendu": "METHODE_INDISPONIBLE"
+    },
+    {
+      "id": "priorite-methode-sur-entree",
+      "etape": "disponibilite",
+      "attendu": "METHODE_INDISPONIBLE",
+      "statut": "non-approuvee",
+      "profil": {
+        "age": "-1"
+      }
+    },
+    {
+      "id": "priorite-syntaxe-sur-exclusion",
+      "etape": "AD-12",
+      "attendu": "ENTREE_INVALIDE",
+      "champ": "age",
+      "saisie": "-1",
+      "eligibilite": "non"
+    },
+    {
+      "id": "priorite-exclusion-sur-IMC",
+      "etape": "exclusion",
+      "attendu": "SITUATION_EXCLUE",
+      "taille_cm": "160",
+      "poids_kg": "80",
+      "eligibilite": "non"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "confirmation",
+      "action": "valider explicitement la prévisualisation P",
+      "attendu": "CIBLE_MODIFIEE",
+      "cible": {
+        "exact": {
+          "E": "2638/1",
+          "P": "110/1",
+          "G": "2857/10",
+          "L": "5276/45"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "110,00",
+          "G": "285,70",
+          "L": "117,24"
+        }
+      }
+    },
+    {
+      "id": "annulation",
+      "action": "annuler une prévisualisation depuis A",
+      "attendu": "CIBLE_ESTIMEE",
+      "cible": {
+        "exact": {
+          "E": "2638/1",
+          "P": "3957/40",
+          "G": "11871/40",
+          "L": "5276/45"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "98,93",
+          "G": "296,78",
+          "L": "117,24"
+        }
+      }
+    },
+    {
+      "id": "reset",
+      "action": "réinitialiser explicitement après modification, profil A inchangé",
+      "attendu": "CIBLE_ESTIMEE",
+      "cible": {
+        "exact": {
+          "E": "2638/1",
+          "P": "3957/40",
+          "G": "11871/40",
+          "L": "5276/45"
+        },
+        "affichage": {
+          "E": "2638,00",
+          "P": "98,93",
+          "G": "296,78",
+          "L": "117,24"
+        }
+      }
+    },
+    {
+      "id": "profil-change",
+      "action": "changer poids de A à 71",
+      "attendu": "AUCUNE_CIBLE_COURANTE",
+      "E0": null,
+      "cible": null
+    },
+    {
+      "id": "recalcul-profil",
+      "action": "calcul explicite après poids 71",
+      "attendu": "CIBLE_ESTIMEE",
+      "profil": {
+        "age": "30",
+        "taille_cm": "175",
+        "poids_kg": "71",
+        "coefficient": "5",
+        "pal": "1.6",
+        "eligibilite": "oui"
+      },
+      "cible": {
+        "exact": {
+          "E": "2654/1",
+          "P": "3981/40",
+          "G": "11943/40",
+          "L": "5308/45"
+        },
+        "affichage": {
+          "E": "2654,00",
+          "P": "99,53",
+          "G": "298,58",
+          "L": "117,96"
+        }
+      }
+    }
+  ],
+  "arrondis": [
+    {
+      "exact": "1/200",
+      "affichage": "0,01"
+    },
+    {
+      "exact": "3957/40",
+      "affichage": "98,93"
+    },
+    {
+      "exact": "1/3",
+      "affichage": "0,33"
+    }
+  ]
+}
