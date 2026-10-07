@@ -71,4 +71,18 @@ Les empreintes SHA-256 ci-dessous identifient les pièces soumises à examen ; c
 | methode-estimative-v1.md | `661136ca33bef7cdcedad6fa0b45899aa0bf6c5c0357f263f0b867728cbbf2d1` |
 | exemples-reference.json | `b8d1eb571d69ef3c220adb5d286a73c5cfe8fad71fbab2f83b373409e7fb113f` |
 | exemples-reference.md | `a45e89313d260ac8161ae5fd722267bddeed6ca44a53ce40cc5f20a3065b7184` |
-| validation.md | `055c484ac927c4cd57ceaf9043e38afd4bff055964e99f4e2cb569b8da1c514e` |
+| validation.md | `ec773e5b181dfda27f31533ec69ccd425b806dd16b148da97ae67d0dc436fa5f` |
+
+## Contrôles de reprise du recueil — 7 octobre 2026
+
+La commande de reproduction minimale ci-dessus a été réexécutée : profils, modifications, transitions et affichages conformes. Les cinq empreintes du tableau et les quatre empreintes du formulaire de décision ont été recalculées et concordent ; les liens Markdown locaux du dossier existent. `git diff --check` ne signale aucune erreur. L'empreinte de validation.md reflète l'ajout du journal de recueil ; les quatre pièces scientifiques/numériques restent identiques. Ces contrôles vérifient le support de recueil, sans attester un accord externe.
+
+## Audit final de préparation et du blocage — 7 octobre 2026
+
+- Reproduction minimale publiée réexécutée avec namespace isolé : trois profils, sept modifications, cinq transitions et affichages conformes.
+- JSON lisible et identifiants uniques par groupe ; les 112 cas correspondent aux 105 lignes de la matrice Markdown et aux sept compléments textuels de transition/priorité.
+- Cinq empreintes du tableau et quatre du formulaire conformes ; liens locaux existants. Les pièces scientifiques et numériques soumises sont inchangées ; seule l'empreinte du registre reflète son bilan final.
+- `tickets.py find _bmad-output/initiative-macrova 2.1` reconnaît `blocked`, sa date et son motif. `tickets.py next _bmad-output/initiative-macrova` maintient 2.2 dans les dépendances bloquées, sans entrée prête à démarrer. Les trois avertissements sur d'anciens plans sans ticket à la racine de l'initiative sont préexistants et sans rapport avec le dossier 2.1.
+- Aucun test applicatif nécessaire : aucune modification de l'application, aucun moteur d'estimation ajouté. La preuve nutritionnelle externe reste la seule condition ouverte de 2.1.
+
+Dernière revue indépendante : audit Fraction des trois profils, sept modifications, 112 cas, cinq transitions et trois arrondis réussi ; aucune lacune préparatoire identifiée. Cohérence des sources consignées, méthode, exemples, formulaire, registre et plan confirmée, avec statut bloqué et 2.2 non autorisée. Aucun nouvel accord externe n'est attesté.
