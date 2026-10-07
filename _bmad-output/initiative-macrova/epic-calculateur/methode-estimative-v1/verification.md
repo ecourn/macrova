@@ -71,4 +71,8 @@ Les empreintes SHA-256 ci-dessous identifient les pièces soumises à examen ; c
 | methode-estimative-v1.md | `661136ca33bef7cdcedad6fa0b45899aa0bf6c5c0357f263f0b867728cbbf2d1` |
 | exemples-reference.json | `b8d1eb571d69ef3c220adb5d286a73c5cfe8fad71fbab2f83b373409e7fb113f` |
 | exemples-reference.md | `a45e89313d260ac8161ae5fd722267bddeed6ca44a53ce40cc5f20a3065b7184` |
-| validation.md | `055c484ac927c4cd57ceaf9043e38afd4bff055964e99f4e2cb569b8da1c514e` |
+| validation.md | `1d030f9345b29235c9f8c9822c991a8c577a211d77d4254d10a0d62e35de1c01` |
+
+## Contrôles de reprise du recueil — 7 octobre 2026
+
+La commande de reproduction minimale ci-dessus a été réexécutée : profils, modifications, transitions et affichages conformes. Les cinq empreintes du tableau et les quatre empreintes du formulaire de décision ont été recalculées et concordent ; les liens Markdown locaux du dossier existent. `git diff --check` ne signale aucune erreur. L'empreinte de validation.md reflète l'ajout du journal de recueil ; les quatre pièces scientifiques/numériques restent identiques. Ces contrôles vérifient le support de recueil, sans attester un accord externe.

@@ -78,9 +78,13 @@ Reproduire les exemples avec fractions exactes, vérifier JSON et liens relatifs
 - 2026-10-07 — dossier réalisé et vérifié : 3 profils synthétiques, 7 modifications, 112 gardes, 5 transitions et 3 arrondis. Audit indépendant de tous les vecteurs, JSON, liens, commande publiée et SHA-256 réussi. Aucun fichier applicatif modifié.
 - 2026-10-07 — acceptation finale externe non acquise : responsable, rôle et décision réelle manquants ; registre validation.md prêt à recevoir la preuve. Le statut built décrit le dossier préparé/revu, jamais une méthode approuvée ni une autorisation de 2.2.
 
+- 2026-10-07 — reprise demandée pour recueillir la décision réelle : recherche des preuves accessibles sans accord trouvé ; formulaire décision-responsable.md préparé avec empreintes et six points explicites ; registre complété et empreinte de validation.md actualisée. Recueil réel toujours ouvert ; aucune signature remplacée par la délégation.
+
 ## Plan Change Log
 
 ## Review Triage Log
 
 - 2026-10-07 — quick : 0 constat (high=0, medium=0, low=0, false=0, maybe-false=0), aucune déférence. La validation externe demeure une condition d’acceptation explicitement ouverte, pas une preuve inventée.
 - Audit de clôture : low / patch — la fraction d’exemple d’arrondi 98925/1000 était équivalente mais non réduite, contrairement à la convention documentaire ; remplacée par 3957/40 sans changement numérique, puis empreinte JSON recalculée.
+
+- 2026-10-07 — revue quick de reprise : high / defer — acceptation finale non satisfaite, constat confirmé par validation.md et le formulaire non rempli. Condition externe préexistante, non causée par le support de recueil : accord réel daté toujours absent ; aucune clôture de 2.1 ni autorisation de 2.2. Aucun défaut du support ajouté relevé ; contrôles de reprise conformes. Cette condition reste une exigence de 2.1, pas un transfert à une autre story.
