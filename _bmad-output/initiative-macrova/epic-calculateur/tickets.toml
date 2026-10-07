@@ -1,0 +1,114 @@
+# Ordre de construction ; ids stables, statut porté par les futurs plans.
+# Chaque story inclut les tests nécessaires à son comportement.
+
+[[entry]]
+id = 1
+type = "story"
+title = "Documenter et valider la méthode estimative"
+description = "Constituer le dossier versionné de méthode et de répartition calories/P/G/L à partir de sources primaires vérifiées, arrêter ses entrées, exclusions et règles de modification avec exemples de référence, puis obtenir et consigner la validation datée du responsable avant toute implémentation automatique."
+verify = "Relire le dossier sourcé, reproduire indépendamment les exemples et cas limites, vérifier la matrice d'exclusions et la règle de recalcul, puis constater la preuve explicite de validation couvrant ces éléments."
+covers = ["CAL-1", "CAL-3", "CAL-4"]
+after = []
+hitl = true
+risk = "high"
+unknown = "Aucune formule, répartition ni exclusion n'est sélectionnée ; le responsable de validation et son accord réel doivent être obtenus ici."
+plan_checkpoint = false
+done_checkpoint = true
+
+[[entry]]
+id = 2
+type = "story"
+title = "Relier le premier calcul public à la méthode validée"
+description = "À partir du dossier approuvé de 2.1 et des décimales de 1.2, relier l'accueil au formulaire shadcn du calculateur et à son domaine pur en mémoire, afficher les quatre résultats et hypothèses d'un cas valide, avec refus préalable des cas invalides ou exclus, état sans estimation si la méthode manque et entrée SSR indépendante de l'auth distante, en adaptant les sondes et tests touchés sans masquer les erreurs privées."
+verify = "Depuis l'accueil sans compte, obtenir le résultat de référence approuvé, retrouver unités et hypothèses, constater l'absence d'estimation pour méthode absente ou entrée invalide ou exclue, inspecter réseau, URL et stockages pour vérifier qu'aucun profil ne quitte la mémoire du parcours, puis simuler une panne auth/Convex dès l'entrée SSR et vérifier l'accès public et la remontée distincte des erreurs privées."
+covers = ["CAL-2", "CAL-3", "CAL-5", "CAL-6"]
+after = [1, "1.1", "1.2"]
+hitl = false
+risk = "high"
+unknown = "Le formulaire et les calculs exacts dépendent uniquement des décisions approuvées de 2.1 ; réutiliser AD-12 sans modifier localement ses limites et prendre en charge explicitement les intermédiaires signés si la méthode les exige."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Vérifier exclusions limites et reprise après erreur"
+description = "Compléter le domaine et le parcours de 2.2 pour tous les domaines d'entrée et exclusions approuvés, invalider le résultat dès modification et fournir erreurs françaises liées aux champs, résumé accessible et reprise conservant les saisies sans conseil médical improvisé."
+verify = "Exécuter la matrice approuvée de cas limites et exclus, notamment les décimales françaises et valeurs non prises en charge, puis modifier un résultat valide en entrée refusée et vérifier qu'aucun ancien résultat actuel ne subsiste et que les saisies restent corrigeables."
+covers = ["CAL-3", "CAL-5", "CAL-6"]
+after = [2]
+hitl = false
+risk = "high"
+unknown = "La liste des situations refusées et les messages explicatifs viennent de 2.1 ; aucune population exclue ni borne scientifique n'est ajoutée par intuition."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 4
+type = "story"
+title = "Modifier la cible avec recalcul cohérent"
+description = "Étendre le domaine et le formulaire sécurisés de 2.3 pour modifier explicitement la cible calories/P/G/L selon les règles approuvées de 2.1, distinguer estimation et modification, recalculer sans arrondi intermédiaire et préserver les hypothèses et le brouillon en mémoire."
+verify = "Reproduire les exemples approuvés de modification et recalcul, refuser une combinaison non prise en charge sans correction silencieuse et vérifier qu'un retour dans le parcours conserve les valeurs exactes sans réutiliser leur arrondi affiché."
+covers = ["CAL-4", "CAL-5", "CAL-6"]
+after = [3]
+hitl = false
+risk = "high"
+unknown = "La relation entre calories et macros et les champs modifiables doivent être définis en 2.1 ; aucune règle 4/4/9 ou répartition implicite n'est présumée."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 5
+type = "story"
+title = "Mesurer les calculs terminés sans profil"
+description = "Relier les résultats valides de 2.4 au contrat calculator_completed de 1.4 par un collecteur Convex public à enveloppe fermée, déduplication par eventId, protection contre les envois abusifs, purge à 30 jours et bilan réservé à l'exploitation, sans profil ni dépendance du calcul à la collecte."
+verify = "Vérifier qu'un calcul et une modification valides émettent chacun une intention distincte, qu'un rendu ou retour ou échec n'émet rien, que le retry du même eventId compte une fois, que les champs supplémentaires et accès au bilan sont refusés qu'une panne de collecte laisse le résultat gratuit utilisable, puis avancer l'horloge pour vérifier la purge à 30 jours et exercer la protection documentée contre les envois abusifs."
+covers = ["CAL-5", "CAL-7"]
+after = [4, "1.4"]
+hitl = false
+risk = "medium"
+unknown = "Les mesures navigateur déclarent un usage sans prouver une personne distincte ; documenter les limites de fiabilité et faire vérifier la politique de conservation avant ouverture publique."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 6
+type = "story"
+title = "Finaliser le parcours mobile clavier et navigation"
+description = "Vérifier et corriger la composition shadcn et les tokens du parcours instrumenté de 2.5, ses labels, unités, focus, annonces et erreurs, le réagencement mobile et la conservation du brouillon lors du retour, en maintenant l'estimation utilisable lorsque Convex est indisponible."
+verify = "Parcourir calcul, refus, correction et modification au clavier, vérifier noms et annonces accessibles, contrastes et cibles tactiles, puis contrôler zoom à 200 %, largeur de 320 px, retour de navigation et panne réseau sans perte des saisies ni transmission de profil."
+covers = ["CAL-2", "CAL-3", "CAL-4", "CAL-5", "CAL-6"]
+after = [5]
+hitl = false
+risk = "medium"
+unknown = "Les observations peuvent révéler des écarts aux contrats UX ; les corriger dans cette story sans revendiquer une certification WCAG non démontrée."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Nettoyage de clôture du calculateur"
+description = "Traiter les duplications et dettes du calculateur relevées dans les plans et revues de 2.1 à 2.6 en préservant méthode approuvée, contrats numériques, mesures et composants partagés, sans déplacer de fonctionnalité manquante dans ce nettoyage."
+verify = "Relier chaque nettoyage à un constat de construction et exécuter les contrôles statiques ainsi que les tests de non-régression des zones modifiées avec les résultats de référence inchangés."
+covers = ["CAL-2", "CAL-3", "CAL-4", "CAL-5", "CAL-6", "CAL-7"]
+after = [1, 2, 3, 4, 5, 6]
+hitl = false
+risk = "medium"
+unknown = "Le périmètre exact se déduit des constats de build ; une capacité manquante nécessite une entrée distincte et ne devient pas du nettoyage."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 8
+type = "story"
+title = "Livrer et vérifier le calculateur de bout en bout"
+description = "Sur l'environnement SSR isolé livré par 1.5, publier le collecteur backend puis le frontend nettoyés de 2.7 et exercer une recette intégrée de CAP-1 avec preuves datées, mesure publique et refus d'accès personnel, en documentant la livraison de production soumise aux validations de lancement."
+verify = "Exécuter sur la cible HTTPS les scénarios anonymes valide, modification, exclusion, méthode indisponible, retour et panne de collecte, vérifier absence de profil réseau ou stockage et refus des opérations privées, puis consigner révision, résultats, accès au bilan et procédure de livraison sans ouverture publique."
+covers = ["CAL-1", "CAL-2", "CAL-3", "CAL-4", "CAL-5", "CAL-6", "CAL-7", "CAL-8"]
+after = [7, "1.5"]
+hitl = true
+risk = "high"
+unknown = "Réutiliser les accès de test du socle ; les interventions fournisseur restent humaines si ces accès manquent, et l'ouverture publique relève d'epic-validation-lancement."
+plan_checkpoint = false
+done_checkpoint = false
