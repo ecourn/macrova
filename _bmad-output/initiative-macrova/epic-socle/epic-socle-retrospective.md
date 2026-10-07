@@ -1,9 +1,9 @@
 ---
 epic: epic-socle
-date: 2026-10-07T14:20:11Z
-verdict: rejected
+date: 2026-10-07T18:17:22.404688Z
+verdict: accepted-with-open-items
 criteria: declared
-headless: false
+headless: true
 ---
 
 # Rétrospective du socle
@@ -150,9 +150,9 @@ Les reports internes à cet épic ont été recontrôlés séparément : portabi
 Les préventions proposées ciblent des branches ou preuves manquantes établies. Faute de journaux de session complets, aucune causalité de processus (« ticket précipité », mauvaise coordination ou intention abandonnée) n’est affirmée.
 
 
-## Acceptance verdict
+## Verdict historique — avant remédiation
 
-**Verdict machine : `rejected`. Critères déclarés. Épic non accepté à ce stade.**
+**Verdict historique du premier examen : `rejected`. Critères déclarés. Remplacé par le verdict actuel ci-dessous.**
 
 Aucun pending_tickets : le rejet n’est pas causé par 1.6 built/review. Aucune décision humaine d’acceptation ou d’override fournie ; la délégation des questions et du jugement autorise la présente conclusion, sans inventer une acceptation humaine.
 
@@ -238,3 +238,92 @@ Revue quick indépendante du correctif : aucun défaut établi, 29 tests ciblés
 réexécutés avec succès. Backend local jetable arrêté et état auth/secret
 synthétiques supprimés. Remédiation locale achevée, réception humaine suivie
 séparément et publication du correctif non effectuée.
+
+
+## Réexamen autonome — 7 octobre 2026, après publication
+
+### Inventaire actualisé (phase 1)
+
+Reprise du document existant, sans refaire les phases déjà documentées. HEAD contrôlé : `3a696875c24ce7bd92953de2d9adb052a7c3903a`. `status` avec le chemin absolu du dossier confirme sept tickets done et 1.6 built/review ; `pending_tickets = []`. La plage originale de 1.6 reste arrêtée à `2027091`, commit de clôture ; les remédiations postérieures sont attribuées séparément à `2027091..3a696875`, sans étendre artificiellement la construction de 1.6. Pré-pass git_evidence exécuté : quatre commits, zéro merge, zéro révision binaire non mesurée. Les trois commits utiles au réexamen sont `6aaa299` (corrections), `1b7e060` (UI) et `3a696875` (preuve de publication) ; `a97e0db` ajoute le rapport initial.
+
+Sources complémentaires : plans `../plan-corriger-actions-retrospective-socle.md` et `../plan-publier-corrections-socle-test.md`, `app/docs/livraison-ssr-test.md`, code et tests actuels. Les plans transversaux au champ ticket vide ne sont pas des tickets supplémentaires de cet épic ; les avertissements de découverte ne changent pas la liste de huit tickets. Les journaux de conversation demeurent absents. Les preuves de reprise restent historiques, aucun nouvel exercice de restauration n’est annoncé.
+
+### Assumptions
+
+- Mode headless retenu conformément à la délégation de toutes les questions ; épic sélectionné par son slug puis dossier absolu. L’erreur du premier status sur le nom court a été corrigée par le chemin réel, conformément à la demande de poursuivre après obstacle.
+- Priorité aux frontières auth/SSR et à la correspondance entre code corrigé et cible publiée ; aucune discussion collective demandée.
+- Le jugement sera fondé sur les preuves actuelles, sans inventer de décision humaine d’acceptation. Chaque action supplémentaire restera une proposition ; seul ce document sera modifié.
+
+### Findings — réconciliation et revue (phase 2)
+
+Les constats initiaux et leur verdict sont conservés comme historique. L’état courant suivant prévaut sur les mots « localement » ou « non publié » des sections antérieures.
+
+- **F1/A1 et F2/A2 : résolus et publiés.** `app/src/lib/auth-server.ts:35` refuse token vide/blanc ; `:64` convertit les réponses 5xx en erreur commune ; `:73` renvoie uniquement code/UUID. Tests `app/tests/config/auth-server.test.ts` et `auth-consumer.test.ts`, commit `6aaa299414bdf5c975d6a9d78aab9261fdbbb566`. Le relevé Render lu pendant ce réexamen confirme `dep-db38e2mgekts73ak9n60`, statut live, SHA `1b7e060328c7a32153f41ecb0c83cb1179553830`, terminé à `2026-10-07T17:54:09.812142Z`. Cette publication comprend le correctif auth. Disposition : accept as-is, clôture des remédiations A1/A2.
+- **F3/A3 : résolu.** Le vrai consommateur et le vrai ConvexHttpClient sont exercés dans `app/tests/config/auth-consumer.test.ts:75` et `:106` : résultat, Authorization, erreurs HTTP/Convex, absence de cause/données/log brut. Les mutations déjà documentées dans le plan de correction sont des preuves historiques, non répétées ici. Disposition : accept as-is, A3 clôturée ; conserver cette couverture.
+- **F6/A6 : réconciliation documentaire réalisée.** Compléments datés dans épic, architecture, README et exploitation via `6aaa299`, nouvelle publication consignée par `3a696875`. Réception humaine des alertes toujours non établie (`../deferred-work.md:56`). Disposition : accept as-is pour la réconciliation ; suivi distinct A6b pour la notification. L’exécution actuelle du cron n’a pas été réinterrogée ; ses preuves datées restent historiques.
+- **F4/A4, F5/A5, F7/A7 : restent différés.** Relecture de `app/src/lib/auth-server.ts:26` (aucune borne), `app/src/domain/food.ts:19` et `:58` comparés à `access.ts:15` (date non bornée par Date), `access.ts:9` (version de fermeture implicite). Aucun consommateur métier nouveau dans le diff complémentaire. Leurs périmètres et responsables sont ceux du tableau initial ; ils ne sont pas réinterprétés comme régressions introduites par les corrections.
+
+**F8 — Deux assertions du test compilé à renforcer (adversarial, confirmé par relecture).** `app/tests/integration/start-abort.mjs:185` accepte HTTP500 sans compter le passage effectif dans `/api/query` ; une panne préalable pourrait satisfaire cette assertion. `:218` vérifie seulement le total de logs >= 3 alors que les scénarios RPC/5xx/SSR ont déjà généré des logs ; la disparition des logs d’abandon ne ferait pas nécessairement échouer ce seuil. Le test consommateur distinct protège la query actuelle : ce constat limite la force probante du test compilé, sans invalider A3. Instance : defer (A8). Prévention : relier chaque assertion de panne au passage backend attendu et mesurer les logs par scénario, plutôt qu’un total mêlant plusieurs déclencheurs.
+
+**F9 — Corps backend 5xx abandonné sans libération explicite (edge-case-hunter, confirmé sur le code ; conséquence inférée).** `app/src/lib/auth-server.ts:64` jette la Response sans lire ni annuler son corps ; le SDK installé `app/node_modules/@convex-dev/better-auth/src/react-start/index.ts:77` transmet le fetch brut. Avec un corps volumineux ou continu, cela peut retenir des ressources de transport jusqu’à leur libération implicite. Aucun épuisement observé ni charge reproduite : il s’agit d’un risque de gestion de ressources, distinct de la fuite désormais corrigée. Instance : defer (A9). Prévention : traiter le cycle de vie du corps rejeté, annulation sans attente susceptible de bloquer, et vérifier que la sanitation reste immédiate même si l’annulation échoue.
+
+Revue bmad-review complémentaire sur `/tmp/macrova-retro-update.diff` (`2027091..3a696875`, surfaces app/src, app/tests et .github), trois reviewers indépendants. Adversarial : deux observations regroupées en F8 ; edge-case-hunter : F9 ; verification-gap : aucun constat. Rapports recontrôlés sur sources primaires ; aucun quota de constats artificiellement rempli. Cette revue complète la revue originale, sans prétendre réexaminer tout le diff initial.
+
+**Vues agrégées actualisées.** Pré-pass déterministe : auth-server net +9 lignes ; auth-consumer +123 ; auth-server.test +88 ; intégration +63 ; routes login/dashboard +1 chacune. Aucun nouveau service métier ni modification du schéma dans cette plage. Inspection des imports : les routes composent désormais `@/components/ui` ; auth conserve SDK → wrapper erreur et client Convex côté serveur ; domaine inchangé. Aucune nouvelle duplication ou god-class établie sur ces surfaces. Graphe exhaustif et détecteur de clones non exécutés à nouveau : la vue originale reste la référence, actualisation limitée aux imports et responsabilités changés. Les décisions test et limites production sont désormais réconciliées ; contrats et modules futurs gardent leur périmètre d’origine.
+
+### Behavior verification — exécutée pendant le réexamen
+
+- `bun run test` depuis app : **195/195**, 19 fichiers, zéro skip, sortie 0.
+- `bun run monitor:socle` : **SOCLE_SSR_OK / SOCLE_CONVEX_OK**, sortie 0.
+- `E2E_AUTH_EMAIL="" E2E_AUTH_PASSWORD="" E2E_BASE_URL=https://macrova-socle-test.onrender.com bun run test:e2e:remote` : **6/6**, sortie 0. Inscription, protection avant hydratation, persistance, révocation, connexion/déconnexion, refus anonyme, fermeture, isolation et contrats privés réellement exercés sur la cible corrigée. Comptes synthétiques prévus par les scénarios, aucun compte réel utilisé, traces/captures désactivées.
+- `node --test tests/integration/start-abort.mjs` : **1/1**, sortie 0, sur la sortie compilée préexistante. Résultat observé : HTTP500/503 sanitizés, JWT vide/blanc et query rejetée HTTP500 sans fuite, trois POST interrompus, douze logs code/UUID, CSRF403, RPC invalides400 et accueil/RPC valide200. Pas de nouveau build ; preuve de compilation de la révision dans le plan de publication. Limites d’assertion F8 explicitement retenues.
+- Navigateur collaboratif T3 : preview_status puis preview_open ont signalé explicitement aucun host disponible ; recette Playwright du projet utilisée conformément à ce retour. Aucun test interactif complémentaire prétendu.
+
+Types, check et build réussis dans le plan de publication ne sont pas présentés comme exécutés à nouveau. Aucun code applicatif modifié. Aucune restauration destructrice, panne cloud synthétique ou validation de production effectuée.
+
+### Previous-retro follow-through — actualisation
+
+Aucun épic précédent (socle premier dans l’ordre). En revanche, suivi de cette même rétrospective : A1/A2/A3/A6 réalisées par `6aaa299`, publication de A1/A2 attestée par Render et `app/docs/livraison-ssr-test.md` section Actualisation du 7 octobre (`3a696875`). A4/A5/A7 sans réalisation identifiée, conformes aux reports déclarés. La réception humaine de A6 n’est pas établie : elle devient A6b, sans transformer absence de preuve en preuve d’échec.
+
+### Action items — état courant (phase 4)
+
+**Dix actions au total dans la trace : quatre clôturées (A1/A2/A3/A6), six ouvertes.** Les six actions ci-dessous sont proposées, non appliquées par ce réexamen ; propriétaires par rôle, sans engagement humain inventé.
+
+| ID | Disposition | Action et preuve de clôture | Responsable proposé |
+| --- | --- | --- | --- |
+| A4 | defer | Borne JWT couvrant transport et corps ; panne bloquée rendue UNAVAILABLE, test synthétique. | Propriétaire socle auth/SSR |
+| A5 | defer | Prédicat UTC commun pour capturedAt/density.capturedAt ; tester borne Date et dépassement sur domaine/transport avant adoption catalogue. | Propriétaire domaine partagé et catalogue |
+| A7 | defer | Clarifier version de fermeture et évolution compatible dans le contrat avant consommation demandes de données ; aucune migration implicite. | Architecte et propriétaire demandes de données |
+| A6b | defer | Établir réception de notification d’échec par le responsable lors d’un incident ou test de canal autorisé ; consigner une preuve datée sans données sensibles. | Propriétaire dépôt/exploitation |
+| A8 | defer | Compteur /api/query : passage en mode valid, absence en empty/blank ; delta de logs après chaque abandon. Les assertions doivent échouer si l’on supprime l’appel ou le log ciblé. | Propriétaire vérification SSR |
+| A9 | defer | Libérer explicitement le corps 5xx rejeté sans retarder la réponse sanitizée ; vérifier corps ouvert et échec d’annulation. | Propriétaire socle auth/SSR |
+
+Préventions proposées : maintenir tests du consommateur réel et des réponses HTTP d’erreur ; pour A8 relier chaque preuve à son déclencheur ; pour A9 intégrer la libération des ressources au contrat de refus. Ce sont des propositions issues des sources, pas des causes de processus reconstruites sans journaux.
+
+## Acceptance verdict
+
+**Verdict machine actuel : `accepted-with-open-items`. Critères déclarés.** Remplace le rejet historique ; aucune décision humaine d’override n’est inventée. `pending_tickets = []` ; 1.6 built/review n’impose pas un rejet et reste sans changement de statut.
+
+| Done when | Évaluation actuelle |
+| --- | --- |
+| 1 — Public/session fiables sur test isolé | Satisfait dans le périmètre du socle : 6/6 HTTPS sur correctif publié, JWT malformé rejeté, HTTP401 distinct ; timeout A4 suivi. |
+| 2 — Définitions communes versionnées | Satisfait avec réserve de clarification A7 déjà non bloquante ; domaine/contrats livrés, tests 195/195. Borne d’horodatage A5 à traiter avant nouveau consommateur. |
+| 3 — Publication, secrets, restauration documentés/exercés | Satisfait pour l’environnement isolé : backend puis frontend attestés dans le plan de publication, SHA Render vérifié, preuve historique de reprise locale/SSR conservée. Réception humaine et reprise cloud totale ne sont pas déclarées acquises. |
+| 4 — Intégré sur cible avec erreurs et accès interdits | Satisfait : recette réelle 6/6, corrections auth publiées, pannes synthétiques exercées localement. F8 limite deux assertions, sans supprimer les preuves indépendantes de sanitation. Ouverture publique reste conditionnée aux validations de lancement. |
+
+Aucun constat bloquant actuel établi. F8/F9 sont différés avec propriétaires et preuves attendues ; absence de panne de charge réelle explicitée. Cette acceptation porte sur le socle de test, sans prononcer l’acceptation des modules métier ou de la production.
+
+### Open questions — décisions prises et limites
+
+Aucune question requise pour achever le réexamen. Pour la version de fermeture, conserver le contrat actuel et proposer sa clarification via A7 ; ne pas ajouter de champ obligatoire dans une rétrospective. Pour les notifications, maintenir « non établi » via A6b. Pour le lancement, conserver les validations dans leurs epics propriétaires. Les preuves temporaires historiques restent non portables ; la documentation versionnée et les nouvelles observations constituent les références durables disponibles.
+
+### Assumptions — décisions finales autonomes
+
+- Verdict retenu `accepted-with-open-items` sur la révision publiée vérifiée ; aucun override humain supposé.
+- A1/A2/A3 et partie documentaire A6 considérées clôturées sur sources primaires ; publication n’est plus un obstacle. Réception humaine extraite en A6b pour garder visible sa preuve manquante.
+- A4/A5/A7 restent proposées avec leurs responsabilités initiales. A6b, A8 et A9 sont proposées et différées, aucune correction ou réconciliation supplémentaire exécutée.
+- Périmètre du réexamen limité au delta post-rétrospective et aux parcours du socle ; preuves de reprise lues historiquement, non répétées. Aucun dialogue de groupe ni validation produit/production inventé.
+
+### Finalisation (phase 5)
+
+Réexamen terminé : inventaire réconcilié, revue et behavior check terminés, discussion collective non demandée, actions routées et verdict actualisé. Seul `epic-socle-retrospective.md` modifié dans le dépôt ; aucun statut, plan, story, épic, code ou configuration modifié. Aucun commit, push ou déploiement. Artefacts ignorés et comptes synthétiques créés par la recette conformément à son fonctionnement documenté.
