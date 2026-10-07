@@ -22,7 +22,7 @@ id = 3
 slug = "epic-catalogue"
 title = "Aliments sourcés et corrections privées"
 covers = ["CAP-3"]
-after = [{ epic = 1, needs = "FoodSnapshot, contrôles serveur et fermeture du compte" }, { epic = 10, needs = "repas réels et 50 requêtes candidates pour l’audit" }]
+after = [{ epic = 1, needs = "FoodSnapshot, contrôles serveur et fermeture du compte" }, { epic = 10, needs = "corpus privé de 50 requêtes candidates issues des repas réels, livré par 10.5 pour l’audit" }]
 
 [[epic]]
 id = 4
@@ -64,4 +64,4 @@ id = 9
 slug = "epic-validation-lancement"
 title = "Validation d’usage et ouverture maîtrisée"
 covers = []
-after = [{ epic = 10, needs = "quinze entretiens et protocole figé" }, { epic = 2, needs = "calculateur utilisable et mesure publique disponible" }, { epic = 3, needs = "audit de couverture" }, { epic = 5, needs = "paiement opérationnel et capacités de rapprochement des encaissements, remboursements et renouvellements" }, { epic = 7, needs = "activation et réutilisation mesurables" }, { epic = 8, needs = "contrôle des données livré" }]
+after = [{ epic = 10, needs = "dossier final privé de quinze entretiens et protocole figé remis par 10.7" }, { epic = 2, needs = "calculateur utilisable et mesure publique disponible" }, { epic = 3, needs = "audit de couverture" }, { epic = 5, needs = "paiement opérationnel et capacités de rapprochement des encaissements, remboursements et renouvellements" }, { epic = 7, needs = "activation et réutilisation mesurables" }, { epic = 8, needs = "contrôle des données livré" }]

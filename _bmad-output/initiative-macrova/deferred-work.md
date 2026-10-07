@@ -76,3 +76,7 @@ L’entrée de notification ci-dessus correspond à A6b et n’est pas une septi
 
 Les validations de lancement et la reprise cloud complète de production restent
 hors de cette clôture, conformément au périmètre accepté de la rétrospective.
+
+- source_plan: `_bmad-output/initiative-macrova/epic-calculateur/story-documenter-et-valider-la-methode-estimative-plan.md`
+  summary: Réception effective de la décision du responsable sur la méthode estimative v1 toujours nécessaire à l'acceptation finale de 2.1.
+  evidence: Revue quick de reprise du 7 octobre 2026 ; validation.md conserve identité, rôle, date et preuve absents. Formulaire décision-responsable préparé et non signé ; condition externe préexistante conservée dans 2.1, aucune autorisation de 2.2.

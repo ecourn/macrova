@@ -1,45 +1,101 @@
 ---
-title: "Dossier et validation réelle de la méthode estimative v1"
-type: chore
+title: '2.1 — Documenter et valider la méthode estimative'
+type: 'feature'
 ticket: 1
-created: 2026-10-07
-status: in-progress
-baseline_revision: b44758a9b3dcc4c60a3fe73b85e63568b8b4d057
-route: oneshot
-route_source: auto
-review: quick
-review_source: pinned
-lenses_ran: []
+created: '2026-10-07'
+status: 'blocked'
+blocked_at: '2026-10-07'
+blocked_reason: 'Préparation complète ; seul reste l’accord réel daté et vérifiable du responsable sur methode-estimative-v1, confirmé absent par l’utilisateur. 2.2 non autorisée.'
+baseline_revision: 'b44758a9b3dcc4c60a3fe73b85e63568b8b4d057'
+route: 'full'
+route_source: 'auto'
+review: 'quick'
+review_source: 'pinned'
+lenses_ran: ['quick']
+acceptance: 'awaiting-real-validation'
+implementation_authorized: false
 review_loop_iteration: 0
-context: []
+context:
+  - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/initiative-macrova/epic-calculateur/methode-estimative-v1/sources-verifiees.md
+  - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/initiative-macrova/epic-calculateur/epic-calculateur.md
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
 
 ## Intent
 
-**Problème :** La story 2.1 exige un dossier sourcé et une validation réelle avant implémentation. Le dépôt contient seulement l’inception, qui affirme explicitement que cette validation n’a pas eu lieu.
+**Problem:** La story 2.1 exige un dossier sourcé avant l'implémentation du calculateur. Aucune méthode et aucun responsable de validation ne sont actuellement approuvés.
 
-**Approche :** Produire un dossier candidat versionné comprenant sources primaires vérifiées, formule, entrées, exclusions, répartition et modifications explicites ; reproduire ses exemples indépendamment et consigner dans un registre la preuve effectivement disponible. L’utilisateur délègue les arbitrages courants et demande de poursuivre sans questionnaire. Cette délégation autorise la préparation, mais ne fournit ni identité de validateur ni accord sur un dossier qui n’existait pas encore. Ne pas fabriquer cet accord, ne pas clôturer 2.1 et ne pas autoriser 2.2 en son absence.
+**Approach:** Livrer une proposition v1 entièrement définie, des exemples exacts reproductibles et un registre de validation prêt à signer. L'utilisateur délègue les arbitrages et l'approbation du plan ; cette délégation ne fournit pas un accord nutritionnel réel sur une méthode encore inconnue.
 
-Décision déléguée du 2026-10-07 : route documentaire directe, sans modification applicative ni changement des contrats parents. Les choix nutritionnels restent candidats à examiner par le responsable ; la validation arithmétique par agents ne vaut pas validation nutritionnelle humaine.
+## Boundaries & Constraints
+
+**Always:** Français, références primaires vérifiées et datées, distinction faits scientifiques/choix de produit, version unique, critères de refus déterministes. Accord explicite daté d'un responsable réel nécessaire à l'acceptation finale ; les tâches documentaires sont achevables sans cet accord.
+
+**Never:** Modifier app/, les tickets ou le contrat parent ; implémenter un estimateur dans l'application ou dans un script ; déclarer une validation réelle obtenue sans preuve ; inventer une prescription, inférer des calories alimentaires ou transférer le profil vers un compte.
+
+## Décisions proposées pour examen
+
+- Mifflin simplifié : R=10W+6,25H−5A+c, c=5 ou −161 selon le groupe de l'étude ; E0=R×PAL. Maintien uniquement. PAL 1,4/1,6/1,8/2,0 et descriptions qualitatives couvrant toute la journée ; pas de correspondance automatique séances/PAL, pas d'ajout d'exercice.
+- Défaut P/G/L=15/45/40 % d'E0 ; conversions 4/4/9 seulement pour la cible théorique. Refuser si P<0,83W ; ne jamais corriger silencieusement. Répartition admise : P10–20 %, G40–55 %, L35–40 %, bornes inclusives proposées.
+- Domaine produit volontairement réduit : âge entier19–64 inclus, taille120–220 cm inclus, poids30–200 kg inclus, IMC calculé exact18,5≤IMC<30. Ce sont des choix de couverture, pas le domaine validé de l'étude ni des garanties de santé. Entrées décimales françaises selon AD-12 ; aucun IMC saisi ni date de naissance, objectif pondéral ou masse grasse.
+- Exclusions : grossesse/allaitement, trouble alimentaire actuel ou antérieur, pathologie/traitement influençant besoins ou poids, prescription nutritionnelle, sport intensif/compétition, coefficient de l'étude non applicable ou incertain (notamment contexte hormonal non couvert). Une déclaration globale d'éligibilité oui/non/incertain suffit ; aucune collecte détaillée de diagnostic. Non ou incertain refuse. Coefficient non choisi refuse, sans déduction de l'identité de genre.
+- Modification explicite d'un champ à la fois, sans changer le profil : E entre0,9E0 et1,1E0 (référence originale, sans cumul), conserve les proportions exactes actuelles ; modifier P conserve E et L, recalcule G=(E−4P−9L)/4 ; modifier L conserve E et P, recalcule G ; modifier G conserve E et P, recalcule L=(E−4P−4G)/9. Prévisualiser les changements avant validation explicite. Refuser tout négatif, fractions hors intervalles ou P<0,83W, sans clamp. Plusieurs champs envoyés ensemble refusés. Changement de profil invalide toutes les cibles, nouveau calcul explicite remet au défaut. Réinitialisation explicite revient à E0 et défaut.
+- AD-12 : exact rationnel jusqu'à affichage centième demi supérieur, aucune réinjection d'arrondi ; expliquer les fractions périodiques et les intermédiaires signés, non gérés aujourd'hui par rational(). État méthode indisponible distinct d'entrée invalide/exclusion ; aucun ancien résultat actuel après changement.
 
 </frozen-after-approval>
 
+## Code Map
+
+- `methode-estimative-v1/sources-verifiees.md` — preuves de lecture S1–S5 déjà contrôlées, à conserver.
+- `../../spec-macrova/spec-macrova.md` et compagnons — CAP-1 et validation préalable ; aucune formule adoptée.
+- `../architecture-app/architecture-app.md`, AD-2/AD-12 ; `../../ux-macrova/EXPERIENCE.md` — frontières numériques, états et accès public.
+- `../../../app/src/domain/decimal.ts` — normalisation française et rationnels non négatifs ; ne pas modifier en 2.1.
+- `tickets.toml` entrée1 — hitl/done_checkpoint réel ; ne pas modifier.
+
+## Tasks & Acceptance
+
+**Execution:**
+- [x] `methode-estimative-v1/methode-estimative-v1.md` — écrire méthode, unités, ordre des gardes, hypothèses, messages, exclusions et recalcul déterministes ; lier les compagnons et les sources.
+- [x] `methode-estimative-v1/exemples-reference.json` et `exemples-reference.md` — fournir au moins trois profils synthétiques avec résultats rationnels et affichages vérifiés, modifications des quatre champs, reset et matrice complète des bornes/refus. Vecteurs pour futures stories, pas de moteur applicatif.
+- [x] `methode-estimative-v1/validation.md` — preuve de vérification documentaire/numerique séparée du consentement réel, statut en attente, conditions précises de signature, responsable/date/preuve non inventés, couverture CAL-1/3/4 et suite 2.2 toujours fermée.
+- [x] `methode-estimative-v1/verification.md` — consigner reproduction arithmétique exacte et intégrité des liens/JSON/versions ; calculs via Python Fraction dans une commande temporaire, sans livrer un second moteur.
+
+- [x] `methode-estimative-v1/decision-responsable.md` — formulaire exploitable de décision, six points de couverture et quatre empreintes vérifiables, sans signature présumée.
+- [ ] Recevoir et consigner la décision réelle datée du responsable sur la version et ses pièces ; seule action restante, dépendante d’une preuve externe.
+
+**Acceptance Criteria:**
+- Given les sources vérifiées, when le dossier est relu, then chaque formule et coefficient a une référence, et chaque choix produit est identifié comme proposé.
+- Given un profil synthétique éligible, when ses équations et conversions sont reproduites indépendamment en Fraction, then résultats exacts et arrondis correspondent aux vecteurs et 4P+4G+9L=E.
+- Given chacune des bornes et exclusions, when la matrice est lue, then son résultat attendu et son message sont déterministes, sans estimation pour un refus.
+- Given une modification de chaque champ, when le recalcul est reproduit, then les valeurs conservées/recalculées, bornes et absence d'arrondi intermédiaire sont vérifiables.
+- Given aucun accord réel du responsable, when le registre est lu, then aucune validation ni autorisation d'implémentation automatique n'est annoncée ; l'acceptation finale demeure ouverte.
+- Given un responsable identifié et un accord daté couvrant la version et tous les éléments, when sa preuve est effectivement reçue et consignée, then la clôture de 2.1 peut être décidée. Critère externe impossible à remplacer par l'agent.
+
+## Verification
+
+Reproduire les exemples avec fractions exactes, vérifier JSON et liens relatifs, contrôler la matrice de refus, puis revue indépendante quick. Aucun changement dans app/ : contrôles applicatifs sans pertinence ici.
+
 ## Implementation Notes
 
-- Route oneshot : zéro ligne applicative modifiée ; dossier documentaire et preuves uniquement. Lecture de l’epic, de CAP-1 et de tous ses compagnons, des contrats architecture/UX et du contrat décimal existant.
-- Recherche indépendante du dépôt : aucune validation préalable identifiée. L’inception et le ticket distinguent explicitement la validation scientifique réelle des arbitrages délégués.
-- Livrables : `methode-estimative-v1.md`, `verification-methode-estimative-v1.md`, `validation-methode-estimative-v1.md` dans ce dossier. Le registre est la porte d’entrée pour la reprise ; aucune édition du ticket TOML ni du parent.
+- 2026-10-07 — ticket résolu en passant explicitement le dossier initiative-macrova, faute de sélection locale. Arbre initial propre ; branche dédiée cohérente. Plan approuvé par délégation explicite de l'utilisateur ; accord nutritionnel final non présumé.
 
-## Vérification et acceptation
+- 2026-10-07 — dossier réalisé et vérifié : 3 profils synthétiques, 7 modifications, 112 gardes, 5 transitions et 3 arrondis. Audit indépendant de tous les vecteurs, JSON, liens, commande publiée et SHA-256 réussi. Aucun fichier applicatif modifié.
+- 2026-10-07 — acceptation finale externe non acquise : responsable, rôle et décision réelle manquants ; registre validation.md prêt à recevoir la preuve. Le statut built décrit le dossier préparé/revu, jamais une méthode approuvée ni une autorisation de 2.2.
 
-- Étant donné les sources primaires accessibles, lorsque le dossier est lu, alors chaque formule et référence possède date, lien et localisation ; chaque adaptation Macrova est explicitement distinguée.
-- Étant donné les cas de référence, lorsque les calculs exacts sont reproduits indépendamment, alors les résultats, arrondis, bornes et règles de modification concordent, avec preuves consignées.
-- Étant donné une entrée invalide, exclue, incertaine ou une méthode non approuvée, lorsque l’estimation est envisagée, alors le dossier exige un refus sans résultat actuel et conserve les saisies.
-- Étant donné le dossier final identifié par empreinte, lorsque le responsable donne son accord réel daté couvrant méthode, répartition, entrées, exclusions et modifications, alors le registre conserve identité, rôle, décision et preuve originale. **Ce critère demeure non satisfait sans cet accord ; les contrôles documentaires ne peuvent le remplacer.**
-- Contrôles : reproduction Python avec fractions exactes ; revue indépendante du dossier ; intégrité des références locales et empreinte SHA-256 ; `git diff --check` ; `tickets.py status` pour constater que 2.1 n’est pas clôturée. Aucun test applicatif : aucun changement dans `app/`.
+- 2026-10-07 — reprise demandée pour recueillir la décision réelle : recherche des preuves accessibles sans accord trouvé ; formulaire décision-responsable.md préparé avec empreintes et six points explicites ; registre complété et empreinte de validation.md actualisée. Recueil réel toujours ouvert ; aucune signature remplacée par la délégation.
+
+- 2026-10-07 — l'utilisateur confirme explicitement ne disposer d'aucune décision réelle et vérifiable du responsable. Tous les travaux préparatoires sont terminés ; statut blocked demandé, motif et date consignés. Seule la réception/consignation puis le contrôle de recevabilité de cette décision restent ouverts.
 
 ## Plan Change Log
 
+- 2026-10-07 — arbitrage explicite de l'utilisateur : remplacer le statut built (dossier préparé) par blocked pour rendre visible la dépendance externe de 2.1. La règle de présentation built du workflow cède devant cette instruction ; aucune validation, clôture ou ouverture de 2.2 n'est inférée.
+
 ## Review Triage Log
+
+- 2026-10-07 — quick : 0 constat (high=0, medium=0, low=0, false=0, maybe-false=0), aucune déférence. La validation externe demeure une condition d’acceptation explicitement ouverte, pas une preuve inventée.
+- Audit de clôture : low / patch — la fraction d’exemple d’arrondi 98925/1000 était équivalente mais non réduite, contrairement à la convention documentaire ; remplacée par 3957/40 sans changement numérique, puis empreinte JSON recalculée.
+
+- 2026-10-07 — revue quick de reprise : high / defer — acceptation finale non satisfaite, constat confirmé par validation.md et le formulaire non rempli. Condition externe préexistante, non causée par le support de recueil : accord réel daté toujours absent ; aucune clôture de 2.1 ni autorisation de 2.2. Aucun défaut du support ajouté relevé ; contrôles de reprise conformes. Cette condition reste une exigence de 2.1, pas un transfert à une autre story.
+
+- 2026-10-07 — dernière revue indépendante de cohérence : aucun défaut préparatoire ; audit Fraction des 3 profils, 7 modifications, 112 cas, 5 transitions et 3 arrondis réussi. Commande publiée, correspondance MD/JSON, empreintes finales, liens et diff --check conformes. Statuts blocked/awaiting-real-validation et absence d'autorisation de 2.2 vérifiés ; seule condition restante : décision réelle datée et vérifiable du responsable.
