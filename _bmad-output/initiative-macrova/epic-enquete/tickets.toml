@@ -1,0 +1,100 @@
+# Inception du 2026-10-07 ; ids stables et ordre de réalisation.
+# Les preuves terrain restent dans le support privé ; aucun statut dans ce fichier.
+
+[[entry]]
+id = 1
+type = "story"
+title = "Préparer le kit protégé et figer le protocole"
+description = "Préparer le guide neutre, le filtrage de la cible, les fiches vierges d'entretien et de recherches et la grille bêta conforme à la source, faire définir et approuver par le responsable les données nécessaires, l'information, les accès, la conservation, la suppression et les canaux, puis vérifier le support privé choisi par un parcours complet d'exercice explicitement exclu des résultats réels."
+verify = "Relire les critères bêta contre la source, vérifier leur version datée avant recrutement, parcourir les formats jusqu'aux deux livrables avec un exercice étiqueté simulation, tester un accès autorisé et un accès refusé au support privé et constater l'accord réel du responsable sur information, accès, durées et suppression sans donnée personnelle dans Git."
+covers = ["ENQ-1", "ENQ-3", "ENQ-4", "ENQ-5", "ENQ-6"]
+after = []
+hitl = true
+risk = "high"
+unknown = "Le responsable, le support privé et les règles de collecte doivent être réellement établis et approuvés ici ; aucun accord humain ni conformité ne peut être déduit de l'inception."
+plan_checkpoint = false
+done_checkpoint = true
+
+[[entry]]
+id = 2
+type = "story"
+title = "Éprouver le guide sur un entretien pilote réel"
+description = "Avec le cadre approuvé de 10.1, faire recruter et informer un adulte de la cible, observer sa méthode habituelle sur un repas récent, consigner canal, durée, erreurs, corrections et difficultés dans le support privé, puis corriger le guide et vérifier une première extraction de recherche anonymisée sans modifier les critères bêta."
+verify = "Un responsable autorisé retrouve la preuve privée d'un entretien réel conforme à ENQ-2, distingue observations, déclarations et informations manquantes, suit un aliment jusqu'au format de recherche et confirme que le pilote peut compter comme le premier des quinze sans exposition des identifiants."
+covers = ["ENQ-1", "ENQ-2", "ENQ-3", "ENQ-6"]
+after = [1]
+hitl = true
+risk = "high"
+unknown = "Un participant réel disponible et les autorisations de contact sont nécessaires ; si le pilote est incomplet, le compléter ou le remplacer sans le compter abusivement."
+plan_checkpoint = false
+done_checkpoint = true
+
+[[entry]]
+id = 3
+type = "story"
+title = "Consigner sept entretiens après le pilote"
+description = "À partir du guide éprouvé en 10.2 et du même registre privé, faire conduire sept entretiens supplémentaires de personnes distinctes de la cible, documenter leurs repas récents et leur méthode habituelle observée et conserver canaux, durées, erreurs, corrections, difficultés et manques sans inclure de tâche Macrova."
+verify = "Le responsable contrôle huit entretiens admissibles uniques pilote inclus, chacun relié dans le support privé à un canal, un repas et une observation, avec refus, absences et remplacements séparés et aucune donnée d'exercice comptée."
+covers = ["ENQ-1", "ENQ-2", "ENQ-6"]
+after = [2]
+hitl = true
+risk = "medium"
+unknown = "Le recrutement et l'observation dépendent des disponibilités réelles ; les non-réponses et éléments non observables restent signalés et ne sont pas inventés."
+plan_checkpoint = false
+done_checkpoint = true
+
+[[entry]]
+id = 4
+type = "story"
+title = "Compléter les quinze entretiens réels"
+description = "Poursuivre le registre et le guide de 10.3 avec sept nouveaux entretiens admissibles distincts, contrôler la complétude des quinze fiches et établir une synthèse anonymisée des méthodes, difficultés, corrections et limites sans conclure à une validation du produit ou du prix."
+verify = "Recompter quinze personnes uniques admissibles et vérifier toutes leurs fiches privées contre ENQ-2, puis rapprocher chaque constat de synthèse de ses preuves privées et constater que les personnages fictifs, doublons et entretiens incomplets sont exclus du compte."
+covers = ["ENQ-1", "ENQ-2", "ENQ-6"]
+after = [3]
+hitl = true
+risk = "medium"
+unknown = "Les quinze observations ne garantissent ni représentativité ni cinquante recherches distinctes ; les lacunes sont conservées pour la collecte complémentaire de 10.5."
+plan_checkpoint = false
+done_checkpoint = true
+
+[[entry]]
+id = 5
+type = "story"
+title = "Constituer et transmettre cinquante recherches traçables"
+description = "Extraire des repas vérifiés en 10.4 cinquante recherches candidates au format préparé en 10.1 avec nom, marque pertinente, état connu ou inconnu et unité rapportée, demander si nécessaire des précisions aux mêmes participants sous le cadre approuvé, puis fournir au responsable catalogue le corpus anonymisé avec sa traçabilité conservée dans le support privé sans remplir les résultats d'audit."
+verify = "Le responsable catalogue ouvre cinquante recherches non artificiellement dupliquées incluant aliments bruts, produits français et états cru/cuit, le responsable enquête remonte chacune à un repas réel dans le support privé, et tous constatent que disponibilité, complétude nutritionnelle, provenance catalogue et faisabilité restent à auditer par l'epic 3."
+covers = ["ENQ-1", "ENQ-2", "ENQ-3", "ENQ-5", "ENQ-6"]
+after = [4]
+hitl = true
+risk = "high"
+unknown = "La diversité réelle des repas peut exiger des compléments auprès des participants ; aucune répartition chiffrée de catégories ni couverture Open Food Facts n'est présumée."
+plan_checkpoint = false
+done_checkpoint = true
+
+[[entry]]
+id = 6
+type = "story"
+title = "Nettoyer les documents et formats de clôture"
+description = "À partir des comptes rendus de 10.1 à 10.5, corriger les incohérences des guides, formats et références, retirer les duplications et exemples ambigus et vérifier l'absence de données personnelles dans les fichiers destinés au dépôt sans modifier les observations, les critères figés ni ajouter de périmètre."
+verify = "Comparer les documents avant et après nettoyage, vérifier les références et l'intégrité des critères et formats remis en 10.5 et contrôler les fichiers livrés pour l'absence d'identifiants, notes ou correspondances terrain tout en conservant les preuves dans le seul support privé."
+covers = ["ENQ-1", "ENQ-3", "ENQ-4", "ENQ-5", "ENQ-6"]
+after = [1, 2, 3, 4, 5]
+hitl = false
+risk = "medium"
+unknown = "Le périmètre exact du nettoyage dépend des constats des stories précédentes ; une lacune de collecte ou de couverture devient du travail explicite, pas une retouche de résultat."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Vérifier la remise du dossier et du protocole bêta"
+description = "Après le nettoyage 10.6, faire vérifier aux responsables produit, catalogue et validation de lancement leurs accès privés au dossier final de quinze entretiens, au corpus de 10.5 et au protocole bêta versionné, remettre les limites et questions ouvertes et consigner la recette ainsi que les échéances et responsables de conservation et suppression sans lancer la bêta."
+verify = "Les destinataires confirment leurs accès au corpus et à la synthèse anonymisés et au protocole conforme à ENQ-4, le responsable enquête vérifie les preuves des quinze entretiens et des cinquante recherches, les accès non autorisés sont refusés et les obligations de conservation/suppression ont un responsable et une échéance sans donnée personnelle exposée dans Git."
+covers = ["ENQ-1", "ENQ-2", "ENQ-3", "ENQ-4", "ENQ-5", "ENQ-6"]
+after = [6]
+hitl = true
+risk = "high"
+unknown = "Les responsables destinataires doivent réellement accepter la remise ; les obligations, audits catalogue, invitations bêta et résultats d'usage restent aux travaux qui les possèdent."
+plan_checkpoint = false
+done_checkpoint = true
