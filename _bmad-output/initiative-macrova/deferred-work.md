@@ -22,3 +22,22 @@
 - source_plan: `/home/ubuntu/macrova/_bmad-output/initiative-macrova/epic-socle/story-choix-et-preparation-de-lhebergement-isole-plan.md`
   summary: Résolution des prérequis de 1.7 : accès Render/Convex, régions et budgets vérifiés ; seule la remise du frontend et la recette HTTPS restent à réaliser par 1.5.
   evidence: Preuve Billing fournie par le propriétaire le 6 octobre 2026 : Hobby sans carte ni charges, quotas inutilisés de 750 h Free, 5 GB de bande passante, 500 min pipeline, 25 services et 2 domaines. Les demandes historiques de contrôle Billing et de connexion fournisseur sont résolues ; ne pas les reprendre comme blocages. Conserver Free sans ajout de carte ou supplément et surveiller les quotas partagés avant publication. Aucun frontend distant créé par la préparation.
+
+## Résolution de clôture du socle — 7 octobre 2026
+
+- **Portabilité BMad résolue par 1.6** : `_bmad/render/` est désormais ignoré
+  et retiré du suivi Git, sans modifier ni supprimer les snapshots locaux.
+  La [politique de régénération](../../_bmad/README.md) décrit l’entrée depuis
+  les skills installés dans chaque checkout. L’entrée historique de 1.1 est close.
+- **Reports de 1.7 résolus** : accès, régions et budgets sont vérifiés dans le
+  [plan de préparation](epic-socle/story-choix-et-preparation-de-lhebergement-isole-plan.md).
+  La livraison HTTPS et sa recette 6/6 sont prouvées par le
+  [plan de livraison 1.5](epic-socle/story-livraison-ssr-isolee-et-parcours-integre-plan.md)
+  et la [fiche effective](../../app/docs/livraison-ssr-test.md).
+  Les cinq entrées successives ci-dessus sont closes ; elles restent conservées
+  pour retracer les contrôles et ne doivent plus être reprises comme obstacles.
+- Les plans des autres stories ne conservent aucun défaut applicatif établi.
+  Le cron distant de supervision attend une publication explicite selon
+  [1.8](epic-socle/story-reprise-et-exploitation-du-socle-plan.md) ; cette limite
+  documentée et les validations produit avant lancement restent distinctes
+  des dettes de nettoyage du socle.
