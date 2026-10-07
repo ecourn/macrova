@@ -55,3 +55,24 @@ Les défauts A1/A2 et la lacune A3 découverts ensuite sont traités par le
 - source_plan: `plan-corriger-actions-retrospective-socle.md`
   summary: Confirmer la réception humaine des alertes GitHub d’échec du socle par le propriétaire du dépôt.
   evidence: Cron actif vérifié, mais aucune notification du dépôt ni aucun échec disponible ; préférences de souscription non lisibles (HTTP404/portée notifications). Valider lors d’un incident réel ou d’un test du canal explicitement autorisé, sans confondre réussite du cron et réception humaine.
+
+## Actions maintenues après clôture de l’épic socle — 7 octobre 2026
+
+Decision: la clôture de `epic-socle` conserve les six actions ouvertes de la
+[rétrospective](epic-socle/epic-socle-retrospective.md), section « Action items —
+état courant (phase 4) ». Elles restent différées ; aucun correctif ni engagement
+humain n’est déclaré réalisé par cette clôture. Les responsables ci-dessous sont
+des rôles proposés. A1/A2/A3/A6 sont clôturées selon les preuves de la rétrospective.
+L’entrée de notification ci-dessus correspond à A6b et n’est pas une septième action.
+
+| ID | Action et preuve attendue | Responsable proposé |
+| --- | --- | --- |
+| A4 | Borner l’attente JWT, transport et corps compris ; vérifier qu’un flux bloqué produit UNAVAILABLE avec un test synthétique. | Propriétaire socle auth/SSR |
+| A5 | Partager le prédicat UTC pour capturedAt et density.capturedAt ; tester la borne Date et son dépassement dans le domaine et le transport Convex, avant adoption par le catalogue. | Propriétaire domaine partagé et catalogue |
+| A7 | Clarifier la version du contrat de fermeture et son évolution compatible avant consommation par les demandes de données, sans migration implicite. | Architecte et propriétaire demandes de données |
+| A6b | Prouver la réception humaine d’une notification d’échec lors d’un incident ou d’un test de canal autorisé ; consigner une preuve datée sans données sensibles. | Propriétaire dépôt/exploitation |
+| A8 | Compter les appels /api/query en mode valid et leur absence en empty/blank ; mesurer les logs après chaque abandon. Les assertions doivent échouer si l’appel ou le log ciblé disparaît. | Propriétaire vérification SSR |
+| A9 | Libérer explicitement le corps 5xx rejeté sans retarder la réponse sanitizée ; vérifier un corps ouvert et un échec d’annulation. | Propriétaire socle auth/SSR |
+
+Les validations de lancement et la reprise cloud complète de production restent
+hors de cette clôture, conformément au périmètre accepté de la rétrospective.

@@ -3,7 +3,7 @@ title: 'Nettoyage de clôture du socle'
 type: 'chore'
 ticket: 6
 created: '2026-10-07'
-status: 'built'
+status: done
 baseline_revision: 'ef544fba0e211a47b3d497428ccfc807ca9cb6d1'
 route: 'oneshot'
 route_source: 'auto'

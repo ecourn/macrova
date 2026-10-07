@@ -4,6 +4,7 @@ title: "Socle partagé et livraison maîtrisée"
 parent: initiative-macrova
 covers: []
 risk: high
+status: done
 ---
 
 # Socle partagé et livraison maîtrisée
@@ -72,3 +73,31 @@ coûts, RPO/RTO, SLA, sauvegardes durables ou restauration cloud complète de
 **production**. Une perte totale du composant auth et les conditions de
 lancement restent à vérifier séparément. Ce complément ne modifie pas les
 critères Done when ni le verdict historique de la rétrospective.
+
+## Clôture — 7 octobre 2026
+
+Decision: à la demande du propriétaire, la story 1.6 est marquée `done` via
+`tickets.py mark` et l’épic est clôturé `done`. Les huit stories sont terminées ;
+aucune n’est abandonnée. Le contrôle indépendant `checks.closure` confirme la
+couverture de SOC-1 à SOC-4 et des quatre critères Done when sur les preuves des
+plans et le verdict courant `accepted-with-open-items` de la
+[rétrospective](epic-socle-retrospective.md), section « Acceptance verdict ».
+
+- Done when 1 : parcours public/session sur test isolé, recette HTTPS 6/6 après
+  publication des corrections auth et distinction session absente/panne.
+- Done when 2 : domaine et contrats communs livrés, tests 195/195 consignés dans
+  le réexamen ; clarification A7 et borne d’horodatage A5 conservées.
+- Done when 3 : publication backend puis frontend et secrets documentés ;
+  reprise locale des tables racine et retour SSR exercés selon les preuves des
+  plans 1.5/1.8 et du réexamen.
+- Done when 4 : parcours intégré sur la cible avec erreurs et refus d’accès,
+  recette HTTPS 6/6 et vérifications synthétiques consignées dans le réexamen.
+
+Decision: conserver ouvertes **A4, A5, A7, A6b, A8 et A9**, avec responsables
+proposés et preuves attendues dans le
+[registre des travaux différés](../deferred-work.md), section « Actions maintenues
+après clôture de l’épic socle ». Leur réalisation ne fait pas partie de cette
+opération de clôture ; la rétrospective et ses traces historiques sont conservées.
+Cette acceptation porte sur le socle de test. Les validations de lancement, la
+réception humaine des alertes et la reprise cloud complète de production ne sont
+pas déclarées acquises.
