@@ -3,7 +3,9 @@ title: '2.1 — Documenter et valider la méthode estimative'
 type: 'feature'
 ticket: 1
 created: '2026-10-07'
-status: 'built'
+status: 'blocked'
+blocked_at: '2026-10-07'
+blocked_reason: 'Préparation complète ; seul reste l’accord réel daté et vérifiable du responsable sur methode-estimative-v1, confirmé absent par l’utilisateur. 2.2 non autorisée.'
 baseline_revision: 'b44758a9b3dcc4c60a3fe73b85e63568b8b4d057'
 route: 'full'
 route_source: 'auto'
@@ -59,6 +61,9 @@ context:
 - [x] `methode-estimative-v1/validation.md` — preuve de vérification documentaire/numerique séparée du consentement réel, statut en attente, conditions précises de signature, responsable/date/preuve non inventés, couverture CAL-1/3/4 et suite 2.2 toujours fermée.
 - [x] `methode-estimative-v1/verification.md` — consigner reproduction arithmétique exacte et intégrité des liens/JSON/versions ; calculs via Python Fraction dans une commande temporaire, sans livrer un second moteur.
 
+- [x] `methode-estimative-v1/decision-responsable.md` — formulaire exploitable de décision, six points de couverture et quatre empreintes vérifiables, sans signature présumée.
+- [ ] Recevoir et consigner la décision réelle datée du responsable sur la version et ses pièces ; seule action restante, dépendante d’une preuve externe.
+
 **Acceptance Criteria:**
 - Given les sources vérifiées, when le dossier est relu, then chaque formule et coefficient a une référence, et chaque choix produit est identifié comme proposé.
 - Given un profil synthétique éligible, when ses équations et conversions sont reproduites indépendamment en Fraction, then résultats exacts et arrondis correspondent aux vecteurs et 4P+4G+9L=E.
@@ -80,7 +85,11 @@ Reproduire les exemples avec fractions exactes, vérifier JSON et liens relatifs
 
 - 2026-10-07 — reprise demandée pour recueillir la décision réelle : recherche des preuves accessibles sans accord trouvé ; formulaire décision-responsable.md préparé avec empreintes et six points explicites ; registre complété et empreinte de validation.md actualisée. Recueil réel toujours ouvert ; aucune signature remplacée par la délégation.
 
+- 2026-10-07 — l'utilisateur confirme explicitement ne disposer d'aucune décision réelle et vérifiable du responsable. Tous les travaux préparatoires sont terminés ; statut blocked demandé, motif et date consignés. Seule la réception/consignation puis le contrôle de recevabilité de cette décision restent ouverts.
+
 ## Plan Change Log
+
+- 2026-10-07 — arbitrage explicite de l'utilisateur : remplacer le statut built (dossier préparé) par blocked pour rendre visible la dépendance externe de 2.1. La règle de présentation built du workflow cède devant cette instruction ; aucune validation, clôture ou ouverture de 2.2 n'est inférée.
 
 ## Review Triage Log
 
@@ -88,3 +97,5 @@ Reproduire les exemples avec fractions exactes, vérifier JSON et liens relatifs
 - Audit de clôture : low / patch — la fraction d’exemple d’arrondi 98925/1000 était équivalente mais non réduite, contrairement à la convention documentaire ; remplacée par 3957/40 sans changement numérique, puis empreinte JSON recalculée.
 
 - 2026-10-07 — revue quick de reprise : high / defer — acceptation finale non satisfaite, constat confirmé par validation.md et le formulaire non rempli. Condition externe préexistante, non causée par le support de recueil : accord réel daté toujours absent ; aucune clôture de 2.1 ni autorisation de 2.2. Aucun défaut du support ajouté relevé ; contrôles de reprise conformes. Cette condition reste une exigence de 2.1, pas un transfert à une autre story.
+
+- 2026-10-07 — dernière revue indépendante de cohérence : aucun défaut préparatoire ; audit Fraction des 3 profils, 7 modifications, 112 cas, 5 transitions et 3 arrondis réussi. Commande publiée, correspondance MD/JSON, empreintes finales, liens et diff --check conformes. Statuts blocked/awaiting-real-validation et absence d'autorisation de 2.2 vérifiés ; seule condition restante : décision réelle datée et vérifiable du responsable.

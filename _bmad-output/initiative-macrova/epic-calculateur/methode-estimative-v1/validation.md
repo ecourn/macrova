@@ -1,6 +1,6 @@
 # Registre de validation — proposition v1
 
-Version soumise : `methode-estimative-v1`, dossier préparé le **7 octobre 2026**. **Statut : EN ATTENTE — aucune approbation nutritionnelle réelle, aucune autorisation d'implémentation d'estimation automatique.** La story 2.1 demeure ouverte à l'acceptation finale et la suite 2.2 reste fermée.
+Version soumise : `methode-estimative-v1`, dossier préparé le **7 octobre 2026**. **Statut : BLOQUÉE / EN ATTENTE DE VALIDATION EXTERNE — aucune approbation nutritionnelle réelle, aucune autorisation d'implémentation d'estimation automatique.** La story 2.1 demeure ouverte à l'acceptation finale et la suite 2.2 reste fermée.
 
 ## Vérification documentaire et numérique
 
@@ -39,3 +39,21 @@ Après réception effective seulement, consigner responsable/rôle, date, versio
 - Le [formulaire de décision](decision-responsable.md) fournit les points à examiner et les quatre empreintes des pièces scientifiques/numériques. C'est un support de recueil non signé, pas une preuve reçue.
 - Une demande de transmission de la décision réelle et de sa provenance a été présentée dans la conversation de reprise. Aucun destinataire externe ni accès à une réponse externe n'est fourni ; aucun tiers n'a été contacté.
 - **Résultat à ce stade : validation réelle non recueillie ; acceptation de 2.1 ouverte et implémentation 2.2 non autorisée.** Ne renseigner les champs de décision qu'à réception effective d'une preuve recevable.
+
+## Bilan final de préparation — 7 octobre 2026
+
+L'utilisateur confirme dans la conversation de reprise : « Je ne dispose pas d’une décision réelle et vérifiable d’un responsable externe concernant la méthode estimative v1. » Cette déclaration atteste l'absence d'accord disponible, sans constituer un refus du responsable ni un accord sur la méthode. Aucune identité, compétence, décision ou preuve n'est inventée.
+
+**Tous les éléments préparatoires de 2.1 sont complets et exploitables ; la validation réelle du responsable est le seul élément restant.** Sources primaires consignées avec leurs limites, méthode et choix produit distingués, entrées/unités/domaines/exclusions définis, gardes et messages ordonnés, règles de recalcul et états déterministes, trois profils synthétiques, sept modifications, 112 cas de matrice, cinq transitions et trois arrondis, vérification reproductible et formulaire de décision sont disponibles. Les tests d'implémentation et de parcours relèvent des stories suivantes et ne sont pas des travaux préparatoires manquants de 2.1.
+
+### Informations indispensables pour clôturer 2.1
+
+- Nom du responsable réel, rôle, compétence pertinente déclarée et responsabilité assumée pour l'examen, sans titre présumé.
+- Date effective de la décision et confirmation d'examen de `methode-estimative-v1` et des pièces identifiées par les quatre SHA-256 du formulaire.
+- Décision explicite sur chacun des six points du formulaire, couvrant formule/coefficient/PAL, maintien, répartition/facteurs/seuil protéique, bornes, exclusions, modifications/recalcul/états/messages, limites et exemples ; acceptation globale de cette version pour permettre la clôture.
+- Réserves et conditions, ou mention explicite de leur absence ; aucune réserve bloquante non résolue. Un refus ou des modifications demandées ne permettent pas la clôture et exigent le traitement des points concernés puis un nouvel accord recevable.
+- Texte original attribuable de la décision ou signature, provenance et emplacement vérifiable de la preuve conservée. Une réponse dans le formulaire ou un message attribuable suffit si tous les éléments sont présents ; ne pas exiger un diplôme ou une forme de signature non prévus.
+
+À réception seulement : conserver la preuve, vérifier sa concordance avec la version et les empreintes, consigner la décision et ses réserves dans ce registre puis soumettre la clôture au checkpoint de 2.1. Ce traitement fait partie de la validation externe restante ; aucun travail technique préalable supplémentaire n'est requis actuellement.
+
+Le plan porte `status: blocked`, `acceptance: awaiting-real-validation` et `implementation_authorized: false`. **2.2 reste non autorisée**, conformément à sa dépendance formelle à 2.1. Ce blocage documente la condition réelle et ne la supprime pas ; il ne vaut ni validation nutritionnelle ni autorisation de lancement public.
