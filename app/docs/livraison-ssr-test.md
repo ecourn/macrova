@@ -187,3 +187,42 @@ La région américaine du backend existant est conservée ; aucune migration
 européenne ou ouverture publique n'est annoncée. L'instance Free peut dormir
 après inactivité. Les fonctions nutrition, commandes, mesures et accès restent
 limitées aux contrats du socle ; aucune fonctionnalité métier fictive ajoutée.
+
+## Actualisation — 7 octobre 2026 : corrections du socle publiées
+
+La publication manuelle `dep-db38e2mgekts73ak9n60` est **live** depuis
+**2026-10-07T17:54:09.812142Z**, selon le relevé CLI Render. Sa révision exacte
+est `1b7e060328c7a32153f41ecb0c83cb1179553830` : elle comprend les corrections
+auth `6aaa299` (sanitation HTTP5xx et refus JWT vide/blanc) et la réutilisation
+des primitives shadcn. Elle remplace la révision du 6 octobre ci-dessus.
+
+Le service, workspace, offre Free, région Frankfurt, déploiements automatiques
+et previews désactivés sont reconfirmés. Les sept variables Render correspondent
+exactement au blueprint et à l’origine HTTPS. Sélection locale
+`dev:dazzling-puffin-856`, URL cloud/site cohérentes et aucune clé prioritaire ;
+`SITE_URL` backend reste identique à l’origine HTTPS. Le backend dédié a été
+synchronisé avec `bun run convex:dev --once --tail-logs disable` à 17:52:55 UTC,
+avant le frontend, sans modification du secret existant.
+
+Vérifications sur cette publication :
+
+- **6/6 scénarios HTTPS Chromium réussis en 23,8 s**, via
+  `bun run test:e2e:remote`, sans serveur local ni credentials préexistants,
+  avec comptes synthétiques et captures/traces désactivées. Protection avant
+  hydratation, inscription, connexion POST, persistance après rechargement,
+  révocation, déconnexion, refus anonyme, fermeture et isolation intercompte
+  sont exercés sur la nouvelle révision.
+- Sondes `SOCLE_SSR_OK` et `SOCLE_CONVEX_OK` ; **6 assets JS/CSS HTTP 200**.
+- Contrôles locaux : **195/195 tests**, typecheck et check sans diagnostic
+  (145 fichiers), build SSR et intégration compilée **1/1**. Cette intégration
+  vérifie aussi HTTP500/503 sanitizés, JWT vide/blanc et query Convex en erreur ;
+  ces pannes synthétiques sont exercées localement, pas provoquées sur le cloud.
+- Échantillons runtime Render après publication et historique Convex contrôlés
+  sans afficher les corps : aucun marqueur d’adresse e-mail, mot de passe,
+  cookie de session ou JWT détecté. Le flux Convex est arrêté volontairement
+  après cinq secondes ; ce contrôle d’échantillons ne certifie pas tous les logs.
+
+Preuves temporaires de session : `/tmp/macrova-publication-deploys.json`,
+`/tmp/macrova-publication-e2e.log`, journaux locaux et échantillons runtime
+`/tmp/macrova-publication-*`. Aucun secret ou journal brut versionné.
+La configuration demeure orientée vers la recette HTTPS existante.
