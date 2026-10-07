@@ -178,3 +178,63 @@ Le propriétaire a demandé de répondre aux questions à sa place : priorité a
 
 Phases 1, 2, 4 et 5 terminées ; phase 3 opt-in non demandée. Seul ce document est ajouté au dépôt : aucun statut, épic, plan, story, code ou configuration versionnée modifié ; aucun commit, push ou déploiement effectué. Les vérifications ont créé les comptes synthétiques prévus par les E2E sur le backend dev isolé et des artefacts temporaires/rapports ignorés, sans donnée réelle ni secret versionné.
 
+
+## Suivi de remédiation — 7 octobre 2026
+
+Le propriétaire a demandé de corriger A1, A2, A3 et A6, avec arbitrages délégués.
+Le [plan de correction](../plan-corriger-actions-retrospective-socle.md) contient
+le détail des changements et vérifications. Ce suivi complète la rétrospective
+initiale sans réécrire ses constats, reproductions ni verdict historique.
+
+- **A1 corrigée localement** : les réponses HTTP500/503 du SDK sont remplacées
+  par HTTP503 code/UUID, sans corps/en-têtes backend arbitraires. Logs du relais
+  code/UUID uniquement ; réponses normales, cookies, redirections et 4xx
+  préservés. Tests synthétiques via SDK réel et relais Start compilé réussis.
+- **A2 corrigée localement** : token vide ou uniquement blanc refusé comme
+  UNAVAILABLE ; HTTP401 reste absence de session. Le consommateur est testé
+  sans query privée après réponse malformée. Sur le vrai serveur compilé,
+  `/dashboard` répond HTTP500 et ne redirige pas vers login.
+- **A3 fermée** : tests getCurrentUser → JWT valide → vrai ConvexHttpClient →
+  query HTTP rejetée/ConvexError avec données et logLines sensibles ; code/UUID,
+  absence de message/cause/données/log brut. Retirer temporairement logger:false
+  produit un échec ; retirer backendOperation produit deux échecs. Code restauré.
+  Le serveur compilé est également exercé avec JWT valide et query rejetée.
+- **A6 réconciliée** : état daté dans exploitation/README, décisions de test
+  résolues dans l’épic, structure livrée dans la spine, compléments historiques
+  dans le plan 1.8 et les reports. Workflow GitHub actif, trois schedule success,
+  dont [37627836923](https://github.com/ecourn/macrova/actions/runs/37627836923)
+  créée à 13:21:25 UTC sur `26dc7a76a1f17ce8cad1b000837ba256c4146d73`.
+  **Réception humaine examinée séparément, non établie** : aucune notification
+  du dépôt/aucun échec disponible, préférences de souscription non lisibles.
+  Suivi explicite au propriétaire du dépôt dans deferred-work ; aucune réception
+  inventée ni panne artificielle provoquée.
+
+Vérifications du code corrigé : **195/195 tests**, 19 fichiers, zéro skip ;
+typecheck et **check sur 145 fichiers, zéro erreur/avertissement** ; build SSR
+réussi (avertissements tiers MODULE_LEVEL_DIRECTIVE déjà présents).
+Intégration compilée : HTTP500/503 auth, JWT vide/blanc, query rejetée,
+3 POST interrompus, 12 logs code/UUID, CSRF403, RPC invalides400,
+RPC valide/accueil200, aucun marqueur sensible synthétique transmis.
+Recette compilée avec **Convex natif local jetable : 6/6** en 10,8 s, sans
+modification du backend cloud ; secret local synthétique, aucun enregistrement
+auth. Les scénarios existants couvrent inscription, persistance, révocation,
+connexion/déconnexion, refus anonyme, fermeture et isolation entre comptes.
+Recette hors ligne : **4/4** en 8,8 s.
+
+Sur la cible HTTPS antérieure : supervision **SOCLE_SSR_OK/SOCLE_CONVEX_OK**,
+recette distante **6/6** en 23,8 s. **Aucun push/déploiement effectué : la cible
+distante n’exécute pas encore ces corrections locales.** Cette recette prouve
+la continuité du parcours publié ; la recette compilée locale prouve le parcours
+corrigé. Les anciens F1/F2 demeurent donc pertinents pour cette révision publiée
+jusqu’à sa mise à jour. L’acceptation sur cible après publication reste à
+réexaminer ; le verdict historique `rejected` est conservé.
+
+A4, A5 et A7 restent différées avec leurs périmètres et responsables d’origine.
+La restauration cloud complète, la notification humaine, les décisions de
+production et les validations produit avant lancement ne sont pas déclarées
+acquises par cette remédiation.
+
+Revue quick indépendante du correctif : aucun défaut établi, 29 tests ciblés
+réexécutés avec succès. Backend local jetable arrêté et état auth/secret
+synthétiques supprimés. Remédiation locale achevée, réception humaine suivie
+séparément et publication du correctif non effectuée.

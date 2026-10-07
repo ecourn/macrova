@@ -36,8 +36,22 @@
   et la [fiche effective](../../app/docs/livraison-ssr-test.md).
   Les cinq entrées successives ci-dessus sont closes ; elles restent conservées
   pour retracer les contrôles et ne doivent plus être reprises comme obstacles.
-- Les plans des autres stories ne conservent aucun défaut applicatif établi.
+- État de clôture historique, antérieur à la rétrospective : les plans des autres stories ne conservaient aucun défaut applicatif établi.
   Le cron distant de supervision attend une publication explicite selon
   [1.8](epic-socle/story-reprise-et-exploitation-du-socle-plan.md) ; cette limite
   documentée et les validations produit avant lancement restent distinctes
   des dettes de nettoyage du socle.
+
+## Réconciliation supervision — 7 octobre 2026 (A6)
+
+Le report « cron à publier » ci-dessus est résolu : workflow socle-monitor
+actif et trois exécutions `schedule` réussies, dont
+[37627836923](https://github.com/ecourn/macrova/actions/runs/37627836923)
+créée à 13:21:25 UTC sur `26dc7a76a1f17ce8cad1b000837ba256c4146d73`.
+Voir le [relevé d’exploitation](../../app/docs/exploitation-socle.md).
+Les défauts A1/A2 et la lacune A3 découverts ensuite sont traités par le
+[plan de remédiation](plan-corriger-actions-retrospective-socle.md).
+
+- source_plan: `plan-corriger-actions-retrospective-socle.md`
+  summary: Confirmer la réception humaine des alertes GitHub d’échec du socle par le propriétaire du dépôt.
+  evidence: Cron actif vérifié, mais aucune notification du dépôt ni aucun échec disponible ; préférences de souscription non lisibles (HTTP404/portée notifications). Valider lors d’un incident réel ou d’un test du canal explicitement autorisé, sans confondre réussite du cron et réception humaine.

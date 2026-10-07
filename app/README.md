@@ -427,8 +427,10 @@ La fiche effective y distingue les vérifications locales de la publication rée
 
 `bun run monitor:socle` surveille SSR et une query publique Convex sans secret,
 avec timeout borné, codes fixes et annotations GitHub en cas de panne. Le workflow
-horaire/manuellement déclenchable reste à activer par publication sur la branche
-par défaut ; aucun cron distant n'est présumé actif.
+horaire/manuellement déclenchable est actif sur GitHub, vérifié le 7 octobre 2026
+avec trois exécutions planifiées réussies. Le [relevé daté](docs/exploitation-socle.md)
+donne la révision exécutée et distingue cette preuve de la réception des
+notifications par le responsable, encore non établie.
 
 `bun run recovery:socle prepare` crée une copie locale privée, sans `.env` courant,
 pour l'exercice réel export/perte/import ; `exercise <copie>` refuse toute cible

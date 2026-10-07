@@ -46,7 +46,7 @@ Socle web, contrats communs et exploitation ; les modules métier sont livrés p
 
 ## Notes
 
-- Unknown: Région, hébergeur frontend, coûts et restauration restent à définir ; les limites numériques demeurent des hypothèses à éprouver.
+- Unknown historique (5 octobre 2026): région, hébergeur frontend, coûts et restauration restaient à définir. Leur résolution pour le test est consignée ci-dessous ; les limites numériques demeurent des hypothèses à éprouver.
 - Assumption: un propriétaire de développement conduit cet epic dans le monolithe modulaire.
 - Decision: 2026-10-05 — tracer initial : page publique → connexion SSR → lecture Convex privée sur backend dev isolé ; réutiliser le socle existant plutôt que recréer l’authentification.
 - Decision: 2026-10-05 — séquence conservatrice des huit stories : elles partagent domaine, schéma, configuration et intégration ; pas de lanes concurrentes annoncées.
@@ -54,3 +54,21 @@ Socle web, contrats communs et exploitation ; les modules métier sont livrés p
 - Decision: 2026-10-05 — checkpoints désactivés par défaut pour respecter la délégation ; hitl reste explicite pour les accès et interventions de compte réellement nécessaires.
 - Decision: 2026-10-05 — aucun module métier ni choix nutritionnel, politique commerciale ou conformité n’est livré par cet epic ; contrats communs et décisions partagées restent régis par la spine.
 - Decision: 2026-10-05 — validation indépendante : séparer choix d’hébergement, publication SSR et exercice de reprise ; préciser les sorties communes consommées par les stories dépendantes.
+
+## État livré — réconciliation du 7 octobre 2026 (A6)
+
+L’infrastructure de test est livrée : **Render Free Frankfurt**, SSR Nitro sur
+https://macrova-socle-test.onrender.com, **Convex Free**
+`dev:dazzling-puffin-856` en `aws-us-east-1`, budget de dépense nouvelle **0 €**.
+La publication backend puis frontend et la recette HTTPS sont consignées dans
+la [fiche de livraison](../../../app/docs/livraison-ssr-test.md).
+La [preuve de reprise](../../../app/docs/exploitation-socle.md) établit une
+restauration locale des tables racine, la préservation des IDs/fermetures et le
+retour du frontend SSR historique. Le cron GitHub est actif et ses exécutions
+planifiées réussies sont vérifiées ; réception humaine des alertes non établie.
+
+Ces décisions résolvent les inconnues du **test**, sans adopter les régions,
+coûts, RPO/RTO, SLA, sauvegardes durables ou restauration cloud complète de
+**production**. Une perte totale du composant auth et les conditions de
+lancement restent à vérifier séparément. Ce complément ne modifie pas les
+critères Done when ni le verdict historique de la rétrospective.

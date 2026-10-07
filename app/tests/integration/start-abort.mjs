@@ -14,6 +14,8 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
   timeout: 20_000,
 }, async () => {
   let authPosts = 0
+  let relayStatus = 200
+  let tokenMode = "absent"
   const backend = createServer((request, response) => {
     if (request.url === "/api/auth/sign-up/email") {
       authPosts++
@@ -22,8 +24,42 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
       return
     }
     if (request.url === "/api/auth/convex/token") {
-      response.writeHead(401)
-      response.end()
+      if (tokenMode === "absent") {
+        response.writeHead(401)
+        response.end()
+      } else {
+        response.setHeader("content-type", "application/json")
+        response.end(
+          JSON.stringify({
+            token:
+              tokenMode === "empty"
+                ? ""
+                : tokenMode === "blank"
+                  ? " \t\n"
+                  : "synthetic-jwt",
+          })
+        )
+      }
+      return
+    }
+    if (request.url === "/api/query") {
+      response.setHeader("content-type", "application/json")
+      response.end(
+        JSON.stringify({
+          status: "error",
+          errorMessage: "synthetic-sensitive-query-message",
+          errorData: { private: "synthetic-sensitive-query-data" },
+          logLines: ["[ERROR] synthetic-sensitive-query-log"],
+        })
+      )
+      return
+    }
+    if (relayStatus >= 500) {
+      response.writeHead(relayStatus, {
+        "x-backend-private": "synthetic-sensitive-header",
+        "set-cookie": "synthetic-sensitive-cookie",
+      })
+      response.end("synthetic-sensitive-relay-body")
       return
     }
     response.setHeader("content-type", "application/json")
@@ -43,7 +79,7 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
       ...process.env,
       HOST: "127.0.0.1",
       PORT: String(port),
-      VITE_CONVEX_URL: "https://local-test.convex.cloud",
+      VITE_CONVEX_URL: `http://127.0.0.1:${backendPort}`,
       VITE_CONVEX_SITE_URL: `http://127.0.0.1:${backendPort}`,
     },
     stdio: ["ignore", "ignore", "pipe"],
@@ -134,6 +170,33 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
       false,
       "Contenu invalide exposé dans les logs"
     )
+    for (const status of [500, 503]) {
+      relayStatus = status
+      const failure = await fetch(`${origin}/api/auth/get-session`)
+      assert.equal(failure.status, 503)
+      assert.equal(failure.headers.has("x-backend-private"), false)
+      assert.equal(failure.headers.has("set-cookie"), false)
+      const body = await failure.json()
+      assert.deepEqual(Object.keys(body).sort(), ["code", "incidentId"])
+      assert.equal(body.code, "UNAVAILABLE")
+      assert.match(body.incidentId, /^[a-f0-9-]{36}$/)
+    }
+    relayStatus = 200
+    for (const mode of ["empty", "blank", "valid"]) {
+      tokenMode = mode
+      const failure = await fetch(`${origin}/dashboard`, { redirect: "manual" })
+      assert.equal(
+        failure.status,
+        500,
+        "Panne SSR ne doit pas rediriger vers login"
+      )
+      assert.equal(
+        (await failure.text()).includes("synthetic-sensitive"),
+        false
+      )
+    }
+    tokenMode = "absent"
+    assert.equal(logs.includes("synthetic-sensitive"), false)
     for (let index = 0; index < 3; index++) {
       const socket = createConnection({ host: "127.0.0.1", port })
       await once(socket, "connect")
@@ -166,7 +229,7 @@ test("abandon réel du POST auth Start, logs techniques et CSRF RPC préservé",
       "Un log non technique a été émis"
     )
     console.log(
-      `POST auth Start compilé : ${authPosts} corps interrompus ; ${lines.length} logs code/UUID uniquement ; CSRF 403 ; RPC invalides 400 sans fuite ; RPC valide et accueil 200.`
+      `Auth Start compilé : HTTP500/503 sanitizés ; JWT vide/blanc et query rejetée restent HTTP500 sans fuite ; ${authPosts} POST interrompus ; ${lines.length} logs code/UUID uniquement ; CSRF 403 ; RPC invalides 400 ; RPC valide et accueil 200.`
     )
   } finally {
     child.kill("SIGTERM")

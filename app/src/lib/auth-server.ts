@@ -33,7 +33,9 @@ export const getToken = () =>
       throw new BackendUnavailableError()
     }
     const token = payload.token
-    if (typeof token !== "string") throw new BackendUnavailableError()
+    if (typeof token !== "string" || !token.trim()) {
+      throw new BackendUnavailableError()
+    }
     return token
   })
 
@@ -57,9 +59,16 @@ export async function handler(request: Request) {
     )
   }
   try {
-    return await getAuthServer().handler(request)
-  } catch {
-    const error = new BackendUnavailableError()
+    return await backendOperation(async () => {
+      const response = await getAuthServer().handler(request)
+      if (response.status >= 500) throw new BackendUnavailableError()
+      return response
+    })
+  } catch (failure) {
+    const error =
+      failure instanceof BackendUnavailableError
+        ? failure
+        : new BackendUnavailableError()
     console.error(error.code, error.incidentId)
     return Response.json(
       { code: error.code, incidentId: error.incidentId },

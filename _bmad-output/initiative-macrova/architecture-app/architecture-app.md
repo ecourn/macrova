@@ -102,7 +102,7 @@ Les flèches portent la direction des dépendances permises ; l’authentificati
 
 - **Binds:** ensemble du système.
 - **Prevents:** Prévisualisation branchée en production, secrets publics et migration détruisant les instantanés.
-- **Rule:** Séparer développement/test et production : déploiements Convex, origines autorisées, secrets et mode paiement distincts ; les prévisualisations utilisent un backend de test dédié et aucune donnée réelle. Les secrets restent côté serveur, jamais dans VITE_*. Installation reproductible depuis bun.lock ; backend compatible publié avant frontend ; les migrations introduisent d’abord des champs compatibles et une version, font un backfill reprenable puis retirent les anciens champs après retrait des consommateurs. Les lecteurs historiques conservent la prise en charge des versions d’instantané présentes. Pas de sauvegarde optimiste annoncée réussie avant accusé backend, ni file hors ligne implicite ; reconnexion relit état et operationId. Les métriques suivent échecs de mutation, quotas OFF, latence du moteur, retard de rapprochement paiement et échecs export/delete, sans payload nutritionnel, secret ni e-mail dans les logs. Alertes, sauvegarde/restauration exercée, coûts et régions doivent être définis avant ouverture publique. Le choix de l’hébergeur frontend reste ouvert ; il doit exécuter SSR et relais auth TanStack Start avec les URL Convex cohérentes.
+- **Rule:** Séparer développement/test et production : déploiements Convex, origines autorisées, secrets et mode paiement distincts ; les prévisualisations utilisent un backend de test dédié et aucune donnée réelle. Les secrets restent côté serveur, jamais dans VITE_*. Installation reproductible depuis bun.lock ; backend compatible publié avant frontend ; les migrations introduisent d’abord des champs compatibles et une version, font un backfill reprenable puis retirent les anciens champs après retrait des consommateurs. Les lecteurs historiques conservent la prise en charge des versions d’instantané présentes. Pas de sauvegarde optimiste annoncée réussie avant accusé backend, ni file hors ligne implicite ; reconnexion relit état et operationId. Les métriques suivent échecs de mutation, quotas OFF, latence du moteur, retard de rapprochement paiement et échecs export/delete, sans payload nutritionnel, secret ni e-mail dans les logs. Alertes, sauvegarde/restauration exercée, coûts et régions doivent être définis avant ouverture publique. Le choix de l’hébergeur frontend de production reste ouvert ; il doit exécuter SSR et relais auth TanStack Start avec les URL Convex cohérentes. Le test livré est décrit dans la photographie datée ci-dessous.
 
 ### AD-11 — Mesures produit privées et sémantiques [ADOPTED]
 
@@ -194,6 +194,35 @@ flowchart TB
 ```
 
 [ASSUMPTION] Convex cloud est la cible backend du socle. Aucun compte, hébergement ni déploiement n’est créé par ce travail.
+
+## Photographie livrée — 7 octobre 2026 (A6)
+
+La Structure initiale ci-dessus décrit l’amorce du 5 octobre. Le socle livré
+comprend désormais :
+
+- `src/domain/` : décimales et nutrition v1, erreurs, identité/droits/fermeture,
+  événements et commandes communs ; domaine pur partagé.
+- `convex/contracts/` : validateurs de transport ; `convex/lib/access.ts` :
+  gardes backend ; `convex/schema.ts` : `entitlements` et `accountClosures`.
+  Les tables auth demeurent dans le composant Better Auth.
+- `src/routes/` et `src/lib/auth-*` : parcours public, connexion, espace privé,
+  SSR et relais auth ; la garde de page ne remplace pas les contrôles Convex.
+- `scripts/monitor-socle.ts`, `scripts/recovery-socle.ts` et workflow GitHub :
+  supervision et reprise locale isolée ; cron actif vérifié le 7 octobre.
+- SSR Nitro sur Render Free Frankfurt ; Convex Free
+  `dev:dazzling-puffin-856` en `aws-us-east-1` ; dépense nouvelle 0 €.
+
+Sources : [livraison effective](../../../app/docs/livraison-ssr-test.md) et
+[exploitation datée](../../../app/docs/exploitation-socle.md). La reprise
+prouve les tables racine locales et le SSR historique, pas une restauration
+cloud complète ni la perte totale du composant auth. Réception humaine des
+alertes non établie. Catalogue, solver, repas/journal, paiement et orchestration
+complète export/suppression restent à construire dans leurs epics.
+
+Les décisions de test sont résolues ; les régions, budgets, SLA, RPO/RTO,
+sauvegardes durables et reprise complète de production demeurent ouverts.
+Les diagrammes métier précédents restent la cible et ne représentent pas
+les tables déjà livrées.
 
 ## Capacités et architecture
 
