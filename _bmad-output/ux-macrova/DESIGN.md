@@ -100,7 +100,7 @@ components:
 
 ## Brand & Style
 
-[ASSUMPTION] Identité calme, chaleureuse et utilitaire, retenue par délégation. Fond crème, vert profond, chiffres lisibles et langage factuel rendent la composition compréhensible. Ces choix restent révisables après observation. Aucun système UI n'est imposé ; les composants ci-dessous forment le vocabulaire partagé avec [EXPERIENCE.md](EXPERIENCE.md).
+[ASSUMPTION] Identité calme, chaleureuse et utilitaire, retenue par délégation. Fond crème, vert profond, chiffres lisibles et langage factuel rendent la composition compréhensible. Ces choix restent révisables après observation. Les primitives UI utilisent les composants shadcn locaux de `app/src/components/ui`, par composition et variantes adaptées aux tokens de ce document ; les composants ci-dessous forment le vocabulaire métier partagé avec [EXPERIENCE.md](EXPERIENCE.md).
 
 Les contrats UX sont finalisés ; leur statut ne certifie pas la préparation au lancement. Les décisions produit des sources priment. Les deux contrats priment sur toute future maquette en cas de conflit.
 

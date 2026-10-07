@@ -5,6 +5,7 @@
 
 - Répondre toujours en français.
 - Pour tout travail dans `app/`, lire et appliquer `app/AGENTS.md`, même si la session démarre à la racine.
+- Pour toute interface dans `app/`, réutiliser les composants shadcn de `app/src/components/ui` via `@/components/ui`. Avant de créer ou modifier une primitive UI, vérifier l'existant et remplacer les primitives personnalisées ayant un équivalent shadcn ; privilégier la composition et les variantes, en conservant la logique métier et l'accessibilité.
 
 ## Points d’entrée
 

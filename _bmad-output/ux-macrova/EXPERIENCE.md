@@ -13,7 +13,7 @@ sources:
 
 ## Foundation
 
-[ASSUMPTION] Première surface : web responsive en français, prioritairement mobile, thème clair. Aucun système UI imposé. [DESIGN.md](DESIGN.md) définit l'identité et les tokens ; ce document définit les comportements. La spécification et ses compagnons restent les contrats produit. Les huit capacités ci-dessous gardent leurs identifiants sources.
+[ASSUMPTION] Première surface : web responsive en français, prioritairement mobile, thème clair. Les primitives UI utilisent les composants shadcn locaux de `app/src/components/ui` ; les compositions métier suivent les comportements ci-dessous. [DESIGN.md](DESIGN.md) définit l'identité et les tokens ; ce document définit les comportements. La spécification et ses compagnons restent les contrats produit. Les huit capacités ci-dessous gardent leurs identifiants sources.
 
 Le statut final signifie contrats UX finalisés, sans lever les blocages nutritionnels, commerciaux ou liés aux données. Les états décrivent le comportement attendu lorsque ces décisions sont instruites ; ils ne constituent pas des fonctionnalités déjà disponibles.
 

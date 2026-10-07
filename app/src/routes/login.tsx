@@ -9,8 +9,9 @@ import {
 import { authClient } from "@/lib/auth-client"
 import { getCurrentUser } from "@/lib/auth.functions"
 import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 export const Route = createFileRoute("/login")({
   beforeLoad: async () => {
@@ -66,8 +67,8 @@ function Login() {
         <>
           <form method="post" onSubmit={submit} className="flex flex-col gap-4">
             {signUp && (
-              <div className="space-y-2">
-                <Label htmlFor="name">Nom</Label>
+              <Field>
+                <FieldLabel htmlFor="name">Nom</FieldLabel>
                 <Input
                   id="name"
                   name="name"
@@ -75,10 +76,10 @@ function Login() {
                   required
                   maxLength={100}
                 />
-              </div>
+              </Field>
             )}
-            <div className="space-y-2">
-              <Label htmlFor="email">E-mail</Label>
+            <Field>
+              <FieldLabel htmlFor="email">E-mail</FieldLabel>
               <Input
                 id="email"
                 name="email"
@@ -86,9 +87,9 @@ function Login() {
                 autoComplete="email"
                 required
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Mot de passe</Label>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="password">Mot de passe</FieldLabel>
               <Input
                 id="password"
                 name="password"
@@ -98,11 +99,11 @@ function Login() {
                 maxLength={128}
                 required
               />
-            </div>
+            </Field>
             {error && (
-              <p role="alert" className="text-destructive">
-                {error}
-              </p>
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
             )}
             <Button type="submit" disabled={busy || !ready}>
               {busy

@@ -16,6 +16,7 @@ import { api } from "../../convex/_generated/api"
 import { getCurrentUser } from "@/lib/auth.functions"
 import { authClient } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: async () => {
@@ -65,9 +66,9 @@ function Dashboard() {
         {!busy && <Navigate to="/login" replace />}
       </Unauthenticated>
       {error && (
-        <p role="alert" className="text-destructive">
-          {error}
-        </p>
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       )}
       <Button onClick={signOut} disabled={busy || !ready}>
         {busy ? "Déconnexion…" : "Se déconnecter"}
