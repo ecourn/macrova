@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { createFileRoute, useHydrated } from "@tanstack/react-router"
+import { CalculatorTargetEditor } from "@/components/calculator-target-editor"
+import { multiply, divide, rational } from "@/domain/decimal"
 import { PublicNavigation } from "@/components/public-navigation"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -13,11 +15,13 @@ import { Input } from "@/components/ui/input"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import {
   calculateProfile,
+  calculateCalculatorSession,
   changeCalculatorProfile,
   displayCalculatorValue,
   isCalculatorMethodAvailable,
   METHOD_VERSION,
   type CalculatorField,
+  type CalculatorSession,
 } from "@/domain/calculator"
 export const Route = createFileRoute("/calculateur")({ component: Calculator })
 const numbers = [
@@ -65,10 +69,25 @@ function Calculator() {
   const context = Route.useRouteContext()
   const [session, setSession] = useState(context.calculatorSession)
   const ready = useHydrated()
+  const [online, setOnline] = useState(true)
   const title = useRef<HTMLHeadingElement>(null)
   useEffect(() => {
     title.current?.focus()
   }, [])
+  useEffect(() => {
+    const connection = () => setOnline(navigator.onLine)
+    connection()
+    window.addEventListener("online", connection)
+    window.addEventListener("offline", connection)
+    return () => {
+      window.removeEventListener("online", connection)
+      window.removeEventListener("offline", connection)
+    }
+  }, [])
+  function update(next: CalculatorSession) {
+    Object.assign(context.calculatorSession, next)
+    setSession(next)
+  }
   function change(field: CalculatorField, value: string) {
     const next = changeCalculatorProfile(session, field, value)
     Object.assign(context.calculatorSession, next)
@@ -76,14 +95,9 @@ function Calculator() {
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const next = {
-      ...session,
-      outcome: calculateProfile(session.profile, context.calculatorMethod),
-      changed: false,
-    }
-    Object.assign(context.calculatorSession, next)
-    setSession(next)
+    update(calculateCalculatorSession(session, context.calculatorMethod))
   }
+
   const outcome = isCalculatorMethodAvailable(context.calculatorMethod)
     ? session.outcome
     : calculateProfile(session.profile, context.calculatorMethod)
@@ -107,6 +121,10 @@ function Calculator() {
           dans ce parcours jusqu'au rechargement ou à la fermeture de la page.
         </p>
       </header>
+      <p role="status" className="mb-4">
+        {!online &&
+          "Hors ligne : le calcul et les modifications restent disponibles localement sur cette page chargée."}
+      </p>
       <section
         aria-labelledby="hypotheses"
         className="mb-8 max-w-3xl space-y-4"
@@ -269,11 +287,16 @@ function Calculator() {
             className="rounded-xl bg-muted p-6"
           >
             <h2 id="result-title" className="text-xl font-semibold">
-              Cible estimative journalière
+              {session.currentState === "modified"
+                ? "Cible modifiée journalière"
+                : "Cible estimative journalière"}
             </h2>
             <p className="mt-2">
-              Estimation calculée pour le profil actuel. Consultez les
-              hypothèses ci-dessus.
+              Cible{" "}
+              {session.currentState === "modified"
+                ? "modifiée et confirmée"
+                : "estimée"}{" "}
+              pour le profil actuel. Consultez les hypothèses ci-dessus.
             </p>
             <dl className="mt-6 grid gap-6 sm:grid-cols-2">
               {(
@@ -295,12 +318,55 @@ function Calculator() {
             </dl>
             <p className="mt-6 text-sm">
               {result.version} · Mifflin × PAL{" "}
-              {result.profile.pal.replace(".", ",")} · 15 / 45 / 40 %. Affichage
-              arrondi au centième uniquement ; calcul exact conservé en mémoire.
+              {result.profile.pal.replace(".", ",")} · Répartition actuelle P /
+              G / L :{" "}
+              {(["P", "G", "L"] as const)
+                .map((key) =>
+                  displayCalculatorValue(
+                    divide(
+                      multiply(
+                        result.target[key],
+                        rational(key === "L" ? 900n : 400n)
+                      ),
+                      result.target.E
+                    )
+                  )
+                )
+                .join(" / ")}{" "}
+              %. Affichage arrondi au centième uniquement ; calcul exact
+              conservé en mémoire.
             </p>
+            <details className="mt-4">
+              <summary className="min-h-11 cursor-pointer py-3">
+                Consulter la cible courante et l'original exacts
+              </summary>
+              <dl className="space-y-2 break-all">
+                {(["E", "P", "G", "L"] as const).map((key) => (
+                  <div key={key}>
+                    <dt>
+                      {key} ({key === "E" ? "kcal/jour" : "g/jour"})
+                    </dt>
+                    <dd>
+                      Courante : {String(result.target[key].numerator)}/
+                      {String(result.target[key].denominator)} ; originale :{" "}
+                      {String(session.original?.[key].numerator)}/
+                      {String(session.original?.[key].denominator)}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </details>
           </section>
         )}
       </div>
+      {result && (
+        <CalculatorTargetEditor
+          session={session}
+          method={context.calculatorMethod}
+          ready={ready}
+          update={update}
+        />
+      )}
     </main>
   )
 }

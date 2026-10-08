@@ -401,3 +401,174 @@ test("domaines simultanés et priorités des choix sans perte des six saisies", 
   for (const value of referenceValues)
     await expect(page.getByText(value, { exact: true })).toBeVisible()
 })
+
+test("édition exacte, retour avec candidat et refus, confirmation/annulation/reset privés", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/calculateur")
+  await profile(page)
+  await page.getByRole("button", { name: submitName }).click()
+  const cookies = await context.cookies()
+  const storage = await page.evaluate(() => ({
+    local: { ...localStorage },
+    session: { ...sessionStorage },
+  }))
+  const requests: string[] = []
+  page.on("request", (request) =>
+    requests.push(`${request.url()} ${request.postData() ?? ""}`)
+  )
+  const current = page.getByRole("region", {
+    name: "Cible estimative journalière",
+    exact: true,
+  })
+  await page.getByLabel("Champ à modifier", { exact: true }).selectOption("P")
+  await expect(page.locator("#edit-value")).toHaveValue("")
+  await page.locator("#edit-value").fill(" 0110,000000 ")
+  const submit = page.getByRole("button", { name: "Prévisualiser le recalcul" })
+  await submit.focus()
+  await page.keyboard.press("Enter")
+  await expect(submit).toBeFocused()
+  await expect(current).toContainText("98,93 g/jour")
+  const candidate = page.getByRole("region", {
+    name: "Prévisualisation de modification",
+    exact: true,
+  })
+  await expect(candidate).toContainText("110,00 g/jour")
+  await expect(candidate).toContainText(
+    "Calories et lipides conservés ; glucides recalculés."
+  )
+  await page.getByRole("link", { name: "Accueil", exact: true }).click()
+  await page.getByRole("link", { name: "Ouvrir le calculateur" }).click()
+  await expect(candidate).toBeVisible()
+  await expect(page.locator("#edit-value")).toHaveValue(" 0110,000000 ")
+  await candidate
+    .getByText("Consulter les valeurs exactes de la prévisualisation")
+    .click()
+  await expect(candidate).toContainText("3957/40 ; nouvelle : 110/1")
+  await expect(candidate).toContainText("11871/40 ; nouvelle : 2857/10")
+  await page.getByRole("button", { name: "Confirmer la modification" }).focus()
+  await page.keyboard.press("Enter")
+  await expect(submit).toBeFocused()
+  const modified = page.getByRole("region", {
+    name: "Cible modifiée journalière",
+    exact: true,
+  })
+  await expect(modified).toContainText("110,00 g/jour")
+  await expect(modified).toContainText("16,68 / 43,32 / 40,00 %")
+  await expect(candidate).toHaveCount(0)
+  await page.locator("#edit-field").selectOption("E")
+  await page.locator("#edit-value").fill("3191,98")
+  await submit.click()
+  await expect(
+    page.getByText("Modification refusée", { exact: true })
+  ).toBeVisible()
+  await expect(modified).toContainText("110,00 g/jour")
+  await expect(candidate).toHaveCount(0)
+  await page.getByRole("link", { name: "Accueil", exact: true }).click()
+  await page.getByRole("link", { name: "Ouvrir le calculateur" }).click()
+  await expect(page.locator("#edit-value")).toHaveValue("3191,98")
+  const correction = page.getByRole("link", {
+    name: /Les calories doivent rester entre/,
+  })
+  await correction.focus()
+  await page.keyboard.press("Enter")
+  await expect(page.locator("#edit-value")).toBeFocused()
+  expect(new URL(page.url()).hash).toBe("")
+  await page.locator("#edit-value").fill("2638")
+  await submit.click()
+  await page
+    .getByRole("button", { name: "Annuler la prévisualisation" })
+    .focus()
+  await page.keyboard.press("Enter")
+  await expect(submit).toBeFocused()
+  await expect(modified).toContainText("110,00 g/jour")
+  await page
+    .getByRole("button", { name: "Réinitialiser la cible originale" })
+    .click()
+  await expect(current).toContainText("98,93 g/jour")
+  await expect(current).toContainText("15,00 / 45,00 / 40,00 %")
+  await page
+    .getByText("Consulter la cible courante et l'original exacts")
+    .click()
+  await expect(current).toContainText(
+    "Courante : 5276/45 ; originale : 5276/45"
+  )
+  expect(await context.cookies()).toEqual(cookies)
+  expect(
+    await page.evaluate(() => ({
+      local: { ...localStorage },
+      session: { ...sessionStorage },
+    }))
+  ).toEqual(storage)
+  expect(requests.join("\n")).not.toMatch(
+    /0110|3191|edit-value|poids_kg|taille_cm|eligibilite/
+  )
+  expect(new URL(page.url()).search).toBe("")
+  await page.reload()
+  await expect(page.locator("#poids_kg")).toHaveValue("")
+  await expect(page.locator("#edit-value")).toHaveCount(0)
+})
+
+test("édition hors ligne au clavier à 320 px, confirmation identique et invalidation", async ({
+  page,
+  context,
+}) => {
+  await page.setViewportSize({ width: 320, height: 740 })
+  await page.goto("/calculateur")
+  await profile(page)
+  await page.getByRole("button", { name: submitName }).click()
+  await context.setOffline(true)
+  await expect(page.getByRole("status")).toContainText(
+    "Hors ligne : le calcul et les modifications restent disponibles localement"
+  )
+  await page.locator("#edit-field").selectOption("E")
+  await page.locator("#edit-value").fill("2638")
+  const submit = page.getByRole("button", { name: "Prévisualiser le recalcul" })
+  await submit.focus()
+  await page.keyboard.press("Enter")
+  await expect(
+    page.getByRole("heading", { name: "Prévisualisation de modification" })
+  ).toBeVisible()
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth
+    )
+  ).toBe(true)
+  for (const control of await page
+    .locator("#edit-field, #edit-value, .public-page button")
+    .all())
+    expect((await control.boundingBox())?.height).toBeGreaterThanOrEqual(44)
+  const confirm = page.getByRole("button", {
+    name: "Confirmer la modification",
+  })
+  await confirm.focus()
+  await page.keyboard.press("Enter")
+  await expect(
+    page.getByRole("heading", { name: "Cible modifiée journalière" })
+  ).toBeVisible()
+  await expect(
+    page.getByText("2638,00 kcal/jour", { exact: true })
+  ).toBeVisible()
+  await page.locator("#edit-field").selectOption("P")
+  await page.locator("#edit-value").fill("110")
+  await submit.click()
+  await page.locator("#poids_kg").fill("71")
+  await expect(
+    page.getByRole("heading", { name: "Prévisualisation de modification" })
+  ).toHaveCount(0)
+  await expect(
+    page.getByRole("heading", { name: "Cible modifiée journalière" })
+  ).toHaveCount(0)
+  await expect(page.locator("#edit-value")).toHaveCount(0)
+  await page.getByRole("button", { name: submitName }).click()
+  await expect(
+    page.getByText("2654,00 kcal/jour", { exact: true })
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      /Répartition actuelle P \/ G \/ L : 15,00 \/ 45,00 \/ 40,00 %/
+    )
+  ).toBeVisible()
+  await context.setOffline(false)
+})

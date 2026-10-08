@@ -2,6 +2,14 @@ import { expect, test } from "vitest"
 import vectors from "../../../_bmad-output/initiative-macrova/epic-calculateur/methode-estimative-v1/exemples-reference.json"
 import {
   adoptedMethod,
+  calculateCalculatorSession,
+  changeCalculatorEdit,
+  previewCalculatorEdit,
+  confirmCalculatorEdit,
+  cancelCalculatorEdit,
+  resetCalculatorTarget,
+  type CalculatorSession,
+  type CalculatorTarget,
   calculateProfile,
   changeCalculatorProfile,
   createCalculatorSession,
@@ -160,6 +168,7 @@ for (const vector of vectors.matrice) {
 test("brouillon isolé et invalidation de chacune des six entrées", () => {
   for (const field of Object.keys(reference) as (keyof CalculatorProfile)[]) {
     const session = {
+      ...createCalculatorSession(),
       profile: { ...reference },
       outcome: calculateProfile(reference, adoptedMethod),
       changed: false,
@@ -325,4 +334,249 @@ test("gardes de cible prioritaires et globales", () => {
       },
     ],
   })
+})
+
+function calculated(id = "A"): CalculatorSession {
+  const profile =
+    vectors.profils.find((item) => item.id === id)?.profil ?? reference
+  return calculateCalculatorSession(
+    { ...createCalculatorSession(), profile },
+    adoptedMethod
+  )
+}
+function preview(session: CalculatorSession, field: string, value: string) {
+  return previewCalculatorEdit(
+    changeCalculatorEdit(session, field, value),
+    adoptedMethod
+  )
+}
+function oracle(
+  target: CalculatorTarget,
+  expected: { exact: Record<string, string>; affichage: Record<string, string> }
+) {
+  for (const key of ["E", "P", "G", "L"] as const) {
+    expect(`${target[key].numerator}/${target[key].denominator}`).toBe(
+      expected.exact[key]
+    )
+    expect(displayCalculatorValue(target[key])).toBe(expected.affichage[key])
+  }
+  const sum =
+    target.P.numerator * 4n * target.G.denominator * target.L.denominator +
+    target.G.numerator * 4n * target.P.denominator * target.L.denominator +
+    target.L.numerator * 9n * target.P.denominator * target.G.denominator
+  expect(sum * target.E.denominator).toBe(
+    target.E.numerator *
+      target.P.denominator *
+      target.G.denominator *
+      target.L.denominator
+  )
+}
+test.each(vectors.modifications)("modification exacte $id", (vector) => {
+  let start = calculated(vector.depart === "B" ? "B" : "A")
+  if (vector.depart === "E-haut confirmé")
+    start = confirmCalculatorEdit(preview(start, "E", "2901.8"), adoptedMethod)
+  const before = structuredClone(start)
+  const next = preview(start, vector.champ, vector.saisie)
+  expect(start).toEqual(before)
+  expect(next.outcome).toEqual(start.outcome)
+  expect(next.original).toEqual(start.original)
+  expect(next.preview).not.toBeNull()
+  if (next.preview) oracle(next.preview.target, vector.candidat)
+})
+for (const vector of vectors.matrice) {
+  if (vector.etape !== "edition" && vector.etape !== "reset") continue
+  test(`édition/reset documentaire ${vector.id}`, () => {
+    let start = vector.id.includes("sans-cible")
+      ? createCalculatorSession()
+      : calculated(vector.depart === "B" ? "B" : "A")
+    if (vector.depart === "E-haut confirmé")
+      start = confirmCalculatorEdit(
+        preview(start, "E", "2901.8"),
+        adoptedMethod
+      )
+    const method = vector.id.includes("methode-indisponible")
+      ? null
+      : adoptedMethod
+    const before = structuredClone(start)
+    const next =
+      vector.etape === "reset"
+        ? resetCalculatorTarget(start, method)
+        : vector.champs
+          ? previewCalculatorEdit(
+              start,
+              method,
+              Object.fromEntries(vector.champs.map((field) => [field, "110"]))
+            )
+          : previewCalculatorEdit(
+              changeCalculatorEdit(
+                start,
+                vector.champ ?? "P",
+                vector.saisie ?? "110"
+              ),
+              method
+            )
+    expect(start).toEqual(before)
+    expect(next.outcome).toEqual(start.outcome)
+    expect(next.original).toEqual(start.original)
+    if (vector.attendu === "PREVISUALISATION")
+      expect(next.preview).not.toBeNull()
+    else {
+      expect(next.preview).toBeNull()
+      expect(next.editErrors[0]?.code).toBe(vector.attendu)
+    }
+  })
+}
+test.each(vectors.transitions)("transition documentaire $id", (vector) => {
+  const initial = calculated()
+  const candidate = preview(initial, "P", "110")
+  const modified = confirmCalculatorEdit(candidate, adoptedMethod)
+  let next = modified
+  if (vector.id === "annulation") next = cancelCalculatorEdit(candidate)
+  if (vector.id === "reset")
+    next = resetCalculatorTarget(modified, adoptedMethod)
+  if (vector.id === "profil-change" || vector.id === "recalcul-profil")
+    next = changeCalculatorProfile(modified, "poids_kg", "71")
+  if (vector.id === "recalcul-profil")
+    next = calculateCalculatorSession(next, adoptedMethod)
+  expect(next.preview).toBeNull()
+  if (vector.cible) {
+    expect(next.outcome?.ok).toBe(true)
+    if (next.outcome?.ok) oracle(next.outcome.target, vector.cible)
+  } else {
+    expect(next.outcome).toBeNull()
+    expect(next.original).toBeNull()
+  }
+  expect(next.currentState).toBe(
+    vector.attendu === "CIBLE_MODIFIEE" ? "modified" : "estimated"
+  )
+})
+test("identité exige confirmation ; annuler depuis une cible modifiée la conserve", () => {
+  const start = calculated()
+  const next = preview(start, "E", "2638")
+  expect(next.currentState).toBe("estimated")
+  expect(next.outcome).toEqual(start.outcome)
+  const confirmed = confirmCalculatorEdit(next, adoptedMethod)
+  expect(confirmed.currentState).toBe("modified")
+  expect(confirmed.outcome).toEqual(start.outcome)
+  expect(cancelCalculatorEdit(preview(confirmed, "P", "110")).outcome).toEqual(
+    confirmed.outcome
+  )
+  expect(
+    cancelCalculatorEdit(preview(confirmed, "P", "110")).currentState
+  ).toBe("modified")
+})
+test("les six changements invalident original, courant, brouillon et candidat", () => {
+  for (const field of Object.keys(reference) as (keyof CalculatorProfile)[]) {
+    for (const start of [
+      preview(calculated(), "P", "110"),
+      confirmCalculatorEdit(preview(calculated(), "P", "110"), adoptedMethod),
+    ]) {
+      const next = changeCalculatorProfile(start, field, `${reference[field]} `)
+      expect(next).toMatchObject({
+        outcome: null,
+        original: null,
+        preview: null,
+        edit: { field: "", value: "" },
+        editErrors: [],
+        changed: true,
+      })
+    }
+  }
+})
+test.each(["", "-1", "+110", "1e2", "110.0000000", "1000000.000001"])(
+  "AD-12 édition %s",
+  (raw) => {
+    for (const field of ["E", "P", "G", "L"]) {
+      const next = preview(calculated(), field, raw)
+      expect(next.edit.value).toBe(raw)
+      expect(next.editErrors[0]?.code).toBe("ENTREE_INVALIDE")
+      expect(next.preview).toBeNull()
+    }
+  }
+)
+test("décimales françaises restent en brouillon ; la confirmation utilise la valeur exacte", () => {
+  const next = preview(calculated(), "P", " 0110,000000 ")
+  expect(next.edit.value).toBe(" 0110,000000 ")
+  expect(next.preview?.target.P).toEqual(rational(110n))
+  expect(confirmCalculatorEdit(next, adoptedMethod).outcome).toMatchObject({
+    ok: true,
+    target: { P: rational(110n) },
+  })
+})
+test("toute transition produisant une cible exige méthode disponible et profil inchangé", () => {
+  const next = preview(calculated(), "P", "110")
+  for (const method of [
+    null,
+    { ...adoptedMethod, status: "retiree" as const },
+    { ...adoptedMethod, version: "v2" },
+  ]) {
+    for (const transition of [
+      previewCalculatorEdit,
+      confirmCalculatorEdit,
+      resetCalculatorTarget,
+    ])
+      expect(transition(next, method).editErrors[0]?.code).toBe(
+        "METHODE_INDISPONIBLE"
+      )
+  }
+  for (const transition of [
+    previewCalculatorEdit,
+    confirmCalculatorEdit,
+    resetCalculatorTarget,
+  ]) {
+    expect(
+      transition(
+        { ...next, profile: { ...next.profile, poids_kg: "71" } },
+        adoptedMethod
+      ).editErrors[0]?.code
+    ).toBe("CIBLE_ABSENTE")
+    expect(
+      transition(createCalculatorSession(), adoptedMethod).editErrors[0]?.code
+    ).toBe("CIBLE_ABSENTE")
+  }
+  expect(
+    confirmCalculatorEdit(calculated(), adoptedMethod).editErrors[0]?.code
+  ).toBe("CIBLE_ABSENTE")
+})
+
+test("éditer E conserve les fractions modifiées, sans réinjecter leurs affichages", () => {
+  const modified = confirmCalculatorEdit(
+    preview(calculated(), "P", "110"),
+    adoptedMethod
+  )
+  const next = preview(modified, "E", "2901.8")
+  expect(next.preview?.target.P).toEqual(rational(121n))
+  expect(next.preview?.target.G).toEqual(rational(31427n, 100n))
+  expect(next.preview?.target.L).toEqual(rational(29018n, 225n))
+  expect(next.outcome).toEqual(modified.outcome)
+  expect(next.original).toEqual(calculated().original)
+})
+
+test("confirmation et reset refusent un profil devenu invalide même hors transition normale", () => {
+  const candidate = preview(calculated(), "P", "110")
+  for (const transition of [confirmCalculatorEdit, resetCalculatorTarget]) {
+    expect(
+      transition(
+        { ...candidate, profile: { ...candidate.profile, age: "" } },
+        adoptedMethod
+      ).editErrors[0]?.code
+    ).toBe("ENTREE_INVALIDE")
+    expect(
+      transition(
+        { ...candidate, profile: { ...candidate.profile, eligibilite: "non" } },
+        adoptedMethod
+      ).editErrors[0]?.code
+    ).toBe("SITUATION_EXCLUE")
+  }
+})
+
+test("confirmation refuse une proposition obsolète plutôt que confirmer une autre saisie", () => {
+  const candidate = preview(calculated(), "P", "110")
+  const next = confirmCalculatorEdit(
+    { ...candidate, edit: { field: "P", value: "111" } },
+    adoptedMethod
+  )
+  expect(next.editErrors[0]?.code).toBe("CIBLE_ABSENTE")
+  expect(next.preview).toBeNull()
+  expect(next.outcome).toEqual(candidate.outcome)
 })

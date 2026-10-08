@@ -461,3 +461,21 @@ clavier/mobile et un serveur auth local simulé répondant 503 avec ses URL
 configurées. Ce dernier prouve le SSR public indépendant de l'auth et la panne
 privée conservée ; il ne prouve aucune authentification réelle. La recette auth
 réelle reste `bun run test:e2e:auth` avec le backend dev et un compte de test.
+
+Depuis une estimation, « Modifier ma cible » propose une saisie vide et un seul
+champ explicite. La prévisualisation compare ancienne et nouvelle cibles, leurs
+unités et fractions exactes, et indique les champs conservés/recalculés. Seule
+« Confirmer la modification » remplace la cible courante, y compris si les valeurs
+sont identiques. Annuler ou un refus conserve la cible antérieure et son état.
+« Réinitialiser la cible originale » restaure les rationnels originaux et le
+défaut 15/45/40. La plage de calories reste toujours 90–110 % de l'énergie
+originale, sans cumul ; toute modification du profil invalide aussi l'original,
+la prévisualisation et le brouillon d'édition. Le nouveau calcul est explicite.
+
+L'édition et le calcul fonctionnent localement hors ligne une fois la page
+chargée ; aucun cache hors ligne complet n'est fourni. Navigation et retour
+conservent aussi une prévisualisation ou une édition refusée, avec leur texte.
+Les tests couvrent les sept modifications documentaires, toutes les lignes
+édition/reset et transitions de l'oracle indépendant, les refus, les identités
+exactes, la confidentialité et les actions clavier à 320 px. Ces vérifications
+ne constituent ni un audit WCAG complet ni une validation clinique.
