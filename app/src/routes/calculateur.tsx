@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { createFileRoute, useHydrated } from "@tanstack/react-router"
+import { sendCalculatorMeasurement } from "@/lib/calculator-measurement"
 import { CalculatorTargetEditor } from "@/components/calculator-target-editor"
 import { multiply, divide, rational } from "@/domain/decimal"
 import { PublicNavigation } from "@/components/public-navigation"
@@ -95,7 +96,9 @@ function Calculator() {
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    update(calculateCalculatorSession(session, context.calculatorMethod))
+    const next = calculateCalculatorSession(session, context.calculatorMethod)
+    update(next)
+    if (next.outcome?.ok) void sendCalculatorMeasurement()
   }
 
   const outcome = isCalculatorMethodAvailable(context.calculatorMethod)
@@ -361,6 +364,7 @@ function Calculator() {
       </div>
       {result && (
         <CalculatorTargetEditor
+          onConfirmed={() => void sendCalculatorMeasurement()}
           session={session}
           method={context.calculatorMethod}
           ready={ready}

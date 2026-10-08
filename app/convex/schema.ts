@@ -4,6 +4,16 @@ import { closureValidator, entitlementValidator } from "./contracts/access"
 
 // Les tables d'authentification appartiennent au composant Better Auth.
 export default defineSchema({
+  calculatorMeasurements: defineTable({
+    version: v.literal(1),
+    eventId: v.string(),
+    occurredAt: v.number(),
+    type: v.literal("calculator_completed"),
+    receivedAt: v.number(),
+    expiresAt: v.number(),
+  })
+    .index("by_eventId", ["eventId"])
+    .index("by_expiresAt", ["expiresAt"]),
   entitlements: defineTable(
     entitlementValidator.extend({
       ownerId: v.string(),

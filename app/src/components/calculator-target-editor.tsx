@@ -40,11 +40,13 @@ export function CalculatorTargetEditor({
   method,
   ready,
   update,
+  onConfirmed,
 }: {
   session: CalculatorSession
   method: CalculatorMethod | null | undefined
   ready: boolean
   update: (next: CalculatorSession) => void
+  onConfirmed: () => void
 }) {
   const previewButton = useRef<HTMLButtonElement>(null)
   function closePreview(next: CalculatorSession) {
@@ -257,9 +259,17 @@ export function CalculatorTargetEditor({
               <Button
                 disabled={!ready}
                 className="min-h-11"
-                onClick={() =>
-                  closePreview(confirmCalculatorEdit(session, method))
-                }
+                onClick={() => {
+                  const next = confirmCalculatorEdit(session, method)
+                  closePreview(next)
+                  if (
+                    next.outcome?.ok &&
+                    next.currentState === "modified" &&
+                    next.editErrors.length === 0 &&
+                    next.preview === null
+                  )
+                    onConfirmed()
+                }}
               >
                 Confirmer la modification
               </Button>

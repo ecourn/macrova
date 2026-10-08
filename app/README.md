@@ -479,3 +479,54 @@ Les tests couvrent les sept modifications documentaires, toutes les lignes
 édition/reset et transitions de l'oracle indépendant, les refus, les identités
 exactes, la confidentialité et les actions clavier à 320 px. Ces vérifications
 ne constituent ni un audit WCAG complet ni une validation clinique.
+
+## Mesure anonyme du calculateur
+
+Après un calcul réussi ou une confirmation de modification réussie (même à
+valeurs identiques), le navigateur émet une nouvelle intention `calculator_completed`.
+Saisie, prévisualisation, annulation, reset, refus et navigation n'en émettent pas.
+L'enveloppe PublicEvent v1 contient exclusivement `version`, UUID aléatoire
+`eventId`, `occurredAt` en millisecondes UTC et `type`. Aucun profil, valeur
+nutritionnelle, compte, URL de parcours ou identifiant de personne n'est transmis.
+Le POST vers `VITE_CONVEX_SITE_URL/measurements/calculator` utilise `credentials:
+"omit"`, `referrerPolicy: "no-referrer"` et un transport indépendant de l'authentification. Sans configuration,
+la collecte est abandonnée. Résultats et éditions restent locaux et immédiats.
+Deux tentatives maximum, de 1,5 seconde chacune, conservent exactement la même
+enveloppe en mémoire ; aucune queue ou persistance navigateur. Réseau, 503 et
+timeout permettent ce retry ; les refus 400/409/429 l'arrêtent.
+
+L'endpoint lit au plus 1024 octets, valide le contrat fermé puis délègue à une
+mutation interne transactionnelle. Dates admises : jusqu'à 24 h de passé et
+5 min de futur relativement à la réception serveur. `eventId` déduplique la
+même enveloppe ; contenu différent : 409. Le composant officiel rate-limiter
+impose **1000 nouvelles insertions par heure UTC**, quota global synchrone sans
+clé IP, empreinte ou session (429 au dépassement). Un retry dédupliqué ne
+consomme pas de nouvelle insertion. Ce budget borne le stockage normal à environ
+720 000 événements sur 30 jours, avec les frontières de fenêtres et le délai
+opérationnel de purge ; il ne borne pas le coût des requêtes rejetées et ne
+constitue pas une défense DDoS. Un attaquant peut consommer le quota commun et
+fabriquer des événements. Ces mesures déclarent des intentions navigateur,
+sans prouver des personnes distinctes ni valider l'offre premium.
+
+Chaque réception fixe `receivedAt` et `expiresAt = receivedAt + 30 jours`,
+indépendamment de l'horloge cliente. Suppression interne programmée à cette
+échéance ; un cron horaire rattrape les échéances dépassées par lots de 100,
+avec continuation planifiée immédiate. L'échéance exclut déjà l'événement du
+bilan même si une panne retarde sa suppression physique. Le retard effectif
+d'exécution doit être surveillé lors de l'ouverture.
+
+Pour l'exploitation autorisée, `internal.calculatorMeasurements.summary`
+accepte `{ asOf, paginationOpts: { numItems: 100, cursor: null } }` ; fixer `asOf`
+à la date UTC du bilan, répéter avec `continueCursor` jusqu'à `isDone` et sommer
+`count`. Chaque page expose seulement compte et curseur, jamais les enveloppes.
+Le bilan est une lecture paginée des événements encore retenus, sans agrégation
+historique ; une purge ou insertion pendant la lecture peut faire évoluer le
+résultat, donc ce n'est pas un instantané comptable. Les fonctions de collecte,
+expiration, purge et bilan sont internes, inaccessibles au client anonyme ou
+connecté ; seul le POST minimal est public. Les bindings `_generated/api.d.ts`
+sont actualisés localement comme les bindings du socle, sans téléversement.
+
+La durée technique de 30 jours et les modalités d'information/ouverture restent
+à vérifier dans `epic-validation-lancement` avant collecte publique réelle.
+Les tests locaux synthétiques ne revendiquent aucune conformité ni validation
+de l'authentification réelle.

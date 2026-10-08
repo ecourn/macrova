@@ -8,6 +8,8 @@
  * @module
  */
 
+import type * as calculatorMeasurements from "../calculatorMeasurements.js";
+import type * as crons from "../crons.js";
 import type * as account from "../account.js";
 import type * as auth from "../auth.js";
 import type * as contracts_access from "../contracts/access.js";
@@ -25,6 +27,8 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  calculatorMeasurements: typeof calculatorMeasurements;
+  crons: typeof crons;
   account: typeof account;
   auth: typeof auth;
   "contracts/access": typeof contracts_access;
@@ -63,5 +67,6 @@ export declare const internal: FilterApi<
 >;
 
 export declare const components: {
+  rateLimiter: import("@convex-dev/rate-limiter/_generated/component.js").ComponentApi<"rateLimiter">;
   betterAuth: import("@convex-dev/better-auth/_generated/component.js").ComponentApi<"betterAuth">;
 };
