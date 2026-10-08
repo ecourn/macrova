@@ -1,3 +1,20 @@
+# Vérification courante — gouvernance du 8 octobre 2026
+
+Adoption produit déléguée du dossier v1 ; aucune validation clinique. Les paramètres numériques des vecteurs restent identiques. Les empreintes ci-dessous identifient les pièces courantes couvertes par la décision. Les tables plus anciennes sont historiques et ne décrivent plus les contenus courants. L’implémentation et ses tests appartiennent aux stories suivantes.
+
+| Pièce courante | SHA-256 |
+| --- | --- |
+| sources-verifiees.md | `e8fb037a09d247e36c3681c730e25fc974783dc921a344db82a0ec5e10dc7580` |
+| methode-estimative-v1.md | `7785acb002baa29870dbad14c8358b62930391d0bf00f0124d3dfea08a005bfe` |
+| exemples-reference.json | `79771c15b11fde21976c66187d07245d9fb4acad49f73384429edc44bdb22d90` |
+| exemples-reference.md | `d28617a44551650a375f371c2d43cab5a5d30c843f6863c1ee0596c79b97ee6a` |
+| validation.md | `723bda7d38b00b1c061ad91d166a59759201a5cb7c87ce54390110d708018e57` |
+| decision-responsable.md | `b6a43464f3b52efb6ca49f892fadff63b93d259abb114d749cae943b3b29042e` |
+
+## Vérifications et empreintes historiques — 7 octobre 2026
+
+Les constats et conditions de blocage ci-dessous sont datés et remplacés par la décision du 8 octobre ; les preuves arithmétiques restent réutilisables.
+
 # Vérification documentaire et arithmétique — proposition v1
 
 Version : `methode-estimative-v1`. Exécution locale du 7 octobre 2026 avec Python 3 et `fractions.Fraction`. Aucun estimateur ni script de moteur n'est ajouté au dépôt. [Méthode](methode-estimative-v1.md), [JSON](exemples-reference.json), [exemples](exemples-reference.md), [registre en attente](validation.md), [sources conservées](sources-verifiees.md).

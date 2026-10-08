@@ -1,8 +1,8 @@
 {
   "version": "methode-estimative-v1",
-  "statut": "proposition-non-approuvee",
+  "statut": "adoptee-pour-construction-isolee",
   "date_verification": "2026-10-07",
-  "convention": "Rationnels documentaires réduits n/d ; aucune réinjection des affichages. Les gardes sont testées sous disponibilité hypothétique, jamais réelle.",
+  "convention": "Rationnels documentaires réduits n/d ; aucune réinjection des affichages. Vecteurs documentaires sous méthode disponible ; adoption produit du 2026-10-08, aucune preuve d’implémentation ou validation clinique.",
   "profils": [
     {
       "id": "A",

@@ -52,3 +52,9 @@ TanStack Start, Convex et Better Auth sont des points d’intégration possédé
 - Assumption: ordre conservateur pour une réalisation autonome ; les dépendances nomment les livrables réellement nécessaires et seront affinées vers les ids de stories lors des inceptions suivantes.
 - Open question: les validations scientifiques, commerciales, juridiques et les observations terrain restent des travaux à réaliser ; le découpage ne fournit pas leur résultat.
 - Decision: 2026-10-05 — validation indépendante : séparer les entretiens préalables de la bêta finale et distinguer capacités techniques livrées des résultats observés pour supprimer les cycles fonctionnels.
+
+## Gouvernance courante — 8 octobre 2026
+
+Decision: l’utilisateur délègue les arbitrages et leur application à l’agent sans confirmation supplémentaire. Les décisions du 7 octobre exigeant un responsable externe sont remplacées par la correction de trajectoire `change-gouvernance-a-deux/change-gouvernance-a-deux.md`. L’utilisateur porte les actions humaines et les comptes ; l’agent porte produit, architecture, développement et coordination des modules. Les observations réelles restent nécessaires.
+
+2.1 accepte le dossier de méthode par décision produit sourcée ; 10.1 accepte le kit et le gel documentaire. Les contrôles effectifs du support privé sont déplacés au début de 10.2 avant collecte, puis vérifiés lors des remises 10.5/10.7. La prochaine story de développement est 2.2, sans dépendance à l’enquête. Les deux epics restent ouverts jusqu’à leurs livrables finaux ; la clôture de leurs premières stories ne signifie pas clôture des epics.

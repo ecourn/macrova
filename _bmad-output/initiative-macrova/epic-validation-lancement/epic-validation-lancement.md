@@ -48,3 +48,5 @@ Périmètre limité au résultat décrit et aux capacités couvertes ; appliquer
 - Assumption: un propriétaire de développement conduit cet epic dans le monolithe modulaire.
 - Decision: 2026-10-05 — dérouler cet epic en phases : vérifier les conditions et autoriser l’ouverture contrôlée avant recrutement bêta et paiements réels, puis collecter les usages, dresser le bilan à deux semaines et observer le renouvellement à un mois ; le bilan n’est pas une condition préalable d’ouverture.
 - Decision: 2026-10-05 — les prérequis des epics techniques sont leurs capacités utilisables de mesure et de paiement ; les résultats observés sont produits ici, jamais attendus en amont.
+
+- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques, terrain et conditions d’activation restent exigées au moment pertinent selon la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.

@@ -5,27 +5,27 @@
 id = 1
 type = "story"
 title = "Préparer le kit protégé et figer le protocole"
-description = "Préparer le guide neutre, le filtrage de la cible, les fiches vierges d'entretien et de recherches et la grille bêta conforme à la source, faire définir et approuver par le responsable les données nécessaires, l'information, les accès, la conservation, la suppression et les canaux, puis vérifier le support privé choisi par un parcours complet d'exercice explicitement exclu des résultats réels."
-verify = "Relire les critères bêta contre la source, vérifier leur version datée avant recrutement, parcourir les formats jusqu'aux deux livrables avec un exercice étiqueté simulation, tester un accès autorisé et un accès refusé au support privé et constater l'accord réel du responsable sur information, accès, durées et suppression sans donnée personnelle dans Git."
+description = "Finaliser et adopter par décision déléguée de l’agent le guide neutre, le filtrage, les fiches vierges, le cadre minimal et le protocole bêta versionné, parcourir les formats par simulation exclue des résultats et affecter les essais du support réel à 10.2 avant collecte."
+verify = "Relire les critères contre les sources et AD-11, vérifier version, seuils et simulation de bout en bout, puis constater la décision documentaire datée et la couverture explicite des essais du support par 10.2, sans donnée personnelle dans Git."
 covers = ["ENQ-1", "ENQ-3", "ENQ-4", "ENQ-5", "ENQ-6"]
 after = []
-hitl = true
+hitl = false
 risk = "high"
-unknown = "Le responsable, le support privé et les règles de collecte doivent être réellement établis et approuvés ici ; aucun accord humain ni conformité ne peut être déduit de l'inception."
+unknown = "Support effectif, contact et canaux restent à vérifier au début de 10.2 avant collecte ; leur absence ne bloque ni cette préparation ni le développement du calculateur."
 plan_checkpoint = false
-done_checkpoint = true
+done_checkpoint = false
 
 [[entry]]
 id = 2
 type = "story"
 title = "Éprouver le guide sur un entretien pilote réel"
-description = "Avec le cadre approuvé de 10.1, faire recruter et informer un adulte de la cible, observer sa méthode habituelle sur un repas récent, consigner canal, durée, erreurs, corrections et difficultés dans le support privé, puis corriger le guide et vérifier une première extraction de recherche anonymisée sans modifier les critères bêta."
-verify = "Un responsable autorisé retrouve la preuve privée d'un entretien réel conforme à ENQ-2, distingue observations, déclarations et informations manquantes, suit un aliment jusqu'au format de recherche et confirme que le pilote peut compter comme le premier des quinze sans exposition des identifiants."
+description = "Avec le kit adopté de 10.1, choisir le support privé maîtrisé par l’utilisateur, éprouver accès autorisé/refusé, révocation, suppression et copies avec données jetables, finaliser information/contact et canaux autorisés, puis recueillir l’accord volontaire avant toute collecte et faire recruter et informer un adulte de la cible, observer sa méthode habituelle sur un repas récent, consigner canal, durée, erreurs, corrections et difficultés dans le support privé, puis corriger le guide et vérifier une première extraction de recherche anonymisée sans modifier les critères bêta."
+verify = "Avant collecte, vérifier les preuves effectives du support et de l’information, puis l’utilisateur et l’agent selon leurs accès retrouvent la preuve privée d'un entretien réel conforme à ENQ-2, distinguent observations, déclarations et informations manquantes, suivent un aliment jusqu'au format de recherche et confirment que le pilote peut compter comme le premier des quinze sans exposition des identifiants."
 covers = ["ENQ-1", "ENQ-2", "ENQ-3", "ENQ-6"]
 after = [1]
 hitl = true
 risk = "high"
-unknown = "Un participant réel disponible et les autorisations de contact sont nécessaires ; si le pilote est incomplet, le compléter ou le remplacer sans le compter abusivement."
+unknown = "Le support, ses accès et ses limites doivent être réellement vérifiés avant collecte ; un participant réel disponible et les autorisations de contact sont nécessaires ; si le pilote est incomplet, le compléter ou le remplacer sans le compter abusivement."
 plan_checkpoint = false
 done_checkpoint = true
 

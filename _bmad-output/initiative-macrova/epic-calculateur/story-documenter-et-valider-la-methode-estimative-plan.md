@@ -3,22 +3,35 @@ title: '2.1 — Documenter et valider la méthode estimative'
 type: 'feature'
 ticket: 1
 created: '2026-10-07'
-status: 'blocked'
-blocked_at: '2026-10-07'
-blocked_reason: 'Préparation complète ; seul reste l’accord réel daté et vérifiable du responsable sur methode-estimative-v1, confirmé absent par l’utilisateur. 2.2 non autorisée.'
+status: done
 baseline_revision: 'b44758a9b3dcc4c60a3fe73b85e63568b8b4d057'
 route: 'full'
 route_source: 'auto'
 review: 'quick'
 review_source: 'pinned'
 lenses_ran: ['quick']
-acceptance: 'awaiting-real-validation'
-implementation_authorized: false
+acceptance: 'accepted-delegated-product-decision'
+implementation_authorized: true
 review_loop_iteration: 0
 context:
   - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/initiative-macrova/epic-calculateur/methode-estimative-v1/sources-verifiees.md
   - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/initiative-macrova/epic-calculateur/epic-calculateur.md
 ---
+
+## Contrat courant renégocié — 8 octobre 2026
+
+Intent : accepter le dossier sourcé et reproductible par décision produit de l’agent mandaté. L’utilisateur autorise explicitement cette correction et sa mise en œuvre ; l’exigence de signature externe est retirée. 2.1 clôturée, développement 2.2 autorisé.
+
+- [x] Méthode, sources datées et limites, exclusions, entrées/unités et recalcul documentés.
+- [x] Exemples et cas limites reproductibles ; contrôles antérieurs conservés.
+- [x] Décision produit datée couvrant la version exacte enregistrée dans methode-estimative-v1/decision-responsable.md et validation.md.
+- [x] Suppression de hitl/done_checkpoint et du blocage externe dans le ticket.
+
+Critères : les pièces concordent et la décision est attribuée à l’agent sous mandat utilisateur ; aucune validation clinique n’est revendiquée. Aucune implémentation livrée ici ; tests applicatifs dans les stories suivantes. Le calendrier et les limites d’ouverture restent explicites.
+
+## Historique de réalisation — 7 octobre 2026, conditions remplacées
+
+Les contrats et constats suivants sont conservés pour traçabilité ; les anciennes conditions de clôture sont remplacées par le contrat courant ci-dessus.
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
 
@@ -99,3 +112,8 @@ Reproduire les exemples avec fractions exactes, vérifier JSON et liens relatifs
 - 2026-10-07 — revue quick de reprise : high / defer — acceptation finale non satisfaite, constat confirmé par validation.md et le formulaire non rempli. Condition externe préexistante, non causée par le support de recueil : accord réel daté toujours absent ; aucune clôture de 2.1 ni autorisation de 2.2. Aucun défaut du support ajouté relevé ; contrôles de reprise conformes. Cette condition reste une exigence de 2.1, pas un transfert à une autre story.
 
 - 2026-10-07 — dernière revue indépendante de cohérence : aucun défaut préparatoire ; audit Fraction des 3 profils, 7 modifications, 112 cas, 5 transitions et 3 arrondis réussi. Commande publiée, correspondance MD/JSON, empreintes finales, liens et diff --check conformes. Statuts blocked/awaiting-real-validation et absence d'autorisation de 2.2 vérifiés ; seule condition restante : décision réelle datée et vérifiable du responsable.
+
+
+## Journal de correction — 8 octobre 2026
+
+Decision: application de la correction de gouvernance sous autorisation explicite de l’utilisateur ; responsabilités et critères courants mis à jour, sans fabriquer de preuve externe ou terrain.

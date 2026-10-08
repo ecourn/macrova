@@ -1,3 +1,15 @@
+# Validation produit — méthode estimative v1
+
+**Décision du 8 octobre 2026 : dossier accepté pour la construction isolée de CAP-1 ; 2.1 clôturée sous mandat utilisateur, 2.2 autorisée à démarrer.** Validation produit documentaire et arithmétique ; aucune certification clinique ou signature externe revendiquée. L’application n’est pas encore implémentée.
+
+L’utilisateur a demandé de remplacer la gouvernance externe par le fonctionnement à deux et a délégué les arbitrages ainsi que leur application sans nouvelle confirmation. L’agent consigne l’adoption des six points de [décision](decision-responsable.md) sur les pièces identifiées dans [verification.md](verification.md), en conservant les limites des [sources](sources-verifiees.md).
+
+CAL-1 est satisfait par la méthode, les sources datées, unités, hypothèses, exclusions, règles et exemples vérifiés. CAL-3/CAL-4 sont documentés ici ; leur implémentation et leurs tests restent en 2.2–2.4. Les essais intégrés sont à réaliser en 2.8. Tout retrait de la version rétablit METHODE_INDISPONIBLE. L’ouverture publique conserve ses conditions propres.
+
+## Historique antérieur remplacé — 7 octobre 2026
+
+Les paragraphes suivants retracent l’ancienne exigence externe et ses constats exacts à cette date. Ils ne définissent plus les conditions courantes de clôture ou de démarrage.
+
 # Registre de validation — proposition v1
 
 Version soumise : `methode-estimative-v1`, dossier préparé le **7 octobre 2026**. **Statut : BLOQUÉE / EN ATTENTE DE VALIDATION EXTERNE — aucune approbation nutritionnelle réelle, aucune autorisation d'implémentation d'estimation automatique.** La story 2.1 demeure ouverte à l'acceptation finale et la suite 2.2 reste fermée.

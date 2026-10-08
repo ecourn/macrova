@@ -54,7 +54,7 @@ Les flèches portent la direction des dépendances permises ; l’authentificati
 
 - **Binds:** CAP-1, CAP-2.
 - **Prevents:** Profil gratuit enregistré implicitement et démo comptée comme usage personnel.
-- **Rule:** Calculateur et démo utilisent le domaine en mémoire navigateur, sans compte ni persistance serveur du profil. Les exemples de démo sont des instantanés sourcés versionnés ; les données manquantes bloquent leur calcul. La méthode estimative doit être documentée et validée avant CAP-1 : en son absence, aucune estimation automatique. Une session démo ne peut appeler une confirmation personnelle ni produire un événement premier repas. Toute reprise personnelle exige compte, droit et confirmation explicite.
+- **Rule:** Calculateur et démo utilisent le domaine en mémoire navigateur, sans compte ni persistance serveur du profil. Les exemples de démo sont des instantanés sourcés versionnés ; les données manquantes bloquent leur calcul. La méthode estimative doit être documentée et adoptée par décision produit sourcée de l’agent avant CAP-1 : en son absence ou après retrait, aucune estimation automatique. Le dossier methode-estimative-v1 est adopté le 8 octobre 2026 pour la construction isolée, sans certification clinique ni signature externe. Une session démo ne peut appeler une confirmation personnelle ni produire un événement premier repas. Toute reprise personnelle exige compte, droit et confirmation explicite.
 
 ### AD-3 — Contrat nutritionnel canonique [ADOPTED]
 
@@ -241,7 +241,7 @@ les tables déjà livrées.
 
 | Sujet | Condition et effet |
 | --- | --- |
-| Méthode estimative, entrées et exclusions | Décision produit sourcée avant CAP-1 ; le module reste sans estimation automatique jusque-là. |
+| Méthode estimative, entrées et exclusions | Décision produit sourcée v1 adoptée en 2.1 le 8 octobre 2026 ; appliquer ses gardes et tester le domaine lors de 2.2 à 2.4. Aucune implémentation livrée par le dossier. |
 | Audit de 50 recherches et exemples sourcés | Avant gel du catalogue et démonstration chiffrée ; aucun catalogue complémentaire adopté. |
 | Algorithme de recherche et budget CPU | Choix dans le module portions avant son implémentation, avec mesure des grilles réelles ; le contrat déterministe et l’état recherche interrompue sont déjà fixés par AD-4. |
 | Limites numériques v1 | Précision et plafonds fixés par AD-12 comme hypothèses techniques ; tester sur l’audit alimentaire et les portions réelles, puis versionner une éventuelle évolution commune. |
@@ -259,3 +259,7 @@ les tables déjà livrées.
 - [API Open Food Facts : versions, quotas et licences](https://openfoodfacts.github.io/openfoodfacts-server/api/).
 - [Événements d’abonnement Stripe](https://docs.stripe.com/billing/subscriptions/webhooks) et [réception des webhooks](https://docs.stripe.com/webhooks), pour l’adaptateur proposé.
 - [Hébergement TanStack Start](https://tanstack.com/start/latest/docs/framework/react/guide/hosting), sans fournisseur imposé.
+
+## Responsabilités et preuves — 8 octobre 2026
+
+Les propriétaires de modules désignent des frontières de code ; l’agent les coordonne dans le fonctionnement à deux avec l’utilisateur. Ils n’imposent pas de recrutement ou d’accord externe. Aucun composant, contrat, schéma ou fournisseur n’est modifié par cette correction. Les vérifications de code se font dans les stories correspondantes ; les essais du support d’enquête se font en 10.2 avant collecte, indépendamment du développement. Les conditions d’ouverture publique d’AD-8 à AD-10 restent effectives.

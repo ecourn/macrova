@@ -1,10 +1,10 @@
-# Méthode estimative — proposition v1
+# Méthode estimative — v1 adoptée pour construction
 
-Version unique : `methode-estimative-v1`. Dossier préparé le 7 octobre 2026, **en attente d'accord réel**. Cette proposition n'autorise aucune estimation dans l'application. [Validation](validation.md), [vecteurs JSON](exemples-reference.json), [exemples et matrice](exemples-reference.md), [vérification](verification.md), [sources primaires vérifiées S1–S5](sources-verifiees.md).
+Version unique : `methode-estimative-v1`. Dossier préparé le 7 octobre 2026, **adopté par décision produit déléguée le 8 octobre 2026**. La construction isolée est autorisée ; aucune validation clinique n’est revendiquée. [Validation](validation.md), [vecteurs JSON](exemples-reference.json), [exemples et matrice](exemples-reference.md), [vérification](verification.md), [sources primaires vérifiées S1–S5](sources-verifiees.md).
 
 ## Portée et justification
 
-Cible journalière théorique de maintien, sans objectif de perte ou prise de poids, prescription, diagnostic ni garantie de santé. La méthode prédit une dépense ; elle ne mesure pas le besoin d'une personne. Les erreurs individuelles restent possibles même dans le périmètre. Tous les arbitrages de couverture et de recalcul ci-dessous sont **proposés pour examen**, pas validés par les auteurs des sources.
+Cible journalière théorique de maintien, sans objectif de perte ou prise de poids, prescription, diagnostic ni garantie de santé. La méthode prédit une dépense ; elle ne mesure pas le besoin d'une personne. Les erreurs individuelles restent possibles même dans le périmètre. Tous les arbitrages de couverture et de recalcul ci-dessous sont **adoptés comme choix produit par l’agent mandaté**, sans validation par les auteurs des sources.
 
 S1 fournit l'équation simplifiée de dépense au repos dans deux groupes de l'étude de Mifflin : `R = 10W + 6,25H − 5A + c`, en kcal/jour, avec W en kg, H en cm, A en années et c égal à 5 (groupe masculin de l'étude) ou −161 (groupe féminin). S1 porte sur 498 adultes en bonne santé de 19 à 78 ans, incluant poids normal et obésité ; les bornes Macrova ne décrivent pas la population validée par l'étude. Seul son résumé original a été consulté.
 
@@ -19,9 +19,9 @@ S1 fournit l'équation simplifiée de dépense au repos dans deux groupes de l'�
 
 Ces descriptions sont des aides produit approximatives, pas des seuils horaires validés. Choix explicite d'un PAL parmi ces quatre valeurs ; aucune déduction d'un nombre de séances, aucun ajout d'exercice. Une activité très élevée ne lève aucune exclusion.
 
-Défaut proposé : fractions énergétiques P/G/L = 15/45/40 %, soit `P = 3E0/80`, `G = 9E0/80`, `L = 2E0/45`, en g/jour. S3 donne les intervalles adultes 10–20/40–55/35–40 %, sans sélectionner le défaut. S5 donne les facteurs 4/4/9 kcal/g utilisés uniquement pour cette cible théorique. `4P + 4G + 9L = E` exactement ; cette identité ne sert jamais à reconstituer des calories alimentaires ou d'étiquette (autres constituants possibles).
+Défaut adopté : fractions énergétiques P/G/L = 15/45/40 %, soit `P = 3E0/80`, `G = 9E0/80`, `L = 2E0/45`, en g/jour. S3 donne les intervalles adultes 10–20/40–55/35–40 %, sans sélectionner le défaut. S5 donne les facteurs 4/4/9 kcal/g utilisés uniquement pour cette cible théorique. `4P + 4G + 9L = E` exactement ; cette identité ne sert jamais à reconstituer des calories alimentaires ou d'étiquette (autres constituants possibles).
 
-Le plan propose de refuser `P < 0,83W` g/jour, en référence à S4 (adultes en bonne santé, régimes mixtes). La référence de population ne valide pas chaque personne au-dessus du seuil et ne constitue pas une limite supérieure de sécurité. Ne jamais augmenter P silencieusement pour passer cette garde.
+La méthode refuse `P < 0,83W` g/jour, en référence à S4 (adultes en bonne santé, régimes mixtes). La référence de population ne valide pas chaque personne au-dessus du seuil et ne constitue pas une limite supérieure de sécurité. Ne jamais augmenter P silencieusement pour passer cette garde.
 
 ## Entrées et exclusions
 
@@ -41,7 +41,7 @@ Pour obtenir un résultat, contrôler dans cet ordre ; au premier échec, **aucu
 
 | Ordre | Code | Garde et message déterministe |
 |---|---|---|
-| 1 | METHODE_INDISPONIBLE | Version absente, non approuvée, retirée ou différente de la version demandée : « La méthode estimative n'est pas disponible : aucune estimation ne peut être calculée. » |
+| 1 | METHODE_INDISPONIBLE | Version absente, non adoptée, retirée ou différente de la version demandée : « La méthode estimative n'est pas disponible : aucune estimation ne peut être calculée. » |
 | 2 | ENTREE_INVALIDE | Champ numérique absent, syntaxe/précision/plafond AD-12 incorrect : « {champ} : saisissez une valeur décimale valide, avec au plus six décimales. » |
 | 3 | AGE_HORS_DOMAINE | Âge non entier ou hors 19–64 : « L'âge doit être un entier entre 19 et 64 ans. » |
 | 3 | TAILLE_HORS_DOMAINE | « La taille doit être comprise entre 120 et 220 cm. » |

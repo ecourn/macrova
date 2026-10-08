@@ -52,7 +52,7 @@ Aider les adultes francophones en France qui suivent déjà leurs macros et pès
 - Aucune nutrition inventée, donnée absente assimilée à zéro, conversion ml/g sans densité sourcée ou assimilation automatique cru/cuit.
 - Les contraintes de portions sont strictes ; seule la proximité à la cible peut être imparfaite et doit être explicitée.
 - Cible de repas explicitement confirmée ; aucune compensation automatique, promesse de santé ou correction silencieuse.
-- Le calculateur vise l’usage adulte général ; méthode et exclusions doivent être validées avant son implémentation.
+- Le calculateur vise l’usage adulte général ; méthode et exclusions font l’objet d’une décision produit sourcée et versionnée par l’agent avant son implémentation. Une signature externe n’est pas exigée ; les contrôles numériques et protections restent obligatoires.
 - Minimiser les données personnelles ; règles de protection, réutilisation des sources et modalités commerciales à vérifier avant lancement, selon decisions-lancement.md.
 
 ## Non-goals
@@ -73,6 +73,14 @@ Aider les adultes francophones en France qui suivent déjà leurs macros et pès
 
 ## Open Questions
 
-- Quelle méthode documentée estime les besoins, avec quelles entrées, limites et exclusions de l’usage adulte général ? Bloque CAP-1 avant implémentation.
+- Méthode estimative v1 retenue pour le développement isolé le 8 octobre 2026 en 2.1 : dossier dans initiative-macrova/epic-calculateur/methode-estimative-v1. Sources, limites, exclusions et vecteurs sont documentés ; validité clinique non démontrée. Les tests applicatifs sont à exécuter lors des stories de construction.
 - La couverture des 50 recherches permet-elle les repas usuels, et faut-il un catalogue complémentaire ? Bloque le gel du catalogue.
 - Quelles obligations et conditions actuelles encadrent données personnelles, réutilisation Open Food Facts, paiement et résiliation ? Bloque l’ouverture publique ; fournisseur et hébergement non arrêtés.
+
+## Gouvernance à deux — décision du 8 octobre 2026
+
+L’utilisateur porte Macrova et les actions nécessitant sa présence, ses comptes ou des participants réels. L’agent reçoit les arbitrages produit, techniques et documentaires, les applique et enregistre les décisions et preuves sans nouvelle confirmation dans le périmètre délégué. Les fonctions produit, catalogue, enquête, validation, architecture et développement sont des responsabilités du même binôme, pas des intervenants externes à recruter.
+
+Une validation produit sourcée et reproductible par l’agent autorise la construction ; elle ne constitue pas une validation clinique ou une certification juridique. Les preuves d’accès, les consentements et les résultats terrain restent des faits à vérifier au moment de l’action concernée. L’absence de support d’enquête ne bloque pas le développement isolé. Aucun contact externe ou invitation n’est effectué sans instruction explicite.
+
+Décision canonique et calendrier des contrôles : [correction de trajectoire](../initiative-macrova/change-gouvernance-a-deux/change-gouvernance-a-deux.md).

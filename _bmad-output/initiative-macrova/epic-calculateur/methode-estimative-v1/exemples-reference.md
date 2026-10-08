@@ -1,8 +1,8 @@
 # Exemples et matrice de référence — proposition v1
 
-Version : `methode-estimative-v1` ; vérifiés le 7 octobre 2026. Profils fictifs, aucun conseil personnalisé. [Méthode et messages](methode-estimative-v1.md), [JSON exact](exemples-reference.json), [sources](sources-verifiees.md), [validation encore ouverte](validation.md), [vérification](verification.md).
+Version : `methode-estimative-v1` ; vérifiés le 7 octobre 2026. Profils fictifs, aucun conseil personnalisé. [Méthode et messages](methode-estimative-v1.md), [JSON exact](exemples-reference.json), [sources](sources-verifiees.md), [validation produit](validation.md), [vérification](verification.md).
 
-Les gardes sont exercées sous disponibilité hypothétique de la méthode. Dans la situation réelle actuelle, METHODE_INDISPONIBLE prime. Les cas `GARDE_PASSEE` attestent seulement la garde nommée, pas un profil complet ni une approbation. Les gardes de cible isolées vérifient un invariant, sans simuler nécessairement une modification accessible depuis le défaut.
+Les gardes sont exercées sous disponibilité hypothétique de la méthode. La décision produit du 8 octobre 2026 rend le dossier disponible pour construction ; METHODE_INDISPONIBLE prime si la version est absente, retirée ou non adoptée. Aucun moteur applicatif n’est livré par ces vecteurs. Les cas `GARDE_PASSEE` attestent seulement la garde nommée, pas un profil complet ni une approbation. Les gardes de cible isolées vérifient un invariant, sans simuler nécessairement une modification accessible depuis le défaut.
 
 ## Profils synthétiques
 

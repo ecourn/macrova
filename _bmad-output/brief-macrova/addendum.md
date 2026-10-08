@@ -37,3 +37,6 @@ Ces pages décrivent les offres ; aucun essai comparatif ni témoignage indépen
 
 Variantes, recettes à plusieurs portions, liste de courses, usages en couple et repas modulaires proviennent du brainstorming. Aucune n’appartient au premier périmètre. Leur ajout dépendra des usages et de l’effort nécessaire ; elles ne constituent pas une feuille de route engagée.
 
+## Actualisation — 8 octobre 2026
+
+La spécification et la correction de gouvernance à deux priment sur les points ouverts historiques ci-dessus. La méthode estimative v1 est retenue par décision produit sourcée pour la construction isolée ; aucun accord nutritionnel externe n’est exigé ou revendiqué. Les fonctions de gouvernance sont portées par l’utilisateur et l’agent. Les observations réelles et contrôles avant activation restent à réaliser selon leur calendrier canonique.

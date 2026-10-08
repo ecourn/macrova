@@ -1,5 +1,7 @@
 # Validation de l'inception des entretiens et repas de référence
 
+> Photographie historique du 7 octobre 2026. Les conditions externes, le calendrier des essais du support et les statuts ci-dessous sont remplacés par la [correction de gouvernance du 8 octobre](../change-gouvernance-a-deux/change-gouvernance-a-deux.md) ; consulter les tickets et plans courants.
+
 Date : 2026-10-07. Périmètre : epic 10 de l'initiative Macrova, sans exécution de l'enquête ni publication par commit.
 
 ## Sources et méthode
