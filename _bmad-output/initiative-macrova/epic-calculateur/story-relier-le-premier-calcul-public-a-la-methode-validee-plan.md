@@ -3,7 +3,7 @@ title: '2.2 — Relier le premier calcul public à la méthode validée'
 type: feature
 ticket: 2
 created: '2026-10-08'
-status: built
+status: done
 baseline_revision: '20eacb2b858a48eb4ac424663bf0d167df21f65a'
 route: full
 route_source: auto
