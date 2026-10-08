@@ -66,7 +66,12 @@ export default defineConfig({
   testDir: "./tests/e2e",
   testMatch: liveAuth
     ? ["**/public.spec.ts", "**/auth.spec.ts", "**/contracts.spec.ts"]
-    : ["**/public.spec.ts", "**/offline.spec.ts"],
+    : [
+        "**/public.spec.ts",
+        "**/offline.spec.ts",
+        "**/calculator.spec.ts",
+        "**/calculator-failure.spec.ts",
+      ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -77,25 +82,67 @@ export default defineConfig({
     trace: liveAuth ? "off" : "retain-on-failure",
     screenshot: liveAuth ? "off" : "only-on-failure",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    {
+      name: "chromium",
+      testIgnore: "**/calculator-failure.spec.ts",
+      use: { ...devices["Desktop Chrome"] },
+    },
+    ...(!liveAuth
+      ? [
+          {
+            name: "public-backend-unavailable",
+            testMatch: "**/calculator-failure.spec.ts",
+            use: {
+              ...devices["Desktop Chrome"],
+              baseURL: "http://localhost:3002",
+            },
+          },
+        ]
+      : []),
+  ],
   webServer: remoteOrigin
     ? undefined
-    : {
-        command:
-          process.env.E2E_COMPILED === "1"
-            ? "bun run start"
-            : `bun run dev --host localhost --port ${port} --strictPort`,
-        url: baseURL,
-        reuseExistingServer: false,
-        timeout: 120_000,
-        env: {
-          PORT: String(port),
-          HOST: "localhost",
-          VITE_CONVEX_URL: liveAuth ? env.VITE_CONVEX_URL : "",
-          VITE_CONVEX_SITE_URL: liveAuth ? env.VITE_CONVEX_SITE_URL : "",
-          VITE_SITE_URL: baseURL,
-          E2E_AUTH_EMAIL: "",
-          E2E_AUTH_PASSWORD: "",
+    : [
+        {
+          command:
+            process.env.E2E_COMPILED === "1"
+              ? "bun run start"
+              : `bun run dev --host localhost --port ${port} --strictPort`,
+          url: baseURL,
+          reuseExistingServer: false,
+          timeout: 120_000,
+          env: {
+            PORT: String(port),
+            HOST: "localhost",
+            VITE_CONVEX_URL: liveAuth ? env.VITE_CONVEX_URL : "",
+            VITE_CONVEX_SITE_URL: liveAuth ? env.VITE_CONVEX_SITE_URL : "",
+            VITE_SITE_URL: baseURL,
+            E2E_AUTH_EMAIL: "",
+            E2E_AUTH_PASSWORD: "",
+          },
         },
-      },
+        ...(!liveAuth
+          ? [
+              {
+                command: "bun tests/e2e/backend-unavailable.ts",
+                url: "http://localhost:3999/count",
+                reuseExistingServer: false,
+              },
+              {
+                command:
+                  "bun run dev --host localhost --port 3002 --strictPort",
+                url: "http://localhost:3002",
+                reuseExistingServer: false,
+                timeout: 120_000,
+                env: {
+                  VITE_CONVEX_URL: "http://localhost:3999",
+                  VITE_CONVEX_SITE_URL: "http://localhost:3999",
+                  VITE_SITE_URL: "http://localhost:3002",
+                  E2E_VITE_CACHE_DIR: "node_modules/.vite-public-failure",
+                },
+              },
+            ]
+          : []),
+      ],
 })

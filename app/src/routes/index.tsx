@@ -1,25 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
-import { Button } from "@/components/ui/button"
-
+import { PublicNavigation } from "@/components/public-navigation"
+import { buttonVariants } from "@/components/ui/button"
 export const Route = createFileRoute("/")({ component: App })
-
 function App() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-          <p>
-            <Link to="/login">Se connecter ou créer un compte</Link>
-          </p>
-          <p>
-            <Link to="/dashboard">Mon espace</Link>
-          </p>
-        </div>
-      </div>
-    </div>
+    <main className="public-page">
+      <PublicNavigation />
+      <section className="flex max-w-2xl flex-col items-start gap-6 py-8">
+        <p className="font-semibold text-primary">Macrova</p>
+        <h1 className="text-[1.75rem] font-semibold leading-tight">
+          Une première cible, avec ses hypothèses.
+        </h1>
+        <p>
+          Estimez vos calories, protéines, glucides et lipides journaliers pour
+          le maintien, gratuitement et sans compte.
+        </p>
+        <p className="text-muted-foreground">
+          Le calcul reste dans votre navigateur. La méthode propose une
+          estimation théorique, avec des limites et des situations exclues ;
+          elle ne mesure pas vos besoins.
+        </p>
+        <Link
+          className={buttonVariants({ className: "min-h-11" })}
+          to="/calculateur"
+        >
+          Ouvrir le calculateur
+        </Link>
+      </section>
+    </main>
   )
 }

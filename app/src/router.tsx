@@ -1,5 +1,6 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router"
 import { ConvexReactClient } from "convex/react"
+import { adoptedMethod, createCalculatorSession } from "./domain/calculator"
 import { routeTree } from "./routeTree.gen"
 
 export function getRouter() {
@@ -7,7 +8,11 @@ export function getRouter() {
   const convexClient = convexUrl ? new ConvexReactClient(convexUrl) : null
   const router = createTanStackRouter({
     routeTree,
-    context: { convexClient },
+    context: {
+      convexClient,
+      calculatorSession: createCalculatorSession(),
+      calculatorMethod: adoptedMethod,
+    },
 
     scrollRestoration: true,
     defaultPreload: "intent",

@@ -9,7 +9,7 @@ const success = () =>
           value: { ok: true, value: "12.5" },
         })
       : new Response(
-          `<html><a href="/login">Connexion</a><a href="/dashboard">Mon espace</a></html>`,
+          `<html><a href="/calculateur">Calculateur</a><a href="/login">Connexion</a><a href="/dashboard">Mon espace</a></html>`,
           {
             headers: { "content-type": "text/html" },
           }

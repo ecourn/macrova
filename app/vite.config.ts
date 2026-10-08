@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite"
 import { nitro } from "nitro/vite"
 
 const config = defineConfig({
+  cacheDir: process.env.E2E_VITE_CACHE_DIR ?? "node_modules/.vite",
   ssr: { noExternal: ["@convex-dev/better-auth"] },
   resolve: { tsconfigPaths: true },
   plugins: [
