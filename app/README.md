@@ -438,3 +438,26 @@ cloud. Lire la [procédure d'exploitation](docs/exploitation-socle.md) avant de
 lancer le backend local par le wrapper, configurer ses secrets ou exercer la
 restauration. Elle distingue simulations, preuve CLI native et recette SSR avec
 le frontend historique, ainsi que le backfill optionnel et le retour compatible.
+
+## Calculateur public local
+
+L'accueil Macrova ouvre `/calculateur` sans compte et sans lecture auth distante,
+même avec Convex configuré mais indisponible. Seules `/login` et `/dashboard`
+chargent la session et le provider auth ; les erreurs privées restent des pannes.
+Le navigateur calcule la méthode `methode-estimative-v1`, adoptée le 8 octobre
+2026 pour construction isolée (décision produit, sans validation clinique).
+Les six entrées, les exclusions, les hypothèses et les quatre unités journalières
+sont affichées dans le parcours. Les rationnels BigInt restent exacts ; seul
+l'affichage est arrondi au centième, demi supérieur. Aucun profil n'est envoyé,
+stocké dans l'URL, un cookie ou un stockage persistant, ni transféré au compte.
+Le brouillon et son état sont dans la mémoire du router de la session navigateur ;
+revenir par navigation les conserve, recharger la page les efface. Changer toute
+entrée invalide immédiatement le résultat et exige un nouveau calcul explicite.
+La disponibilité de la version est explicite dans le contexte du router : une
+méthode absente, non adoptée, retirée ou différente ne produit aucun résultat.
+
+`bun run test:e2e` inclut les références, refus, reprise, confidentialité,
+clavier/mobile et un serveur auth local simulé répondant 503 avec ses URL
+configurées. Ce dernier prouve le SSR public indépendant de l'auth et la panne
+privée conservée ; il ne prouve aucune authentification réelle. La recette auth
+réelle reste `bun run test:e2e:auth` avec le backend dev et un compte de test.

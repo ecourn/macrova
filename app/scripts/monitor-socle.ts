@@ -106,6 +106,7 @@ async function probe(service: Service, options: Options): Promise<ProbeResult> {
             !response.headers.get("content-type")?.includes("text/html") ||
             !/href=["']\/login["']/.test(body) ||
             !/href=["']\/dashboard["']/.test(body) ||
+            !/href=["']\/calculateur["']/.test(body) ||
             !/<html[\s>]/i.test(body)
           )
             return { service, code: "INVALID_RESPONSE" }
