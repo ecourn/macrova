@@ -8,11 +8,14 @@ import {
   displayCalculatorValue,
   validateCalculatorTarget,
   type CalculatorProfile,
+  type CalculatorMethod,
 } from "./calculator"
 import { normalizeFrenchDecimal, rational } from "./decimal"
 const reference = vectors.profils[0].profil
 const firstCode = (profile: CalculatorProfile) => {
-  const result = calculateProfile(profile, adoptedMethod)
+  const before = { ...profile }
+  const result = calculateProfile(Object.freeze(profile), adoptedMethod)
+  expect(profile).toEqual(before)
   return result.ok ? "OK" : result.errors[0].code
 }
 test.each(vectors.profils)(
@@ -108,7 +111,7 @@ for (const item of vectors.matrice) {
       ]
       const forbidden =
         vector.etape === "borne-champ"
-          ? order.slice(0, 4)
+          ? order.slice(0, 5)
           : vector.etape === "choix"
             ? order.slice(0, 7)
             : vector.etape === "IMC"
@@ -170,4 +173,156 @@ test("brouillon isolé et invalidation de chacune des six entrées", () => {
   const b = createCalculatorSession()
   a.profile.age = "30"
   expect(b.profile.age).toBe("")
+})
+
+const numericFields = ["age", "taille_cm", "poids_kg"] as const
+for (const vector of vectors.matrice) {
+  if (vector.etape === "disponibilite") {
+    test(`disponibilité documentaire ${vector.id}`, () => {
+      const methods: Record<string, CalculatorMethod | undefined> = {
+        absente: undefined,
+        "non-approuvee": { ...adoptedMethod, status: "non-adoptee" },
+        retiree: { ...adoptedMethod, status: "retiree" },
+        "version-differente": { ...adoptedMethod, version: "v2" },
+      }
+      expect(
+        calculateProfile(
+          { ...reference, ...vector.profil },
+          methods[vector.statut ?? ""]
+        )
+      ).toMatchObject({
+        ok: false,
+        errors: [{ code: vector.attendu }],
+      })
+    })
+  }
+  if (vector.etape !== "AD-12" || vector.saisie === undefined) continue
+  for (const field of numericFields) {
+    test(`AD-12 transversal ${vector.id} / ${field}`, () => {
+      const input = Object.freeze({ ...reference, [field]: vector.saisie })
+      const outcome = calculateProfile(input, adoptedMethod)
+      expect(input[field]).toBe(vector.saisie)
+      if (vector.attendu === "ENTREE_INVALIDE") {
+        expect(outcome).toEqual({
+          ok: false,
+          errors: [
+            {
+              code: "ENTREE_INVALIDE",
+              field,
+              message: `${{ age: "Âge", taille_cm: "Taille", poids_kg: "Poids" }[field]} : saisissez une valeur décimale valide, avec au plus six décimales.`,
+            },
+          ],
+        })
+      } else {
+        expect(normalizeFrenchDecimal(input[field])).toEqual({
+          ok: true,
+          value: vector.canonique,
+        })
+        // Une syntaxe admise ne garantit ni le domaine ni l'éligibilité.
+        if (!outcome.ok)
+          expect(outcome.errors.map((error) => error.code)).not.toContain(
+            "ENTREE_INVALIDE"
+          )
+      }
+    })
+  }
+}
+test.each([
+  { age: " 030,000000 ", taille_cm: "00175,000000", poids_kg: "070,000000" },
+  { age: " 030.000000 ", taille_cm: "00175.000000", poids_kg: "070.000000" },
+])("normalisation du profil complet sans mutation du brouillon %j", (raw) => {
+  const input = Object.freeze({ ...reference, ...raw })
+  const outcome = calculateProfile(input, adoptedMethod)
+  expect(outcome).toEqual(calculateProfile(reference, adoptedMethod))
+  expect(input).toEqual({ ...reference, ...raw })
+  expect(outcome.ok && outcome.profile).toEqual(reference)
+})
+test("priorités entre syntaxe, domaines, choix, exclusion et IMC", () => {
+  const cases: [Partial<CalculatorProfile>, string][] = [
+    [{ age: "18", taille_cm: "", eligibilite: "non" }, "ENTREE_INVALIDE"],
+    [{ age: "18", coefficient: "", eligibilite: "non" }, "AGE_HORS_DOMAINE"],
+    [
+      { coefficient: "", pal: "", eligibilite: "" },
+      "COEFFICIENT_NON_APPLICABLE",
+    ],
+    [{ pal: "", eligibilite: "" }, "PAL_INVALIDE"],
+    [
+      { eligibilite: "", taille_cm: "160", poids_kg: "80" },
+      "ELIGIBILITE_ABSENTE",
+    ],
+    [
+      { eligibilite: "incertain", taille_cm: "160", poids_kg: "80" },
+      "SITUATION_EXCLUE",
+    ],
+  ]
+  for (const [patch, code] of cases)
+    expect(firstCode({ ...reference, ...patch })).toBe(code)
+  expect(
+    calculateProfile(
+      { ...reference, age: "18", taille_cm: "119", poids_kg: "29" },
+      adoptedMethod
+    )
+  ).toMatchObject({
+    ok: false,
+    errors: [
+      { field: "age", code: "AGE_HORS_DOMAINE" },
+      { field: "taille_cm", code: "TAILLE_HORS_DOMAINE" },
+      { field: "poids_kg", code: "POIDS_HORS_DOMAINE" },
+    ],
+  })
+})
+test("les huit couples coefficient/PAL conservent un calcul exact", () => {
+  // Oracles indépendants : repos A = 6595/4, repos féminin = 5931/4.
+  const energies = {
+    "5": ["46165/20", "2638/1", "59355/20", "6595/2"],
+    "-161": ["41517/20", "11862/5", "53379/20", "5931/2"],
+  }
+  for (const coefficient of ["5", "-161"] as const) {
+    for (const [index, pal] of ["1.4", "1.6", "1.8", "2.0"].entries()) {
+      const result = calculateProfile(
+        { ...reference, coefficient, pal },
+        adoptedMethod
+      )
+      expect(result.ok).toBe(true)
+      if (!result.ok) continue
+      const [n, d] = energies[coefficient][index].split("/").map(BigInt)
+      expect(result.target.E).toEqual(rational(n, d))
+    }
+  }
+})
+test("gardes de cible prioritaires et globales", () => {
+  const target = {
+    E: rational(2000n),
+    P: rational(0n),
+    G: rational(200n),
+    L: rational(80n),
+  }
+  expect(
+    validateCalculatorTarget({ ...target, E: rational(0n) }, rational(200n))
+  ).toMatchObject({ code: "CIBLE_INCOHERENTE" })
+  expect(
+    validateCalculatorTarget(
+      { ...target, G: { numerator: -1n, denominator: 1n } },
+      rational(200n)
+    )
+  ).toMatchObject({ code: "CIBLE_INCOHERENTE" })
+  expect(validateCalculatorTarget(target, rational(200n))).toEqual({
+    code: "REPARTITION_HORS_DOMAINE",
+    message: "La répartition proposée est hors des intervalles pris en charge.",
+  })
+  expect(
+    calculateProfile(
+      { ...reference, taille_cm: "160", poids_kg: "80" },
+      adoptedMethod
+    )
+  ).toEqual({
+    ok: false,
+    errors: [
+      {
+        code: "IMC_HORS_DOMAINE",
+        message:
+          "Le profil est hors du domaine proposé (18,5 ≤ IMC < 30) : aucune estimation automatique.",
+      },
+    ],
+  })
 })

@@ -168,7 +168,7 @@ function Calculator() {
                 {help} Virgule ou point accepté, au plus six décimales.
               </FieldDescription>
               {fieldError(field) && (
-                <FieldError id={`${field}-error`}>
+                <FieldError id={`${field}-error`} role="presentation">
                   {fieldError(field)?.message}
                 </FieldError>
               )}
@@ -195,7 +195,7 @@ function Calculator() {
               </NativeSelect>
               <FieldDescription id={`${field}-help`}>{help}</FieldDescription>
               {fieldError(field) && (
-                <FieldError id={`${field}-error`}>
+                <FieldError id={`${field}-error`} role="presentation">
                   {fieldError(field)?.message}
                 </FieldError>
               )}
@@ -214,14 +214,40 @@ function Calculator() {
       </form>
       <div className="mt-8 max-w-3xl" aria-live="polite" aria-atomic="true">
         {errors.length > 0 && (
-          <Alert variant="destructive">
-            <AlertTitle>Aucune estimation</AlertTitle>
+          <Alert
+            variant="destructive"
+            role="group"
+            aria-labelledby="error-title"
+          >
+            <AlertTitle id="error-title">Aucune estimation</AlertTitle>
             <AlertDescription>
+              <p>
+                Vos saisies sont conservées. Les limites de la méthode restent
+                applicables.
+                {errors.some((error) => error.field) &&
+                  " Les liens ci-dessous permettent de vérifier les champs concernés."}
+                {isCalculatorMethodAvailable(context.calculatorMethod) &&
+                  " Après toute modification, demandez un nouveau calcul explicitement."}
+              </p>
               <ul className="space-y-2">
                 {errors.map((error) => (
                   <li key={`${error.code}-${error.field ?? "global"}`}>
                     {error.field ? (
-                      <a href={`#${error.field}`}>{error.message}</a>
+                      <Button
+                        variant="link"
+                        role="link"
+                        nativeButton={false}
+                        render={<a href={`#${error.field}`} />}
+                        className="h-auto min-h-11 justify-start whitespace-normal px-0 text-left text-destructive underline"
+                        onClick={(event) => {
+                          event.preventDefault()
+                          event.currentTarget.ownerDocument
+                            .getElementById(error.field ?? "")
+                            ?.focus()
+                        }}
+                      >
+                        {error.message}
+                      </Button>
                     ) : (
                       error.message
                     )}
