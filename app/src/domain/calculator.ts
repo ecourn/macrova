@@ -31,9 +31,10 @@ export type CalculatorField = keyof CalculatorProfile
 export type CalculatorError = {
   code: string
   message: string
-  field?: CalculatorField
+  field?: CalculatorField | CalculatorTargetField
 }
-export type CalculatorTarget = Record<"E" | "P" | "G" | "L", Rational>
+export type CalculatorTargetField = "E" | "P" | "G" | "L"
+export type CalculatorTarget = Record<CalculatorTargetField, Rational>
 export type CalculatorOutcome =
   | {
       ok: true
@@ -43,6 +44,12 @@ export type CalculatorOutcome =
     }
   | { ok: false; errors: CalculatorError[] }
 const messages = {
+  CIBLE_ABSENTE:
+    "Calculez explicitement une cible pour le profil actuel avant de la modifier.",
+  MODIFICATION_NON_UNIQUE:
+    "Modifiez un seul champ parmi calories, protéines, glucides et lipides.",
+  ENERGIE_HORS_PLAGE:
+    "Les calories doivent rester entre 90 % et 110 % de l'estimation originale.",
   METHODE_INDISPONIBLE:
     "La méthode estimative n'est pas disponible : aucune estimation ne peut être calculée.",
   AGE_HORS_DOMAINE: "L'âge doit être un entier entre 19 et 64 ans.",
@@ -65,7 +72,7 @@ const messages = {
 }
 function error(
   code: keyof typeof messages,
-  field?: CalculatorField
+  field?: CalculatorField | CalculatorTargetField
 ): CalculatorError {
   return { code, message: messages[code], ...(field ? { field } : {}) }
 }
@@ -191,6 +198,15 @@ export type CalculatorSession = {
   profile: CalculatorProfile
   outcome: CalculatorOutcome | null
   changed: boolean
+  original: CalculatorTarget | null
+  currentState: "estimated" | "modified"
+  edit: { field: string; value: string }
+  preview: {
+    previous: CalculatorTarget
+    target: CalculatorTarget
+    field: CalculatorTargetField
+  } | null
+  editErrors: CalculatorError[]
 }
 export function createCalculatorSession(): CalculatorSession {
   return {
@@ -204,6 +220,11 @@ export function createCalculatorSession(): CalculatorSession {
     },
     outcome: null,
     changed: false,
+    original: null,
+    currentState: "estimated",
+    edit: { field: "", value: "" },
+    preview: null,
+    editErrors: [],
   }
 }
 export function changeCalculatorProfile(
@@ -212,6 +233,7 @@ export function changeCalculatorProfile(
   value: string
 ): CalculatorSession {
   return {
+    ...createCalculatorSession(),
     profile: { ...session.profile, [field]: value },
     outcome: null,
     changed: true,
@@ -242,4 +264,174 @@ export function validateCalculatorTarget(
   if (compare(target.P, multiply(weight, rational(83n, 100n))) < 0n)
     return error("PROTEINES_INSUFFISANTES")
   return null
+}
+
+/** Calcul explicite : chaque nouveau profil repart du défaut, jamais d'une édition. */
+export function calculateCalculatorSession(
+  session: CalculatorSession,
+  method: CalculatorMethod | null | undefined
+): CalculatorSession {
+  const outcome = calculateProfile(session.profile, method)
+  return {
+    ...createCalculatorSession(),
+    profile: session.profile,
+    outcome,
+    original: outcome.ok ? outcome.target : null,
+  }
+}
+export function changeCalculatorEdit(
+  session: CalculatorSession,
+  field: string,
+  value: string
+): CalculatorSession {
+  return { ...session, edit: { field, value }, preview: null, editErrors: [] }
+}
+function editRefused(
+  session: CalculatorSession,
+  ...errors: CalculatorError[]
+): CalculatorSession {
+  return { ...session, preview: null, editErrors: errors }
+}
+function transitionError(
+  session: CalculatorSession,
+  method: CalculatorMethod | null | undefined
+): CalculatorError | null {
+  if (!isCalculatorMethodAvailable(method)) return error("METHODE_INDISPONIBLE")
+  if (!session.outcome?.ok || !session.original) return error("CIBLE_ABSENTE")
+  // Comparer le profil confirmé aux saisies normalisées évite toute cible obsolète,
+  // même si un consommateur contourne changeCalculatorProfile.
+  const profile = calculateProfile(session.profile, method)
+  if (!profile.ok) return profile.errors[0]
+  if (
+    Object.keys(profile.profile).some(
+      (key) =>
+        profile.profile[key as CalculatorField] !==
+        (session.outcome?.ok
+          ? session.outcome.profile[key as CalculatorField]
+          : undefined)
+    )
+  )
+    return error("CIBLE_ABSENTE")
+  return null
+}
+export function previewCalculatorEdit(
+  session: CalculatorSession,
+  method: CalculatorMethod | null | undefined,
+  changes: Record<string, string> = { [session.edit.field]: session.edit.value }
+): CalculatorSession {
+  const unavailable = transitionError(session, method)
+  if (unavailable) return editRefused(session, unavailable)
+  const fields = Object.keys(changes)
+  if (fields.length !== 1 || !["E", "P", "G", "L"].includes(fields[0]))
+    return editRefused(session, error("MODIFICATION_NON_UNIQUE"))
+  const field = fields[0] as CalculatorTargetField
+  const normalized = normalizeFrenchDecimal(changes[field], field)
+  if (!normalized.ok)
+    return editRefused(session, {
+      code: "ENTREE_INVALIDE",
+      field,
+      message: `${{ E: "Calories", P: "Protéines", G: "Glucides", L: "Lipides" }[field]} : saisissez une valeur décimale valide, avec au plus six décimales.`,
+    })
+  const parsed = parseDecimal(normalized.value)
+  if (!parsed.ok || !session.outcome?.ok || !session.original)
+    return editRefused(session, error("CIBLE_ABSENTE"))
+  const current = session.outcome.target
+  const value = decimalRational(parsed.value)
+  const target = { ...current, [field]: value }
+  if (field === "E") {
+    for (const macro of ["P", "G", "L"] as const)
+      target[macro] = divide(multiply(current[macro], value), current.E)
+  } else {
+    const remaining = addSigned(
+      addSigned(
+        current.E,
+        signedRational(-4n * target.P.numerator, target.P.denominator)
+      ),
+      signedRational(
+        -(field === "G" ? 4n : 9n) *
+          target[field === "G" ? "G" : "L"].numerator,
+        target[field === "G" ? "G" : "L"].denominator
+      )
+    )
+    target[field === "G" ? "L" : "G"] = signedRational(
+      remaining.numerator,
+      remaining.denominator * (field === "G" ? 9n : 4n)
+    )
+  }
+  if (
+    !within(
+      target.E,
+      multiply(session.original.E, rational(9n, 10n)),
+      multiply(session.original.E, rational(11n, 10n))
+    )
+  )
+    return editRefused(session, error("ENERGIE_HORS_PLAGE", "E"))
+  const weight = parseDecimal(session.outcome.profile.poids_kg)
+  if (!weight.ok) return editRefused(session, error("CIBLE_ABSENTE"))
+  const invalid = validateCalculatorTarget(
+    target,
+    decimalRational(weight.value)
+  )
+  if (invalid) return editRefused(session, { ...invalid, field })
+  return {
+    ...session,
+    edit: { field, value: changes[field] },
+    editErrors: [],
+    preview: { previous: current, target, field },
+  }
+}
+export function confirmCalculatorEdit(
+  session: CalculatorSession,
+  method: CalculatorMethod | null | undefined
+): CalculatorSession {
+  const unavailable = transitionError(session, method)
+  if (unavailable) return editRefused(session, unavailable)
+  const proposed = session.preview
+  const current = session.outcome
+  if (!proposed || !current?.ok)
+    return editRefused(session, error("CIBLE_ABSENTE"))
+  // Revalider la proposition, y compris le poids et la plage originale.
+  const checked = previewCalculatorEdit(session, method)
+  const candidate = checked.preview
+  if (!candidate) return checked
+  if (
+    (["E", "P", "G", "L"] as const).some(
+      (field) =>
+        compare(candidate.target[field], proposed.target[field]) !== 0n ||
+        compare(current.target[field], proposed.previous[field]) !== 0n
+    )
+  )
+    return editRefused(session, error("CIBLE_ABSENTE"))
+  return {
+    ...session,
+    outcome: { ...current, target: proposed.target },
+    currentState: "modified",
+    preview: null,
+    edit: { field: "", value: "" },
+    editErrors: [],
+  }
+}
+export function cancelCalculatorEdit(
+  session: CalculatorSession
+): CalculatorSession {
+  return {
+    ...session,
+    preview: null,
+    editErrors: [],
+    edit: { field: "", value: "" },
+  }
+}
+export function resetCalculatorTarget(
+  session: CalculatorSession,
+  method: CalculatorMethod | null | undefined
+): CalculatorSession {
+  const unavailable = transitionError(session, method)
+  if (unavailable) return editRefused(session, unavailable)
+  if (!session.outcome?.ok || !session.original)
+    return editRefused(session, error("CIBLE_ABSENTE"))
+  return {
+    ...cancelCalculatorEdit(session),
+    outcome: { ...session.outcome, target: session.original },
+    currentState: "estimated",
+  }
 }
