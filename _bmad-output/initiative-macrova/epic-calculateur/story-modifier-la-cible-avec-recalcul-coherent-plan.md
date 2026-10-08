@@ -3,7 +3,7 @@ title: '2.4 — Modifier la cible avec recalcul cohérent'
 type: feature
 ticket: 4
 created: '2026-10-08'
-status: built
+status: done
 baseline_revision: 'f521489e378e7cd021715e0a41c257af5eaa70a2'
 route: full
 route_source: auto
