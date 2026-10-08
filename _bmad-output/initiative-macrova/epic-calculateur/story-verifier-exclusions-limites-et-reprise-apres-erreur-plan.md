@@ -3,7 +3,7 @@ title: '2.3 — Vérifier exclusions limites et reprise après erreur'
 type: feature
 ticket: 3
 created: '2026-10-08'
-status: built
+status: done
 baseline_revision: '6bbca37f9dd24818f6b1ee45a558decee8a8651b'
 route: full
 route_source: auto
@@ -69,6 +69,8 @@ context:
 - Given un refus corrigé, when le profil de référence est soumis à nouveau, then ses quatre résultats exacts sont retrouvés sans aucune persistance ou transmission du profil.
 
 ## Implementation Notes
+
+- Decision: 2026-10-08 — Story 2.3 clôturée à la demande explicite de l’utilisateur avec `bmad-ticket` et `tickets.py mark`. Le [walkthrough du commit 6935da6](../../walkthrough-6935da6/walkthrough-6935da6.md) est accepté dans ses six blocs sous délégation explicite ; son [journal](../../walkthrough-6935da6/walkthrough-6935da6-log.md) consigne les vérifications et la clôture. Les limites de preuve documentées restent applicables.
 
 - 2026-10-08 — Plan initial compté à 1 859 tokens (o200k_base) : conservation du plan complet retenue sous délégation utilisateur, objectif unique et contraintes nécessaires à sa vérification.
 

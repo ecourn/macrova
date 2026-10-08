@@ -51,3 +51,12 @@ Session: unavailable · Timestamp: 2026-10-08T16:54:18+02:00
 - Action: Typage confirmé exit 0 ; git diff --check exécuté ; état de clôture explicité dans le récit.
 - Result: Diff propre ; aucun bloc courant. Contenu des blocs conservé pendant la revue, seuls les statuts actualisés ; parcours terminé.
 - Evidence: bun run typecheck confirmé par l’agent principal ; git diff --check exit 0 ; [récit final](walkthrough-6935da6.md).
+
+## 7 — Clôture — Story 2.3 terminée
+
+Session: unavailable · Timestamp: 2026-10-08T17:02:24+02:00
+
+- Action: Demande explicite de clôture traitée avec `bmad-ticket` ; résolution de la story 2.3 dans l’initiative et lecture du plan, du récit accepté et du journal. Exécution de `tickets.py --project-root . mark _bmad-output/initiative-macrova 2.3 done`.
+- Result: Story 2.3 passée de `built` à `done` dans son plan. Les six blocs acceptés et les vérifications déjà consignées fondent cette clôture sous mandat utilisateur. Aucun changement produit ni nouvelle exécution des tests applicatifs ; l’epic reste en cours.
+- Evidence: [plan de la story 2.3](../initiative-macrova/epic-calculateur/story-verifier-exclusions-limites-et-reprise-apres-erreur-plan.md) ; [walkthrough accepté](walkthrough-6935da6.md).
+- Open: Aucun point restant pour la clôture de cette story ; limites de preuve inchangées (pas d’essai réel de lecteur d’écran, d’authentification réelle ni de validation clinique).

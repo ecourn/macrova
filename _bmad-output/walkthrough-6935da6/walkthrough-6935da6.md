@@ -6,6 +6,8 @@ L’utilisateur délègue les réponses, les décisions et les acceptations des 
 
 Bloc courant : aucun — parcours terminé. Contenu des blocs inchangé pendant la revue ; seuls leurs statuts ont été actualisés.
 
+Decision: 2026-10-08 — Walkthrough accepté pour la clôture de la story 2.3 à la demande explicite de l’utilisateur. Statut du [plan](../initiative-macrova/epic-calculateur/story-verifier-exclusions-limites-et-reprise-apres-erreur-plan.md) passé de `built` à `done` via `tickets.py mark` ; clôture consignée dans le [journal](walkthrough-6935da6-log.md#7--clôture--story-23-terminée).
+
 ## Bloc 1 — Intention
 
 - [x] Bloc 1 accepté sous délégation explicite.
