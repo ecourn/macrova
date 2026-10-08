@@ -45,3 +45,5 @@ Périmètre limité au résultat décrit et aux capacités couvertes ; appliquer
 
 - Unknown: Les bornes et pas sont confirmés depuis une référence ou une saisie utilisateur ; aucune portion universelle. La sauvegarde appartient à l’epic repas/journal.
 - Assumption: un propriétaire de développement conduit cet epic dans le monolithe modulaire.
+
+- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques, terrain et conditions d’activation restent exigées au moment pertinent selon la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.

@@ -1,6 +1,6 @@
 # Recette et validation v1 — 7 octobre 2026
 
-**Préparation documentaire ; simulation seulement. Accord réel, accès privés et clôture non acquis ; 10.2 reste fermée.** Les essais ci-dessous sont des procédures, pas des preuves d'exécution sur un support inexistant.
+**10.1 documentaire acceptée le 8 octobre 2026 ; simulation seulement. Les essais privés ci-dessous appartiennent au début de 10.2, avant toute collecte.** Les essais ci-dessous sont des procédures, pas des preuves d'exécution sur un support inexistant.
 
 ## Exercice fictif de bout en bout — exclu des comptes réels
 
@@ -29,10 +29,10 @@ Cette traversée montre comment produire les deux formats destinataires ; elle n
 | Connexion, démo, copie non confirmée ou mutation échouée | Aucun premier repas/réutilisation recevable |
 | Même eventId reçu deux fois ; commande favori+journal | Une occurrence effective et une personne au plus par numérateur |
 | Reprise sans filiation | Réutilisation non démontrée |
-| Événement juste avant J6, à J6, fin J8, à J9 | Exclu, inclus, inclus, exclu selon convention proposée à approuver |
+| Événement juste avant J6, à J6, fin J8, à J9 | Exclu, inclus, inclus, exclu selon convention adoptée le 8 octobre 2026 |
 | Invité unique sans usage | Reste dans N, pas dans A ni R |
 | Retour paiement, droit actif, test fournisseur | Paiement encaissé réel non démontré |
-| Règlement remboursé au bilan, même partiellement | Exclu du seuil selon arbitrage proposé ; remboursement post-bilan en addendum |
+| Règlement remboursé au bilan, même partiellement | Exclu du seuil selon arbitrage adopté le 8 octobre 2026 ; remboursement post-bilan en addendum |
 | Deux règlements par la même personne | Une seule personne dans P |
 | Changement de critères après observation | Nouvelle version avec effet explicite ; résultats historiques conservés |
 
@@ -40,9 +40,9 @@ Contrôle arithmétique fictif : pour N=21, ceil(63/5)=13 et ceil(63/10)=7. A=12
 
 ## Recette effective du support privé — non exécutée
 
-Après choix du support et avant données réelles, utiliser des documents jetables portant `TEST D'ACCÈS, AUCUNE DONNÉE TERRAIN` et des comptes de test/personnes effectivement autorisés. Les identités, URL, captures et preuves restent privées. Ne contacter ni inviter quiconque depuis ce kit.
+Au début de 10.2, après choix effectif du support et avant données réelles, utiliser des documents jetables portant `TEST D'ACCÈS, AUCUNE DONNÉE TERRAIN` et des comptes de test/personnes effectivement autorisés. Les identités, URL, captures et preuves restent privées. Ne contacter ni inviter quiconque depuis ce kit.
 
-1. Vérifier identité du responsable, maîtrise effective du support et permissions distinctes recrutement/notes/correspondance/corpus. Désactiver partage public et héritages trop larges ; contrôler qu'un onglet masqué n'est pas pris pour une permission.
+1. Vérifier identité du utilisateur porteur de Macrova, maîtrise effective du support et permissions distinctes recrutement/notes/correspondance/corpus. Désactiver partage public et héritages trop larges ; contrôler qu'un onglet masqué n'est pas pris pour une permission.
 2. **Autorisé** : rôle enquêteur lit/modifie ses notes selon périmètre ; responsable lit correspondances ; destinataire catalogue lit seulement corpus. Vérifier accès et absence d'accès superflu avec sessions effectivement distinctes.
 3. **Refusé** : session non autorisée et session déconnectée tentent lien direct et navigation ; aucun document protégé ne doit être lisible. Catalogue tente coordonnées/correspondances : refus attendu. Une erreur de réseau seule ne prouve pas refus d'accès.
 4. **Révocation** : retirer un droit puis retester le lien avec session existante et nouvelle session ; document indisponible. Inventorier les copies déjà téléchargées, qui ne sont pas révoquées magiquement ; appliquer politique décidée.
@@ -51,7 +51,7 @@ Après choix du support et avant données réelles, utiliser des documents jetab
 
 Registre privé par essai : `[date effective ; support ; rôle/session ; action ; résultat attendu ; résultat observé ; preuve ; limites ; correction ; nouvel essai]`. Une simulation, un bouton configuré ou une affirmation sans essai ne suffit pas. Tout échec bloquant est corrigé puis retesté avant ouverture.
 
-## Registre des preuves réelles et bilan sans identifiants
+## Registre historique du 7 octobre 2026 — conditions remplacées
 
 | Preuve nécessaire | État au 2026-10-07 | Conséquence |
 | --- | --- | --- |
@@ -63,8 +63,12 @@ Registre privé par essai : `[date effective ; support ; rôle/session ; action 
 | Canal de transmission privé et accès des destinataires | Non exécutés | Aucune transmission réelle |
 | Accord de chaque participant / observations terrain | Non recueillis | Aucun entretien réel démontré |
 
-Bilan actuel : six pièces préparées, exercice fictif parcourable, aucune preuve privée reçue, aucune clôture demandée comme acquise. Après réception réelle, consigner uniquement date, version examinée, résultat global des contrôles, limites et autorisation ou maintien de fermeture, sans personnes/coordonnées/URL privées. Les preuves originales et leur correspondance demeurent hors dépôt. Seule une acceptation complète et des essais recevables permettent de soumettre la clôture de 10.1.
+Bilan actuel : six pièces préparées, exercice fictif parcourable, aucune preuve privée reçue, aucune clôture demandée comme acquise. Après réception réelle, consigner uniquement date, version examinée, résultat global des contrôles, limites et autorisation ou maintien de fermeture, sans personnes/coordonnées/URL privées. Les preuves originales et leur correspondance demeurent hors dépôt. Condition historique remplacée le 8 octobre 2026 : les essais sont requis avant la collecte de 10.2, pas pour clôturer 10.1 ni pour développer 2.2.
 
 ## Vérification du kit
 
 Contrôler tous les liens locaux et leurs cibles, comparer seuils avec calcul indépendant par entiers, relire chaque champ de la matrice AD-11 contre la source, examiner toutes les pièces pour absence de données terrain, puis `git diff --check` et revue indépendante. Aucun test applicatif n'est nécessaire : app/ n'est pas modifié. Le résultat effectif de ces contrôles est consigné dans le plan de réalisation, sans transformer les procédures privées ci-dessus en essais réussis.
+
+## Bilan courant — 8 octobre 2026
+
+Kit et protocole acceptés par décision produit déléguée ; 10.1 terminée. Support et essais privés : non exécutés, à réaliser au début de 10.2. Participants et résultats : aucun démontré. Ce bilan n’autorise aucun contact ni collecte immédiate et ne bloque aucune story de développement isolé. Les anciennes demandes de signature ne sont plus des exigences courantes ; les preuves techniques effectives demeurent obligatoires au bon moment.

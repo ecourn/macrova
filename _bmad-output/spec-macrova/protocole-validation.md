@@ -22,3 +22,7 @@ Examiner 50 recherches issues des repas de la cible : aliments bruts, produits f
 Si les trois seuils de bêta sont atteints, poursuivre l’observation du renouvellement et des coûts. Si la composition est peu réutilisée, corriger une fois le problème observé ; si favoris et copie seuls apportent la valeur, tester une offre simplifiée. Après cette correction ciblée, absence de réutilisation ou de paiement : abandonner l’offre par abonnement. Des seuils partiellement atteints justifient un bilan explicite, pas une poursuite automatique. Le calculateur peut être évalué séparément.
 
 Les entretiens, paiements et tests n’ont pas encore été réalisés. Les personnages du forge sont fictifs. Les repères concurrentiels de l’addendum décrivent des offres existantes ; ils ne prouvent aucune exclusivité. Une bibliothèque de repas ajustables, puis variantes et recettes à plusieurs portions, restent conditionnées aux usages observés.
+
+## Gouvernance et séquencement — 8 octobre 2026
+
+L’utilisateur conduit les actions terrain ; l’agent prépare, arbitre, vérifie et consigne les résultats accessibles. Le kit de 10.1 et ses conventions de fenêtres/remboursements sont adoptés dans le cadre délégué, avant toute invitation. L’enquête suit sa chaîne propre et ne bloque pas 2.2. Les essais du support privé sont requis au début de 10.2 avant collecte ; le corpus réel de 10.5 reste nécessaire à l’audit de 50 recherches, pas à la construction du calculateur. La remise de 10.7 et les capacités techniques livrées restent nécessaires à la bêta finale.

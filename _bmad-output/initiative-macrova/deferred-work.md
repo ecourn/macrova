@@ -80,3 +80,9 @@ hors de cette clôture, conformément au périmètre accepté de la rétrospecti
 - source_plan: `_bmad-output/initiative-macrova/epic-calculateur/story-documenter-et-valider-la-methode-estimative-plan.md`
   summary: Réception effective de la décision du responsable sur la méthode estimative v1 toujours nécessaire à l'acceptation finale de 2.1.
   evidence: Revue quick de reprise du 7 octobre 2026 ; validation.md conserve identité, rôle, date et preuve absents. Formulaire décision-responsable préparé et non signé ; condition externe préexistante conservée dans 2.1, aucune autorisation de 2.2.
+
+## Résolution de gouvernance — 8 octobre 2026
+
+Le report historique demandant une décision externe pour 2.1 est clos par remplacement explicite de l’exigence, pas par réception d’une signature. Décision produit v1 sourcée adoptée sous mandat utilisateur ; 2.2 autorisée. Essais du support d’enquête possédés par 10.2 avant collecte et vérifications de remise par 10.5/10.7 ; ils ne bloquent pas le développement.
+
+Les rôles proposés A4/A5/A7/A8/A9 désignent désormais des responsabilités de l’agent dans le binôme ; A6b requiert la réception réelle par l’utilisateur. Les actions techniques et leurs preuves restent ouvertes, à traiter lors du changement de leur zone ou avant consommation du contrat concerné ; aucun résultat d’essai n’est inventé par la réattribution.

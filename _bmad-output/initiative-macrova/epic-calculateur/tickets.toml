@@ -5,15 +5,15 @@
 id = 1
 type = "story"
 title = "Documenter et valider la méthode estimative"
-description = "Constituer le dossier versionné de méthode et de répartition calories/P/G/L à partir de sources primaires vérifiées, arrêter ses entrées, exclusions et règles de modification avec exemples de référence, puis obtenir et consigner la validation datée du responsable avant toute implémentation automatique."
-verify = "Relire le dossier sourcé, reproduire indépendamment les exemples et cas limites, vérifier la matrice d'exclusions et la règle de recalcul, puis constater la preuve explicite de validation couvrant ces éléments."
+description = "Adopter et consigner par décision produit sourcée de l’agent le dossier versionné de méthode et de répartition calories/P/G/L, ses entrées, exclusions, règles de modification et exemples reproductibles, avant toute implémentation automatique et sans signature externe requise."
+verify = "Relire les sources datées et leurs limites, reproduire les exemples, vérifier exclusions et recalcul, puis constater la décision produit datée de l’agent sur les pièces identifiées sans revendiquer une certification clinique."
 covers = ["CAL-1", "CAL-3", "CAL-4"]
 after = []
-hitl = true
+hitl = false
 risk = "high"
-unknown = "Aucune formule, répartition ni exclusion n'est sélectionnée ; le responsable de validation et son accord réel doivent être obtenus ici."
+unknown = "Dossier v1 adopté le 8 octobre 2026 ; applicabilité clinique non démontrée, tests du moteur et du parcours à exécuter dans les stories suivantes."
 plan_checkpoint = false
-done_checkpoint = true
+done_checkpoint = false
 
 [[entry]]
 id = 2
@@ -53,7 +53,7 @@ covers = ["CAL-4", "CAL-5", "CAL-6"]
 after = [3]
 hitl = false
 risk = "high"
-unknown = "La relation entre calories et macros et les champs modifiables doivent être définis en 2.1 ; aucune règle 4/4/9 ou répartition implicite n'est présumée."
+unknown = "La relation explicite entre calories et macros et les champs modifiables sont définis dans methode-estimative-v1 adoptée en 2.1 ; vérifier ses règles sans inférer des calories alimentaires."
 plan_checkpoint = false
 done_checkpoint = false
 

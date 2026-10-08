@@ -192,9 +192,13 @@ Camille est un protagoniste fictif illustratif : adulte francophone qui suit dé
 
 | Sujet | Effet UX et limite |
 |---|---|
-| Méthode, entrées et exclusions nutritionnelles | Bloque CAP-1 avant implémentation ; aucun formulaire définitif ni calcul inventé. |
+| Méthode, entrées et exclusions nutritionnelles | Dossier v1 adopté par décision produit de l’agent en 2.1 le 8 octobre 2026 ; appliquer ses entrées, refus et limites lors de CAP-1, sans revendiquer une validation clinique. |
 | Couverture Open Food Facts et provenance des exemples | Bloque gel du catalogue et démonstration chiffrée ; ne pas combler les absences par défaut. |
 | Références de portions | Aucun pas ni borne universels ; la personne confirme les valeurs, toute impossibilité reste explicite. |
 | Données, conservation, export et suppression | Définir champs nécessaires, délais et exceptions avant ouverture ; les présentes demandes ne constituent pas une politique juridique. |
 | Paiement, résiliation et accès après arrêt | Définir les conditions et leurs effets avant ouverture ; aucune durée d'accès ou règle de remboursement improvisée. |
 | Validation d'usage | Entretiens, bêta et audit restent à réaliser selon protocole-validation.md ; les scénarios fictifs ne valident ni préférence ni plausibilité. |
+
+## Actualisation de gouvernance — 8 octobre 2026
+
+Pour CAP-1, « méthode validée » signifie décision produit sourcée, versionnée et vérifiée dans le binôme utilisateur/agent. La méthode v1 est adoptée pour sa construction isolée ; les états méthode indisponible/retirée et cas exclus restent obligatoires. Les confirmations de la personne utilisant Macrova sont inchangées. Les essais du support d’enquête ne conditionnent aucun écran du calculateur ; ils précèdent la collecte réelle en 10.2. Identité visuelle et composants de DESIGN.md inchangés.

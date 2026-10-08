@@ -46,3 +46,5 @@ Périmètre limité au résultat décrit et aux capacités couvertes ; appliquer
 - Unknown: Cet epic possède le moteur commun ; algorithme et budget CPU doivent être choisis sur les grilles réelles, avec état recherche interrompue. Les exemples viennent du catalogue.
 - Assumption: un propriétaire de développement conduit cet epic dans le monolithe modulaire.
 - Decision: 2026-10-05 — livrer le moteur ET les composants accessibles de portions/bilan réutilisables par Composition ; la démo conserve son état isolé.
+
+- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques, terrain et conditions d’activation restent exigées au moment pertinent selon la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.

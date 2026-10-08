@@ -1,12 +1,12 @@
 # Protocole bêta v1 — 7 octobre 2026
 
-**Référence documentaire préparée avant recrutement ; gel opérationnel non acquis faute d'accord réel.** Source : [protocole canonique](../../../spec-macrova/protocole-validation.md), [epic enquête](../epic-enquete.md) et [AD-11](../../architecture-app/architecture-app.md). La bêta est réalisée par la [validation de lancement](../../epic-validation-lancement/epic-validation-lancement.md), après ses conditions d'ouverture contrôlée. Ce kit ne crée aucune instrumentation.
+**Protocole adopté par décision déléguée de l’agent le 8 octobre 2026, avant toute invitation.** Source : [protocole canonique](../../../spec-macrova/protocole-validation.md), [epic enquête](../epic-enquete.md) et [AD-11](../../architecture-app/architecture-app.md). La bêta est réalisée par la [validation de lancement](../../epic-validation-lancement/epic-validation-lancement.md), après ses conditions d'ouverture contrôlée. Ce kit ne crée aucune instrumentation.
 
 ## Cohorte, fenêtres et critères
 
 Recruter 20 à 30 adultes francophones en France suivant déjà leurs macros et pesant leurs aliments, sur les canaux réels consignés. Fixer les critères avant recrutement. Conserver chaque invitation individuelle et une clé privée de personne unique ; relances, comptes multiples et événements ne créent pas de nouvel invité. N comprend tous les invités uniques, y compris sans commencement. Un retrait est traité selon la politique approuvée et signalé au bilan ; ne pas retirer silencieusement un non-usager du dénominateur. Si les données nécessaires deviennent indisponibles, expliciter la limite plutôt que fabriquer un résultat.
 
-Convention proposée v1 à approuver : invitationAt et événements en UTC millisecondes, J0 à l'invitation individuelle, observation deux semaines dans `[invitationAt, invitationAt + 14 × 24 h[`, reprise J6–J8 dans `[invitationAt + 6 × 24 h, invitationAt + 9 × 24 h[`. J8 est inclus, J9 exclu. Ce détail de fenêtre est une précision du kit, pas une règle déjà spécifiée par AD-11 ; son acceptation explicite et son implémentation cohérente sont nécessaires avant invitations. Fixer la date du bilan après toutes les fenêtres ; une cohorte interrompue ou hors 20–30 exige un bilan explicite, pas extrapolation.
+Convention v1 adoptée le 8 octobre 2026 : invitationAt et événements en UTC millisecondes, J0 à l'invitation individuelle, observation deux semaines dans `[invitationAt, invitationAt + 14 × 24 h[`, reprise J6–J8 dans `[invitationAt + 6 × 24 h, invitationAt + 9 × 24 h[`. J8 est inclus, J9 exclu. Ce détail de fenêtre est une précision du kit, pas une règle déjà spécifiée par AD-11 ; son adoption est consignée ici et son implémentation cohérente sera vérifiée avant invitations. Fixer la date du bilan après toutes les fenêtres ; une cohorte interrompue ou hors 20–30 exige un bilan explicite, pas extrapolation.
 
 - Activation : A personnes uniques avec premier repas personnel confirmé en favori ou journal pendant leur fenêtre de deux semaines ; A/N ≥ 60 %.
 - Réutilisation : R personnes uniques avec copie/reprise ayant filiation puis enregistrement confirmé en favori ou journal dans leur fenêtre J6–J8 ; R/N ≥ 30 %, même dénominateur N. Une connexion ou copie de brouillon seule ne suffit pas.
@@ -61,7 +61,7 @@ Un élément non observable ne peut valider un événement. Pour les données ma
 
 Préparer deux tâches de repas comparables en composition, nombre d'aliments, états et unités, avec périmètre début/fin identique ; observer méthode habituelle puis Macrova. Documenter différences et effet d'apprentissage plutôt que prétendre une comparaison contrôlée. Relever durées avec pauses, erreurs, corrections de portions, compréhension des écarts et plausibilité déclarée/observée. Ne pas déduire un gain de temps minimal ni une vérité médicale.
 
-Le kit propose d'exclure tout règlement remboursé, même partiellement, du seuil au bilan. Cet arbitrage autonome doit être approuvé avant bêta avec les règles commerciales effectives ; il ne change pas les contrats parents. Les remboursements postérieurs sont datés et signalés séparément. Ni paiement ni renouvellement ne sont sollicités par ce document.
+Le kit propose d'exclure tout règlement remboursé, même partiellement, du seuil au bilan. Cet arbitrage autonome est adopté le 8 octobre 2026 et sa concordance avec les règles commerciales effectives sera vérifiée avant bêta. Les remboursements postérieurs sont datés et signalés séparément. Ni paiement ni renouvellement ne sont sollicités par ce document.
 
 ## Décision et journal sans rétroactivité
 
@@ -69,6 +69,7 @@ Si les trois seuils sont atteints, poursuivre l'observation des renouvellements 
 
 | Version | Date | Changement et motif | Date d'effet / cohorte | Décision attribuable privée |
 | --- | --- | --- | --- | --- |
-| v1 | 2026-10-07 | Préparation des critères canoniques et conventions proposées | Aucune invitation réelle | Non reçue |
+| v1 | 2026-10-07 | Préparation des critères canoniques et conventions proposées | Aucune invitation réelle | Non reçue à cette date |
+| v1 — gouvernance | 2026-10-08 | Adoption des critères, fenêtres et remboursement partiel par l’agent mandaté | Avant toute invitation, aucune invitation réalisée | Mandat utilisateur, correction de trajectoire |
 
 Avant toute évolution : nouvelle version, motif, décision et date d'effet ; conserver version appliquée à chaque invité et résultats d'origine. Aucun critère modifié après observation pour transformer un échec en succès. Si changement pendant cohorte, présenter séparément les résultats par version et la limite de comparaison.

@@ -1,20 +1,15 @@
-# Kit enquête v1 — 7 octobre 2026
+# Kit enquête v1 — gouvernance du 8 octobre 2026
 
-**Préparation documentaire réalisée ; accord réel et support privé non établis. Story 10.1 non clôturée, recrutement 10.2 fermé.** Le protocole v1 est une référence documentaire datée ; son gel opérationnel exige une décision attribuable sur cette version avant tout recrutement. Aucun entretien, recherche terrain, invitation, paiement ni transmission réelle n'est démontré par ce kit.
+**Kit documentaire accepté et protocole adopté ; 10.1 clôturée sous mandat utilisateur.** Aucun entretien, invitation, paiement, support testé ou transmission réelle n’est démontré. La prochaine story de développement est 2.2, indépendante du support d’enquête.
 
-## Ordre d'emploi
+## Ordre d’emploi
 
-1. Examiner le [cadre de protection](cadre-protection.md), choisir effectivement responsables, support et canaux ; finaliser l'information et décider explicitement accès, conservation et suppression.
-2. Lire le [guide d'entretien](guide-entretien.md) et les [formats vierges](formats-vierges.md). Les copier et les remplir uniquement dans le support privé approuvé, jamais dans Git, même avec pseudonymes.
-3. Examiner et figer le [protocole bêta](protocole-beta.md), distinct de l'enquête. La bêta et son instrumentation appartiennent à la validation de lancement, pas à ce kit.
-4. Parcourir la [recette et le registre de validation](recette-et-validation.md). La simulation vérifie des formats ; les essais effectifs du support restent nécessaires.
-5. Obtenir l'accord réel sur les pièces examinées et les essais recevables ; conserver identités, réponses et preuves hors dépôt. Enregistrer ici seulement un bilan sans identifiants. Soumettre alors la clôture de 10.1 ; aucune case vide n'autorise 10.2.
+1. Lire le [cadre adopté](cadre-protection.md), le [guide](guide-entretien.md), les [formats vierges](formats-vierges.md) et le [protocole bêta](protocole-beta.md).
+2. Au début de 10.2, l’utilisateur et l’agent vérifient le support effectif, ses accès, révocation, suppression et copies selon la [recette](recette-et-validation.md), avec données jetables avant toute collecte.
+3. Finaliser contact/information, canaux autorisés et modalités de participation dans le support privé. Recueillir l’accord volontaire de la personne avant entretien ; aucun contact n’est autorisé par cette préparation seule.
+4. Exécuter pilote puis deux lots de sept, sans simulation dans les comptes réels. Fournir cinquante recherches traçables en 10.5 ; remettre le dossier final et le protocole en 10.7.
 
-## Conditions réelles d'ouverture
-
-Toutes sont requises : responsable assumant la collecte, information finalisée, champs nécessaires approuvés, support maîtrisé et accès nominatifs, canaux disponibles/autorisés, durées et suppression décidées pour chaque classe, accord attribuable sur la version exacte, essais autorisé/refusé/révocation/suppression recevables. La délégation de préparation ne vaut aucune de ces preuves. L'accord de participation reste à recueillir auprès de chaque personne avant entretien.
-
-Après ouverture : pilote réel, puis deux lots de sept selon l'[epic](../epic-enquete.md). Le pilote compte seulement s'il satisfait ENQ-2 ; une personne compte une fois. Les quinze entretiens nourrissent cinquante recherches candidates ; si insuffisant, demander des précisions aux mêmes personnes et tracer le complément privé. Aucune donnée fictive ne comble un déficit.
+L’absence de support ou un essai échoué suspend uniquement la collecte concernée. Elle ne rouvre pas 10.1 et ne bloque pas le développement isolé. Les fonctions produit/catalogue/validation sont portées par le binôme ; aucune signature externe n’est requise.
 
 ## Sources et limites
 
@@ -28,8 +23,7 @@ L'enquête décrit une pratique habituelle ; elle ne valide ni produit construit
 
 ## Versionnement
 
-| Version | Date documentaire | Changement | Portée |
-| --- | --- | --- | --- |
-| v1 | 2026-10-07 | Kit initial préparé | Aucun accord réel reçu ; aucun recrutement ouvert |
+- v1, 2026-10-07 : kit préparatoire ; anciennes conditions externes non satisfaites à cette date.
+- Gouvernance du 2026-10-08 : adoption documentaire par l’agent, critères et conventions bêta figés ; essais du support affectés à 10.2 avant collecte. Les critères numériques restent identiques. Pièces courantes identifiées dans le plan de 10.1.
 
-Lors d'un accord, identifier la révision du dépôt et les empreintes SHA-256 des six pièces hors de ce tableau ; conserver cette décision privée. Toute modification exige une nouvelle version, son motif et sa date d'effet sans réécrire les observations antérieures.
+Toute évolution du protocole est datée, justifiée et sans réécriture des observations antérieures. Aucun gel documentaire ne prouve un consentement ou une capacité technique.

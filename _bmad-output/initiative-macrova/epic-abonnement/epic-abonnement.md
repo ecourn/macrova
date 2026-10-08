@@ -46,3 +46,5 @@ Périmètre limité au résultat décrit et aux capacités couvertes ; appliquer
 
 - Unknown: Stripe reste proposé ; fournisseur, statuts vers droits, grâce, résiliation, remboursement et envoi e-mail nécessitent une décision explicite avant paiement public.
 - Assumption: un propriétaire de développement conduit cet epic dans le monolithe modulaire.
+
+- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques, terrain et conditions d’activation restent exigées au moment pertinent selon la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.

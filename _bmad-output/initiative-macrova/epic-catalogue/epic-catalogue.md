@@ -47,3 +47,5 @@ Périmètre limité au résultat décrit et aux capacités couvertes ; appliquer
 - Unknown: Audit, conditions OFF et adéquation des limites numériques restent à instruire ; aucun catalogue supplémentaire adopté. Les corrections pourront être vérifiées avec un droit de test serveur isolé avant intégration du paiement.
 - Assumption: un propriétaire de développement conduit cet epic dans le monolithe modulaire.
 - Decision: 2026-10-05 — le socle fournit le contrat de droits et le dispositif de test serveur isolé ; l’enquête fournit les repas et requêtes, cet epic réalise l’audit et prépare les exemples complets pour la démo.
+
+- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques, terrain et conditions d’activation restent exigées au moment pertinent selon la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.

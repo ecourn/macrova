@@ -3,8 +3,8 @@ title: '10.1 — Préparer le kit protégé et figer le protocole'
 type: 'chore'
 ticket: 1
 created: '2026-10-07'
-status: 'built'
-acceptance: 'awaiting-real-approval-and-private-access-tests'
+status: done
+acceptance: 'accepted-documentary-kit'
 recruitment_authorized: false
 baseline_revision: '9985ffa44bd0a5c7cda6e325ae503756fb1ed98f'
 route: 'full'
@@ -20,6 +20,22 @@ context:
   - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/spec-macrova/decisions-lancement.md
   - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/initiative-macrova/architecture-app/architecture-app.md
 ---
+
+## Contrat courant renégocié — 8 octobre 2026
+
+Intent : clôturer la préparation documentaire et adopter le protocole par décision de l’agent mandaté, dans le fonctionnement à deux demandé par l’utilisateur. 10.1 est terminée ; son acceptation ne prétend pas vérifier un support privé ni autoriser une collecte immédiate.
+
+- [x] Six pièces du kit, modèles vierges et simulation explicitement fictive préparés.
+- [x] Critères bêta, fenêtres, remboursements et correspondance AD-11 adoptés et versionnés.
+- [x] Cadre de minimisation et responsabilités du binôme arrêté, sans données personnelles dans Git.
+- [x] Essais autorisé/refusé/révocation/suppression, choix effectif du support, information/contact et canaux affectés à 10.2 avant toute collecte.
+- [x] Signature externe et checkpoints d’approbation documentaire retirés du ticket.
+
+Critères : kit cohérent avec les sources et procédure testable en 10.2 ; simulation exclue de tous les comptes. Recrutement non exécuté et non autorisé par cette clôture seule ; aucun support ni consentement déclaré vérifié. Le développement isolé de 2.2 est indépendant de l’enquête.
+
+## Historique de réalisation — 7 octobre 2026, conditions remplacées
+
+Les contrats et constats suivants sont conservés pour traçabilité ; les anciennes conditions de clôture sont remplacées par le contrat courant ci-dessus.
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
 
@@ -84,7 +100,7 @@ Contrôler liens relatifs, absence de données terrain, table des seuils avec ar
 
 - 2026-10-07 — Six pièces documentaires créées et relues entièrement, sans données terrain ; exercice fictif et cas négatifs explicitement exclus des comptes réels. Cibles de tous les liens locaux contrôlées ; liens AD-11 pointent vers le fichier sans ancre dépendant du rendu. Onze lignes de seuils contrôlées par calcul indépendant entier : `(3*N+4)//5` et `(3*N+9)//10`. Correspondance AD-11 relue : serveur après mutation, eventId/déduplication, destinations uniques, filiation, invitation individuelle, dénominateur sans usage, paiements/remboursements/renouvellements et export/delete. `git diff --check` passé. Relecture indépendante initiale effectuée par l’agent parent ; revue finale gérée par le workflow parent. Accord attribuable et recette réelle du support non obtenus : dernière tâche ouverte, 10.1 non clôturée et 10.2 fermée. Aucun contrôle applicatif ni changement de app/, contrats parents ou configuration.
 
-### Pièces préparées — SHA-256
+### Pièces historiques du 7 octobre — SHA-256
 
 Empreintes du kit relu, à vérifier lors de la décision privée ; elles ne prouvent aucun accord ni aucun essai terrain.
 
@@ -94,3 +110,17 @@ Empreintes du kit relu, à vérifier lors de la décision privée ; elles ne pro
 - `guide-entretien.md` : `909ed7cb0e5384849bfba5302f69578228078d5d611a0f56deb6d35352868193`
 - `protocole-beta.md` : `2219095ffec05f0a3f3f9496b04088a3a92130828e0dc49998d6b65e340ce274`
 - `recette-et-validation.md` : `ce04d82ceafa4ac19b151a01709453d55f458aa1deab022c8e10bc72ad5b3e4e`
+
+
+## Journal de correction — 8 octobre 2026
+
+Decision: application de la correction de gouvernance sous autorisation explicite de l’utilisateur ; responsabilités et critères courants mis à jour, sans fabriquer de preuve externe ou terrain.
+
+## Pièces courantes acceptées — 8 octobre 2026
+
+- `README.md` : `b4b64f09f8fb3b664da3e89bc8f905415c745bd3b108b4919adb7eb63728ce0c`
+- `cadre-protection.md` : `7b507ff9809c9b93c3cfdb1c051545ee6e0ffe92fe536873bb21b36d584c7644`
+- `formats-vierges.md` : `90ae51501f73b9cd2d14e35eaa704a24082bd114cbf3e44275a7bfb60bed3538`
+- `guide-entretien.md` : `909ed7cb0e5384849bfba5302f69578228078d5d611a0f56deb6d35352868193`
+- `protocole-beta.md` : `4fb431879632906a68ff9882d9c5281dfccbb0f81c989dd4d7f7ae9ffcafb5f2`
+- `recette-et-validation.md` : `e473921590761204d44ced1493483c59c7f1c512ac129f91ab822fd044707b7b`
