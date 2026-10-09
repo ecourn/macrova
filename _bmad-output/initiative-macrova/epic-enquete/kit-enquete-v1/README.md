@@ -9,6 +9,8 @@
 3. Finaliser contact/information, canaux autorisés et modalités de participation dans le support privé. Recueillir l’accord volontaire de la personne avant entretien ; aucun contact n’est autorisé par cette préparation seule.
 4. Exécuter pilote puis deux lots de sept, sans simulation dans les comptes réels. Fournir cinquante recherches traçables en 10.5 ; remettre le dossier final et le protocole en 10.7.
 
+Pour exécuter et contrôler le premier entretien, suivre la [conduite du pilote 10.2](conduite-pilote-10-2.md). Cette procédure vierge ne prouve aucun essai du support ni entretien réalisé.
+
 L’absence de support ou un essai échoué suspend uniquement la collecte concernée. Elle ne rouvre pas 10.1 et ne bloque pas le développement isolé. Les fonctions produit/catalogue/validation sont portées par le binôme ; aucune signature externe n’est requise.
 
 ## Sources et limites
