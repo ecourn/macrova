@@ -1,4 +1,9 @@
 import { useRef, useState } from "react"
+import {
+  calculatorTargetFields,
+  calculatorTargetLabels,
+  calculatorTargetUnit,
+} from "@/lib/calculator-presentation"
 import type {
   CalculatorMethod,
   CalculatorSession,
@@ -25,12 +30,6 @@ import { Input } from "@/components/ui/input"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
-export const targetLabels = {
-  E: "Calories",
-  P: "Protéines",
-  G: "Glucides",
-  L: "Lipides",
-}
 const consequences = {
   E: "Fractions énergétiques conservées ; protéines, glucides et lipides recalculés.",
   P: "Calories et lipides conservés ; glucides recalculés.",
@@ -109,9 +108,9 @@ export function CalculatorTargetEditor({
               }}
             >
               <NativeSelectOption value="">Choisir</NativeSelectOption>
-              {Object.entries(targetLabels).map(([key, label]) => (
+              {calculatorTargetFields.map((key) => (
                 <NativeSelectOption key={key} value={key}>
-                  {label}
+                  {calculatorTargetLabels[key]}
                 </NativeSelectOption>
               ))}
             </NativeSelect>
@@ -130,7 +129,7 @@ export function CalculatorTargetEditor({
             <FieldLabel htmlFor="edit-value">
               Nouvelle valeur{" "}
               {field
-                ? `de ${targetLabels[field].toLowerCase()} (${field === "E" ? "kcal/jour" : "g/jour"})`
+                ? `de ${calculatorTargetLabels[field].toLowerCase()} (${calculatorTargetUnit(field)})`
                 : "(choisissez un champ)"}
             </FieldLabel>
             <Input
@@ -259,16 +258,15 @@ export function CalculatorTargetEditor({
                       : "Nouvelle cible proposée"}
                   </h4>
                   <dl className="space-y-3">
-                    {Object.entries(targetLabels).map(([key, label]) => {
-                      const value =
-                        session.preview?.[state][key as CalculatorTargetField]
+                    {calculatorTargetFields.map((key) => {
+                      const value = session.preview?.[state][key]
                       return (
                         value && (
                           <div key={key}>
-                            <dt>{label}</dt>
+                            <dt>{calculatorTargetLabels[key]}</dt>
                             <dd className="tabular-nums">
                               {displayCalculatorValue(value)}{" "}
-                              {key === "E" ? "kcal/jour" : "g/jour"}
+                              {calculatorTargetUnit(key)}
                             </dd>
                           </div>
                         )
@@ -283,17 +281,16 @@ export function CalculatorTargetEditor({
                 Consulter les valeurs exactes de la prévisualisation
               </summary>
               <dl className="space-y-2 break-all">
-                {Object.entries(targetLabels).map(([key, label]) => {
-                  const previous =
-                    session.preview?.previous[key as CalculatorTargetField]
-                  const next =
-                    session.preview?.target[key as CalculatorTargetField]
+                {calculatorTargetFields.map((key) => {
+                  const previous = session.preview?.previous[key]
+                  const next = session.preview?.target[key]
                   return (
                     previous &&
                     next && (
                       <div key={key}>
                         <dt>
-                          {label} ({key === "E" ? "kcal/jour" : "g/jour"})
+                          {calculatorTargetLabels[key]} (
+                          {calculatorTargetUnit(key)})
                         </dt>
                         <dd>
                           Ancienne : {String(previous.numerator)}/
