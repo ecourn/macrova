@@ -30,7 +30,7 @@ function loadConfig(overrides: Record<string, string> = {}) {
     "bun",
     [
       "--eval",
-      `const { default: config } = await import(${JSON.stringify(config)}); console.log(JSON.stringify({ baseURL: config.use.baseURL, localServer: Boolean(config.webServer) }))`,
+      `const { default: config } = await import(${JSON.stringify(config)}); console.log(JSON.stringify({ baseURL: config.use.baseURL, localServer: Boolean(config.webServer), testMatch: config.testMatch, trace: config.use.trace, screenshot: config.use.screenshot, video: config.use.video ?? "off" }))`,
     ],
     {
       cwd: directory,
@@ -48,6 +48,11 @@ describe("configuration Playwright de l'authentification réelle", () => {
       const result = loadConfig({ CONVEX_DEPLOYMENT: deployment })
       expect(result.error).toBeUndefined()
       expect(result.status, result.stderr).toBe(0)
+      expect(
+        JSON.parse(result.stdout).testMatch.includes(
+          "**/calculator-remote.spec.ts"
+        )
+      ).toBe(false)
     }
   )
 
@@ -86,6 +91,11 @@ describe("configuration Playwright de l'authentification réelle", () => {
     })
     expect(result.error).toBeUndefined()
     expect(result.status, result.stderr).toBe(0)
+    expect(
+      JSON.parse(result.stdout).testMatch.includes(
+        "**/calculator-remote.spec.ts"
+      )
+    ).toBe(false)
   })
 })
 
@@ -115,6 +125,15 @@ describe("recette distante explicite", () => {
     expect(JSON.parse(result.stdout)).toEqual({
       baseURL: remote.E2E_BASE_URL,
       localServer: false,
+      testMatch: [
+        "**/public.spec.ts",
+        "**/auth.spec.ts",
+        "**/contracts.spec.ts",
+        "**/calculator-remote.spec.ts",
+      ],
+      trace: "off",
+      screenshot: "off",
+      video: "off",
     })
   })
   test.each<Record<string, string>>([

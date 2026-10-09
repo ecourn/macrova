@@ -540,3 +540,14 @@ publics avec des serveurs synthétiques locaux ; le calcul et l'édition restent
 en mémoire dans le navigateur. Le zoom navigateur réel à 200 % a aussi été
 vérifié localement ; la restitution audio par lecteur d'écran reste à vérifier.
 Aucun audit complet n'est revendiqué.
+
+## Livraison isolée du calculateur
+
+La [recette de livraison du calculateur](docs/recette-calculateur-livraison.md)
+complète les preuves historiques du socle. `bun run test:e2e:remote`, avec les
+origines HTTPS/dev cohérentes documentées, ajoute la suite calculateur réelle
+sans serveur local ni captures auth. Elle vérifie calcul/édition en mémoire,
+collecte minimale et replay/conflit, panne interceptée et refus backend ; les
+états de méthode indisponible restent vérifiés exclusivement localement.
+Le document décrit aussi le bilan interne paginé, l'ordre backend/frontend,
+le rollback compatible et les conditions de production non clôturées.
