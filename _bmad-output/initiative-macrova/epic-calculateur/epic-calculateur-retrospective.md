@@ -10,7 +10,7 @@ headless: true
 
 ## Epic summary
 
-Épic examiné : `epic-calculateur`, capacité CAP-1 et exigences locales CAL-1 à CAL-8. Révision du dépôt : `ced59c77c9fdb8c06e7137ad1711d0b4bf1055b8`. Les huit stories sont `done/done`, aucun ticket encore `built`, `pending_tickets = []`. Le statut de l’épic reste `in-progress` : cette rétrospective ne clôture pas le board.
+Épic examiné : `epic-calculateur`, capacité CAP-1 et exigences locales CAL-1 à CAL-8. Révision du dépôt : `ced59c77c9fdb8c06e7137ad1711d0b4bf1055b8`. Les huit stories sont `done/done`, aucun ticket encore `built`, `pending_tickets = []`. À la rédaction initiale, le statut de l’épic reste `in-progress` : cette rétrospective ne clôture pas le board. La [clôture ultérieure du 9 octobre](epic-calculateur.md#clôture--9-octobre-2026) passe l’épic à `done` sous mandat utilisateur, sans modifier ce verdict ni fermer R2/R3/R4.
 
 Les huit commandes `find` confirment un plan par ticket et `story_file=null` pour tous. Les descriptions, vérifications et couvertures sont dans [tickets.toml](tickets.toml), les six critères déclarés dans [epic-calculateur.md](epic-calculateur.md#done-when). Les Requirements de l’initiative renvoient à la spécification CAP-1 ; CAL-1 à CAL-8 résident dans l’épic.
 
@@ -35,7 +35,7 @@ La plage 2.1 comprend aussi des documents de l’enquête et la correction trans
 
 - Lus : épic, initiative, huit entrées de tickets et huit plans ; leurs sections intent, matrice, triage et vérification ; dossier [méthode v1](methode-estimative-v1/methode-estimative-v1.md), décision, validation et vecteurs ; spécification et ses compagnons ; architecture, DESIGN et EXPERIENCE ; code et tests des frontières calculateur/SSR/collecte.
 - Preuves de livraison : [recette isolée](../../../app/docs/recette-calculateur-livraison.md#preuves-datées--9-octobre-2026), révision `c232f4fd3f16ab325d8ee9f70dc8b3f9db600d17`, déploiement `dep-db4g3bbl550s73bkth7g`, recette HTTPS 10/10, bilan 0→2 et dix assets HTTP200, consignés le 9 octobre. Ces résultats historiques sont lus, sans prétendre avoir réinterrogé Render ou relancé la recette cloud pendant cette rétrospective.
-- Reproductibilité locale : sources et suites disponibles ; les nouveaux résultats sont dans Behavior verification. Les documents de recette fournissent commandes et limites. `git diff c232f4f HEAD -- app/src app/convex app/playwright.config.ts` est vide : les commits après publication n’altèrent pas ces surfaces applicatives.
+- Reproductibilité locale : sources et suites disponibles ; les nouveaux résultats sont dans Behavior verification. Les documents de recette fournissent commandes et limites. À la révision examinée `ced59c7`, `git diff c232f4f ced59c7 -- app/src app/convex app/playwright.config.ts` est vide : les commits après publication jusqu’à cette borne n’altèrent pas ces surfaces applicatives. L’action R5 ultérieure modifie la configuration de recette Playwright ; ses preuves locales ci-dessous ne constituent pas une nouvelle recette cloud. Le code `app/src` et `app/convex` reste identique à la révision livrée lors de la clôture.
 - Journaux complets de conversation non disponibles. Les plans et walkthroughs sont des comptes rendus, pas des journaux complets ; analyse de causes de processus et d’intentions abandonnées non effectuée. Les enseignements ci-dessous se limitent aux échecs et décisions explicitement consignés.
 - Pas de PRD supplémentaire identifiée dans l’initiative ; la spécification est le contrat. Le navigateur T3 a déclaré explicitement aucun host à `preview_status` puis `preview_open` ; repli Chromium local utilisé.
 
@@ -122,7 +122,7 @@ Les responsabilités techniques sont attribuées à l’agent dans le binôme pa
 
 ## Action items
 
-**Cinq actions nouvelles proposées, aucune appliquée.** Responsabilités dans le binôme utilisateur/agent ; les preuves nécessitant un appareil ou une perception humaine restent à observer réellement. Les actions de remédiation et de réconciliation attendent leur exécution dans le workflow normal.
+**État historique au 9 octobre 2026, 15:24 UTC : cinq actions nouvelles proposées, aucune appliquée.** Responsabilités dans le binôme utilisateur/agent ; les preuves nécessitant un appareil ou une perception humaine restent à observer réellement. Les actions de remédiation et de réconciliation attendent leur exécution dans le workflow normal.
 
 | ID | Nature / disposition | Action et preuve de clôture attendue | Responsable proposé |
 | --- | --- | --- | --- |
@@ -134,6 +134,41 @@ Les responsabilités techniques sont attribuées à l’agent dans le binôme pa
 
 Pas de délai estimé ni d’engagement humain inventé. R2 et R3 sont des renforcements proposés ; R1 ferme une lacune de vérification du consommateur. Les six actions du socle conservent leur propre trace, hors de ce compte de cinq.
 
+### Actualisation du 9 octobre 2026, après exécution R1/R5
+
+Le tableau précédent conserve l'état initial de la rétrospective. Le
+[plan R1/R5](../plan-actions-immediates-r1-r5.md) et la
+[recette locale](../../../app/docs/recette-calculateur-livraison.md#preuves-locales-r1r5--9-octobre-2026)
+portent les preuves effectives et les échecs intermédiaires, sans réalisation
+annoncée de R2/R3/R4.
+
+| ID | État courant | Preuve ou condition de reprise |
+| --- | --- | --- |
+| R1 | Clos | Véritable route, domaine, éditeur et composants rendus : 6/6 cas, six saisies sélectionnées, session intacte. Mutation de la garde : 5 échecs / 1 succès ; restauration exacte du fichier. |
+| R2 | Reporté, ouvert | Grammaire UUIDv4 du collecteur et refus HTTP/mutation avant ouverture publique, en préservant replay et événements privés. |
+| R3 | Reporté, ouvert | Invariant exact 4P+4G+9L=E et vecteurs de validation avant toute consommation de cible externe. |
+| R4 | Reporté, ouvert | Restitution audio par lecteur d'écran et clavier virtuel sur appareil réel avant affirmation d'accessibilité vérifiée ; aucune observation simulée. |
+| R5 | Clos dans la portée de recette locale préparée | Commande `bun run verify:calculator` : deux cwd privés, dépendances/caches isolés, verrou, ports réservés, préparation explicite sans retry. 25/25 E2E puis build code 0 ; vérification finale après correction de revue : fin E2E 16:26:49 UTC, fin build 16:26:53 UTC ; aucun listener final sur 3001/3002/3999. Collisions aux trois ports et verrou refusés code 1 sans altérer les listeners ; TERM code 143 libère les seuls serveurs de recette. |
+
+`check` zéro diagnostic (164 fichiers), typecheck code 0, 418/418 tests (24
+fichiers), mutation et `git diff --check` réussis. Journaux complets temporaires
+privés, dont recette finale après correction de revue `macrova-calculator.XutjZBes`. Les erreurs initiales
+restent documentées dans la recette, avec leurs corrections et causes encore
+non établies. La préparation et la préoptimisation stabilisent la recette ;
+le tout premier clic sur un Vite froid reste non validé. Le constat de revue sur les enfants orphelins est corrigé et vérifié : sortie 7 conservée, enfant PPID=1 arrêté, listener étranger préservé. Le build réussit avec
+avertissements tiers `use client`, conservés. Aucun déploiement, auth réelle,
+cloud, audio ou appareil réel n'est prouvé par cette action.
+
+Finalisation de revue R1/R5, 9 octobre 2026 : revue quick indépendante terminée,
+un défaut d'arrêt des enfants détachés après disparition de leur parent corrigé
+par marqueur privé hérité et recherche exacte dans `/proc`. Reproduction après
+correction : code d'échec conservé, enfant arrêté, build absent, listener étranger
+conservé ; relecture sans nouveau constat. Recette finale
+`macrova-calculator.lknABqFI` : 25/25 E2E, fin 16:24:25 UTC, puis build code 0
+à 16:24:29 UTC ; ports libres, sources sans `.env`, dépendances temporaires
+retirées. Check zéro diagnostic, typecheck et 418/418 tests réussis.
+R1/R5 clos dans leur portée documentée ; R2/R3/R4 restent ouverts.
+
 ## Acceptance verdict
 
 **`accepted-with-open-items` — critères déclarés, verdict machine fondé sur les preuves.** Aucune acceptation humaine distincte n’est fabriquée ; la délégation permet le jugement, pas l’invention d’une preuve.
@@ -142,7 +177,7 @@ Pas de délai estimé ni d’engagement humain inventé. R2 et R3 sont des renfo
 | --- | --- |
 | 1 — dossier adopté avant code | Satisfait : dossier v1 et décision du 8 octobre, commit b1d065d avant baseline de 2.2 ; aucune modification app dans 2.1. |
 | 2 — quatre valeurs, hypothèses, modification | Satisfait : vecteurs exacts, 412 tests, E2E et exploration référence/édition ; recette HTTPS identifiée. |
-| 3 — refus et absence de résultat obsolète | Satisfait sur code et suites ; refus méthode au domaine et garde de rendu présentes. Lacune du test consommateur suivie par R1 ; pas de bug actuel établi. |
+| 3 — refus et absence de résultat obsolète | Satisfait sur code et suites ; refus méthode au domaine et garde de rendu présentes. Lacune initiale du test consommateur suivie par R1, close par les preuves du 9 octobre ci-dessus ; pas de bug actuel établi. |
 | 4 — mobile/clavier, mémoire et confidentialité | Satisfait dans le périmètre vérifié : E2E 320px/texte×2, clavier/retour, composants et contrat numérique, confidentialité ; limites audio/appareil réel explicites R4. |
 | 5 — mesure minimale, retries, disponibilité | Satisfait pour client livré : UUID aléatoire sans profil, succès explicite uniquement, déduplication/retry et collecte facultative testés, preuves HTTPS. R2 durcit le client hostile/générique ; aucun transfert de profil produit observé. |
 | 6 — livraison isolée et préparation conditionnelle | Satisfait par preuves datées de c232f4f/dep-db4g3bbl550s73bkth7g, backend avant frontend, recette 10/10 et procédure rollback/production conditionnelle. |
@@ -163,4 +198,4 @@ Aucune réponse utilisateur requise pour achever cette rétrospective. Arbitrage
 - Scope des vues : imports directs du domaine et responsabilités des fichiers modifiés ; duplication ciblée ; graphe tiers et clones exhaustifs non analysés. Absence de journaux de conversation interdit toute cause organisationnelle inventée.
 - Épic immédiatement précédent enquête sans rétrospective ; suivi socle ajouté explicitement pour les engagements partagés, sans confondre ordre du board et épic précédent terminé.
 
-Phases 1, 2, 4 et 5 terminées ; phase 3 non demandée. Seul ce document est écrit dans l’arbre versionnable ; aucun statut, épic, plan, story, code ou configuration modifié. Aucun commit, push, déploiement ou activation publique effectué. Rapports de tests et preuves intermédiaires restent temporaires ou ignorés.
+**Bilan historique de la rétrospective, 9 octobre 2026 à 15:24 UTC :** phases 1, 2, 4 et 5 terminées ; phase 3 non demandée. Seul ce document est écrit dans l’arbre versionnable ; aucun statut, épic, plan, story, code ou configuration modifié. Aucun commit, push, déploiement ou activation publique effectué. Rapports de tests et preuves intermédiaires restent temporaires ou ignorés.

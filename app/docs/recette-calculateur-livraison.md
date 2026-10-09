@@ -14,10 +14,52 @@ Depuis `app/`, installer si nécessaire avec `bun install --frozen-lockfile`, pu
 bun run check
 bun run typecheck
 bun run test
-bun run test:e2e
-bun run build
+bun run verify:calculator
 git diff --check
 ```
+
+`verify:calculator` exige `bun`, `flock`, `setsid`, `tar` et `cp` (GNU).
+Elle exige Linux avec `/proc` accessible pour identifier exactement les processus
+portant le marqueur privé de cette recette, même détachés ou réattribués après
+la disparition de leur parent. Aucun environnement de processus n’est affiché.
+La commande prend un verrou de recette dans `node_modules` et refuse un port
+occupé parmi 3001, 3002 et 3999, sans arrêter le serveur présent. Ces ports
+restent réservés pendant la recette ; ne pas y démarrer un autre serveur.
+Elle prépare deux copies de l'app dans un répertoire temporaire privé, sans
+fichiers `.env`, anciens builds ni caches. Les dépendances installées sont copiées aussi
+(reflinks si disponibles), sans installation réseau ; les caches Vite des deux
+serveurs sont distincts, chaque serveur a son propre répertoire de travail,
+et `.vite-temp`, TanStack, Nitro, rapports et build restent dans ces copies. L'environnement des phases exclut les URL Convex et
+les identifiants d'authentification. Aucun serveur existant n'est réutilisé.
+
+Avant les tests, une préparation explicite charge `/calculateur` puis l'accueil
+sur chaque serveur, attend le bouton hydraté puis le réseau au repos et ferme
+ce navigateur. Le mode recette préoptimise une liste explicite des dépendances
+publiques et désactive leur découverte tardive pour stabiliser les imports Vite.
+Cette préparation charge les routes ; les tests utilisent ensuite leurs
+propres contextes. Les erreurs JavaScript de
+cette préparation font échouer la phase. Aucun test n'est relancé et aucune
+assertion n'est assouplie. Cette commande ne valide pas le tout premier clic
+sur un serveur Vite froid ; ce comportement reste une limite distincte.
+
+E2E s'exécute avant le build ; le build ne démarre que si E2E réussit et ses
+serveurs sont arrêtés. L'arrêt et Ctrl+C visent les seuls enfants de la recette.
+Toute erreur conserve son code non nul et empêche la phase suivante, sans
+relance automatique. Le répertoire annoncé `macrova-calculator.*` contient
+`recipe.log`, `e2e.log`, puis `build.log` si cette phase a commencé, ainsi que
+les rapports Playwright dans `app/`. Seules les copies volumineuses de
+`node_modules` sont retirées à la sortie, après arrêt des enfants ; les sources,
+caches privés, artefacts et traces restent disponibles même en cas
+d'échec et ne sont pas versionnés. Après consultation, supprimer seulement
+ce répertoire privé, jamais les caches partagés ni le fichier de verrou.
+Cette recette couvre les profils synthétiques locaux ; elle ne prouve ni
+l'authentification, ni une livraison cloud, ni une restitution audio réelle.
+
+Le test `tests/config/calculator-render.test.ts` rend la véritable route et
+l'éditeur avec une session déjà calculée : témoin v1, `null`, `undefined`,
+méthode non adoptée, retirée et v2. Les six entrées restent sélectionnées et
+la session complète est inchangée ; toute méthode indisponible masque résultat
+et éditeur et affiche le refus réel. Seuls route/Link/hydratation sont simulés.
 
 Les tests de `src/domain/calculator.test.ts` vérifient localement une méthode
 absente, retirée et de version différente. `calculator-failure.spec.ts` utilise
@@ -25,6 +67,69 @@ un serveur synthétique localhost. Ces preuves ne sont jamais présentées comme
 une injection distante ; aucun interrupteur, fixture ou backend de test n'est
 déployé. Le calcul et les six saisies restent en mémoire navigateur ; le backend
 reçoit seulement le contrat fermé PublicEvent v1 existant.
+
+### Preuves locales R1/R5 — 9 octobre 2026
+
+- Rendu : six cas réussis dans `calculator-render.test.ts`. Suppression temporaire
+  de la garde `outcome` : cinq cas indisponibles échouent, témoin v1 réussi.
+  Restauration octet pour octet de `calculateur.tsx`, SHA256
+  `a2558515356e488d329be8e03c71787596b7deff25a75d74b688141eb638ddce`.
+- Vérifications : `bun run check` zéro diagnostic (164 fichiers), typecheck code 0,
+  418 tests réussis dans 24 fichiers. `git diff --check` réussi.
+- Recette finale `macrova-calculator.z4HdK2Wl` : 25 E2E réussis, fin de phase
+  16:13:32 UTC ; build commencé ensuite à 16:13:32 UTC et terminé code 0 à
+  16:13:36 UTC. Ports 3001/3002/3999 libres après sortie ; aucune copie `.env`
+  dans les sources temporaires. Le bundler émet des avertissements `use client`
+  de dépendances tierces, sans échec ; ils ne sont pas supprimés.
+- Collisions contrôlées sur chacun des trois ports : code 1 et listener conservé
+  après refus, journaux gardés. Verrou concurrent : code 1, recette active intacte.
+  Signal TERM avec les trois serveurs actifs : code 143 et trois ports libérés,
+  sans arrêt par nom de processus. Les contrôles de collision utilisent des
+  listeners synthétiques explicitement créés puis fermés par le vérificateur.
+
+Correction de revue, 9 octobre 2026 : la recherche des groupes par parent après
+`wait` manquait un enfant devenu orphelin. Le wrapper transmet désormais un
+marqueur aléatoire propre à la recette et vérifie l'égalité d'une entrée complète
+dans `/proc/*/environ` avant de signaler chaque processus marqué ; aucune
+variable d'environnement n'est affichée, aucun arrêt global par nom.
+Le harness ciblé `/tmp/macrova-orphan-verification-7rbsgci1` utilise une copie
+minimale du script et des ports de contrôle propres 4211/4212/4213. Une phase
+synthétique lance un enfant `setsid` puis sort 7 : l'enfant est bien réattribué
+à PID 1 avant son arrêt, le code 7 reste conservé, son listener 4112 disparaît
+et le build ne commence pas. Un TERM sur la recette renvoie 143 et arrête aussi
+l'enfant ; dans les deux cas le listener étranger 4111 reste joignable.
+`bash -n` réussi. La reproduction indépendante après correction
+(`/tmp/macrova-review-orphan-fix-sjn0aoo8`) confirme également sortie 1,
+enfant arrêté, build absent et listener étranger conservé ; relecture sans
+nouveau constat. Ces preuves ciblées complètent la recette historique.
+
+Finalisation après revue : `check` zéro diagnostic (164 fichiers), typecheck
+code 0 et 418/418 tests (24 fichiers). Recette complète sur la version stabilisée
+`macrova-calculator.lknABqFI` : 25/25 E2E, fin 16:24:25 UTC ; build commencé
+ensuite à 16:24:25 UTC, terminé code 0 à 16:24:29 UTC. Ports 3001/3002/3999
+libres ; copies sans `.env`, dépendances temporaires retirées. Les scripts et
+configurations sont identiques à la version relue. Les avertissements tiers
+`use client` restent conservés. Une exécution précédente (`5Jza2MI8`), avec
+25/25 E2E, a échoué au nettoyage car le script avait été modifié pendant son
+exécution (`$1: unbound variable`) ; aucun build n'a commencé et les journaux
+restent disponibles. La relance complète conserve les assertions et zéro retry.
+
+Les échecs initiaux restent conservés dans les journaux privés. La variante
+avec liens de dépendances hors du root Vite (`79IvZMdr`) échoue au chargement
+puis timeout E2E ; le build ne commence pas. La copie privée avec cwd commun
+(`gq1qqVBK`) puis deux cwd (`LsoQiNC5`) donnent 24/25 : premier parcours bloqué
+sur l'accueil, et chunks d'optimisation manquants observés. Un conflit de
+fichiers générés était une hypothèse, pas une cause établie. La préparation
+bloquante (`chG3GU1j`, `3TIPUlcl`, `7dZSlK9z`) révèle une erreur d'import dynamique
+client et, dans la dernière variante, des réponses 504 de dépendances tardives.
+La liste explicite et `noDiscovery` ont stabilisé l'exécution finale ; la cause
+du clic perdu initial n'est pas démontrée et le premier clic sur Vite froid
+n'est pas validé. Aucune assertion de test n'a été modifiée, aucun retry activé.
+La saturation de quota temporaire (`71kDt4zw`) a empêché une copie avant E2E ;
+seules les copies de dépendances des runs arrêtés ont été retirées, logs gardés.
+Les interruptions volontaires (`InmJzXKS`, `TyOC5Bsl`) prouvent l'arrêt ciblé.
+L'absence initiale de `node_modules` empêchait Vitest de démarrer ; installation
+réussie par `bun install --frozen-lockfile`, sans modification du lockfile.
 
 Après revue indépendante, l'orchestrateur :
 

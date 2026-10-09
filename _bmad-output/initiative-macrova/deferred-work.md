@@ -86,3 +86,40 @@ hors de cette clôture, conformément au périmètre accepté de la rétrospecti
 Le report historique demandant une décision externe pour 2.1 est clos par remplacement explicite de l’exigence, pas par réception d’une signature. Décision produit v1 sourcée adoptée sous mandat utilisateur ; 2.2 autorisée. Essais du support d’enquête possédés par 10.2 avant collecte et vérifications de remise par 10.5/10.7 ; ils ne bloquent pas le développement.
 
 Les rôles proposés A4/A5/A7/A8/A9 désignent désormais des responsabilités de l’agent dans le binôme ; A6b requiert la réception réelle par l’utilisateur. Les actions techniques et leurs preuves restent ouvertes, à traiter lors du changement de leur zone ou avant consommation du contrat concerné ; aucun résultat d’essai n’est inventé par la réattribution.
+
+## Suivi calculateur — 9 octobre 2026 après actions immédiates
+
+Source canonique : [rétrospective calculateur](epic-calculateur/epic-calculateur-retrospective.md),
+« Actualisation du 9 octobre 2026, après exécution R1/R5 » ;
+[plan](plan-actions-immediates-r1-r5.md). Les passages antérieurs restent
+historiques. R1 est close par 6/6 tests du véritable rendu et mutation
+5 échecs / 1 témoin réussi avec restauration exacte. R5 est close dans la
+portée locale préparée : commande isolée, 25/25 E2E avant build code 0,
+ports finaux libres, collisions et arrêt ciblé vérifiés ; échecs et limites
+conservés dans la recette. Le premier clic sur Vite froid n'est pas validé.
+
+| ID | État et condition de reprise | Responsable |
+| --- | --- | --- |
+| R2 | Ouvert, avant ouverture publique : proposer/appliquer la grammaire UUIDv4 au collecteur calculateur, vérifier refus HTTP/mutation, UUID livré et replay dédupliqué ; préserver identifiants privés. | Agent backend/contrats |
+| R3 | Ouvert, avant consommation de cibles externes : vérifier exactement 4P+4G+9L=E dans le validateur, refus 2000/75/200/80 et vecteurs valides inchangés. | Agent domaine partagé |
+| R4 | Ouvert, avant affirmation d'accessibilité vérifiée : lecteur d'écran avec audio et appareil mobile avec clavier virtuel, labels/erreurs/annonces/édition/confirmation, visibilité et conservation des saisies ; consigner outils et observations réelles. | Utilisateur pour observations ; agent préparation et consignation |
+
+R2/R3/R4 ne sont pas réalisés par R1/R5. Les six reports du socle gardent
+leurs conditions précédentes. Aucune preuve auth, cloud ou certification
+accessibilité nouvelle n'est annoncée.
+
+Finalisation R1/R5 du 9 octobre 2026 : revue quick terminée, défaut de nettoyage
+d'un enfant détaché après disparition du parent corrigé et revérifié sans
+nouveau constat. Recette finale `macrova-calculator.lknABqFI` : 25/25 E2E puis
+build code 0 (16:24:25–16:24:29 UTC), ports libres ; 418/418 tests, typage et
+check sans diagnostic. Aucun report supplémentaire ; R2/R3/R4 restent ouverts.
+
+## Clôture du calculateur — 9 octobre 2026
+
+Decision: à la demande de l’utilisateur, l’[epic calculateur](epic-calculateur/epic-calculateur.md#clôture--9-octobre-2026)
+est clôturé `done` avec huit stories terminées et le verdict de rétrospective
+`accepted-with-open-items` conservé. **R2, R3 et R4 restent ouverts**, avec
+les responsables, conditions de reprise et preuves attendues du tableau
+« Suivi calculateur » ci-dessus. R1/R5 restent clos dans leur portée documentée.
+La clôture ne réalise aucun de ces reports et n’autorise pas l’ouverture
+publique ; celle-ci reste possédée par `epic-validation-lancement`.

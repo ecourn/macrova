@@ -64,6 +64,10 @@ if (liveAuth) {
 
 export default defineConfig({
   testDir: "./tests/e2e",
+  globalSetup:
+    process.env.E2E_CALCULATOR_ISOLATED === "1"
+      ? "./scripts/prepare-calculator-e2e.ts"
+      : undefined,
   testMatch: remoteOrigin
     ? [
         "**/public.spec.ts",
@@ -120,6 +124,8 @@ export default defineConfig({
           reuseExistingServer: false,
           timeout: 120_000,
           env: {
+            E2E_VITE_CACHE_DIR:
+              process.env.E2E_VITE_CACHE_DIR ?? "node_modules/.vite",
             PORT: String(port),
             HOST: "localhost",
             VITE_CONVEX_URL: liveAuth ? env.VITE_CONVEX_URL : "",
@@ -139,6 +145,7 @@ export default defineConfig({
               {
                 command:
                   "bun run dev --host localhost --port 3002 --strictPort",
+                cwd: process.env.E2E_FAILURE_APP_DIR ?? process.cwd(),
                 url: "http://localhost:3002",
                 reuseExistingServer: false,
                 timeout: 120_000,
@@ -146,7 +153,9 @@ export default defineConfig({
                   VITE_CONVEX_URL: "http://localhost:3999",
                   VITE_CONVEX_SITE_URL: "http://localhost:3999",
                   VITE_SITE_URL: "http://localhost:3002",
-                  E2E_VITE_CACHE_DIR: "node_modules/.vite-public-failure",
+                  E2E_VITE_CACHE_DIR:
+                    process.env.E2E_FAILURE_VITE_CACHE_DIR ??
+                    "node_modules/.vite-public-failure",
                 },
               },
             ]
