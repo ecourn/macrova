@@ -6,6 +6,7 @@ export default defineConfig({
     include: [
       "convex/**/*.test.ts",
       "src/domain/**/*.test.ts",
+      "src/lib/**/*.test.ts",
       "tests/config/**/*.test.ts",
     ],
   },
