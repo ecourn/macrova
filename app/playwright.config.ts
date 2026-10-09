@@ -64,14 +64,21 @@ if (liveAuth) {
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  testMatch: liveAuth
-    ? ["**/public.spec.ts", "**/auth.spec.ts", "**/contracts.spec.ts"]
-    : [
+  testMatch: remoteOrigin
+    ? [
         "**/public.spec.ts",
-        "**/offline.spec.ts",
-        "**/calculator.spec.ts",
-        "**/calculator-failure.spec.ts",
-      ],
+        "**/auth.spec.ts",
+        "**/contracts.spec.ts",
+        "**/calculator-remote.spec.ts",
+      ]
+    : liveAuth
+      ? ["**/public.spec.ts", "**/auth.spec.ts", "**/contracts.spec.ts"]
+      : [
+          "**/public.spec.ts",
+          "**/offline.spec.ts",
+          "**/calculator.spec.ts",
+          "**/calculator-failure.spec.ts",
+        ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
