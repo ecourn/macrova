@@ -3,7 +3,7 @@ title: '2.6 — Finaliser le parcours mobile clavier et navigation'
 type: feature
 ticket: 6
 created: '2026-10-09'
-status: built
+status: done
 baseline_revision: '99cfb4baa610452103f77bfd2770b761c05cf8a1'
 route: full
 route_source: auto
