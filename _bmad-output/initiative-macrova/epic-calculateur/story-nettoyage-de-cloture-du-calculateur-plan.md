@@ -3,7 +3,7 @@ title: '2.7 — Nettoyage de clôture du calculateur'
 type: refactor
 ticket: 7
 created: '2026-10-09'
-status: built
+status: done
 baseline_revision: 'a423b2372d52907ccaf6eee5d0435380aa9e9f57'
 route: oneshot
 route_source: auto
