@@ -3,7 +3,7 @@ title: "2.8 — Livrer et vérifier le calculateur de bout en bout"
 type: chore
 ticket: 8
 created: "2026-10-09"
-status: built
+status: done
 baseline_revision: "736e43365efa1318ee07b7b044f1201846b5f903"
 route: full
 route_source: auto
