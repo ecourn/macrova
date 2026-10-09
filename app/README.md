@@ -543,6 +543,18 @@ Aucun audit complet n'est revendiqué.
 
 ## Livraison isolée du calculateur
 
+Depuis `app/`, `bun run verify:calculator` exécute E2E puis build dans une copie
+temporaire privée sans `.env`, avec dépendances installées copiées, répertoires propres pour chaque serveur,
+caches Vite séparés et artefacts TanStack/Nitro isolés. Elle exige `flock`,
+`setsid`, `tar`, `ps` et `cp`, verrouille la recette et refuse les ports occupés 3001/3002/3999.
+Les serveurs sont propres ; une préparation explicite des routes attend
+l'hydratation et le réseau au repos avant les contextes E2E, sans retry.
+Elle ne prouve pas le premier clic sur Vite froid. Seuls ses enfants sont arrêtés. Un échec ou Ctrl+C
+empêche la suite ; les journaux de chaque phase et rapports sont conservés dans
+le répertoire temporaire annoncé, même en cas d'échec. Aucun serveur étranger
+n'est arrêté. Réserver ces ports pendant la commande et consulter la procédure
+ci-dessous pour les journaux, caches et nettoyage après lecture.
+
 La [recette de livraison du calculateur](docs/recette-calculateur-livraison.md)
 complète les preuves historiques du socle. `bun run test:e2e:remote`, avec les
 origines HTTPS/dev cohérentes documentées, ajoute la suite calculateur réelle

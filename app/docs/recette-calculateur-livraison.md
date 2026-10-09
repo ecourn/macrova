@@ -14,10 +14,47 @@ Depuis `app/`, installer si nécessaire avec `bun install --frozen-lockfile`, pu
 bun run check
 bun run typecheck
 bun run test
-bun run test:e2e
-bun run build
+bun run verify:calculator
 git diff --check
 ```
+
+`verify:calculator` exige `bun`, `flock`, `setsid`, `tar` et `cp` (GNU).
+Elle exige aussi `ps` pour identifier ses groupes de processus descendants.
+La commande prend un verrou de recette dans `node_modules` et refuse un port
+occupé parmi 3001, 3002 et 3999, sans arrêter le serveur présent. Ces ports
+restent réservés pendant la recette ; ne pas y démarrer un autre serveur.
+Elle prépare deux copies de l'app dans un répertoire temporaire privé sans fichiers `.env`,
+anciens builds ni caches. Les dépendances installées sont copiées aussi
+(reflinks si disponibles), sans installation réseau ; les caches Vite des deux
+serveurs sont distincts, chaque serveur a son propre répertoire de travail,
+et `.vite-temp`, TanStack, Nitro, rapports et build
+restent dans cette copie. L'environnement des phases exclut les URL Convex et
+les identifiants d'authentification. Aucun serveur existant n'est réutilisé.
+
+Avant les tests, une préparation explicite charge `/calculateur` puis l'accueil
+sur chaque serveur, attend le bouton hydraté puis le réseau au repos et ferme
+ce navigateur. Elle prépare les routes et l'optimisation des dépendances ; les
+tests utilisent ensuite leurs propres contextes. Les erreurs JavaScript de
+cette préparation font échouer la phase. Aucun test n'est relancé et aucune
+assertion n'est assouplie. Cette commande ne valide pas le tout premier clic
+sur un serveur Vite froid ; ce comportement reste une limite distincte.
+
+E2E s'exécute avant le build ; le build ne démarre que si E2E réussit et ses
+serveurs sont arrêtés. L'arrêt et Ctrl+C visent les seuls enfants de la recette.
+Toute erreur conserve son code non nul et empêche la phase suivante, sans
+relance automatique. Le répertoire annoncé `macrova-calculator.*` contient
+`recipe.log`, `e2e.log`, puis `build.log` si cette phase a commencé, ainsi que
+les rapports Playwright dans `app/`. Les traces sont conservées même en cas
+d'échec ; elles ne sont pas versionnées. Après consultation, supprimer seulement
+ce répertoire privé, jamais les caches partagés ni le fichier de verrou.
+Cette recette couvre les profils synthétiques locaux ; elle ne prouve ni
+l'authentification, ni une livraison cloud, ni une restitution audio réelle.
+
+Le test `tests/config/calculator-render.test.ts` rend la véritable route et
+l'éditeur avec une session déjà calculée : témoin v1, `null`, `undefined`,
+méthode non adoptée, retirée et v2. Les six entrées restent sélectionnées et
+la session complète est inchangée ; toute méthode indisponible masque résultat
+et éditeur et affiche le refus réel. Seuls route/Link/hydratation sont simulés.
 
 Les tests de `src/domain/calculator.test.ts` vérifient localement une méthode
 absente, retirée et de version différente. `calculator-failure.spec.ts` utilise

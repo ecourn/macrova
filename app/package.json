@@ -18,6 +18,7 @@
     "convex:codegen": "convex codegen",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "verify:calculator": "bash scripts/verify-calculator.sh",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:auth": "E2E_AUTH=1 playwright test",
     "test:e2e:report": "playwright show-report",

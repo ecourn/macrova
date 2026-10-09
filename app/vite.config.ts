@@ -7,6 +7,16 @@ import { nitro } from "nitro/vite"
 
 const config = defineConfig({
   cacheDir: process.env.E2E_VITE_CACHE_DIR ?? "node_modules/.vite",
+  optimizeDeps:
+    process.env.E2E_CALCULATOR_ISOLATED === "1"
+      ? {
+          entries: [
+            "src/routes/**/*.tsx",
+            "src/components/**/*.tsx",
+            "src/router.tsx",
+          ],
+        }
+      : undefined,
   ssr: { noExternal: ["@convex-dev/better-auth"] },
   resolve: { tsconfigPaths: true },
   plugins: [
