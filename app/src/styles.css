@@ -176,3 +176,40 @@
   outline: 2px solid #24543d;
   outline-offset: 4px;
 }
+
+.public-page {
+  overflow-wrap: anywhere;
+}
+.public-page [data-slot="field-set"],
+.public-page [data-slot="field"],
+.public-page [data-slot="native-select-wrapper"] {
+  min-width: 0;
+}
+.public-page [data-slot="button"],
+.public-page .public-action {
+  height: auto;
+  min-height: 44px;
+  min-width: 44px;
+  max-width: 100%;
+  flex-shrink: 1;
+  padding-block: 10px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 6px;
+  transition-property: background-color, color, border-color, transform;
+}
+.public-page .public-secondary {
+  background: #ffffff;
+  color: #202923;
+}
+.public-page nav a {
+  min-width: 44px;
+  max-width: 100%;
+}
+.public-page :is(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid #24543d;
+  outline-offset: 4px;
+  box-shadow: none;
+}

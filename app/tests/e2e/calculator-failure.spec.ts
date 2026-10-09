@@ -129,7 +129,11 @@ test("intentions explicites seules : enveloppes minimales et aucune identité na
   ).toBeVisible()
   await page.getByRole("button", { name: "Annuler la modification" }).click()
   await page.getByRole("link", { name: "Accueil", exact: true }).click()
-  await page.getByRole("link", { name: "Ouvrir le calculateur" }).click()
+  await expect(page.getByRole("heading", { level: 1 })).toBeFocused()
+  await page.goBack()
+  await expect(page.getByRole("heading", { level: 1 })).toBeFocused()
+  // Aucun calcul ni événement implicite lors du retour historique.
+  expect(envelopes).toHaveLength(3)
   await page.locator("#eligibilite").selectOption("non")
   await calculate.click()
   await expect(
@@ -180,13 +184,23 @@ test("timeout puis hors ligne : résultat et confirmation immédiats, retries bo
   await expect.poll(() => bodies.length).toBe(2)
   expect(bodies[0]).toBe(bodies[1])
   await context.setOffline(true)
+  await expect(page.getByRole("status")).toContainText("Hors ligne")
   await page.locator("#edit-field").selectOption("E")
   await page.locator("#edit-value").fill("2638")
   await page.getByRole("button", { name: "Prévisualiser le recalcul" }).click()
   await page.getByRole("button", { name: "Confirmer la modification" }).click()
+  await expect(page.locator("#edit-value")).toHaveValue("")
   await expect(
     page.getByRole("heading", { name: "Cible modifiée journalière" })
   ).toBeVisible()
+  for (const body of bodies) {
+    expect(Object.keys(JSON.parse(body)).sort()).toEqual([
+      "eventId",
+      "occurredAt",
+      "type",
+      "version",
+    ])
+  }
   expect(errors).toEqual([])
   await context.setOffline(false)
 })
