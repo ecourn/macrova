@@ -148,14 +148,14 @@ annoncée de R2/R3/R4.
 | R2 | Reporté, ouvert | Grammaire UUIDv4 du collecteur et refus HTTP/mutation avant ouverture publique, en préservant replay et événements privés. |
 | R3 | Reporté, ouvert | Invariant exact 4P+4G+9L=E et vecteurs de validation avant toute consommation de cible externe. |
 | R4 | Reporté, ouvert | Restitution audio par lecteur d'écran et clavier virtuel sur appareil réel avant affirmation d'accessibilité vérifiée ; aucune observation simulée. |
-| R5 | Clos dans la portée de recette locale préparée | Commande `bun run verify:calculator` : deux cwd privés, dépendances/caches isolés, verrou, ports réservés, préparation explicite sans retry. 25/25 E2E puis build code 0 ; fin E2E 16:13:32 UTC, fin build 16:13:36 UTC ; aucun listener final sur 3001/3002/3999. Collisions aux trois ports et verrou refusés code 1 sans altérer les listeners ; TERM code 143 libère les seuls serveurs de recette. |
+| R5 | Clos dans la portée de recette locale préparée | Commande `bun run verify:calculator` : deux cwd privés, dépendances/caches isolés, verrou, ports réservés, préparation explicite sans retry. 25/25 E2E puis build code 0 ; vérification finale après correction de revue : fin E2E 16:26:49 UTC, fin build 16:26:53 UTC ; aucun listener final sur 3001/3002/3999. Collisions aux trois ports et verrou refusés code 1 sans altérer les listeners ; TERM code 143 libère les seuls serveurs de recette. |
 
 `check` zéro diagnostic (164 fichiers), typecheck code 0, 418/418 tests (24
 fichiers), mutation et `git diff --check` réussis. Journaux complets temporaires
-privés, dont recette finale `macrova-calculator.z4HdK2Wl`. Les erreurs initiales
+privés, dont recette finale après correction de revue `macrova-calculator.XutjZBes`. Les erreurs initiales
 restent documentées dans la recette, avec leurs corrections et causes encore
 non établies. La préparation et la préoptimisation stabilisent la recette ;
-le tout premier clic sur un Vite froid reste non validé. Le build réussit avec
+le tout premier clic sur un Vite froid reste non validé. Le constat de revue sur les enfants orphelins est corrigé et vérifié : sortie 7 conservée, enfant PPID=1 arrêté, listener étranger préservé. Le build réussit avec
 avertissements tiers `use client`, conservés. Aucun déploiement, auth réelle,
 cloud, audio ou appareil réel n'est prouvé par cette action.
 

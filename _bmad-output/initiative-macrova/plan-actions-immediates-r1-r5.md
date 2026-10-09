@@ -159,3 +159,10 @@ Depuis app/ : `bun run check` (zéro diagnostic), `bun run typecheck`, `bun run 
   restantes. Avertissements tiers `use client` conservés dans `build.log`.
 - R1/R5 clos et revue résolue ; R2/R3/R4 et les reports antérieurs inchangés.
   Finalisation par commit local selon l'étape 5 du workflow ; aucun push.
+
+### Vérification finale après correctif de revue — 9 octobre 2026
+
+- Audit de matrice : les six tests consommateurs exécutés couvrent toutes les lignes (témoin v1, null, undefined, deux statuts indisponibles, autre version) ; 418/418 tests, 24 fichiers, après correctif. Typecheck code 0 ; check zéro diagnostic, 164 fichiers.
+- Correctif d'arrêt : reproduction indépendante confirmée, puis harness `/tmp/macrova-orphan-verification-7rbsgci1` réussi avec enfant setsid réattribué à PID 1 ; sortie 7/TERM 143 conservés, listener étranger préservé, build absent.
+- Recette finale lancée par l'orchestrateur : `/tmp/macrova-calculator.XutjZBes`, préparation des deux serveurs sans erreur, 25/25 E2E (1,7 min), fin E2E et début build à 16:26:49 UTC, fin build et recette code 0 à 16:26:53 UTC. Ports réservés libres après sortie ; script final identique à la copie vérifiée. Avertissements bundler tiers conservés.
+- Revue quick : un constat medium corrigé, aucun constat restant. R2/R3/R4 restent reportés ; démarrage à froid, auth/cloud/audio/appareil réel hors preuve.
