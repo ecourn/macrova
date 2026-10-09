@@ -3,7 +3,7 @@ title: '2.5 — Mesurer les calculs terminés sans profil'
 type: feature
 ticket: 5
 created: '2026-10-08'
-status: built
+status: done
 baseline_revision: '17e607f7f625fcb792370d6bde46303d87c615b2'
 route: full
 route_source: auto
