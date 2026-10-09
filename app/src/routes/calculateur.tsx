@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { createFileRoute, useHydrated } from "@tanstack/react-router"
 import { sendCalculatorMeasurement } from "@/lib/calculator-measurement"
+import {
+  calculatorTargetFields,
+  calculatorTargetLabels,
+  calculatorTargetUnit,
+} from "@/lib/calculator-presentation"
 import { CalculatorTargetEditor } from "@/components/calculator-target-editor"
 import { multiply, divide, rational } from "@/domain/decimal"
 import { PublicNavigation } from "@/components/public-navigation"
@@ -101,9 +106,7 @@ function Calculator() {
     setSession(next)
   }
   function change(field: CalculatorField, value: string) {
-    const next = changeCalculatorProfile(session, field, value)
-    Object.assign(context.calculatorSession, next)
-    setSession(next)
+    update(changeCalculatorProfile(session, field, value))
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -321,19 +324,14 @@ function Calculator() {
               pour le profil actuel. Consultez les hypothèses ci-dessus.
             </p>
             <dl className="mt-6 grid gap-6 sm:grid-cols-2">
-              {(
-                [
-                  ["E", "Calories", "kcal/jour"],
-                  ["P", "Protéines", "g/jour"],
-                  ["G", "Glucides", "g/jour"],
-                  ["L", "Lipides", "g/jour"],
-                ] as const
-              ).map(([key, label, unit]) => (
+              {calculatorTargetFields.map((key) => (
                 <div key={key}>
-                  <dt>{label}</dt>
+                  <dt>{calculatorTargetLabels[key]}</dt>
                   <dd className="text-2xl font-semibold tabular-nums">
                     {displayCalculatorValue(result.target[key])}{" "}
-                    <span className="text-base font-normal">{unit}</span>
+                    <span className="text-base font-normal">
+                      {calculatorTargetUnit(key)}
+                    </span>
                   </dd>
                 </div>
               ))}
@@ -363,10 +361,10 @@ function Calculator() {
                 Consulter la cible courante et l'original exacts
               </summary>
               <dl className="space-y-2 break-all">
-                {(["E", "P", "G", "L"] as const).map((key) => (
+                {calculatorTargetFields.map((key) => (
                   <div key={key}>
                     <dt>
-                      {key} ({key === "E" ? "kcal/jour" : "g/jour"})
+                      {key} ({calculatorTargetUnit(key)})
                     </dt>
                     <dd>
                       Courante : {String(result.target[key].numerator)}/
