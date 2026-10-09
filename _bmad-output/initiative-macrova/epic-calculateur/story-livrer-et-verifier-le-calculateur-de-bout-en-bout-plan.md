@@ -3,7 +3,7 @@ title: "2.8 — Livrer et vérifier le calculateur de bout en bout"
 type: chore
 ticket: 8
 created: "2026-10-09"
-status: in-review
+status: built
 baseline_revision: "736e43365efa1318ee07b7b044f1201846b5f903"
 route: full
 route_source: auto
@@ -58,10 +58,10 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `app/tests/e2e/calculator-remote.spec.ts` : ajouter recette réelle valide/édition/retour/invalidité/exclusion/confidentialité, POST et replay/conflit, panne interceptée, refus privés et internal ; uniquement profils synthétiques, assertions sans impression des corps.
-- [ ] `app/playwright.config.ts` et `app/tests/config/playwright.test.ts` : sélectionner cette suite uniquement pour une cible HTTPS distante validée et vérifier cette frontière.
-- [ ] `app/docs/recette-calculateur-livraison.md`, `app/README.md` : documenter commandes, limites d’injection méthode, bilan paginé et procédures backend/frontend, rollback compatible, conditions de production et preuves datées. L’orchestrateur complète les faits après livraison.
-- [ ] Vérifier localement, revue indépendante, puis orchestrateur : synchroniser Convex dev avec le wrapper, commit/push de branche dédiée pour révision immuable et déploiement manuel Render ; vérifier révision live, recette distante, mesures et sondes. Le push de branche est nécessaire à cette livraison, sans merge main.
+- [x] `app/tests/e2e/calculator-remote.spec.ts` : ajouter recette réelle valide/édition/retour/invalidité/exclusion/confidentialité, POST et replay/conflit, panne interceptée, refus privés et internal ; uniquement profils synthétiques, assertions sans impression des corps.
+- [x] `app/playwright.config.ts` et `app/tests/config/playwright.test.ts` : sélectionner cette suite uniquement pour une cible HTTPS distante validée et vérifier cette frontière.
+- [x] `app/docs/recette-calculateur-livraison.md`, `app/README.md` : documenter commandes, limites d’injection méthode, bilan paginé et procédures backend/frontend, rollback compatible, conditions de production et preuves datées. L’orchestrateur complète les faits après livraison.
+- [x] Vérifier localement, revue indépendante, puis orchestrateur : synchroniser Convex dev avec le wrapper, commit/push de branche dédiée pour révision immuable et déploiement manuel Render ; vérifier révision live, recette distante, mesures et sondes. Le push de branche est nécessaire à cette livraison, sans merge main.
 
 **Acceptance Criteria:**
 - Given la révision validée, when livraison backend puis frontend sur la cible isolée, then la révision live exacte et les résultats de recette HTTPS sont consignés.
@@ -80,8 +80,24 @@ context:
 
 ## Review Triage Log
 
+- 2026-10-09 — Revue quick finale indépendante après correction et livraison : high=0, medium=0, low=0, false=0, maybe-false=0. Correction de confidentialité et concordance SHA live / 10 scénarios / bilan0→2 / 10 assets confirmées ; aucun constat restant ouvert, aucun travail différé.
+
 - 2026-10-09 — Quick : high=0, medium=1, low=0, false=0, maybe-false=0. medium / patch : calculator-remote surveillait réseau et stockage après profile(page), donc une fuite de saisie serait invisible ; le filtre de valeurs brutes manquait le profil normalisé. Correction minimale : références avant saisie et contrôle structurel des seules requêtes permises dans ce parcours public, sans corps dans les rapports. Aucun défaut produit constaté.
 
 ## Verification
 
 Depuis app/ : bun install --frozen-lockfile si nécessaire, bun run check (zéro avertissement/erreur), bun run typecheck, bun run test, bun run test:e2e puis bun run build ; git diff --check. Vérifier suite remote listée sans démarrer de serveur local et gardes de configuration. Après revue : bun run convex:dev --once --tail-logs disable sur dev explicite ; build Render manuel de révision précise ; bun run test:e2e:remote avec origines cohérentes. Sondes SSR/Convex, bilan internal via CLI, compte rendu daté avec preuve méthode indisponible identifiée locale. Ne jamais publier un secret ou des comptes de recette.
+
+
+### Vérification et livraison finales — 9 octobre 2026
+
+- Correction de revue appliquée et vérifiée : surveillance avant toute saisie, contrat réseau fermé ; check 162 fichiers sans diagnostic, typecheck sortie 0, unit 412/412 à nouveau. E2E locaux 25/25 et build post-E2E sortie 0. Aucun test supprimé ou attente assouplie ; aucune dette différée.
+- Backend dev dédié synchronisé à 15:00:34 UTC avec --codegen disable pour conserver les bindings versionnés déjà typés ; indexes et composants rateLimiter installés. Configuration privée .env.local ignorée ne contient que sélection dev et URL publiques ; secret Better Auth ni lu ni modifié.
+- Révision applicative livrée c232f4fd3f16ab325d8ee9f70dc8b3f9db600d17, Render dep-db4g3bbl550s73bkth7g live à 15:03:29.566014 UTC. Push de branche dédiée nécessaire pour déployer cette révision immuable ; aucune fusion main ni ouverture publique. Aucune ressource payante créée.
+- Recette HTTPS réelle : 10/10 scénarios, sortie 0, 34,7 s ; comptes synthétiques auth créés par les suites, traces/captures désactivées. Sondes SSR/Convex OK, 10 assets HTTP200. Bilan interne 0 avant / 2 après, dates asOf fixées consignées dans la recette ; replay dédupliqué, conflit409, lecture internal refusée via API publique.
+- Audit matrice : référence/édition/retour/confidentialité et collecte réelle couverts par premier scénario remote ; invalidité/exclusion par second ; panne503 et quatre essais pour deux intentions par troisième ; opérations privées et bilan internal par quatrième. Tous exécutés et réussis. Méthode indisponible : tests purs disponibilité prioritaire et transitions dans calculator.test.ts, exécutés parmi les 412 tests ; preuve explicitement locale. Bilan d’exploitation lu via CLI autorisée, comptes uniquement.
+- Preuves et procédure complète : app/docs/recette-calculateur-livraison.md. Le commit documentaire final complète les preuves sans changer le code applicatif de la révision live ; aucun redéploiement nécessaire pour des documents seulement.
+
+- Journaux contrôlés sans afficher les corps : 4 entrées Render après publication, 100 événements Convex ; aucun marqueur profil/e-mail/JWT/assignation credential détecté. Échantillons seulement, pas garantie générale. Flux Convex arrêté après six secondes ; aucun log brut versionné.
+
+- Clôture workflow : statut built, critères satisfaits et revue finale sans constat ; le fichier tickets.toml n’est pas modifié conformément au workflow Build. Documents de recette complétés après livraison, aucun changement applicatif post-recette.

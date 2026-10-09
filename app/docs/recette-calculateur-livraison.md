@@ -121,20 +121,48 @@ backend existant et le sommeil possible du frontend gratuit doivent être
 considérés dans cette décision. Cette livraison ne revendique aucune validation
 clinique, réglementaire ou conformité ; elle n'autorise aucun déploiement prod.
 
-## Preuves datées — à compléter par l'orchestrateur après livraison
+## Preuves datées — 9 octobre 2026
 
 | Preuve | Résultat effectif |
 | --- | --- |
-| Date UTC de recette | À relever |
-| Backend synchronisé avant frontend | À relever, dev:dazzling-puffin-856 seulement |
-| Révision complète live / déploiement Render | À relever via API/CLI |
-| Validation locale / méthode indisponible | À relever ; preuves exclusivement locales |
-| Recette HTTPS et quatre scénarios calculateur | À relever ; aucun résultat distant présumé |
-| Sondes SSR/Convex et assets | À relever |
-| Bilan internal : asOf, pages, comptes | À relever ; aucun profil |
-| Logs : échantillons contrôlés | À relever sans recopier les journaux bruts |
-| Offre/région/auto-deploy/previews | À reconfirmer |
+| Date UTC de recette | 2026-10-09, terminée avant le bilan de 15:04:32.736 UTC ; 34,7 secondes |
+| Backend synchronisé avant frontend | dev:dazzling-puffin-856, prêt à 15:00:34 UTC ; indexes by_eventId/by_expiresAt et composants rateLimiter/batchWorker installés ; wrapper --once --tail-logs disable --codegen disable, sortie 0 ; secret existant conservé |
+| Révision complète live / déploiement Render | `c232f4fd3f16ab325d8ee9f70dc8b3f9db600d17` / `dep-db4g3bbl550s73bkth7g`, live à 15:03:29.566014 UTC ; révision publiée sur branche dédiée, aucune fusion main |
+| Validation locale / méthode indisponible | 412 tests sur 23 fichiers ; 25 E2E ; types et check (162 fichiers) sans diagnostic ; build réussi. Méthode absente/retirée/version différente et transitions protégées : calculator.test.ts, exclusivement local |
+| Recette HTTPS et quatre scénarios calculateur | 10/10 réussis, sortie 0, dont 4 calculateur : référence/édition/retour/confidentialité, invalidité/exclusion, panne 503 interceptée et retries, refus privés et bilan interne ; 6 scénarios du socle incluant auth réelle et isolation intercompte |
+| Sondes SSR/Convex et assets | SOCLE_SSR_OK et SOCLE_CONVEX_OK ; 10 assets référencés par /calculateur, tous HTTP 200 |
+| Bilan internal : asOf, pages, comptes | Avant recette : asOf 1791558043163 (15:00:43.163 UTC), 1 page, 0 événement. Après : asOf 1791558272736 (15:04:32.736 UTC), 1 page, 2 événements. Calcul et confirmation distincts ; replay dédupliqué et conflit 409 ; aucun profil extrait |
+| Logs : échantillons contrôlés | 4 entrées Render après publication et 100 événements Convex contrôlés : aucun marqueur de profil, e-mail, JWT ou assignation de credential détecté ; échantillons seulement, corps conservés dans /tmp |
+| Offre/région/auto-deploy/previews | Service srv-db2g7nqjnfac73cohoi0 existant : Free, Frankfurt, autoDeploy off et previews off vérifiés par CLI ; aucune nouvelle ressource |
 
 Toute preuve locale ou panne interceptée est distinguée du fonctionnement réel
 du collecteur et de la révision distante. Les comptes de recette et secrets
 restent dans les configurations et outils privés existants.
+
+Les contrôles de confidentialité commencent avant toute saisie : références
+cookies/stockages et écoute réseau, POST seulement vers le collecteur sous contrat
+fermé, autres transmissions GET same-origin vers navigation ou assets connus,
+sans query ni corps. Les deux intentions ont deux UUID distincts ; navigation
+et refus ne produisent aucun événement. La panne simulée 503 n’a pas atteint
+le collecteur réel ; elle confirme quatre essais pour deux intentions, aucun
+succès annoncé par la simulation. Le bilan de deux événements confirme les
+seules insertions de cette recette isolée.
+
+La surveillance native T3 était indisponible en environnement headless ; les
+preuves navigateur viennent de Chromium Playwright, sans traces/captures auth.
+Une correction de recette issue de revue indépendante a avancé la surveillance
+avant saisie et remplacé le filtre partiel de valeurs brutes par le contrôle
+structurel des requêtes. La recette distante corrigée passe sans assouplir les
+attentes. Les avertissements use client des dépendances au build restent ceux
+observés dans le socle ; aucun avertissement du check applicatif.
+
+Logs temporaires de session : /tmp/macrova-2-8-remote.log,
+/tmp/macrova-2-8-summary-before.json et -after.json,
+/tmp/macrova-2-8-deploys-progress.json, /tmp/macrova-2-8-assets.json,
+/tmp/macrova-2-8-log-audit.json. Ces fichiers ne sont pas des dépendances de cette
+procédure et ne sont pas versionnés. Les faits résumés ici suffisent à identifier
+la révision et reproduire la recette.
+
+Le flux Convex a été arrêté volontairement après six secondes. Le contrôle
+de ces échantillons ne garantit pas l’absence de données sensibles dans tous
+les journaux futurs ; les refus privés attendus ne sont pas des pannes.
