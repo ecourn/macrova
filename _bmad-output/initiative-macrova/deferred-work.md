@@ -113,3 +113,13 @@ d'un enfant détaché après disparition du parent corrigé et revérifié sans
 nouveau constat. Recette finale `macrova-calculator.lknABqFI` : 25/25 E2E puis
 build code 0 (16:24:25–16:24:29 UTC), ports libres ; 418/418 tests, typage et
 check sans diagnostic. Aucun report supplémentaire ; R2/R3/R4 restent ouverts.
+
+## Clôture du calculateur — 9 octobre 2026
+
+Decision: à la demande de l’utilisateur, l’[epic calculateur](epic-calculateur/epic-calculateur.md#clôture--9-octobre-2026)
+est clôturé `done` avec huit stories terminées et le verdict de rétrospective
+`accepted-with-open-items` conservé. **R2, R3 et R4 restent ouverts**, avec
+les responsables, conditions de reprise et preuves attendues du tableau
+« Suivi calculateur » ci-dessus. R1/R5 restent clos dans leur portée documentée.
+La clôture ne réalise aucun de ces reports et n’autorise pas l’ouverture
+publique ; celle-ci reste possédée par `epic-validation-lancement`.

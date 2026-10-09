@@ -1,6 +1,6 @@
 ---
 type: epic
-status: in-progress
+status: done
 title: "Cible estimative publique"
 parent: initiative-macrova
 covers: ["CAP-1"]
@@ -85,3 +85,62 @@ Démonstration et offre appartiennent à leurs epics ; ne pas créer de parcours
 
 - Decision: 2026-10-08 — CAL-1 et Done when 1 requièrent une validation produit sourcée par l’agent sur la version exacte, pas une signature externe. Dossier v1 accepté ; 2.1 clôturée sous mandat utilisateur. Les tests applicatifs, gardes et recettes sont exécutés dans 2.2 à 2.8. L’ouverture publique reste à l’epic 9.
 - Decision: 2026-10-08 — responsabilités produit/développement portées par l’agent et interventions de comptes par l’utilisateur ; 2.2 est la prochaine story de développement, indépendante du support d’enquête.
+
+## Clôture — 9 octobre 2026
+
+Decision: à la demande explicite de l’utilisateur, avec délégation des
+arbitrages, clôturer l’epic `done` en conservant les reports **R2, R3 et R4**.
+Les huit stories 2.1 à 2.8 sont `done` ; aucune n’est abandonnée. Le contrôle
+de clôture confronte CAL-1 à CAL-8 et les six critères Done when aux preuves
+des plans, à la [rétrospective](epic-calculateur-retrospective.md), section
+« Acceptance verdict », et à son actualisation après résolution de R1/R5.
+Le verdict `accepted-with-open-items` est conservé.
+La validation indépendante `checks.closure` confirme les six critères dans
+leur portée documentée, sans constat bloquant. Le contrôle du board de
+l’epic confirme huit stories `done`, aucune chaîne restante et aucune
+anomalie de dépendance.
+
+1. **Méthode adoptée avant implémentation** : dossier v1 sourcé et décision
+   produit du 8 octobre, antérieurs au code de 2.2 ; aucune validation
+   clinique n’est revendiquée.
+2. **Calcul et modification sans compte** : quatre valeurs, hypothèses et
+   recalcul vérifiés par vecteurs exacts, suites locales et recette HTTPS
+   datée de 2.8.
+3. **Refus et résultat obsolète** : exclusions et invalidations couvertes ;
+   R1 clôt la lacune du consommateur avec six tests du rendu réel et mutation
+   de la garde détectée par cinq échecs, puis restauration exacte.
+4. **Mobile, clavier et confidentialité** : reflow 320 px, texte ×2,
+   navigation clavier et retour vérifiés, brouillon en mémoire et primitives
+   partagées ; les observations audio et appareil réel restent reportées en R4.
+5. **Mesure publique facultative** : enveloppe minimale du client livré,
+   émission après succès, retries dédupliqués et collecte non bloquante
+   vérifiés ; le durcissement des identifiants reçus reste reporté en R2.
+6. **Livraison isolée et procédure de production** : recette HTTPS 10/10
+   datée sur `c232f4f`, déploiement `dep-db4g3bbl550s73bkth7g`, procédure
+   backend puis frontend et rollback consignés dans la
+   [recette](../../../app/docs/recette-calculateur-livraison.md). R5 est close
+   dans sa portée locale préparée : 25/25 E2E puis build réussi, isolation,
+   collisions et arrêt ciblé vérifiés ; le premier clic sur Vite froid reste
+   hors preuve.
+
+Decision: les reports restent ouverts dans le
+[registre des travaux différés](../deferred-work.md), section « Suivi
+calculateur », avec leurs responsables et preuves de clôture attendues :
+
+- **R2 — agent backend/contrats** : avant ouverture publique, appliquer et
+  vérifier la grammaire UUIDv4 dans le collecteur HTTP et la mutation,
+  préserver les identifiants privés et la déduplication du replay.
+- **R3 — agent domaine partagé** : avant consommation de cibles externes,
+  vérifier exactement `4P+4G+9L=E`, refuser le vecteur incohérent
+  `2000/75/200/80` et conserver les vecteurs valides.
+- **R4 — utilisateur pour observations réelles, agent pour préparation et
+  consignation** : avant affirmation d’accessibilité vérifiée, observer
+  lecteur d’écran audio et mobile avec clavier virtuel, puis consigner
+  appareils, outils, labels, erreurs, annonces et parcours d’édition.
+
+Cette clôture accepte le périmètre livré sur environnement isolé. Elle
+n’active pas l’ouverture publique, possédée par `epic-validation-lancement`,
+et ne transforme aucun report ni aucune limite de preuve en réalisation.
+Les traces historiques de la rétrospective, les reports du socle et les
+statuts des stories sont conservés. Aucune nouvelle recette cloud n’est
+revendiquée par cette opération documentaire.
