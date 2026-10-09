@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import type {
   CalculatorMethod,
   CalculatorSession,
@@ -18,6 +18,8 @@ import {
   FieldLabel,
   FieldDescription,
   FieldError,
+  FieldSet,
+  FieldLegend,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
@@ -48,17 +50,31 @@ export function CalculatorTargetEditor({
   update: (next: CalculatorSession) => void
   onConfirmed: () => void
 }) {
+  const [notice, setNotice] = useState("")
   const previewButton = useRef<HTMLButtonElement>(null)
   function closePreview(next: CalculatorSession) {
+    const wasPreviewOpen = !!session.preview
     update(next)
-    previewButton.current?.focus()
+    if (wasPreviewOpen) previewButton.current?.focus()
   }
   const field = session.edit.field as CalculatorTargetField
   const selectionError = session.editErrors.some(
     (error) => error.code === "MODIFICATION_NON_UNIQUE"
   )
   return (
-    <section aria-labelledby="edit-title" className="mt-8 max-w-3xl space-y-6">
+    <section
+      aria-labelledby="edit-title"
+      className="mt-8 max-w-3xl space-y-6"
+      onKeyDown={(event) => {
+        if (session.preview && event.key === "Escape") {
+          event.preventDefault()
+          setNotice(
+            "Prévisualisation annulée : la cible courante est conservée."
+          )
+          closePreview(cancelCalculatorEdit(session))
+        }
+      }}
+    >
       <h2 id="edit-title" className="text-xl font-semibold">
         Modifier ma cible
       </h2>
@@ -72,32 +88,45 @@ export function CalculatorTargetEditor({
         autoComplete="off"
         onSubmit={(event) => {
           event.preventDefault()
+          setNotice("")
           update(previewCalculatorEdit(session, method))
         }}
       >
-        <fieldset disabled={!ready} className="space-y-6">
+        <FieldSet disabled={!ready} className="gap-6">
+          <FieldLegend className="sr-only">
+            Modification de la cible
+          </FieldLegend>
           <Field data-invalid={selectionError}>
             <FieldLabel htmlFor="edit-field">Champ à modifier</FieldLabel>
             <NativeSelect
               id="edit-field"
               value={session.edit.field}
               aria-invalid={selectionError}
-              aria-describedby={selectionError ? "edit-error" : undefined}
-              onChange={(event) =>
+              aria-describedby={selectionError ? "edit-field-error" : undefined}
+              onChange={(event) => {
+                setNotice("")
                 update(changeCalculatorEdit(session, event.target.value, ""))
-              }
+              }}
             >
-              <NativeSelectOption value="">
-                Choisir explicitement
-              </NativeSelectOption>
+              <NativeSelectOption value="">Choisir</NativeSelectOption>
               {Object.entries(targetLabels).map(([key, label]) => (
                 <NativeSelectOption key={key} value={key}>
                   {label}
                 </NativeSelectOption>
               ))}
             </NativeSelect>
+            {selectionError && (
+              <FieldError id="edit-field-error" role="presentation">
+                {session.editErrors
+                  .filter((error) => error.code === "MODIFICATION_NON_UNIQUE")
+                  .map((error) => error.message)
+                  .join(" ")}
+              </FieldError>
+            )}
           </Field>
-          <Field data-invalid={session.editErrors.length > 0}>
+          <Field
+            data-invalid={!selectionError && session.editErrors.length > 0}
+          >
             <FieldLabel htmlFor="edit-value">
               Nouvelle valeur{" "}
               {field
@@ -108,7 +137,8 @@ export function CalculatorTargetEditor({
               id="edit-value"
               inputMode="decimal"
               value={session.edit.value}
-              onChange={(event) =>
+              onChange={(event) => {
+                setNotice("")
                 update(
                   changeCalculatorEdit(
                     session,
@@ -116,16 +146,16 @@ export function CalculatorTargetEditor({
                     event.target.value
                   )
                 )
-              }
+              }}
               aria-invalid={!selectionError && session.editErrors.length > 0}
-              aria-describedby={`edit-help${session.editErrors.length ? " edit-error" : ""}`}
+              aria-describedby={`edit-help${!selectionError && session.editErrors.length ? " edit-value-error" : ""}`}
             />
             <FieldDescription id="edit-help">
               Virgule ou point accepté, au plus six décimales. Aucune valeur
               arrondie n'est préremplie. {field && consequences[field]}
             </FieldDescription>
-            {session.editErrors.length > 0 && (
-              <FieldError id="edit-error" role="presentation">
+            {!selectionError && session.editErrors.length > 0 && (
+              <FieldError id="edit-value-error" role="presentation">
                 {session.editErrors.map((error) => error.message).join(" ")}
               </FieldError>
             )}
@@ -137,23 +167,36 @@ export function CalculatorTargetEditor({
             <Button
               type="button"
               variant="outline"
-              className="min-h-11"
-              onClick={() => update(cancelCalculatorEdit(session))}
+              className="public-secondary min-h-11"
+              onClick={() => {
+                setNotice(
+                  "Modification annulée : la cible courante est conservée."
+                )
+                closePreview(cancelCalculatorEdit(session))
+              }}
             >
               Annuler la modification
             </Button>
             <Button
               type="button"
               variant="outline"
-              className="min-h-11 whitespace-normal"
-              onClick={() => update(resetCalculatorTarget(session, method))}
+              className="public-secondary min-h-11 whitespace-normal"
+              onClick={() => {
+                setNotice(
+                  "Cible originale rétablie. Le brouillon de modification est effacé."
+                )
+                closePreview(resetCalculatorTarget(session, method))
+              }}
             >
               Réinitialiser la cible originale
             </Button>
           </div>
-        </fieldset>
+        </FieldSet>
       </form>
       <div aria-live="polite" aria-atomic="true">
+        {notice && !session.preview && session.editErrors.length === 0 && (
+          <p>{notice}</p>
+        )}
         {session.editErrors.length > 0 && (
           <Alert variant="destructive" role="group">
             <AlertTitle>Modification refusée</AlertTitle>
@@ -168,7 +211,15 @@ export function CalculatorTargetEditor({
                   variant="link"
                   role="link"
                   nativeButton={false}
-                  render={<a href="#edit-value" />}
+                  render={
+                    <a
+                      href={
+                        error.code === "MODIFICATION_NON_UNIQUE"
+                          ? "#edit-field"
+                          : "#edit-value"
+                      }
+                    />
+                  }
                   className="h-auto min-h-11 whitespace-normal px-0 text-left text-destructive underline"
                   onClick={(event) => {
                     event.preventDefault()
@@ -261,6 +312,7 @@ export function CalculatorTargetEditor({
                 className="min-h-11"
                 onClick={() => {
                   const next = confirmCalculatorEdit(session, method)
+                  setNotice("")
                   closePreview(next)
                   if (
                     next.outcome?.ok &&
@@ -276,8 +328,13 @@ export function CalculatorTargetEditor({
               <Button
                 disabled={!ready}
                 variant="outline"
-                className="min-h-11"
-                onClick={() => closePreview(cancelCalculatorEdit(session))}
+                className="public-secondary min-h-11"
+                onClick={() => {
+                  setNotice(
+                    "Modification annulée : la cible courante est conservée."
+                  )
+                  closePreview(cancelCalculatorEdit(session))
+                }}
               >
                 Annuler la prévisualisation
               </Button>

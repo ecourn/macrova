@@ -11,6 +11,8 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
+  FieldSet,
+  FieldLegend,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
@@ -36,9 +38,9 @@ const choices = [
     label: "Coefficient de l'étude",
     help: "Choisissez le groupe de l'étude dont le coefficient s'applique avec certitude à votre situation. Ce choix ne décrit pas votre identité de genre.",
     options: [
-      ["5", "Groupe masculin de l'étude (+5)"],
-      ["-161", "Groupe féminin de l'étude (−161)"],
-      ["incertain", "Applicabilité incertaine"],
+      ["5", "Masculin", "Groupe masculin de l'étude (+5)"],
+      ["-161", "Féminin", "Groupe féminin de l'étude (−161)"],
+      ["incertain", "Incertain", "Applicabilité incertaine"],
     ],
   },
   {
@@ -46,11 +48,20 @@ const choices = [
     label: "Activité sur toute la journée (PAL)",
     help: "Ces descriptions approximatives ne sont pas des seuils horaires validés. Aucun ajout d'exercice.",
     options: [
-      ["1.4", "1,4 — Faible : surtout assise, peu de déplacements actifs"],
-      ["1.6", "1,6 — Modéré : marche et déplacements actifs réguliers"],
-      ["1.8", "1,8 — Actif : beaucoup de déplacements ou activités physiques"],
+      [
+        "1.4",
+        "1,4",
+        "1,4 — Faible : surtout assise, peu de déplacements actifs",
+      ],
+      ["1.6", "1,6", "1,6 — Modéré : marche et déplacements actifs réguliers"],
+      [
+        "1.8",
+        "1,8",
+        "1,8 — Actif : beaucoup de déplacements ou activités physiques",
+      ],
       [
         "2.0",
+        "2,0",
         "2,0 — Très actif : activité importante une grande partie de la journée, hors sport intensif/compétition",
       ],
     ],
@@ -60,9 +71,9 @@ const choices = [
     label: "Toutes les conditions d'éligibilité sont-elles satisfaites ?",
     help: "Répondez globalement, sans préciser votre situation médicale.",
     options: [
-      ["oui", "Oui, toutes les conditions sont satisfaites"],
-      ["non", "Non"],
-      ["incertain", "Incertain"],
+      ["oui", "Oui, toutes", "Oui, toutes les conditions sont satisfaites"],
+      ["non", "Non", "Non"],
+      ["incertain", "Incertain", "Incertain"],
     ],
   },
 ] as const
@@ -172,8 +183,10 @@ function Calculator() {
         autoComplete="off"
         className="max-w-2xl space-y-6"
       >
-        <fieldset disabled={!ready} className="space-y-6">
-          <legend className="mb-4 text-xl font-semibold">Votre profil</legend>
+        <FieldSet disabled={!ready} className="gap-6">
+          <FieldLegend className="mb-4 text-xl font-semibold">
+            Votre profil
+          </FieldLegend>
           {numbers.map(({ field, label, help }) => (
             <Field key={field} data-invalid={!!fieldError(field)}>
               <FieldLabel htmlFor={field}>{label}</FieldLabel>
@@ -203,11 +216,9 @@ function Calculator() {
                 value={session.profile[field]}
                 onChange={(event) => change(field, event.target.value)}
                 aria-invalid={!!fieldError(field)}
-                aria-describedby={`${field}-help${field === "eligibilite" ? " exclusions" : ""}${fieldError(field) ? ` ${field}-error` : ""}`}
+                aria-describedby={`${field}-help ${field}-choices${field === "eligibilite" ? " exclusions" : ""}${fieldError(field) ? ` ${field}-error` : ""}`}
               >
-                <NativeSelectOption value="">
-                  Choisir explicitement
-                </NativeSelectOption>
+                <NativeSelectOption value="">Choisir</NativeSelectOption>
                 {options.map(([value, text]) => (
                   <NativeSelectOption key={value} value={value}>
                     {text}
@@ -215,6 +226,14 @@ function Calculator() {
                 ))}
               </NativeSelect>
               <FieldDescription id={`${field}-help`}>{help}</FieldDescription>
+              <div
+                id={`${field}-choices`}
+                className="space-y-2 text-sm text-muted-foreground"
+              >
+                {options.map(([value, , description]) => (
+                  <p key={value}>{description}</p>
+                ))}
+              </div>
               {fieldError(field) && (
                 <FieldError id={`${field}-error`} role="presentation">
                   {fieldError(field)?.message}
@@ -225,7 +244,7 @@ function Calculator() {
           <Button type="submit" className="min-h-11">
             Calculer ma cible estimative
           </Button>
-        </fieldset>
+        </FieldSet>
         {!ready && (
           <p>Le calcul sera disponible dès le chargement de l'interface.</p>
         )}

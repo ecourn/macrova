@@ -1,14 +1,23 @@
+import { useEffect, useRef } from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { PublicNavigation } from "@/components/public-navigation"
 import { buttonVariants } from "@/components/ui/button"
 export const Route = createFileRoute("/")({ component: App })
 function App() {
+  const title = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    title.current?.focus()
+  }, [])
   return (
     <main className="public-page">
       <PublicNavigation />
       <section className="flex max-w-2xl flex-col items-start gap-6 py-8">
         <p className="font-semibold text-primary">Macrova</p>
-        <h1 className="text-[1.75rem] font-semibold leading-tight">
+        <h1
+          ref={title}
+          tabIndex={-1}
+          className="text-[1.75rem] font-semibold leading-tight"
+        >
           Une première cible, avec ses hypothèses.
         </h1>
         <p>
@@ -21,7 +30,7 @@ function App() {
           elle ne mesure pas vos besoins.
         </p>
         <Link
-          className={buttonVariants({ className: "min-h-11" })}
+          className={buttonVariants({ className: "min-h-11 public-action" })}
           to="/calculateur"
         >
           Ouvrir le calculateur

@@ -9,7 +9,7 @@ export function PublicNavigation() {
         to="/"
         activeProps={{
           "aria-current": "page",
-          className: "font-semibold underline",
+          className: "font-semibold underline text-primary",
         }}
         activeOptions={{ exact: true }}
       >
@@ -19,7 +19,7 @@ export function PublicNavigation() {
         to="/calculateur"
         activeProps={{
           "aria-current": "page",
-          className: "font-semibold underline",
+          className: "font-semibold underline text-primary",
         }}
       >
         Calculateur

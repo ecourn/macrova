@@ -530,3 +530,13 @@ La durée technique de 30 jours et les modalités d'information/ouverture resten
 à vérifier dans `epic-validation-lancement` avant collecte publique réelle.
 Les tests locaux synthétiques ne revendiquent aucune conformité ni validation
 de l'authentification réelle.
+
+## Recette clavier, mobile et navigation du calculateur
+
+La [recette locale d'accessibilité](docs/recette-calculateur-accessibilite.md)
+décrit les preuves reproductibles à 320 px, avec texte agrandi, au clavier,
+au retour historique et lors d'une panne. `bun run test:e2e` couvre ces parcours
+publics avec des serveurs synthétiques locaux ; le calcul et l'édition restent
+en mémoire dans le navigateur. Le zoom navigateur réel à 200 % a aussi été
+vérifié localement ; la restitution audio par lecteur d'écran reste à vérifier.
+Aucun audit complet n'est revendiqué.

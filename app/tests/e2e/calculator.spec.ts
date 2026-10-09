@@ -572,3 +572,223 @@ test("édition hors ligne au clavier à 320 px, confirmation identique et invali
   ).toBeVisible()
   await context.setOffline(false)
 })
+
+test("ordre Tab, sélection absente et erreur associée au contrôle concerné", async ({
+  page,
+}) => {
+  await page.goto("/calculateur")
+  await expect(page.getByRole("heading", { level: 1 })).toBeFocused()
+  for (const id of [
+    "age",
+    "taille_cm",
+    "poids_kg",
+    "coefficient",
+    "pal",
+    "eligibilite",
+  ]) {
+    await page.keyboard.press("Tab")
+    await expect(page.locator(`#${id}`)).toBeFocused()
+  }
+  await page.keyboard.press("Tab")
+  await expect(page.getByRole("button", { name: submitName })).toBeFocused()
+  await profile(page)
+  await page.getByRole("button", { name: submitName }).focus()
+  await page.keyboard.press("Enter")
+  const preview = page.getByRole("button", {
+    name: "Prévisualiser le recalcul",
+  })
+  await preview.focus()
+  await page.keyboard.press("Enter")
+  await expect(preview).toBeFocused()
+  await expect(page.locator("#edit-field")).toHaveAttribute(
+    "aria-describedby",
+    "edit-field-error"
+  )
+  await expect(page.locator("#edit-value")).toHaveAttribute(
+    "aria-describedby",
+    "edit-help"
+  )
+  const error = page.getByRole("link", { name: /Modifiez un seul champ/ })
+  await expect(error).toHaveAttribute("href", "#edit-field")
+  await error.focus()
+  await page.keyboard.press("Enter")
+  await expect(page.locator("#edit-field")).toBeFocused()
+  await expect(page.getByRole("alert")).toHaveCount(0)
+  await page.locator("#edit-field").selectOption("P")
+  await page.locator("#edit-value").fill("invalide")
+  await preview.click()
+  await expect(page.locator("#edit-value")).toHaveAttribute(
+    "aria-describedby",
+    "edit-help edit-value-error"
+  )
+  await expect(page.locator("#edit-field-error")).toHaveCount(0)
+  await page.locator("#edit-value").fill("110")
+  await preview.focus()
+  await page.keyboard.press("Enter")
+  await expect(preview).toBeFocused()
+  await expect(
+    page.getByRole("heading", { name: "Prévisualisation de modification" })
+  ).toBeVisible()
+  await page.keyboard.press("Escape")
+  await expect(preview).toBeFocused()
+  await expect(
+    page.getByRole("heading", { name: "Prévisualisation de modification" })
+  ).toHaveCount(0)
+  await expect(page.getByText("98,93 g/jour", { exact: true })).toBeVisible()
+  await expect(
+    page.getByText(
+      "Prévisualisation annulée : la cible courante est conservée.",
+      { exact: true }
+    )
+  ).toBeVisible()
+})
+
+async function publicGeometry(page: Page) {
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth)
+  ).toBeLessThanOrEqual(320)
+  for (const control of await page
+    .locator(
+      ".public-page input, .public-page select, .public-page button, .public-page nav a, .public-page summary"
+    )
+    .all()) {
+    const box = await control.boundingBox()
+    expect(box).not.toBeNull()
+    if (!box) continue
+    expect(box.width).toBeGreaterThanOrEqual(44)
+    expect(box.height).toBeGreaterThanOrEqual(44)
+    expect(box.x).toBeGreaterThanOrEqual(0)
+    expect(box.x + box.width).toBeLessThanOrEqual(320)
+    expect(
+      await control.evaluate(
+        (node) => node.scrollHeight <= node.clientHeight + 1
+      )
+    ).toBe(true)
+  }
+}
+
+for (const textScale of [1, 2]) {
+  test(`réagencement 320 px, texte ×${textScale}, états complets et focus opaque`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 740 })
+    await page.goto("/calculateur")
+    // Augmentation des rem et viewport réduit : équivalent de réagencement, pas un zoom navigateur.
+    await page.addStyleTag({
+      content: `html { font-size: ${16 * textScale}px; }`,
+    })
+    await publicGeometry(page)
+    for (const select of await page.locator("select").all()) {
+      for (const value of await select
+        .locator("option")
+        .evaluateAll((options) =>
+          options.map((option) => (option as HTMLOptionElement).value)
+        )) {
+        await select.selectOption(value)
+        expect(
+          await select.evaluate((node) => {
+            const control = node as HTMLSelectElement
+            const style = getComputedStyle(control)
+            const canvas = document.createElement("canvas")
+            const context = canvas.getContext("2d")
+            if (!context) return false
+            context.font = style.font
+            const available =
+              control.clientWidth -
+              parseFloat(style.paddingLeft) -
+              parseFloat(style.paddingRight)
+            return (
+              context.measureText(control.selectedOptions[0].text).width <=
+              available
+            )
+          })
+        ).toBe(true)
+      }
+    }
+    await page.locator("#pal").selectOption("2.0")
+    await expect(page.locator("#pal")).toHaveAccessibleDescription(
+      /activité importante une grande partie de la journée, hors sport intensif\/compétition/
+    )
+    await page.getByRole("button", { name: submitName }).click()
+    await publicGeometry(page)
+    await profile(page)
+    await page.getByRole("button", { name: submitName }).click()
+    await publicGeometry(page)
+    await page
+      .getByRole("button", { name: "Prévisualiser le recalcul" })
+      .click()
+    await publicGeometry(page)
+    await page.locator("#edit-field").selectOption("P")
+    await page.locator("#edit-value").fill("110")
+    await page
+      .getByRole("button", { name: "Prévisualiser le recalcul" })
+      .click()
+    await publicGeometry(page)
+    await page
+      .getByRole("button", { name: "Confirmer la modification" })
+      .focus()
+    await page.keyboard.press("Tab")
+    await page.keyboard.press("Shift+Tab")
+    const focus = await page
+      .getByRole("button", { name: "Confirmer la modification" })
+      .evaluate((node) => {
+        const style = getComputedStyle(node)
+        return {
+          color: style.outlineColor,
+          width: style.outlineWidth,
+          offset: style.outlineOffset,
+        }
+      })
+    expect(focus).toEqual({
+      color: "rgb(36, 84, 61)",
+      width: "2px",
+      offset: "4px",
+    })
+    await page.keyboard.press("Enter")
+    await publicGeometry(page)
+  })
+}
+
+test("retour historique conserve brouillon, prévisualisation et refus avec focus des titres", async ({
+  page,
+}) => {
+  const dialogs: string[] = []
+  page.on("dialog", (dialog) => {
+    dialogs.push(dialog.message())
+    void dialog.dismiss()
+  })
+  await page.goto("/calculateur")
+  await profile(page)
+  await page.getByRole("button", { name: submitName }).click()
+  await page.locator("#edit-field").selectOption("P")
+  await page.locator("#edit-value").fill("110")
+  const preview = page.getByRole("button", {
+    name: "Prévisualiser le recalcul",
+  })
+  for (const state of ["brouillon", "prévisualisation", "refus"]) {
+    if (state === "prévisualisation") await preview.click()
+    if (state === "refus") {
+      await page.locator("#edit-value").fill("invalide")
+      await preview.click()
+    }
+    await page.getByRole("link", { name: "Accueil", exact: true }).click()
+    await expect(page.getByRole("heading", { level: 1 })).toBeFocused()
+    await page.goBack()
+    await expect(page.getByRole("heading", { level: 1 })).toBeFocused()
+    await expect(page.locator("#edit-value")).toHaveValue(
+      state === "refus" ? "invalide" : "110"
+    )
+    await expect(
+      page.getByText("98,93 g/jour", { exact: true }).first()
+    ).toBeVisible()
+    if (state === "prévisualisation")
+      await expect(
+        page.getByRole("heading", { name: "Prévisualisation de modification" })
+      ).toBeVisible()
+    if (state === "refus")
+      await expect(
+        page.getByText("Modification refusée", { exact: true })
+      ).toBeVisible()
+  }
+  expect(dialogs).toEqual([])
+})
