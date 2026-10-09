@@ -122,7 +122,7 @@ Les responsabilités techniques sont attribuées à l’agent dans le binôme pa
 
 ## Action items
 
-**Cinq actions nouvelles proposées, aucune appliquée.** Responsabilités dans le binôme utilisateur/agent ; les preuves nécessitant un appareil ou une perception humaine restent à observer réellement. Les actions de remédiation et de réconciliation attendent leur exécution dans le workflow normal.
+**État historique au 9 octobre 2026, 15:24 UTC : cinq actions nouvelles proposées, aucune appliquée.** Responsabilités dans le binôme utilisateur/agent ; les preuves nécessitant un appareil ou une perception humaine restent à observer réellement. Les actions de remédiation et de réconciliation attendent leur exécution dans le workflow normal.
 
 | ID | Nature / disposition | Action et preuve de clôture attendue | Responsable proposé |
 | --- | --- | --- | --- |
@@ -134,6 +134,41 @@ Les responsabilités techniques sont attribuées à l’agent dans le binôme pa
 
 Pas de délai estimé ni d’engagement humain inventé. R2 et R3 sont des renforcements proposés ; R1 ferme une lacune de vérification du consommateur. Les six actions du socle conservent leur propre trace, hors de ce compte de cinq.
 
+### Actualisation du 9 octobre 2026, après exécution R1/R5
+
+Le tableau précédent conserve l'état initial de la rétrospective. Le
+[plan R1/R5](../plan-actions-immediates-r1-r5.md) et la
+[recette locale](../../../app/docs/recette-calculateur-livraison.md#preuves-locales-r1r5--9-octobre-2026)
+portent les preuves effectives et les échecs intermédiaires, sans réalisation
+annoncée de R2/R3/R4.
+
+| ID | État courant | Preuve ou condition de reprise |
+| --- | --- | --- |
+| R1 | Clos | Véritable route, domaine, éditeur et composants rendus : 6/6 cas, six saisies sélectionnées, session intacte. Mutation de la garde : 5 échecs / 1 succès ; restauration exacte du fichier. |
+| R2 | Reporté, ouvert | Grammaire UUIDv4 du collecteur et refus HTTP/mutation avant ouverture publique, en préservant replay et événements privés. |
+| R3 | Reporté, ouvert | Invariant exact 4P+4G+9L=E et vecteurs de validation avant toute consommation de cible externe. |
+| R4 | Reporté, ouvert | Restitution audio par lecteur d'écran et clavier virtuel sur appareil réel avant affirmation d'accessibilité vérifiée ; aucune observation simulée. |
+| R5 | Clos dans la portée de recette locale préparée | Commande `bun run verify:calculator` : deux cwd privés, dépendances/caches isolés, verrou, ports réservés, préparation explicite sans retry. 25/25 E2E puis build code 0 ; fin E2E 16:13:32 UTC, fin build 16:13:36 UTC ; aucun listener final sur 3001/3002/3999. Collisions aux trois ports et verrou refusés code 1 sans altérer les listeners ; TERM code 143 libère les seuls serveurs de recette. |
+
+`check` zéro diagnostic (164 fichiers), typecheck code 0, 418/418 tests (24
+fichiers), mutation et `git diff --check` réussis. Journaux complets temporaires
+privés, dont recette finale `macrova-calculator.z4HdK2Wl`. Les erreurs initiales
+restent documentées dans la recette, avec leurs corrections et causes encore
+non établies. La préparation et la préoptimisation stabilisent la recette ;
+le tout premier clic sur un Vite froid reste non validé. Le build réussit avec
+avertissements tiers `use client`, conservés. Aucun déploiement, auth réelle,
+cloud, audio ou appareil réel n'est prouvé par cette action.
+
+Finalisation de revue R1/R5, 9 octobre 2026 : revue quick indépendante terminée,
+un défaut d'arrêt des enfants détachés après disparition de leur parent corrigé
+par marqueur privé hérité et recherche exacte dans `/proc`. Reproduction après
+correction : code d'échec conservé, enfant arrêté, build absent, listener étranger
+conservé ; relecture sans nouveau constat. Recette finale
+`macrova-calculator.lknABqFI` : 25/25 E2E, fin 16:24:25 UTC, puis build code 0
+à 16:24:29 UTC ; ports libres, sources sans `.env`, dépendances temporaires
+retirées. Check zéro diagnostic, typecheck et 418/418 tests réussis.
+R1/R5 clos dans leur portée documentée ; R2/R3/R4 restent ouverts.
+
 ## Acceptance verdict
 
 **`accepted-with-open-items` — critères déclarés, verdict machine fondé sur les preuves.** Aucune acceptation humaine distincte n’est fabriquée ; la délégation permet le jugement, pas l’invention d’une preuve.
@@ -142,7 +177,7 @@ Pas de délai estimé ni d’engagement humain inventé. R2 et R3 sont des renfo
 | --- | --- |
 | 1 — dossier adopté avant code | Satisfait : dossier v1 et décision du 8 octobre, commit b1d065d avant baseline de 2.2 ; aucune modification app dans 2.1. |
 | 2 — quatre valeurs, hypothèses, modification | Satisfait : vecteurs exacts, 412 tests, E2E et exploration référence/édition ; recette HTTPS identifiée. |
-| 3 — refus et absence de résultat obsolète | Satisfait sur code et suites ; refus méthode au domaine et garde de rendu présentes. Lacune du test consommateur suivie par R1 ; pas de bug actuel établi. |
+| 3 — refus et absence de résultat obsolète | Satisfait sur code et suites ; refus méthode au domaine et garde de rendu présentes. Lacune initiale du test consommateur suivie par R1, close par les preuves du 9 octobre ci-dessus ; pas de bug actuel établi. |
 | 4 — mobile/clavier, mémoire et confidentialité | Satisfait dans le périmètre vérifié : E2E 320px/texte×2, clavier/retour, composants et contrat numérique, confidentialité ; limites audio/appareil réel explicites R4. |
 | 5 — mesure minimale, retries, disponibilité | Satisfait pour client livré : UUID aléatoire sans profil, succès explicite uniquement, déduplication/retry et collecte facultative testés, preuves HTTPS. R2 durcit le client hostile/générique ; aucun transfert de profil produit observé. |
 | 6 — livraison isolée et préparation conditionnelle | Satisfait par preuves datées de c232f4f/dep-db4g3bbl550s73bkth7g, backend avant frontend, recette 10/10 et procédure rollback/production conditionnelle. |
@@ -163,4 +198,4 @@ Aucune réponse utilisateur requise pour achever cette rétrospective. Arbitrage
 - Scope des vues : imports directs du domaine et responsabilités des fichiers modifiés ; duplication ciblée ; graphe tiers et clones exhaustifs non analysés. Absence de journaux de conversation interdit toute cause organisationnelle inventée.
 - Épic immédiatement précédent enquête sans rétrospective ; suivi socle ajouté explicitement pour les engagements partagés, sans confondre ordre du board et épic précédent terminé.
 
-Phases 1, 2, 4 et 5 terminées ; phase 3 non demandée. Seul ce document est écrit dans l’arbre versionnable ; aucun statut, épic, plan, story, code ou configuration modifié. Aucun commit, push, déploiement ou activation publique effectué. Rapports de tests et preuves intermédiaires restent temporaires ou ignorés.
+**Bilan historique de la rétrospective, 9 octobre 2026 à 15:24 UTC :** phases 1, 2, 4 et 5 terminées ; phase 3 non demandée. Seul ce document est écrit dans l’arbre versionnable ; aucun statut, épic, plan, story, code ou configuration modifié. Aucun commit, push, déploiement ou activation publique effectué. Rapports de tests et preuves intermédiaires restent temporaires ou ignorés.

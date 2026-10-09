@@ -10,6 +10,30 @@ const config = defineConfig({
   optimizeDeps:
     process.env.E2E_CALCULATOR_ISOLATED === "1"
       ? {
+          noDiscovery: true,
+          include: [
+            "react",
+            "react-dom",
+            "react-dom/client",
+            "react/jsx-runtime",
+            "react/jsx-dev-runtime",
+            "@base-ui/react/button",
+            "@base-ui/react/input",
+            "@base-ui/react/separator",
+            "@base-ui/react/tooltip",
+            "@tanstack/react-devtools",
+            "class-variance-authority",
+            "cn",
+            "lucide-react",
+            "seroval",
+            "convex/browser",
+            "convex/react",
+            "convex/server",
+            "better-auth/react",
+            "@convex-dev/better-auth/react",
+            "@convex-dev/better-auth/react-start",
+            "@convex-dev/better-auth/client/plugins",
+          ],
           entries: [
             "src/routes/**/*.tsx",
             "src/components/**/*.tsx",

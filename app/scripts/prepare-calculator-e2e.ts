@@ -8,9 +8,15 @@ export default async function prepareCalculatorServers() {
       const page = await browser.newPage()
       const errors: string[] = []
       page.on("pageerror", (error) => errors.push(error.message))
+      page.on("response", (response) => {
+        if (response.status() >= 400)
+          console.log(
+            `Préparation HTTP ${response.status()} : ${response.url()}`
+          )
+      })
       console.log(`Préparation du serveur : ${origin}`)
-      const response = await page.goto(`${origin}/calculateur`)
-      expect(response?.status()).toBe(200)
+      const navigationResponse = await page.goto(`${origin}/calculateur`)
+      expect(navigationResponse?.status()).toBe(200)
       await expect(
         page.getByRole("button", { name: "Calculer ma cible estimative" })
       ).toBeEnabled({ timeout: 30_000 })

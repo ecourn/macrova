@@ -2,7 +2,7 @@
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 app_root=$PWD
-for dependency in bun flock setsid tar cp ps; do
+for dependency in bun flock setsid tar cp; do
   command -v "$dependency" >/dev/null || { echo "Commande requise : $dependency" >&2; exit 1; }
 done
 [[ -d node_modules ]] || { echo 'Installer les dépendances avant la recette.' >&2; exit 1; }
@@ -14,31 +14,37 @@ echo "Journaux privés : $run_root"
 exec > >(tee -a "$run_root/recipe.log") 2>&1
 flock -n 9 || { echo 'Une recette calculateur est déjà active.'; exit 1; }
 phase_pid=''
-child_groups() {
-  local parent=$1 child group
-  while read -r child group; do
-    [[ -n "$child" ]] || continue
-    child_groups "$child"
-    [[ "$child" == "$group" ]] && echo "$group"
-  done < <(ps -o pid=,pgid= --ppid "$parent")
-  return 0
+run_marker=$(bun -e 'console.log(crypto.randomUUID())')
+marked_children() {
+  # Aucun environnement n'est affiché. L'égalité porte sur une entrée complète,
+  # et reste valable si setsid ou la réattribution du parent détache un enfant.
+  MACROVA_VERIFY_MARKER="$run_marker" bun -e '
+const { readdirSync, readFileSync } = require("node:fs");
+const marker = `MACROVA_CALCULATOR_RUN=${process.env.MACROVA_VERIFY_MARKER}`;
+const action = process.argv[1];
+let count = 0;
+for (const entry of readdirSync("/proc")) {
+  if (!/^\d+$/.test(entry)) continue;
+  try {
+    const environment = readFileSync(`/proc/${entry}/environ`).toString().split("\0");
+    if (!environment.includes(marker)) continue;
+    count++;
+    if (action !== "COUNT") process.kill(Number(entry), action);
+  } catch (error) {
+    if (!["ENOENT", "ESRCH", "EACCES", "EPERM"].includes(error.code)) throw error;
+  }
+}
+if (action === "COUNT") console.log(count);
+' "$1"
 }
 stop_phase() {
   if [[ -n "$phase_pid" ]]; then
-    # Playwright peut créer des sessions distinctes pour ses webServer.
-    # Capturer exclusivement les groupes descendants avant d'arrêter le parent.
-    local groups group
-    groups=$(child_groups "$phase_pid")
-    for group in $groups "$phase_pid"; do
-      kill -TERM -- "-$group" 2>/dev/null || true
-    done
+    marked_children SIGTERM
     for attempt in {1..20}; do
-      kill -0 -- "-$phase_pid" 2>/dev/null || break
+      [[ $(marked_children COUNT) == 0 ]] && break
       sleep 0.1
     done
-    for group in $groups "$phase_pid"; do
-      kill -KILL -- "-$group" 2>/dev/null || true
-    done
+    marked_children SIGKILL
     wait "$phase_pid" 2>/dev/null || true
     phase_pid=''
   fi
@@ -87,6 +93,7 @@ run_phase() {
   echo "Début $phase : $(date -u +%FT%TZ)"
   # Environnement fermé : aucun .env, URL Convex, compte auth ou mode distant.
   setsid env -i PATH="$PATH" HOME="$HOME" CI= \
+    MACROVA_CALCULATOR_RUN="$run_marker" \
     E2E_CALCULATOR_ISOLATED=1 \
     E2E_VITE_CACHE_DIR="$run_root/cache-$phase" \
     E2E_FAILURE_VITE_CACHE_DIR="$run_root/cache-failure" \

@@ -546,10 +546,12 @@ Aucun audit complet n'est revendiqué.
 Depuis `app/`, `bun run verify:calculator` exécute E2E puis build dans une copie
 temporaire privée sans `.env`, avec dépendances installées copiées, répertoires propres pour chaque serveur,
 caches Vite séparés et artefacts TanStack/Nitro isolés. Elle exige `flock`,
-`setsid`, `tar`, `ps` et `cp`, verrouille la recette et refuse les ports occupés 3001/3002/3999.
+`setsid`, `tar`, `cp` et Linux avec `/proc` accessible. Elle verrouille la
+recette et refuse les ports occupés 3001/3002/3999.
 Les serveurs sont propres ; une préparation explicite des routes attend
 l'hydratation et le réseau au repos avant les contextes E2E, sans retry.
-Elle ne prouve pas le premier clic sur Vite froid. Seuls ses enfants sont arrêtés. Un échec ou Ctrl+C
+Elle ne prouve pas le premier clic sur Vite froid. Un marqueur privé hérité
+permet d’arrêter ses processus même si leur parent disparaît. Un échec ou Ctrl+C
 empêche la suite ; les journaux de chaque phase et rapports sont conservés dans
 le répertoire temporaire annoncé, même en cas d'échec. Aucun serveur étranger
 n'est arrêté. Réserver ces ports pendant la commande et consulter la procédure
