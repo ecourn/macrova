@@ -1,0 +1,23 @@
+# Choix des bibliothèques dans app/
+
+Conventions de maintenance adoptées pour l’audit du 10 octobre 2026. Elles complètent l’architecture sans déclarer implémentés les modules futurs. Le manifeste et `bun.lock` font foi pour les versions : consulter les exports, types et implémentations installés avant de transposer un exemple d’une autre version.
+
+| Bibliothèque | Quand l’utiliser | Quand conserver l’existant | Articulation et preuves exigées |
+|---|---|---|---|
+| TanStack Form | Formulaire structuré bénéficiant de champs liés, états ou validation complexe | Interaction simple dont React et HTML assurent clairement le comportement | Justifier le bénéfice ; préserver labels, erreurs, clavier et saisies. Tester validation, double envoi et erreurs serveur. |
+| Form Start | Soumission ou validation serveur Start apportant un bénéfice concret, avec API installée vérifiée | Formulaire utilisant déjà Better Auth ou une opération Convex adaptée | Préserver POST natif et protections SSR avant hydratation ; tester JS désactivé, URL sans identifiants et hydratation retardée. |
+| Zod | Frontière de données nécessitant un schéma runtime ; types dérivés réduisant la duplication | Contrats du domaine et validateurs existants suffisants | Ne remplace ni validateurs Convex, ni identité, ni autorisation, ni invariants métier ; tester données malformées et frontières. |
+| TanStack Table | Grille interactive nécessitant tri, pagination, filtres ou sélection | Tableau statique sémantique | Vérifier l’API de la version verrouillée, composer avec les UI locales ; tester interactions et accessibilité. |
+| TanStack Router / nuqs | Recherche typée du Router pour les paramètres appartenant à une route ; nuqs seulement avec bénéfice et compatibilité démontrés | État local qui ne doit pas être partagé par URL | Une source de vérité par paramètre ; tester URL malformée, rechargement, retour et SSR. Aucun profil nutritionnel ni identifiant sensible dans l’URL. |
+| Convex / Better Auth | Identité dans le composant Better Auth ; autorisations et données métier dans Convex | Ne jamais substituer une garde client aux droits backend | Vérifier session absente/expirée/révoquée, autre propriétaire et droits ; conserver les véritables pannes backend. Distinguer tests simulés et authentification réelle selon README. |
+| shadcn / Base UI / Tailwind | Composer les composants de `app/src/components/ui` via `@/components/ui`, variantes et styles existants | Composant shadcn local déjà adapté ; primitive personnalisée uniquement en l’absence d’équivalent shadcn | Avant de créer ou modifier une primitive, vérifier l’existant et remplacer les primitives personnalisées ayant un équivalent shadcn, conformément à `AGENTS.md`. Préserver sémantique, label, focus, clavier, reflow et logique métier. |
+
+Une dépendance sans import direct peut servir à une CSS, configuration, CLI, génération, test ou composant UI indirect ; un composant disponible mais non monté n’est pas une fonctionnalité active. Un besoin futur documenté peut justifier la conservation. Avant retrait, tracer ces usages, peers/transitifs et références produit ; valider installation verrouillée, contrôles, compilation et parcours concernés. Une recommandation facultative reste distincte d’un défaut prouvé.
+
+Les sélecteurs `latest` sont résolus par le verrou lors de `bun install --frozen-lockfile` ; une mise à jour volontaire peut changer les API. Ne pas changer les versions ni introduire une migration sans nécessité démontrée. Exécuter les commandes depuis `app/`, notamment `bun run check` avec zéro avertissement, et conserver les limites des contrôles qui nécessitent des services externes.
+
+## Conservation lors des actualisations BMAD
+
+Le bloc racine `<!-- bmad:context -->` est réécrit par le workflow conversationnel `bmad-project-context`, pas par un générateur déterministe de règles. Sa surface de personnalisation est `_bmad/custom/bmad-project-context.toml` : le résolveur fusionne defaults installés, override équipe puis override personnel (tableaux ajoutés). Ses `persistent_facts` chargent ce document et `app/AGENTS.md` ; ses `external_sources` chargent les documents UX.
+
+Conserver dans le bloc racine les déclencheurs de lecture de ces conventions et de `app/AGENTS.md`. Les règles enfant de vérification obligatoire et de lecture des guidelines Convex restent dans `app/AGENTS.md`, inchangé. À chaque actualisation, vérifier le registre de conservation du skill et la résolution effective ; la personnalisation fournit les sources, elle ne garantit pas à elle seule la fidélité d’une future synthèse LLM.

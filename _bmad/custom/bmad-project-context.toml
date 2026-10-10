@@ -1,0 +1,13 @@
+# Source permanente pour les actualisations du bloc AGENTS.md.
+# Ne pas modifier les defaults du skill installé : une mise à jour les remplace.
+[workflow]
+persistent_facts = [
+  "file:{project-root}/app/AGENTS.md",
+  "file:{project-root}/_bmad-output/initiative-macrova/architecture-app/conventions-bibliotheques.md",
+  "Conserver dans les points d’entrée du bloc racine un déclencheur explicite de lecture des conventions-bibliotheques.md lors du choix, ajout, remplacement ou retrait de bibliothèque, ainsi qu’une référence à cette personnalisation pérenne pour les actualisations BMAD. Ne pas imposer une migration sur la seule présence d’une dépendance dans le manifeste.",
+  "Conserver la politique francophone et le déclencheur racine de lecture de app/AGENTS.md pour tout travail dans app/. Pour les interfaces app/, réutiliser les composants shadcn locaux via @/components/ui ; avant de créer ou modifier une primitive, vérifier l’existant et remplacer les primitives personnalisées ayant un équivalent shadcn, par composition et variantes en conservant la logique métier et l’accessibilité. Préserver la vérification obligatoire bun run check depuis app/, avec zéro erreur et zéro avertissement, sans suppression de règle ni exclusion de contournement ; le script conserve --error-on-warnings.",
+]
+external_sources = [
+  "file:{project-root}/_bmad-output/ux-macrova/DESIGN.md",
+  "file:{project-root}/_bmad-output/ux-macrova/EXPERIENCE.md",
+]
