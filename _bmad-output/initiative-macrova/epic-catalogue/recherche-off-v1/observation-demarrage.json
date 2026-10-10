@@ -1,0 +1,11 @@
+{
+  "observedAt": "2026-10-10T09:41:07.562491+00:00",
+  "endpoint": "https://search.openfoodfacts.org/search?q=flocons+avoine&langs=fr&page_size=3&fields=code%2Cproduct_name%2Cproduct_name_fr%2Cbrands%2Ccategories%2Ccategories_tags%2Cnutriments%2Cnutrition_data_per%2Cproduct_quantity_unit%2Cobsolete%2Clast_indexed_datetime",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "userAgent": "Macrova-catalogue/1 (https://github.com/ecourn/macrova)",
+  "status": 200,
+  "retryAfter": null,
+  "sha256": "1847ef070f758494d0edf859e09f3a235e1a18d3d436d0ad68efb33dd7d089c6",
+  "bodyFile": "observation-demarrage.body.json",
+  "scope": "Observation ponctuelle en lecture seule, distincte des fixtures et du parcours Convex."
+}

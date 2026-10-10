@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlimentsRouteImport } from './routes/aliments'
 import { Route as CalculateurRouteImport } from './routes/calculateur'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
@@ -18,6 +19,11 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlimentsRoute = AlimentsRouteImport.update({
+  id: '/aliments',
+  path: '/aliments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalculateurRoute = CalculateurRouteImport.update({
@@ -43,6 +49,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aliments': typeof AlimentsRoute
   '/calculateur': typeof CalculateurRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aliments': typeof AlimentsRoute
   '/calculateur': typeof CalculateurRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aliments': typeof AlimentsRoute
   '/calculateur': typeof CalculateurRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -65,15 +74,24 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculateur' | '/dashboard' | '/login' | '/api/auth/$'
+  fullPaths:
+    '/' | '/aliments' | '/calculateur' | '/dashboard' | '/login' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculateur' | '/dashboard' | '/login' | '/api/auth/$'
+  to:
+    '/' | '/aliments' | '/calculateur' | '/dashboard' | '/login' | '/api/auth/$'
   id:
-    '__root__' | '/' | '/calculateur' | '/dashboard' | '/login' | '/api/auth/$'
+    | '__root__'
+    | '/'
+    | '/aliments'
+    | '/calculateur'
+    | '/dashboard'
+    | '/login'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlimentsRoute: typeof AlimentsRoute
   CalculateurRoute: typeof CalculateurRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
@@ -87,6 +105,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aliments': {
+      id: '/aliments'
+      path: '/aliments'
+      fullPath: '/aliments'
+      preLoaderRoute: typeof AlimentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calculateur': {
@@ -122,6 +147,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlimentsRoute: AlimentsRoute,
   CalculateurRoute: CalculateurRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,

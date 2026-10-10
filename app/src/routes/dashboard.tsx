@@ -2,6 +2,7 @@ import { useState } from "react"
 import {
   createFileRoute,
   Navigate,
+  Link,
   redirect,
   useHydrated,
   useNavigate,
@@ -58,6 +59,12 @@ function Dashboard() {
   return (
     <main className="mx-auto flex max-w-lg flex-col gap-4 p-6">
       <h1 className="text-2xl font-semibold">Bienvenue, {user.name}</h1>
+      <Link
+        to="/aliments"
+        className="inline-flex min-h-11 items-center underline"
+      >
+        Aliments
+      </Link>
       <AuthLoading>
         <p>Connexion à Convex…</p>
       </AuthLoading>

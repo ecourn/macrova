@@ -82,6 +82,7 @@ export default defineConfig({
           "**/offline.spec.ts",
           "**/calculator.spec.ts",
           "**/calculator-failure.spec.ts",
+          ...(process.env.E2E_COMPILED === "1" ? [] : ["**/catalogue.spec.ts"]),
         ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
