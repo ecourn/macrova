@@ -1,0 +1,18 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-23",
+  "caseId": "OFF-23",
+  "code": "0745760279005",
+  "query": "tofu",
+  "url": "https://world.openfoodfacts.org/api/v3.6/product/0745760279005.json",
+  "capturedAt": "2026-10-10T09:01:11.686Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "49bd44023ff2b5c27999bd0a544c374fb5ddc22f6900120211f23a86f7101368",
+  "bodyFile": "0745760279005.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)",
+  "apiVersion": "OFF v3.6",
+  "sourceCaptureSha256": "ad13574689cc1b0ee1e14009eb13728130073766681da370b2e12d8802acc351"
+}

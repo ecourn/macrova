@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-20",
+  "query": "poulet cuit",
+  "url": "https://search.openfoodfacts.org/search?q=poulet%20cuit&page_size=3&langs=fr&fields=code,product_name,product_name_fr,brands,categories,categories_tags,nutriments,nutrition_data_per,product_quantity_unit,last_indexed_datetime,obsolete,countries_tags",
+  "capturedAt": "2026-10-10T08:56:32.144Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "4f195275098a46d732ffbb2b3b97242ba03979f6bcdef56df3ef0544d0ee729c",
+  "bodyFile": "OFF-20.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

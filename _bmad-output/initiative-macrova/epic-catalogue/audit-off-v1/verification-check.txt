@@ -1,0 +1,2 @@
+$ biome check . --error-on-warnings
+Checked 169 files in 121ms. No fixes applied.

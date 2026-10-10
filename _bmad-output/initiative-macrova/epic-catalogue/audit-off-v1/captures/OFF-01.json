@@ -1,0 +1,14 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-01",
+  "query": "flocons avoine",
+  "url": "https://world.openfoodfacts.org/cgi/search.pl?search_terms=flocons+avoine&search_simple=1&action=process&json=1&page_size=10&fields=code%2Cproduct_name%2Cproduct_name_fr%2Cbrands%2Ccategories%2Ccategories_tags%2Cnutrition_data_per%2Cproduct_quantity_unit%2Cnutriments",
+  "capturedAt": "2026-10-10T08:43:25.743Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "848d664fe46a05a0da66838ca975c6e4ee49a2f1b5548e0206b0729b6fe3037f",
+  "bodyFile": "OFF-01.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

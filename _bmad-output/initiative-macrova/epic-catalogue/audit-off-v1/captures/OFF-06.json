@@ -1,0 +1,14 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-06",
+  "query": "lentilles crues",
+  "url": "https://world.openfoodfacts.org/cgi/search.pl?search_terms=lentilles%20crues&search_simple=1&action=process&json=1&page_size=3&fields=code,product_name,nutriments,nutrition_data_per,quantity,brands",
+  "capturedAt": "2026-10-10T08:46:42.586Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "9c14a6e460b4a623998c5c571f0a172399c822375e3c1b21933f56c7d15536e3",
+  "bodyFile": "OFF-06.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

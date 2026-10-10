@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-23",
+  "query": "tofu",
+  "url": "https://search.openfoodfacts.org/search?q=tofu&page_size=3&langs=fr&fields=code,product_name,product_name_fr,brands,categories,categories_tags,nutriments,nutrition_data_per,product_quantity_unit,last_indexed_datetime,obsolete,countries_tags",
+  "capturedAt": "2026-10-10T08:56:56.314Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "ad13574689cc1b0ee1e14009eb13728130073766681da370b2e12d8802acc351",
+  "bodyFile": "OFF-23.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

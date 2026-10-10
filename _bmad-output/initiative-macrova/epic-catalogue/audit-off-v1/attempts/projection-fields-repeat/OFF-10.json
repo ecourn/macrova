@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-10",
+  "query": "quinoa",
+  "url": "https://search.openfoodfacts.org/search?q=quinoa&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:49:22.025Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "ee11cc300a4ccd72540946261ebb08881cae4ad4c497919549a9985ca7f0b193",
+  "bodyFile": "OFF-10.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

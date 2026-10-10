@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-41",
+  "query": "Barilla spaghetti",
+  "url": "https://search.openfoodfacts.org/search?q=Barilla%20spaghetti&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:53:32.088Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "ce458f37ef6d75b20796e8a34cbee7a3e79c17096ac7f8f09e1abc68228f2ef2",
+  "bodyFile": "OFF-41.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

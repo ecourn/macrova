@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-16",
+  "query": "épinards",
+  "url": "https://search.openfoodfacts.org/search?q=%C3%A9pinards&page_size=3&langs=fr&fields=code,product_name,product_name_fr,brands,categories,categories_tags,nutriments,nutrition_data_per,product_quantity_unit,last_indexed_datetime,obsolete,countries_tags",
+  "capturedAt": "2026-10-10T08:55:59.906Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "9aef60c56453347d6df67fc7b37d9ff1c4bbaffc76850113dfc7044c08a30578",
+  "bodyFile": "OFF-16.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-46",
+  "query": "Lactel lait",
+  "url": "https://search.openfoodfacts.org/search?q=Lactel%20lait&page_size=3&langs=fr&fields=code,product_name,product_name_fr,brands,categories,categories_tags,nutriments,nutrition_data_per,product_quantity_unit,last_indexed_datetime,obsolete,countries_tags",
+  "capturedAt": "2026-10-10T09:00:01.779Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "1cf14480066c8bd8a3df8e64ddc0c4f00411061bdd3487ed8531cd88ed7272d6",
+  "bodyFile": "OFF-46.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

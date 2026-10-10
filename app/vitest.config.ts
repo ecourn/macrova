@@ -9,6 +9,7 @@ export default defineConfig({
       "src/domain/**/*.test.ts",
       "src/lib/**/*.test.ts",
       "tests/config/**/*.test.ts",
+      "scripts/audit-off.test.ts",
     ],
   },
 })

@@ -1,0 +1,14 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-02",
+  "query": "riz cru",
+  "url": "https://world.openfoodfacts.org/cgi/search.pl?search_terms=riz+cru&search_simple=1&action=process&json=1&page_size=10&fields=code%2Cproduct_name%2Cproduct_name_fr%2Cbrands%2Ccategories%2Ccategories_tags%2Cnutrition_data_per%2Cproduct_quantity_unit%2Cnutriments",
+  "capturedAt": "2026-10-10T08:43:33.991Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "ef9619ef470c291197a203ec2a35c3b303d9f963a797568539e6642f5a40ab25",
+  "bodyFile": "OFF-02.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

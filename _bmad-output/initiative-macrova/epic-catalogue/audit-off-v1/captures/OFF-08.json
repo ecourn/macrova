@@ -1,0 +1,16 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-08",
+  "query": "pois chiches",
+  "url": "https://search.openfoodfacts.org/search?q=pois%20chiches&page_size=3&langs=fr",
+  "capturedAt": "2026-10-10T08:48:32.069Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "ff54c99c6d925dce426558d37cbb8d82b92806b7ed0095c5f28a99c64466afe1",
+  "bodyFile": "OFF-08.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "method": "GET"
+}

@@ -1,0 +1,14 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-07",
+  "query": "lentilles cuites",
+  "url": "https://world.openfoodfacts.org/cgi/search.pl?search_terms=lentilles%20cuites&search_simple=1&action=process&json=1&page_size=3&fields=code,product_name,nutriments,nutrition_data_per,quantity,brands",
+  "capturedAt": "2026-10-10T08:46:50.768Z",
+  "status": 503,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "fa13f8614fb6b695b3de3ac03227804dfc6ab25b6fee4ca3eced0c5c79c63c1b",
+  "bodyFile": "OFF-07.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

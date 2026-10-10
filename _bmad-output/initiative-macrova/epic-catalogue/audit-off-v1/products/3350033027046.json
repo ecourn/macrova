@@ -1,0 +1,18 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-24",
+  "caseId": "OFF-24",
+  "code": "3350033027046",
+  "query": "amandes",
+  "url": "https://world.openfoodfacts.org/api/v3.6/product/3350033027046.json",
+  "capturedAt": "2026-10-10T09:01:19.770Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "c1808af66b63f72c719e280eacbbd3b299a052c7de6d813cdad3d01276044a51",
+  "bodyFile": "3350033027046.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)",
+  "apiVersion": "OFF v3.6",
+  "sourceCaptureSha256": "aee4157b68120cfa4948acefae2bd4dec18abf7cc2a5573b44690d2a762c7d43"
+}
