@@ -25,9 +25,7 @@ Les instructions existantes sont toutes conservées, aucune règle déplacée ou
 | Auth : protections de session et droits déjà présents, pannes distinctes des absences | Préserver Better Auth/Convex, POST et hydratation | Aucun | Audit auth ci-dessous et 112 tests ciblés |
 | Police Geist chargée mais design utilisant system-ui ; lectures JWT SSR répétées | Optimisations facultatives sans mesure d’impact ; différées | Aucun | Build émet bien les polices ; lecture chaîne root/getCurrentUser/fetchAuthQuery |
 
-## Inventaire et preuve des parcours
-
-# Inventaire vérifié des dépendances
+## Inventaire vérifié des dépendances
 49 dépendances déclarées (33 production, 16 développement). Imports exacts des fichiers suivis, CSS, configuration, scripts, CLI, types et graphe du lockfile. Les références d’une primitive non montée restent des usages réels à conserver.
 | Paquet | Version verrouillée | Statut | Usage et preuves | Décision |
 |---|---|---|---|---|
@@ -47,7 +45,7 @@ Les instructions existantes sont toutes conservées, aucune règle déplacée ou
 | better-auth (`1.6.15`) | better-auth@1.6.15 | Fonctionnalité active (directe ou indirecte) | app/convex/auth.ts:1, app/src/lib/auth-client.ts:1 ; atteignable depuis les routes : app/src/lib/auth-client.ts:1 | Conserver ; aucune migration ou suppression justifiée |
 | class-variance-authority (`^0.7.1`) | class-variance-authority@0.7.1 | Fonctionnalité active (directe ou indirecte) | app/src/components/ui/alert.tsx:2, app/src/components/ui/attachment.tsx:4, app/src/components/ui/badge.tsx:3, app/src/components/ui/bubble.tsx:4, app/src/components/ui/button-group.tsx:3, app/src/components/ui/button.tsx:2, app/src/components/ui/empty.tsx:1, app/src/components/ui/field.tsx:2 ; atteignable depuis les routes : app/src/components/ui/alert.tsx:2, app/src/components/ui/button.tsx:2, app/src/components/ui/field.tsx:2 | Conserver ; aucune migration ou suppression justifiée |
 | cmdk (`^1.1.1`) | cmdk@1.1.1 | Primitives disponibles non montées | app/src/components/ui/command.tsx:4 | Conserver ; aucune migration ou suppression justifiée |
-| cn (`^0.4.0`) | cn@0.4.0 | Fonctionnalité active (directe ou indirecte) | app/src/components/ui/accordion.tsx:2, app/src/components/ui/alert-dialog.tsx:3, app/src/components/ui/alert.tsx:3, app/src/components/ui/aspect-ratio.tsx:1, app/src/components/ui/attachment.tsx:5, app/src/components/ui/avatar.tsx:3, app/src/components/ui/badge.tsx:4, app/src/components/ui/breadcrumb.tsx:4 ; atteignable depuis les routes : app/src/components/ui/alert.tsx:3, app/src/components/ui/button.tsx:3, app/src/components/ui/card.tsx:2 ; requis indirectement par @shadcn/registry, shadcn | Conserver ; aucune migration ou suppression justifiée |
+| cn (`^0.4.0`) | cn@0.4.0 | Fonctionnalité active (directe ou indirecte) | app/src/components/ui/accordion.tsx:2, app/src/components/ui/alert-dialog.tsx:3, app/src/components/ui/alert.tsx:3, app/src/components/ui/aspect-ratio.tsx:1, app/src/components/ui/attachment.tsx:5, app/src/components/ui/avatar.tsx:3, app/src/components/ui/badge.tsx:4, app/src/components/ui/breadcrumb.tsx:4 ; atteignable depuis les routes : app/src/components/ui/alert.tsx:3, app/src/components/ui/button.tsx:3, app/src/components/ui/card.tsx:2 ; les outils @shadcn/registry et shadcn utilisent séparément cn@0.2.6, pas cette version directe | Conserver ; aucune migration ou suppression justifiée |
 | convex (`^1.46.0`) | convex@1.46.0 | Fonctionnalité active (directe ou indirecte) | app/convex/_generated/api.d.ts:30, app/convex/_generated/dataModel.d.ts:16, app/convex/_generated/dataModel.d.ts:17, app/convex/_generated/server.d.ts:21, app/convex/access.test.ts:4, app/convex/access.test.ts:5, app/convex/account.ts:1, app/convex/auth.config.ts:2 ; atteignable depuis les routes : app/src/components/catalogue-search.tsx:2, app/src/lib/auth-server.ts:3, app/src/router.tsx:2 ; convex:deploy/codegen → convex | Conserver ; aucune migration ou suppression justifiée |
 | date-fns (`^4.4.0`) | date-fns@4.4.0 | Primitives disponibles non montées | requis indirectement par react-day-picker | Conserver ; aucune migration ou suppression justifiée |
 | embla-carousel-react (`^8.6.0`) | embla-carousel-react@8.6.0 | Primitives disponibles non montées | app/src/components/ui/carousel.tsx:5 | Conserver ; aucune migration ou suppression justifiée |
@@ -59,11 +57,11 @@ Les instructions existantes sont toutes conservées, aucune règle déplacée ou
 | react-dom (`^19.2.8`) | react-dom@19.3.0 | Fonctionnalité active (directe ou indirecte) | app/tests/config/calculator-render.test.ts:3, app/tests/config/catalogue-render.test.ts:3 | Conserver ; aucune migration ou suppression justifiée |
 | react-resizable-panels (`^4.14.2`) | react-resizable-panels@4.14.2 | Primitives disponibles non montées | app/src/components/ui/resizable.tsx:4 | Conserver ; aucune migration ou suppression justifiée |
 | recharts (`3.8.0`) | recharts@3.8.0 | Primitives disponibles non montées | app/src/components/ui/chart.tsx:3, app/src/components/ui/chart.tsx:4 | Conserver ; aucune migration ou suppression justifiée |
-| seroval (`1.6.8`) | seroval@1.6.8 | Fonctionnalité active (directe ou indirecte) | app/server/rpc-transport.ts:2, app/tests/config/rpc-transport.test.ts:3, app/tests/integration/start-abort.mjs:9 ; atteignable depuis les routes : app/server/rpc-transport.ts:2 ; requis indirectement par @tanstack/router-core, @tanstack/start-client-core, @tanstack/start-plugin-core, @tanstack/start-server-core, solid-js | Conserver ; aucune migration ou suppression justifiée |
+| seroval (`1.6.8`) | seroval@1.6.8 | Fonctionnalité active (directe ou indirecte) | app/server/rpc-transport.ts:2, app/tests/config/rpc-transport.test.ts:3, app/tests/integration/start-abort.mjs:9 ; atteignable depuis les routes : app/server/rpc-transport.ts:2 ; requis indirectement par @tanstack/router-core, @tanstack/start-client-core, @tanstack/start-plugin-core, @tanstack/start-server-core ; solid-js utilise séparément seroval@1.5.6 | Conserver ; aucune migration ou suppression justifiée |
 | shadcn (`^4.21.1`) | shadcn@4.21.1 | Fonctionnalité active (directe ou indirecte) | app/src/styles.css:3 ; atteignable depuis les routes : app/src/styles.css:3 | Conserver ; aucune migration ou suppression justifiée |
 | tailwindcss (`^4`) | tailwindcss@4.3.3 | Fonctionnalité active (directe ou indirecte) | app/src/styles.css:1 ; atteignable depuis les routes : app/src/styles.css:1 ; requis indirectement par @tailwindcss/node, @tailwindcss/vite | Conserver ; aucune migration ou suppression justifiée |
 | tw-animate-css (`^1.4.0`) | tw-animate-css@1.4.0 | Fonctionnalité active (directe ou indirecte) | app/src/styles.css:2 ; atteignable depuis les routes : app/src/styles.css:2 | Conserver ; aucune migration ou suppression justifiée |
-| zod (`4.6.5`) | zod@4.6.5 | Fonctionnalité active (directe ou indirecte) | requis indirectement par @better-auth/core, @convex-dev/better-auth, @modelcontextprotocol/sdk, @shadcn/registry, @tanstack/router-generator, @tanstack/router-plugin, @tanstack/start-plugin-core, better-auth, shadcn | Conserver ; aucune migration ou suppression justifiée |
+| zod (`4.6.5`) | zod@4.6.5 | Fonctionnalité active (directe ou indirecte) | requis indirectement par @better-auth/core, @convex-dev/better-auth, @modelcontextprotocol/sdk, @tanstack/router-generator, @tanstack/router-plugin, @tanstack/start-plugin-core, better-auth ; @shadcn/registry et shadcn utilisent séparément zod@3.25.76 | Conserver ; aucune migration ou suppression justifiée |
 | @biomejs/biome (`2.5.15`) | @biomejs/biome@2.5.15 | Configuration / CLI / test / outils | lint, format, check → biome | Conserver ; aucune migration ou suppression justifiée |
 | @edge-runtime/vm (`^5.0.0`) | @edge-runtime/vm@5.0.0 | Configuration / CLI / test / outils | vitest.config.ts:8 environment edge-runtime → VM chargée par Vitest | Conserver ; aucune migration ou suppression justifiée |
 | @playwright/test (`1.63.0`) | @playwright/test@1.63.0 | Configuration / CLI / test / outils | app/playwright.config.ts:1, app/scripts/prepare-calculator-e2e.ts:1, app/tests/e2e/auth.spec.ts:1, app/tests/e2e/auth.spec.ts:2, app/tests/e2e/calculator-failure.spec.ts:1, app/tests/e2e/calculator-failure.spec.ts:58, app/tests/e2e/calculator-remote.spec.ts:1, app/tests/e2e/calculator.spec.ts:1 ; test:e2e et variantes → playwright | Conserver ; aucune migration ou suppression justifiée |
@@ -84,7 +82,7 @@ Les instructions existantes sont toutes conservées, aucune règle déplacée ou
 ## Usages à ne pas confondre avec une absence d’usage
 - `shadcn` fournit `shadcn/tailwind.css` dans `src/styles.css:3` ; CSS chargé par `__root.tsx`.
 - `date-fns` est chargé indirectement par `react-day-picker`, lui-même importé par la primitive `calendar.tsx`.
-- Zod est requis par Better Auth, son cœur, son adaptateur Convex et les outils shadcn/TanStack, même sans schéma métier local.
+- Zod 4.6.5 est requis par Better Auth, son cœur, son adaptateur Convex et les outils TanStack, même sans schéma métier local. Les outils shadcn utilisent une version imbriquée distincte, Zod 3.25.76.
 - `@tanstack/react-form` est une dépendance de `react-form-start`; Form, Form Start, Form Devtools, Table et nuqs ne sont pas intégrés aux routes actuelles. Cela ne constitue pas un défaut.
 - Carrousel, OTP, graphe, calendrier, redimensionnement, command palette et composants @shadcn/react sont présents dans les primitives locales ; ne pas casser leurs imports par suppression.
 - Geist est réellement importé en CSS, même si les tokens publics remplacent la police par system-ui. Optimisation facultative, aucun correctif nécessaire.
@@ -120,9 +118,7 @@ Les instructions existantes sont toutes conservées, aucune règle déplacée ou
 | URL vers OFF | `app/src/domain/catalogue.ts:38` endpoint fermé ; `:42` paramètres encodés ; `:170` code produit fermé ; `:176` endpoint autorisé | Pas de validation URL applicative manquante ; URLSearchParams serveur adapté | `app/src/domain/catalogue.test.ts:130`, `app/src/domain/catalogue-product.test.ts:253` |
 | Accès catalogue | `app/src/routes/aliments.tsx:18` user beforeLoad ; `:28` actions Convex ; état Authentication/Unauthenticated `:55` | Garde UI identifiée mais ne prouve pas les droits backend ; revue Convex séparée nécessaire | Les E2E catalogue sont un montage simulé, aucune prétention de recette auth réelle |
 
-## Audit authentification et autorisations
-
-# Audit lecture seule : auth, SSR et autorisations
+## Audit lecture seule : auth, SSR et autorisations
 
 Date : 2026-10-10. Aucun fichier applicatif modifié, aucun appel au backend distant, aucune lecture des fichiers de secrets.
 
@@ -206,6 +202,8 @@ Les conditions d’ouverture produit déjà documentées (catalogue complet, pai
 Contrôle supplémentaire : tous les chemins `file:` de la personnalisation existent, `app/AGENTS.md` est identique à HEAD (comparaison octet à octet), `git diff --check` réussit. Lectures des traces ZIP par Python : erreurs réseau Chromium explicitement présentes ; aucune assertion métier modifiée.
 
 ## Revue indépendante
+
+La [revue approfondie du commit ee2fac3](revue-adversariale-ee2fac3.md) complète ces preuves historiques avec les corrections de cohérence, la répétition BMAD et les nouvelles exécutions ; ses résultats ne remplacent pas ceux datés ci-dessus.
 
 Revue quick context-free achevée : comparaison indépendante des 49 versions avec le verrou, contrôle des critères, des règles et de la résolution BMAD. Un cache Python produit par unittest était inclus dans le premier snapshot ; constat confirmé et corrigé par retrait du cache. Aucun autre constat établi. Les modes thorough et autres lenses ne sont pas exécutés, conformément au mode quick du plan. Résultats finaux : 561 tests unitaires, 25 E2E compilés et 13 E2E catalogue standard réussis ; deux recettes isolées échouées et auth réelle non exécutée restent explicitement indiquées.
 
