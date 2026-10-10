@@ -197,8 +197,8 @@ Camille est un protagoniste fictif illustratif : adulte francophone qui suit dé
 | Références de portions | Aucun pas ni borne universels ; la personne confirme les valeurs, toute impossibilité reste explicite. |
 | Données, conservation, export et suppression | Définir champs nécessaires, délais et exceptions avant ouverture ; les présentes demandes ne constituent pas une politique juridique. |
 | Paiement, résiliation et accès après arrêt | Définir les conditions et leurs effets avant ouverture ; aucune durée d'accès ou règle de remboursement improvisée. |
-| Validation d'usage | Entretiens, bêta et audit restent à réaliser selon protocole-validation.md ; les scénarios fictifs ne valident ni préférence ni plausibilité. |
+| Validation d'usage | Audit technique et recette objective requis selon protocole-validation.md ; entretiens et bêta facultatifs après livraison. Les scénarios fictifs ne valident ni besoin, préférence ni plausibilité personnelle. |
 
 ## Actualisation de gouvernance — 8 octobre 2026
 
-Pour CAP-1, « méthode validée » signifie décision produit sourcée, versionnée et vérifiée dans le binôme utilisateur/agent. La méthode v1 est adoptée pour sa construction isolée ; les états méthode indisponible/retirée et cas exclus restent obligatoires. Les confirmations de la personne utilisant Macrova sont inchangées. Les essais du support d’enquête ne conditionnent aucun écran du calculateur ; ils précèdent la collecte réelle en 10.2. Identité visuelle et composants de DESIGN.md inchangés.
+Pour CAP-1, « méthode validée » signifie décision produit sourcée, versionnée et vérifiée dans le binôme utilisateur/agent. La méthode v1 est adoptée pour sa construction isolée ; les états méthode indisponible/retirée et cas exclus restent obligatoires. Les confirmations de la personne utilisant Macrova sont inchangées. Les essais du support d’enquête ne conditionnent aucun écran du calculateur ; ils seraient requis avant une collecte future décidée après livraison ; 10.2 est abandonné par décision du 10 octobre 2026. Identité visuelle et composants de DESIGN.md inchangés.

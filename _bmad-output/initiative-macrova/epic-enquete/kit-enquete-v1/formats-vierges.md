@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Formats vierges v1 — 7 octobre 2026
 
 **Copier uniquement dans le support privé approuvé. Aucun modèle rempli avec des données réelles dans Git, même pseudonymisées.** Les champs entre crochets sont à renseigner, pas des valeurs par défaut. Ne recueillir que les champs nécessaires approuvés dans le [cadre](cadre-protection.md).

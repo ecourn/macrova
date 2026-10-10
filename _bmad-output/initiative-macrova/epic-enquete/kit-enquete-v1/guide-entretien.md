@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Guide d'entretien v1 — 7 octobre 2026
 
 **Guide vierge, utilisable seulement après les conditions du [cadre](cadre-protection.md).** L'enquête ne demande aucun usage de Macrova, achat ni diagnostic. Utiliser les [formats](formats-vierges.md) sur le support privé, sans enregistrement audio/vidéo prévu.
@@ -23,4 +27,4 @@ Avant toute note de repas, communiquer l'information finalisée du cadre et recu
 
 ## Contrôle avant comptage
 
-Une personne distincte de la cible, information et accord recevables, repas réel récent, canal, méthode, durée ou limite explicite, erreurs/corrections/difficultés et provenance de chaque constat : vérifier ces éléments ENQ-2. Un élément non observable est signalé comme tel, sans preuve remplacée par une déclaration. Le pilote est réexaminé avec ces critères ; le registre précise admissible / à compléter / exclu et le motif. Les simulations et doublons sont exclus des quinze. Le produit construit sera évalué séparément en bêta.
+Une personne adulte de la cible, distincte des autres participants, information et accord recevables, repas réel récent, canal, méthode, durée ou limite explicite, erreurs/corrections/difficultés et provenance de chaque constat : vérifier ces éléments ENQ-2. Un élément non observable est signalé comme tel, sans preuve remplacée par une déclaration. Le pilote est réexaminé avec ces critères ; le registre précise admissible / à compléter / exclu et le motif. Les simulations et doublons sont exclus des quinze. Le produit construit sera évalué séparément en bêta.

@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Recette et validation v1 — 7 octobre 2026
 
 **10.1 documentaire acceptée le 8 octobre 2026 ; simulation seulement. Les essais privés ci-dessous appartiennent au début de 10.2, avant toute collecte.** Les essais ci-dessous sont des procédures, pas des preuves d'exécution sur un support inexistant.

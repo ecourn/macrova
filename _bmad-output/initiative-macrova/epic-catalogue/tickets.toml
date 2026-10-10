@@ -1,0 +1,16 @@
+# Premier ticket débloqué par la décision du 2026-10-10 ; ids stables.
+# Découpage partiel : reste de CAP-3 à détailler après cet audit, pas une inception complète.
+[[entry]]
+id = 1
+type = "story"
+title = "Constituer le corpus reproductible et auditer Open Food Facts"
+description = "Constituer cinquante requêtes techniques distinctes et justifiées, réaliser un audit OFF sourcé et horodaté avec captures et replay reproductible, classer disponibilité, complétude, unités, états, provenance et limites numériques puis documenter les exemples et décisions nécessaires au catalogue sans collecte utilisateur."
+verify = "Contrôler CAT-1 à CAT-3 sur le manifeste et les captures réelles, reproduire les classifications hors réseau, tester absence versus zéro et conversions ambiguës avec cas négatifs séparés, puis consigner les échecs, limites et actions avant gel sans revendiquer une couverture représentative ni un moteur livré."
+covers = ["CAT-1", "CAT-2", "CAT-3"]
+after = ["1.2"]
+hitl = false
+risk = "high"
+unknown = "Complétude et disponibilité OFF, conditions de conservation/réutilisation et adéquation aux limites numériques restent à vérifier ; aucun résultat de couverture ni catalogue complémentaire présumé."
+references = ["_bmad-output/spec-macrova/protocole-validation.md", "_bmad-output/initiative-macrova/epic-catalogue/epic-catalogue.md", "_bmad-output/initiative-macrova/architecture-app/architecture-app.md"]
+plan_checkpoint = false
+done_checkpoint = false

@@ -3,7 +3,7 @@ title: '10.2 — Éprouver le guide sur un entretien pilote réel'
 type: 'chore'
 ticket: 2
 created: '2026-10-09'
-status: 'in-progress'
+status: dropped
 baseline_revision: '34bd74a5317e944807e002084898bf497985d319'
 route: 'oneshot'
 route_source: 'auto'
@@ -16,6 +16,8 @@ context:
   - _bmad-output/initiative-macrova/epic-enquete/kit-enquete-v1/cadre-protection.md
   - _bmad-output/spec-macrova/protocole-validation.md
 ---
+
+> Historique remplacé pour le MVP par [la décision du 10 octobre 2026](../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune reprise terrain obligatoire ; les constats et preuves absentes ci-dessous restent historiques.
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
 
@@ -43,6 +45,13 @@ Acceptation : Given un support effectivement testé, when les essais autorisé/r
 
 - 2026-10-09 — Quick indépendante : high=0, medium=1, low=0, false=0, maybe-false=0. Constat medium, route patch : « adulte distinct de la cible » contredisait ENQ-2 ; correction de rédaction en « adulte de la cible, distinct des autres participants » dans l’acceptation et la liste de preuves. Aucun changement de périmètre ni travail différé.
 
+- 2026-10-10 — Quick, `high` : essais réels du support, information/contact et canal autorisé absents. Vérifié contre la première preuve restante et le bilan de reprise ; critère préalable ENQ-1 non satisfait. Cause externe préexistante, conservée dans le travail restant de 10.2.
+- 2026-10-10 — Quick, `high` : accord volontaire et entretien réel avec méthode observée absents. Vérifié contre les preuves participant/entretien et le bilan ; ENQ-2 non satisfait. Cause externe préexistante, conservée dans le travail restant de 10.2.
+- 2026-10-10 — Quick, `high` : extraction réelle et contrôle privé de l'anonymisation/traçabilité absents. Vérifié contre la preuve extraction et le bilan ; ENQ-3 non satisfait. Cause externe préexistante, conservée dans le travail restant de 10.2.
+- 2026-10-10 — Quick, `high` : retour réel du pilote et décision de comptage absents. Vérifié contre la dernière preuve restante et la nature documentaire de la correction ; quatrième critère non satisfait. Cause externe préexistante, conservée dans le travail restant de 10.2.
+
+Aucun défaut supplémentaire relevé dans la correction. Aucun travail reporté vers un autre ticket : les actions terrain restent nécessaires dans 10.2. Les constats empêchent sa clôture ; le statut reste `in-progress`, sans passage automatique à `built` ni boucle de réécriture documentaire.
+
 ## Verification
 
 Vérifier les liens locaux, relire la feuille contre le cadre et ENQ-1/2/3/6, comparer l’empreinte du protocole bêta avant/après, exécuter `git diff --check`, puis revue quick indépendante. Aucune suite applicative : seuls des documents changent.
@@ -63,3 +72,15 @@ Le ticket reste in-progress tant que ces faits ne sont pas accessibles et vérif
 ## Bilan de session — 9 octobre 2026
 
 Préparation documentaire réalisée, vérifiée et revue. Le statut in-progress est conservé au lieu du built automatique du workflow : les critères terrain originaux ne sont pas satisfaits, et leur remplacement par une procédure serait une fausse clôture. La reprise nécessite un support utilisateur effectivement accessible et un participant réel volontaire ; le détail des preuves à fournir reste dans la feuille de conduite. Aucun contact externe effectué.
+
+## Reprise — 10 octobre 2026
+
+- Le plan complet et ses trois fichiers `context` ont été relus. La feuille de conduite, le README, le guide et les formats vierges sont déjà présents ; aucune procédure supplémentaire n'est nécessaire.
+- Le contrôle de comptage du guide contenait encore « personne distincte de la cible », contrairement à ENQ-2 et à l'acceptation du plan. La formulation est alignée sur « personne adulte de la cible, distincte des autres participants ». C'est une correction de cohérence documentaire ; elle ne constitue pas une révision issue d'un entretien pilote.
+- Aucun support utilisateur désigné et accessible, résultat réel d'essai, information finale/contact, canal effectivement autorisé, accord volontaire, observation d'entretien ou extraction réelle n'a été fourni pour cette reprise. Le contrôle des capacités effectué par l'agent coordinateur n'a trouvé aucun outil connecté au support d'enquête ; les outils de prévisualisation ont indiqué l'absence de navigateur. Ces constats ne prouvent ni un accès refusé au support utilisateur ni son indisponibilité pour l'utilisateur.
+- Vérification documentaire : 19 liens locaux du README, de la conduite et du guide ont une cible existante. Le protocole canonique et le protocole bêta sont identiques octet par octet à HEAD ; SHA-256 respectifs `69ae0ca4d2a177ae91a6b623634f35578b0af4bdad1814fc9e633e9b46ef0a6d` et `4fb431879632906a68ff9882d9c5281dfccbb0f81c989dd4d7f7ae9ffcafb5f2`. `git diff --check` réussi. Aucun test applicatif ni essai réel du support exécuté.
+- Le statut vérifié dans le suivi du ticket reste `in-progress`. Les six preuves restantes ci-dessus restent non satisfaites ; aucun entretien n'est compté et aucun résultat de terrain n'est inventé. La reprise terrain suit la feuille existante avec preuves privées minimisées ; aucun contact externe effectué.
+
+## Décision de remplacement — 10 octobre 2026
+
+Dropped: l’utilisateur abandonne explicitement le pilote obligatoire et renégocie son intention historique figée. Les critères terrain ne sont pas satisfaits, ils sont retirés du périmètre MVP ; aucune preuve inventée et aucun passage à done. La procédure est conservée pour traçabilité, sans tâche de reprise obligatoire.

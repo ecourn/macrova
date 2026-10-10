@@ -63,8 +63,8 @@ Aider les adultes francophones en France qui suivent déjà leurs macros et pès
 
 ## Success signal
 
-- Sur une bêta de 20 à 30 personnes pendant deux semaines après 15 entretiens : au moins 60 % enregistrent un premier repas personnel, 30 % réutilisent un repas entre J6 et J8 après invitation et cinq paiements de 5,99 € sont encaissés et non remboursés au bilan. Mesurer le temps sur une tâche comparable puis observer le renouvellement à un mois.
-- Les seuils sont internes et hypothétiques. La couverture alimentaire et les décisions de lancement doivent être résolues avant ouverture ; une correction ciblée puis absence de réutilisation ou de paiement conduit à abandonner l’offre, selon protocole-validation.md.
+- MVP : CAP-1 à CAP-8 utilisables, règles vérifiées par tests automatisés, cas de référence et recette intégrée sur la cible ; audit technique de cinquante recherches reproductibles et décisions d’ouverture documentés selon protocole-validation.md.
+- Besoin, gain de temps, compréhension, plausibilité personnelle, réutilisation et prix restent non validés. Des retours réels peuvent être recueillis après mise à disposition ; aucun entretien, recrutement, quota de bêta ou seuil commercial ne conditionne la livraison.
 
 ## Assumptions
 
@@ -81,6 +81,10 @@ Aider les adultes francophones en France qui suivent déjà leurs macros et pès
 
 L’utilisateur porte Macrova et les actions nécessitant sa présence, ses comptes ou des participants réels. L’agent reçoit les arbitrages produit, techniques et documentaires, les applique et enregistre les décisions et preuves sans nouvelle confirmation dans le périmètre délégué. Les fonctions produit, catalogue, enquête, validation, architecture et développement sont des responsabilités du même binôme, pas des intervenants externes à recruter.
 
-Une validation produit sourcée et reproductible par l’agent autorise la construction ; elle ne constitue pas une validation clinique ou une certification juridique. Les preuves d’accès, les consentements et les résultats terrain restent des faits à vérifier au moment de l’action concernée. L’absence de support d’enquête ne bloque pas le développement isolé. Aucun contact externe ou invitation n’est effectué sans instruction explicite.
+Une validation produit sourcée et reproductible par l’agent autorise la construction ; elle ne constitue pas une validation clinique ou une certification juridique. Les preuves d’accès restent à vérifier ; consentements et résultats terrain ne sont requis que pour une éventuelle collecte décidée après livraison (décision du 10 octobre 2026). L’absence de support d’enquête ne bloque pas le développement isolé. Aucun contact externe ou invitation n’est effectué sans instruction explicite.
 
 Décision canonique et calendrier des contrôles : [correction de trajectoire](../initiative-macrova/change-gouvernance-a-deux/change-gouvernance-a-deux.md).
+
+## Stratégie MVP — décision du 10 octobre 2026
+
+La [correction MVP sans enquête](../initiative-macrova/change-mvp-sans-enquete/change-mvp-sans-enquete.md) remplace les obligations d’enquête et de bêta antérieures. CAP-1 à CAP-8 et protections techniques sont conservées. Epic 3 produit le corpus technique ; epic 9 vérifie la recette et les conditions d’ouverture. Les validations de besoin restent inconnues, les retours post-livraison facultatifs.

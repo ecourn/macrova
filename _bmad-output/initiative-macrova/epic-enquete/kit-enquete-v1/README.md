@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Kit enquête v1 — gouvernance du 8 octobre 2026
 
 **Kit documentaire accepté et protocole adopté ; 10.1 clôturée sous mandat utilisateur.** Aucun entretien, invitation, paiement, support testé ou transmission réelle n’est démontré. La prochaine story de développement est 2.2, indépendante du support d’enquête.

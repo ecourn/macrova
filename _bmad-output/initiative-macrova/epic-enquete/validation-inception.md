@@ -1,3 +1,7 @@
+
+
+> Historique remplacé pour le MVP par [la décision du 10 octobre 2026](../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune reprise terrain obligatoire ; les constats et preuves absentes ci-dessous restent historiques.
+
 # Validation de l'inception des entretiens et repas de référence
 
 > Photographie historique du 7 octobre 2026. Les conditions externes, le calendrier des essais du support et les statuts ci-dessous sont remplacés par la [correction de gouvernance du 8 octobre](../change-gouvernance-a-deux/change-gouvernance-a-deux.md) ; consulter les tickets et plans courants.

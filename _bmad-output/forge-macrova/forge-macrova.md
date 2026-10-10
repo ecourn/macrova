@@ -1,3 +1,7 @@
+
+
+> Historique : les obligations d’enquête, de recrutement, de bêta et de résultats commerciaux préalables sont remplacées par [la décision du 10 octobre 2026](../initiative-macrova/change-mvp-sans-enquete/change-mvp-sans-enquete.md). Audit alimentaire et contrôles techniques conservés ; aucune validation utilisateur inventée. Les autres exigences restent applicables.
+
 - Cible initiale : adultes francophones en France suivant déjà leurs macros et répétant leurs repas ; besoin encore hypothétique.
 - Promesse : ajuster un repas de 3 à 6 aliments habituels avec portions verrouillables, quantités plausibles, écarts visibles et réutilisation.
 - Gratuit : calcul sans compte et démonstration complète ; premium proposé : composition, favoris, copie et journal minimal. Prix de test : 5,99 €/mois ; annuel différé.

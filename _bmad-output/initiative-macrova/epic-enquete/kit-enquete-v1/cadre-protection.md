@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Cadre minimal adopté — 8 octobre 2026
 
 Décision produit/documentaire de l’agent sous mandat utilisateur. Ce cadre satisfait la préparation de 10.1 ; la configuration effective et l’information participant sont finalisées en 10.2 avant toute collecte. Aucun support privé testé, consentement ou conformité juridique n’est déclaré acquis.

@@ -12,7 +12,7 @@ Permettre aux adultes francophones en France qui suivent déjà leurs macros et 
 
 ## Outcome
 
-Vérifier activation, réutilisation et paiements réels selon le protocole de validation, puis observer renouvellement et coûts sans présumer la rentabilité.
+Livrer un MVP CAP-1 à CAP-8 fonctionnel, robuste et utilisable, avec preuves techniques reproductibles et conditions d’ouverture vérifiées. Les éventuels retours après mise à disposition servent l’apprentissage sans conditionner la livraison.
 
 ## Requirements
 
@@ -23,14 +23,14 @@ La source numérotée canonique est `_bmad-output/spec-macrova/spec-macrova.md`,
 1. CAP-1 à CAP-8 sont disponibles sur le déploiement cible avec leurs critères de réussite et contraintes vérifiés.
 2. Absences nutritionnelles, contraintes strictes, confirmations, isolation des comptes et contrôle des droits sont vérifiés de bout en bout.
 3. Méthode nutritionnelle, couverture, politiques de données, licences, conditions commerciales et exploitation ont leurs décisions documentées avant ouverture publique.
-4. Les observations et mesures du protocole sont réalisées et un bilan explicite justifie la poursuite, une correction ciblée ou l’abandon de l’offre.
+4. La matrice de vérification objective du protocole dispose de preuves datées ; les échecs bloquants sont corrigés et les limites/reports explicités, sans prétendre à une validation du besoin ou du prix.
 5. Export, suppression, restauration et rapprochement paiement disposent de preuves de fonctionnement et de reprise après panne.
 
 ## Boundaries
 
-Les epics suivent les capacités produit ; CAP-5 et CAP-6 partagent le module repas/journal. Le socle ouvre la construction ; l’enquête préalable fournit les repas nécessaires à l’audit catalogue ; la validation d’usage en constitue le dernier résultat transversal.
+Les epics suivent les capacités produit ; CAP-5 et CAP-6 partagent le module repas/journal. Le socle ouvre la construction ; le catalogue produit son corpus technique reproductible ; la recette et l’ouverture constituent le dernier résultat transversal du MVP.
 
-TanStack Start, Convex et Better Auth sont des points d’intégration possédés par le socle, puis étendus par les propriétaires métier. Open Food Facts appartient au catalogue, le fournisseur de paiement à l’abonnement, les mesures publiques au calculateur et à la démonstration, les mesures personnelles aux repas et à l’abonnement. L’epic données personnelles coordonne leur export et suppression. L’epic validation possède recrutement bêta, observations du produit, bilan, vérification des conditions d’ouverture et activation publique. Les Non-goals de la spécification restent hors périmètre.
+TanStack Start, Convex et Better Auth sont des points d’intégration possédés par le socle, puis étendus par les propriétaires métier. Open Food Facts appartient au catalogue, le fournisseur de paiement à l’abonnement, les mesures publiques au calculateur et à la démonstration, les mesures personnelles aux repas et à l’abonnement. L’epic données personnelles coordonne leur export et suppression. L’epic validation possède la recette objective, la vérification des conditions d’ouverture et l’activation publique. Les éventuels retours post-MVP ne sont pas une condition de clôture. Les Non-goals de la spécification restent hors périmètre.
 
 ## References
 
@@ -58,3 +58,7 @@ TanStack Start, Convex et Better Auth sont des points d’intégration possédé
 Decision: l’utilisateur délègue les arbitrages et leur application à l’agent sans confirmation supplémentaire. Les décisions du 7 octobre exigeant un responsable externe sont remplacées par la correction de trajectoire `change-gouvernance-a-deux/change-gouvernance-a-deux.md`. L’utilisateur porte les actions humaines et les comptes ; l’agent porte produit, architecture, développement et coordination des modules. Les observations réelles restent nécessaires.
 
 2.1 accepte le dossier de méthode par décision produit sourcée ; 10.1 accepte le kit et le gel documentaire. Les contrôles effectifs du support privé sont déplacés au début de 10.2 avant collecte, puis vérifiés lors des remises 10.5/10.7. La prochaine story de développement est 2.2, sans dépendance à l’enquête. Les deux epics restent ouverts jusqu’à leurs livrables finaux ; la clôture de leurs premières stories ne signifie pas clôture des epics.
+
+## Stratégie courante — 10 octobre 2026
+
+Decision: les obligations terrain et prochaines stories mentionnées dans les notes historiques sont remplacées par [la correction MVP sans enquête](change-mvp-sans-enquete/change-mvp-sans-enquete.md). Epic 10 dropped ; 10.1 done conservée, 10.2 dropped, 10.3–10.7 retirées. Socle et calculateur déjà done ; prochain ticket 3.1. Besoin et valeur commerciale restent inconnus, sans gate MVP.

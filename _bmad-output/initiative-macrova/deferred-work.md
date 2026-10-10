@@ -123,3 +123,7 @@ les responsables, conditions de reprise et preuves attendues du tableau
 « Suivi calculateur » ci-dessus. R1/R5 restent clos dans leur portée documentée.
 La clôture ne réalise aucun de ces reports et n’autorise pas l’ouverture
 publique ; celle-ci reste possédée par `epic-validation-lancement`.
+
+## Stratégie MVP — 10 octobre 2026
+
+Decision: [MVP sans enquête préalable](change-mvp-sans-enquete/change-mvp-sans-enquete.md). Les tâches de support et collecte 10.2/10.5/10.7 mentionnées plus haut sont retirées du chemin critique, sans essais déclarés réussis. R2, R3, R4 et tous les reports techniques du socle restent ouverts selon leurs échéances ; ne pas les supprimer au motif de cette simplification. Audit technique désormais 3.1, retours post-livraison facultatifs.
