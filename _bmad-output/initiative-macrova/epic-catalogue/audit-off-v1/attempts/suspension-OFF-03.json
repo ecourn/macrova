@@ -1,0 +1,7 @@
+{
+  "id": "OFF-03",
+  "status": 503,
+  "retryAfter": null,
+  "capturedAt": "2026-10-10T08:43:42.258Z",
+  "action": "Pas de reprise automatique. Documenter la décision et respecter Retry-After avant retrait manuel de ce verrou."
+}

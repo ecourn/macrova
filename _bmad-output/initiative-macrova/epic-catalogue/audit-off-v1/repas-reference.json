@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "source": "Open Food Facts — captures locales contrôlées par SHA-256",
+  "constraintsDecision": "Agent, référence technique du 10 octobre 2026 ; aucune recommandation alimentaire",
+  "meals": [
+    {
+      "id": "reference-g-3",
+      "lines": [
+        {
+          "caseId": "OFF-23",
+          "code": "0745760279005",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": true,
+          "sha256": "49bd44023ff2b5c27999bd0a544c374fb5ddc22f6900120211f23a86f7101368"
+        },
+        {
+          "caseId": "OFF-01",
+          "code": "3168930009078",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "848d664fe46a05a0da66838ca975c6e4ee49a2f1b5548e0206b0729b6fe3037f"
+        },
+        {
+          "caseId": "OFF-02",
+          "code": "4792040020235",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "ef9619ef470c291197a203ec2a35c3b303d9f963a797568539e6642f5a40ab25"
+        }
+      ],
+      "totals": {
+        "protein": {
+          "numerator": "1637",
+          "denominator": "100",
+          "display": "16.37"
+        },
+        "carbohydrate": {
+          "numerator": "3141",
+          "denominator": "100",
+          "display": "31.41"
+        },
+        "fat": {
+          "numerator": "203",
+          "denominator": "25",
+          "display": "8.12"
+        },
+        "energy": {
+          "numerator": "2162",
+          "denominator": "5",
+          "display": "432.40"
+        }
+      },
+      "constraintsSource": "decision.md#portions-techniques",
+      "purpose": "Vecteur technique hétérogène g, état conservé (dont riz cru). Ne démontre ni repas usuel, ni portions plausibles, ni solver. Quantités/bornes/pas décidés par l’agent pour vérifier le contrat."
+    },
+    {
+      "id": "reference-g-6",
+      "lines": [
+        {
+          "caseId": "OFF-23",
+          "code": "0745760279005",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": true,
+          "sha256": "49bd44023ff2b5c27999bd0a544c374fb5ddc22f6900120211f23a86f7101368"
+        },
+        {
+          "caseId": "OFF-01",
+          "code": "3168930009078",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "848d664fe46a05a0da66838ca975c6e4ee49a2f1b5548e0206b0729b6fe3037f"
+        },
+        {
+          "caseId": "OFF-02",
+          "code": "4792040020235",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "ef9619ef470c291197a203ec2a35c3b303d9f963a797568539e6642f5a40ab25"
+        },
+        {
+          "caseId": "OFF-01",
+          "code": "4056489546092",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "848d664fe46a05a0da66838ca975c6e4ee49a2f1b5548e0206b0729b6fe3037f"
+        },
+        {
+          "caseId": "OFF-01",
+          "code": "3421557910203",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "848d664fe46a05a0da66838ca975c6e4ee49a2f1b5548e0206b0729b6fe3037f"
+        },
+        {
+          "caseId": "OFF-01",
+          "code": "20003166",
+          "quantity": "50",
+          "initial": "50",
+          "min": "0",
+          "max": "100",
+          "step": "10",
+          "unit": "g",
+          "locked": false,
+          "sha256": "848d664fe46a05a0da66838ca975c6e4ee49a2f1b5548e0206b0729b6fe3037f"
+        }
+      ],
+      "totals": {
+        "protein": {
+          "numerator": "903",
+          "denominator": "25",
+          "display": "36.12"
+        },
+        "carbohydrate": {
+          "numerator": "5763",
+          "denominator": "50",
+          "display": "115.26"
+        },
+        "fat": {
+          "numerator": "1231",
+          "denominator": "50",
+          "display": "24.62"
+        },
+        "energy": {
+          "numerator": "5137",
+          "denominator": "5",
+          "display": "1027.40"
+        }
+      },
+      "constraintsSource": "decision.md#portions-techniques",
+      "purpose": "Vecteur technique hétérogène g, état conservé (dont riz cru). Ne démontre ni repas usuel, ni portions plausibles, ni solver. Quantités/bornes/pas décidés par l’agent pour vérifier le contrat."
+    }
+  ]
+}

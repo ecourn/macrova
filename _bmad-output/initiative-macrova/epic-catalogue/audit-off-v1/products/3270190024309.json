@@ -1,0 +1,18 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-31",
+  "caseId": "OFF-31",
+  "code": "3270190024309",
+  "query": "yaourt nature",
+  "url": "https://world.openfoodfacts.org/api/v3.6/product/3270190024309.json",
+  "capturedAt": "2026-10-10T09:01:27.800Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "5be8c731f8b026414a45a3725d7604a11db1b3f63873440d05d43e23c6f321cc",
+  "bodyFile": "3270190024309.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)",
+  "apiVersion": "OFF v3.6",
+  "sourceCaptureSha256": "1feffd54f774ae2f781772668646e349a4eb06c4003fa3670005008af8e48328"
+}

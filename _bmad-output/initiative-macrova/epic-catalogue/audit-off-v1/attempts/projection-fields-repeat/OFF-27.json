@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-27",
+  "query": "lait demi écrémé",
+  "url": "https://search.openfoodfacts.org/search?q=lait%20demi%20%C3%A9cr%C3%A9m%C3%A9&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:51:39.085Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "d2023214f1166816b869ba9fc2bbb4220bfff6df7a0d12f37a72a251b9f9f26f",
+  "bodyFile": "OFF-27.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

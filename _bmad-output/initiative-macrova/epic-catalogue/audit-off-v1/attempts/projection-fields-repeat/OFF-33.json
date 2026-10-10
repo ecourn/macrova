@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-33",
+  "query": "pain complet",
+  "url": "https://search.openfoodfacts.org/search?q=pain%20complet&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:52:27.578Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "1fc23f2645f3bf266da83b0d052aa2b40a75630b70eb712895abe82db457d7b7",
+  "bodyFile": "OFF-33.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

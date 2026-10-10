@@ -1,0 +1,14 @@
+{
+  "version": "macrova-off-audit/1",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-04",
+  "query": "pâtes crues",
+  "url": "https://world.openfoodfacts.org/cgi/search.pl?search_terms=p%C3%A2tes%20crues&search_simple=1&action=process&json=1&page_size=3&fields=code%2Cproduct_name%2Cproduct_name_fr%2Cbrands%2Ccategories%2Ccategories_tags%2Cnutrition_data_per%2Cproduct_quantity_unit%2Cnutriments",
+  "capturedAt": "2026-10-10T08:44:53.725Z",
+  "status": 503,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "fa13f8614fb6b695b3de3ac03227804dfc6ab25b6fee4ca3eced0c5c79c63c1b",
+  "bodyFile": "OFF-04.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

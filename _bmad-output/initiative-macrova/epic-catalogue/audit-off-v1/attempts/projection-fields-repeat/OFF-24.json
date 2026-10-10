@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-24",
+  "query": "amandes",
+  "url": "https://search.openfoodfacts.org/search?q=amandes&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:51:14.881Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "15e37f5005858ed29c9f8fdb93fe2e69b628aca9edca165983b49b23ee0845f4",
+  "bodyFile": "OFF-24.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

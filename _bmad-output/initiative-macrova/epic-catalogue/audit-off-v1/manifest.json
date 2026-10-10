@@ -1,0 +1,883 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "OFF-01",
+      "query": "flocons avoine",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-02",
+      "query": "riz cru",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "raw",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-03",
+      "query": "riz cuit",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "cooked",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-04",
+      "query": "pâtes crues",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "raw",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-05",
+      "query": "pâtes cuites",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "cooked",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-06",
+      "query": "lentilles crues",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "raw",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-07",
+      "query": "lentilles cuites",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "cooked",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-08",
+      "query": "pois chiches",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-09",
+      "query": "haricots rouges",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-10",
+      "query": "quinoa",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-11",
+      "query": "pomme",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-12",
+      "query": "banane",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-13",
+      "query": "carotte",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-14",
+      "query": "brocoli",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-15",
+      "query": "pomme de terre",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-16",
+      "query": "épinards",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-17",
+      "query": "tomate",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-18",
+      "query": "œuf",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-19",
+      "query": "poulet cru",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "raw",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-20",
+      "query": "poulet cuit",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "cooked",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-21",
+      "query": "saumon",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-22",
+      "query": "thon",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-23",
+      "query": "tofu",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-24",
+      "query": "amandes",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-25",
+      "query": "noix",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-26",
+      "query": "huile olive",
+      "categories": [
+        "brut",
+        "liquide"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : brut, liquide. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-27",
+      "query": "lait demi écrémé",
+      "categories": [
+        "brut",
+        "liquide"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : brut, liquide. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-28",
+      "query": "eau minérale",
+      "categories": [
+        "brut",
+        "liquide"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : brut, liquide. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-29",
+      "query": "jus orange",
+      "categories": [
+        "brut",
+        "liquide"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : brut, liquide. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-30",
+      "query": "boisson soja",
+      "categories": [
+        "brut",
+        "liquide"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : brut, liquide. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-31",
+      "query": "yaourt nature",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-32",
+      "query": "fromage blanc",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-33",
+      "query": "pain complet",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-34",
+      "query": "farine blé",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-35",
+      "query": "sucre",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-36",
+      "query": "beurre",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-37",
+      "query": "sel",
+      "categories": [
+        "brut",
+        "incomplet-recherche"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut, incomplet-recherche. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-38",
+      "query": "épices",
+      "categories": [
+        "brut",
+        "incomplet-recherche"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut, incomplet-recherche. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-39",
+      "query": "infusion",
+      "categories": [
+        "brut",
+        "incomplet-recherche"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut, incomplet-recherche. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-40",
+      "query": "bouillon",
+      "categories": [
+        "brut",
+        "incomplet-recherche"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut, incomplet-recherche. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-41",
+      "query": "Barilla spaghetti",
+      "categories": [
+        "produit-france"
+      ],
+      "brand": "Barilla",
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : produit-france. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/barilla",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-41",
+          "sha256": "25aa950c64e2ec162dcd684409780677833bfc5515a1b70ef886a4dd83ba0872",
+          "code": "3329370004034",
+          "page": "https://world.openfoodfacts.org/product/3329370004034",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:21.501Z"
+        },
+        {
+          "capture": "OFF-41",
+          "sha256": "25aa950c64e2ec162dcd684409780677833bfc5515a1b70ef886a4dd83ba0872",
+          "code": "8076809505550",
+          "page": "https://world.openfoodfacts.org/product/8076809505550",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:21.501Z"
+        },
+        {
+          "capture": "OFF-41",
+          "sha256": "25aa950c64e2ec162dcd684409780677833bfc5515a1b70ef886a4dd83ba0872",
+          "code": "8076804215072",
+          "page": "https://world.openfoodfacts.org/product/8076804215072",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:21.501Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-42",
+      "query": "Bonduelle maïs",
+      "categories": [
+        "produit-france"
+      ],
+      "brand": "Bonduelle",
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : produit-france. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/bonduelle",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-42",
+          "sha256": "8899c09dc3e2443dde5d5b2023c85dce56c2f2ce9cb990fad3108d0ff04290b5",
+          "code": "03453964",
+          "page": "https://world.openfoodfacts.org/product/03453964",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:29.553Z"
+        },
+        {
+          "capture": "OFF-42",
+          "sha256": "8899c09dc3e2443dde5d5b2023c85dce56c2f2ce9cb990fad3108d0ff04290b5",
+          "code": "3083681160673",
+          "page": "https://world.openfoodfacts.org/product/3083681160673",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:29.553Z"
+        },
+        {
+          "capture": "OFF-42",
+          "sha256": "8899c09dc3e2443dde5d5b2023c85dce56c2f2ce9cb990fad3108d0ff04290b5",
+          "code": "3083680021531",
+          "page": "https://world.openfoodfacts.org/product/3083680021531",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:29.553Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-43",
+      "query": "Danone nature",
+      "categories": [
+        "produit-france"
+      ],
+      "brand": "Danone",
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : produit-france. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/danone",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-43",
+          "sha256": "4d81739dae5b4126d3753f2afa2061810b4e6558f5670be74e3735f49432a336",
+          "code": "3330261010119",
+          "page": "https://world.openfoodfacts.org/product/3330261010119",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T08:59:37.611Z"
+        },
+        {
+          "capture": "OFF-43",
+          "sha256": "4d81739dae5b4126d3753f2afa2061810b4e6558f5670be74e3735f49432a336",
+          "code": "3368850000012",
+          "page": "https://world.openfoodfacts.org/product/3368850000012",
+          "countries": [
+            "en:france",
+            "en:guadeloupe"
+          ],
+          "capturedAt": "2026-10-10T08:59:37.611Z"
+        },
+        {
+          "capture": "OFF-43",
+          "sha256": "4d81739dae5b4126d3753f2afa2061810b4e6558f5670be74e3735f49432a336",
+          "code": "5410146417146",
+          "page": "https://world.openfoodfacts.org/product/5410146417146",
+          "countries": [
+            "en:belgium",
+            "en:france",
+            "en:luxembourg"
+          ],
+          "capturedAt": "2026-10-10T08:59:37.611Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-44",
+      "query": "Alpro soja",
+      "categories": [
+        "produit-france"
+      ],
+      "brand": "Alpro",
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : produit-france. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/alpro",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-44",
+          "sha256": "b0221a84ab96d2f7f4b4f9ecbfbb31f7ef42c9f8d64c713c5141ccc8eb332860",
+          "code": "6027654139621",
+          "page": "https://world.openfoodfacts.org/product/6027654139621",
+          "countries": [
+            "en:ireland"
+          ],
+          "capturedAt": "2026-10-10T08:59:45.671Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-45",
+      "query": "Bjorg avoine",
+      "categories": [
+        "produit-france"
+      ],
+      "brand": "Bjorg",
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : produit-france. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/bjorg",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-45",
+          "sha256": "2da5bd62d9c9eb2e2184dd36c9b631f48218c89d8582aaa99bc9c10533f024fa",
+          "code": "3229820792132",
+          "page": "https://world.openfoodfacts.org/product/3229820792132",
+          "countries": [
+            "en:france",
+            "en:mauritius",
+            "en:reunion",
+            "en:switzerland"
+          ],
+          "capturedAt": "2026-10-10T08:59:53.725Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-46",
+      "query": "Lactel lait",
+      "categories": [
+        "produit-france",
+        "liquide"
+      ],
+      "brand": "Lactel",
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : produit-france, liquide. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/lactel",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-46",
+          "sha256": "1cf14480066c8bd8a3df8e64ddc0c4f00411061bdd3487ed8531cd88ed7272d6",
+          "code": "3428274060044",
+          "page": "https://world.openfoodfacts.org/product/3428274060044",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T09:00:01.779Z"
+        },
+        {
+          "capture": "OFF-46",
+          "sha256": "1cf14480066c8bd8a3df8e64ddc0c4f00411061bdd3487ed8531cd88ed7272d6",
+          "code": "3428273140037",
+          "page": "https://world.openfoodfacts.org/product/3428273140037",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T09:00:01.779Z"
+        },
+        {
+          "capture": "OFF-46",
+          "sha256": "1cf14480066c8bd8a3df8e64ddc0c4f00411061bdd3487ed8531cd88ed7272d6",
+          "code": "3428272060053",
+          "page": "https://world.openfoodfacts.org/product/3428272060053",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T09:00:01.779Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-47",
+      "query": "Evian eau",
+      "categories": [
+        "produit-france",
+        "liquide"
+      ],
+      "brand": "Evian",
+      "state": "unknown",
+      "basis": "ml",
+      "justification": "Cas technique du protocole : produit-france, liquide. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/evian",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-47",
+          "sha256": "c3f84edd2a62d26d557d8d66c1be6111c9315e1609c8cc5bf781d95433d7f05b",
+          "code": "3068320124544",
+          "page": "https://world.openfoodfacts.org/product/3068320124544",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T09:00:09.846Z"
+        },
+        {
+          "capture": "OFF-47",
+          "sha256": "c3f84edd2a62d26d557d8d66c1be6111c9315e1609c8cc5bf781d95433d7f05b",
+          "code": "0079298510034",
+          "page": "https://world.openfoodfacts.org/product/0079298510034",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T09:00:09.846Z"
+        },
+        {
+          "capture": "OFF-47",
+          "sha256": "c3f84edd2a62d26d557d8d66c1be6111c9315e1609c8cc5bf781d95433d7f05b",
+          "code": "3068320120348",
+          "page": "https://world.openfoodfacts.org/product/3068320120348",
+          "countries": [
+            "en:belgium"
+          ],
+          "capturedAt": "2026-10-10T09:00:09.846Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-48",
+      "query": "Carrefour lentilles",
+      "categories": [
+        "produit-france"
+      ],
+      "brand": "Carrefour",
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : produit-france. État et base recherchés, jamais présumés dans les résultats. Marque identifiée sur OFF ; preuves des produits et pays dans sourceEvidence. Commercialisation actuelle non garantie, notamment pour un index ancien.",
+      "source": "https://fr.openfoodfacts.org/marque/carrefour",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs.",
+      "sourceEvidence": [
+        {
+          "capture": "OFF-48",
+          "sha256": "5bf56988c9d2adde7202a4df8505bf8ed983f62c39e7a57a7213e27dc7d8c30e",
+          "code": "3560070253807",
+          "page": "https://world.openfoodfacts.org/product/3560070253807",
+          "countries": [
+            "en:france"
+          ],
+          "capturedAt": "2026-10-10T09:00:17.900Z"
+        },
+        {
+          "capture": "OFF-48",
+          "sha256": "5bf56988c9d2adde7202a4df8505bf8ed983f62c39e7a57a7213e27dc7d8c30e",
+          "code": "3560070329120",
+          "page": "https://world.openfoodfacts.org/product/3560070329120",
+          "countries": [
+            "en:belgium",
+            "en:france",
+            "en:italy",
+            "en:poland",
+            "en:romania",
+            "en:spain"
+          ],
+          "capturedAt": "2026-10-10T09:00:17.900Z"
+        }
+      ]
+    },
+    {
+      "id": "OFF-49",
+      "query": "moutarde Dijon",
+      "categories": [
+        "brut"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : brut. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Observer sans présumer la disponibilité, la pertinence, la base ou les quatre valeurs."
+    },
+    {
+      "id": "OFF-50",
+      "query": "macrova inexistantaliment 7b61f8",
+      "categories": [
+        "sans-resultat-recherche"
+      ],
+      "brand": null,
+      "state": "unknown",
+      "basis": "g",
+      "justification": "Cas technique du protocole : sans-resultat-recherche. État et base recherchés, jamais présumés dans les résultats.",
+      "source": "../../../spec-macrova/protocole-validation.md",
+      "expected": "Rechercher une liste vide ; conserver tout résultat inattendu."
+    }
+  ]
+}

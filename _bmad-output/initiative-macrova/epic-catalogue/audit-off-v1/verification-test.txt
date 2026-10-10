@@ -1,0 +1,13 @@
+$ vitest run
+
+ RUN  v5.0.3 /home/ubuntu/.t3/worktrees/macrova/t3-a08c323d/app
+
+
+ Test Files  25 passed (25)
+      Tests  455 passed (455)
+   Start at  11:05:21
+   Duration  12.18s (tests 65%, import 18%, transform 11%, environment 5%, worker 1%)
+
+    Isolate  25 workers spawned · ~302ms startup each (spawn + environment, per file)
+             at least ~777ms faster with isolate: false — reuses workers across files instead of one per file
+

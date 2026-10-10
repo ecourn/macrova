@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-37",
+  "query": "sel",
+  "url": "https://search.openfoodfacts.org/search?q=sel&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:52:59.865Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "1554cf9705eb41266aaf12968e41ac937b9c10bb4a8dc323e71714eb43c4c2da",
+  "bodyFile": "OFF-37.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

@@ -1,0 +1,15 @@
+{
+  "version": "macrova-off-audit/1",
+  "apiVersion": "Search-a-licious 0.1.0",
+  "revision": "a7356935f43691944990d2af45bc20c11ed5bf4d",
+  "id": "OFF-39",
+  "query": "infusion",
+  "url": "https://search.openfoodfacts.org/search?q=infusion&page_size=3&langs=fr&fields=code&fields=product_name&fields=product_name_fr&fields=brands&fields=categories&fields=categories_tags&fields=nutriments&fields=nutrition_data_per&fields=product_quantity_unit&fields=last_indexed_datetime&fields=obsolete&fields=countries_tags",
+  "capturedAt": "2026-10-10T08:53:15.982Z",
+  "status": 200,
+  "reason": null,
+  "retryAfter": null,
+  "sha256": "d41d2d9afbc1b93393e035d8a83081f5bdd33c5a511f84d2ea9198f05844bee3",
+  "bodyFile": "OFF-39.body.json",
+  "userAgent": "MacrovaAudit/1 (https://github.com/ecourn/macrova)"
+}

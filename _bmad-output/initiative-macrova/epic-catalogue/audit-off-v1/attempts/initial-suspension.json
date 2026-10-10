@@ -1,0 +1,7 @@
+{
+  "id": "OFF-01",
+  "status": 503,
+  "retryAfter": null,
+  "capturedAt": "2026-10-10T08:41:40.832Z",
+  "action": "Aucun retry automatique. Reprise manuelle \u00e0 documenter apr\u00e8s d\u00e9lai, sans relancer OFF-01."
+}
