@@ -1,5 +1,5 @@
 <!-- bmad:context -->
-<!-- Vérifié le 2026-10-05 contre c80ce0f3f28ab7fe2cbfd1e0d325b9aab4f4be0a. Géré par bmad-project-context ; ce bloc est remplacé lors des actualisations. Conserver les consignes personnelles hors des marqueurs. -->
+<!-- Vérifié le 2026-10-10 contre afa792bc8b9852dbbb85535aef9348b1d8616129 (base avant cet audit). Géré par bmad-project-context ; ce bloc est remplacé lors des actualisations. Conserver les consignes personnelles hors des marqueurs. -->
 
 ## Politique
 
@@ -9,6 +9,8 @@
 
 ## Points d’entrée
 
+- Pour choisir, ajouter, remplacer ou retirer une bibliothèque, lire `_bmad-output/initiative-macrova/architecture-app/conventions-bibliotheques.md` ; justifier le besoin et vérifier les usages indirects, CSS, configurations, CLI et tests avant toute suppression ou migration.
+- Lors d’une actualisation de ce bloc, charger `_bmad/custom/bmad-project-context.toml`, source pérenne des consignes et références à conserver ; préserver les règles de `app/AGENTS.md`.
 - Pour une fonctionnalité produit, lire `_bmad-output/spec-macrova/spec-macrova.md` et ses compagnons déclarés.
 - Pour les frontières, contrats partagés ou changements de persistance dans `app/`, lire `_bmad-output/initiative-macrova/architecture-app/architecture-app.md` ; distinguer le socle existant des modules à construire et les décisions adoptées des hypothèses.
 - Pour une modification de l’interface ou d’un parcours, lire `_bmad-output/ux-macrova/DESIGN.md` et `_bmad-output/ux-macrova/EXPERIENCE.md`.
