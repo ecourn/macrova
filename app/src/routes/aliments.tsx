@@ -24,7 +24,13 @@ export const Route = createFileRoute("/aliments")({
 })
 function Search() {
   const search = useAction(api.catalogue.search)
-  return <CatalogueSearch search={(query) => search({ query })} />
+  const product = useAction(api.catalogue.product)
+  return (
+    <CatalogueSearch
+      search={(query) => search({ query })}
+      product={(code) => product({ code })}
+    />
+  )
 }
 function Aliments() {
   const title = useRef<HTMLHeadingElement>(null)

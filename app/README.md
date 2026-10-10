@@ -594,12 +594,12 @@ manquantes, base 100 g/100 ml ou ambiguë, état cru/cuit/inconnu, marque, lien
 produit, date de consultation et date d’index distinctes. Les valeurs invalides
 ne sont pas utilisables ; aucune énergie, densité ou unité n’est inférée.
 Les produits obsolètes sont écartés. Les données affichées ne garantissent pas
-la fiche actuelle : relecture produit v3.6, corrections et sélection sont les
-stories suivantes. Attribution OFF, ODbL et DbCL accompagne les résultats.
+la fiche actuelle : la relecture explicite v3.6 est disponible en 3.3 ci-dessous ;
+corrections et sélection restent les stories suivantes. Attribution OFF, ODbL et DbCL accompagne les résultats.
 
 Les réservations sont durables et partagées entre toutes les instances du
 déploiement. Huit recherches au maximum sur une minute ; le budget produit
-séparé de douze/minute est préparé mais aucun appel produit n’est encore fait.
+séparé de douze/minute est utilisé par la relecture produit de 3.3.
 Le composant rateLimiter et le contrôle de fenêtre glissante limitent les
 rafales aux frontières des minutes. Deux demandes identiques en vol partagent
 un appel ; seuls leurs participants reçoivent le résultat terminal transitoire.
@@ -620,3 +620,67 @@ Render ; origine locale `http://localhost:3000`. Accorder les droits synthétiqu
 uniquement par administration serveur de ce backend isolé ; aucune API publique
 n’accorde un droit. Ne pas employer un compte réel, un JWT forgé ou le mode E2E
 qui neutralise Convex pour prétendre valider l’authentification.
+
+
+## Relecture produit sourcée (story 3.3)
+
+Dans le détail d’un résultat, « Consulter le produit actuel » appelle
+`api.catalogue.product({ code })` explicitement. Le hit initial, sa consultation
+recherche et sa date d’index restent affichés ; chaque lecture produit réussie
+ajoute un résultat daté distinct sans modifier les précédents. Une panne laisse
+ces données lisibles, sans annoncer de consultation fraîche. Retour, autre hit,
+nouvelle recherche, déconnexion réseau et démontage abandonnent les réponses
+anciennes ; aucune reprise automatique. Aucun bouton de sélection n’est ajouté.
+
+Configuration serveur de test, avec le User-Agent de la section précédente :
+
+```bash
+bunx convex env set OFF_PRODUCT_ENDPOINT https://world.openfoodfacts.net
+bunx convex env set OFF_PRODUCT_API_VERSION "OFF v3.6"
+```
+
+L’endpoint `.net` est le staging OFF. L’adaptateur lui fournit uniquement les
+identifiants **publics OFF** `off:off` en Basic, exigés par sa
+[documentation officielle](https://openfoodfacts.github.io/openfoodfacts-server/api/).
+Ils ne proviennent jamais d’un compte Macrova. La production
+`https://world.openfoodfacts.org` est aussi configurable pour une lecture réelle
+explicitement décidée ; elle ne reçoit aucun header Authorization. Les tests
+rejouent les captures locales sans réseau et ne nécessitent aucune configuration
+distante. Aucun backend n’est déployé par cette story. Avant publication ultérieure,
+générer les types et publier le backend compatible avant le frontend.
+
+La requête GET `/api/v3.6/product/{code}.json` accepte un code de 4 à 24 chiffres
+issu normalement du hit et une projection fixe de champs publics. Pas de
+recherche par nom, image, contributeur ni transfert du profil, du cookie ou du
+jeton Macrova. Le délai de 15 secondes et le corps maximal de 256 000 octets
+s’appliquent aussi au produit. Produit absent, réponse malformée, panne réseau,
+quota et suspension sont distingués.
+
+L’enveloppe v3.6 utilise exclusivement `nutrition.aggregated_set` : préparation
+`as_sold`, origine `packaging`, `source_per` égal à `per`, unités g/kcal. Les
+valeurs `computed`/`estimate`, approximatives ou bornées, les nombres dépassant
+six décimales ou 1 000 000 et les unités incompatibles sont bloqués sans arrondi.
+Les lexèmes source publics utiles restent visibles, avec une raison ciblée,
+même si leur valeur canonique devient `null`. Aucun fallback de nutrition ou de
+base legacy, kcal inférée ou densité inventée. État inconnu reste inconnu.
+L’obsolescence et une préparation absente/non prise en charge produisent un
+résultat explicitement `blocked`, même si certaines valeurs sont complètes.
+Chaque snapshot transporté reste valide au contrat v1 ; `ready` indique une
+normalisation complète dans la base et l’état exposés, sans sélectionner l’aliment.
+
+Douze nouvelles lectures produit par minute glissante et huit recherches ont
+leurs budgets globaux distincts. Des comptes lisant le même code simultanément
+partagent un fetch ; un nouvel appel après terminaison consomme une nouvelle
+réservation. Session, droit actif et compte ouvert sont relus avant réseau et
+remise ; les erreurs backend originales ne sont pas converties en panne OFF.
+429/503 suspendent **les deux types** via le même état durable et Retry-After,
+sans retry. Les anciens travaux recherche sans `workType` restent pris en charge
+pour la déduplication et le quota. Résultats transitoires supprimés après
+90 secondes, aucun cache durable ni reprise générale des réservations.
+
+Vérification reproductible : `bun run test` inclut les captures immuables tofu,
+amandes et yaourt (hashes contrôlés), les négatifs synthétiques séparés, la
+concurrence intercomptes, les droits et les quotas mêlés. Les tests
+`bun run test:e2e -- tests/e2e/catalogue.spec.ts --project chromium` contrôlent le
+composant réel avec des promesses locales ; ils ne prouvent pas une connexion
+réelle. La recette globale déploiement/authentification reste en 3.10.

@@ -1,5 +1,6 @@
 import type { FoodSnapshot } from "./contracts"
 import { parseDecimal } from "./decimal"
+import { checkCalculability, validateFoodSnapshot } from "./food"
 import { normalizeProduct, parseLossless } from "./off-normalization"
 
 export const OFF_ENDPOINT = "https://search.openfoodfacts.org/search"
@@ -134,6 +135,157 @@ export function normalizeSearchBody(
       hits.push({ snapshot: normalized.snapshot, indexedAt, reasons })
     }
     return { kind: "results", hits, capturedAt }
+  } catch {
+    return { kind: "unavailable", reason: "MALFORMED_RESPONSE" }
+  }
+}
+
+export const OFF_PRODUCT_API_VERSION = "OFF v3.6"
+export const OFF_PRODUCT_ENDPOINTS = [
+  "https://world.openfoodfacts.net",
+  "https://world.openfoodfacts.org",
+] as const
+export const OFF_PRODUCT_FIELDS =
+  "code,product_name,product_name_fr,brands,categories,categories_tags,product_quantity_unit,nutrition,obsolete"
+export type ProductSourceFields = {
+  aggregatePer: string | null
+  preparation: string | null
+  productQuantityUnit: string | null
+  obsolete: string | null
+  stateEvidence: string
+  nutrients: Record<string, Record<string, string | null>>
+}
+export type ProductDetail = {
+  status: "ready" | "blocked"
+  snapshot: FoodSnapshot
+  reasons: string[]
+  sourceFields: ProductSourceFields
+}
+export type ProductResult =
+  | { kind: "product"; detail: ProductDetail }
+  | { kind: "missing" }
+  | Exclude<CatalogueResult, { kind: "results" }>
+export type CatalogueWorkResult = CatalogueResult | ProductResult
+export function validateProductCode(code: string): string {
+  if (!/^\d{4,24}$/.test(code)) throw new Error("Code produit OFF invalide.")
+  return code
+}
+export function productUrl(code: string, endpoint: string): URL {
+  validateProductCode(code)
+  if (!OFF_PRODUCT_ENDPOINTS.some((allowed) => endpoint === allowed))
+    throw new Error("Endpoint produit OFF non pris en charge")
+  const url = new URL(`/api/v3.6/product/${code}.json`, endpoint)
+  url.searchParams.set("fields", OFF_PRODUCT_FIELDS)
+  return url
+}
+const sourceRecord = (value: unknown): Record<string, unknown> =>
+  value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {}
+const sourceText = (value: unknown): string | null => {
+  if (value === undefined || value === null) return null
+  if (typeof value === "boolean") return String(value)
+  if (typeof value !== "string" || value.length > 2000)
+    throw new Error("source field")
+  return value
+}
+/** Enveloppe stricte v3.6 : le normaliseur audité reste inchangé. */
+export function normalizeProductBody(
+  body: string,
+  code: string,
+  capturedAt: number,
+  revision: string
+): ProductResult {
+  try {
+    validateProductCode(code)
+    const data = sourceRecord(parseLossless(body))
+    const errors = data.errors
+    if (!Array.isArray(errors)) throw new Error("errors")
+    if (data.code !== code) throw new Error("code")
+    if (sourceRecord(data.result).id === "product_not_found" && !data.product)
+      return { kind: "missing" }
+    if (errors.length) return { kind: "unavailable", reason: "SOURCE_ERROR" }
+    if (
+      data.status !== "success" ||
+      sourceRecord(data.result).id !== "product_found"
+    )
+      throw new Error("status")
+    const product = sourceRecord(data.product)
+    if (product.code !== code) throw new Error("product")
+    const aggregate = sourceRecord(
+      sourceRecord(product.nutrition).aggregated_set
+    )
+    // L'absence de l'agrégat ne doit jamais rouvrir les nutriments legacy.
+    const normalized = normalizeProduct(
+      { ...product, nutriments: {}, nutrition_data_per: null },
+      { query: "", basis: "unknown", state: "unknown" },
+      {
+        apiVersion: OFF_PRODUCT_API_VERSION,
+        sha256: revision,
+        capturedAt: new Date(capturedAt).toISOString(),
+      }
+    )
+    const { snapshot } = normalized
+    if (
+      !snapshot.name.trim() ||
+      snapshot.name.length > 500 ||
+      (snapshot.brand?.length ?? 0) > 500
+    )
+      throw new Error("metadata")
+    const reasons = [...normalized.reasons]
+    if (!Object.keys(aggregate).length) reasons.push("MISSING_AGGREGATE")
+    if (aggregate.preparation !== "as_sold")
+      reasons.push("UNSUPPORTED_PREPARATION")
+    const sourceFields: ProductSourceFields = {
+      aggregatePer: sourceText(aggregate.per),
+      preparation: sourceText(aggregate.preparation),
+      productQuantityUnit: sourceText(product.product_quantity_unit),
+      obsolete: sourceText(product.obsolete),
+      stateEvidence: normalized.sourceFields.stateEvidence.slice(0, 2000),
+      nutrients: {},
+    }
+    const nutrients = sourceRecord(aggregate.nutrients)
+    for (const [field, sourceKey] of [
+      ["protein", "proteins"],
+      ["carbohydrate", "carbohydrates"],
+      ["fat", "fat"],
+      ["energy", "energy-kcal"],
+    ] as const) {
+      const nutrient = sourceRecord(nutrients[sourceKey])
+      sourceFields.nutrients[sourceKey] = Object.fromEntries(
+        ["value", "unit", "source", "source_per", "modifier"].map((key) => [
+          key,
+          sourceText(nutrient[key]),
+        ])
+      )
+      if (nutrient.value !== null && nutrient.value !== undefined) {
+        if (nutrient.source !== "packaging")
+          reasons.push(`UNSUPPORTED_NUTRIENT_SOURCE:${sourceKey}`)
+        if (nutrient.source_per !== aggregate.per)
+          reasons.push(`INCOMPATIBLE_SOURCE_PER:${sourceKey}`)
+      }
+      const amount = snapshot.nutrition[field]
+      if (amount !== null && !parseDecimal(amount, field).ok) {
+        reasons.push(`INVALID_DECIMAL:${sourceKey}`)
+        snapshot.nutrition[field] = null
+      }
+      if (nutrient.modifier !== undefined && nutrient.modifier !== "=")
+        snapshot.nutrition[field] = null
+    }
+    const valid = validateFoodSnapshot(snapshot)
+    if (!valid.ok) throw new Error("snapshot")
+    const calculability = checkCalculability(snapshot)
+    if (!calculability.ok) reasons.push(calculability.error.code)
+    const unique = [...new Set(reasons)]
+    return {
+      kind: "product",
+      detail: {
+        status: unique.length ? "blocked" : "ready",
+        snapshot,
+        reasons: unique,
+        sourceFields,
+      },
+    }
   } catch {
     return { kind: "unavailable", reason: "MALFORMED_RESPONSE" }
   }

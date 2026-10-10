@@ -4,6 +4,8 @@ import { useHydrated } from "@tanstack/react-router"
 import {
   type CatalogueHit,
   type CatalogueResult,
+  type ProductResult,
+  type ProductDetail,
   normalizeSearch,
 } from "@/domain/catalogue"
 import { ERROR_MESSAGES, NUTRIENTS, type ErrorCode } from "@/domain/contracts"
@@ -21,13 +23,36 @@ const names = {
 const date = (value: number) =>
   new Date(value).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })
 const reasonText = (reason: string) => {
-  if (reason.startsWith("UNSUPPORTED_NUTRIENT_UNIT:"))
-    return "Unité nutritionnelle non prise en charge"
-  if (reason.startsWith("UNSUPPORTED_NUTRIENT_MODIFIER:"))
-    return "Valeur approximative ou bornée non prise en charge"
+  const [code, nutrient] = reason.split(":")
+  const targeted = (
+    {
+      INVALID_DECIMAL: "Valeur ou précision nutritionnelle invalide",
+      UNSUPPORTED_NUTRIENT_SOURCE:
+        "Valeur absente de l’étiquette : estimation ou calcul refusé",
+      INCOMPATIBLE_SOURCE_PER:
+        "Base de la valeur différente de la base déclarée",
+      UNSUPPORTED_NUTRIENT_UNIT: "Unité nutritionnelle non prise en charge",
+      UNSUPPORTED_NUTRIENT_MODIFIER:
+        "Valeur approximative ou bornée non prise en charge",
+    } as Record<string, string>
+  )[code]
+  if (nutrient && targeted) {
+    const label =
+      (
+        {
+          proteins: names.protein,
+          carbohydrates: names.carbohydrate,
+          fat: names.fat,
+          "energy-kcal": names.energy,
+        } as Record<string, string>
+      )[nutrient] || nutrient
+    return `${label} : ${targeted}`
+  }
   return (
     (
       {
+        SOURCE_OBSOLETE: "Produit déclaré obsolète",
+        MISSING_AGGREGATE: "Données nutritionnelles produit absentes",
         MISSING_NUTRITION: "Valeurs nutritionnelles manquantes",
         AMBIGUOUS_BASIS: "Base nutritionnelle à confirmer",
         INVALID_DECIMAL: "Valeur ou précision nutritionnelle invalide",
@@ -62,9 +87,11 @@ const sourceErrorText = (reason: string) => {
 export function CatalogueFood({
   hit,
   detail = false,
+  origin = "search",
 }: {
   hit: CatalogueHit
   detail?: boolean
+  origin?: "search" | "product"
 }) {
   const food = hit.snapshot
   return (
@@ -103,13 +130,14 @@ export function CatalogueFood({
         >
           Open Food Facts
         </a>{" "}
-        · Consulté le {date(food.capturedAt)}
+        · {origin === "product" ? "Produit consulté" : "Recherche consultée"} le{" "}
+        {date(food.capturedAt)}
       </p>
       <p className="text-sm">
         Index :{" "}
         {hit.indexedAt ? date(Date.parse(hit.indexedAt)) : "date inconnue"}
       </p>
-      {detail && (
+      {detail && origin === "search" && (
         <>
           <p className="break-all text-sm">Identifiant OFF : {food.sourceId}</p>
           <p>
@@ -144,8 +172,10 @@ export function catalogueMessage(result: CatalogueResult): string {
 }
 export function CatalogueSearch({
   search,
+  product,
 }: {
   search: (query: string) => Promise<CatalogueResult>
+  product?: (code: string) => Promise<ProductResult>
 }) {
   const ready = useHydrated()
   const [query, setQuery] = useState("")
@@ -157,6 +187,56 @@ export function CatalogueSearch({
   )
   const [result, setResult] = useState<CatalogueResult | null>(null)
   const [selected, setSelected] = useState<CatalogueHit | null>(null)
+  const [readings, setReadings] = useState<ProductDetail[]>([])
+  const [productBusy, setProductBusy] = useState(false)
+  const [productMessage, setProductMessage] = useState("")
+  const productGeneration = useRef(0)
+  function resetProduct() {
+    productGeneration.current += 1
+    setReadings([])
+    setProductMessage("")
+    setProductBusy(false)
+  }
+  async function readProduct() {
+    if (!selected || !product || !ready || !online || productBusy) return
+    const generation = ++productGeneration.current
+    setProductBusy(true)
+    setProductMessage("Consultation du produit en cours…")
+    try {
+      const response = await product(selected.snapshot.sourceId)
+      if (generation !== productGeneration.current) return
+      if (response.kind === "product") {
+        setReadings((previous) => [...previous, response.detail])
+        setProductMessage(
+          response.detail.status === "ready"
+            ? "Nouvelle consultation disponible. Instantané v1 valide."
+            : "Nouvelle consultation disponible. Produit bloqué pour le calcul."
+        )
+      } else if (response.kind === "missing")
+        setProductMessage(
+          "Ce produit est absent de la source. Le résultat de recherche daté reste lisible."
+        )
+      else if (response.kind === "limited")
+        setProductMessage(
+          `Budget de consultation produit atteint. Réessayez explicitement après le ${date(response.retryAt)}.`
+        )
+      else setProductMessage(catalogueMessage(response))
+    } catch (error) {
+      if (generation !== productGeneration.current) return
+      const data = error instanceof ConvexError ? error.data : null
+      const code =
+        data && typeof data === "object" && "code" in data
+          ? String(data.code)
+          : ""
+      setProductMessage(
+        code in ERROR_MESSAGES
+          ? ERROR_MESSAGES[code as ErrorCode]
+          : "Le service applicatif a rencontré une erreur. Réessayez explicitement."
+      )
+    } finally {
+      if (generation === productGeneration.current) setProductBusy(false)
+    }
+  }
   const detailHeading = useRef<HTMLHeadingElement>(null)
   const resultButtons = useRef(new Map<number, HTMLButtonElement>())
   const selectedResultIndex = useRef<number | null>(null)
@@ -173,6 +253,11 @@ export function CatalogueSearch({
     const update = () => {
       setOnline(navigator.onLine)
       if (!navigator.onLine) {
+        productGeneration.current += 1
+        setProductBusy(false)
+        setProductMessage(
+          "Consultation interrompue. Réessayez explicitement après reconnexion."
+        )
         latest.current += 1
         activeQuery.current = null
         setBusy(false)
@@ -182,6 +267,7 @@ export function CatalogueSearch({
     window.addEventListener("online", update)
     window.addEventListener("offline", update)
     return () => {
+      productGeneration.current += 1
       latest.current += 1
       window.removeEventListener("online", update)
       window.removeEventListener("offline", update)
@@ -203,6 +289,7 @@ export function CatalogueSearch({
     setSubmitted(query)
     setBusy(true)
     selectedResultIndex.current = null
+    resetProduct()
     setSelected(null)
     setResult(null)
     setMessage("Recherche en cours…")
@@ -274,10 +361,54 @@ export function CatalogueSearch({
           </CardHeader>
           <CardContent className="space-y-4">
             <CatalogueFood hit={selected} detail />
+            {product && (
+              <>
+                <Button
+                  className="min-h-11"
+                  disabled={!ready || !online || productBusy}
+                  onClick={readProduct}
+                >
+                  {productBusy
+                    ? "Consultation en cours…"
+                    : "Consulter le produit actuel"}
+                </Button>
+                <p role="status" aria-live="polite">
+                  {productMessage}
+                </p>
+                {readings.map((reading, index) => (
+                  <section
+                    key={`${reading.snapshot.revision}-${index}`}
+                    aria-label={`Consultation produit ${index + 1}`}
+                    className="space-y-3 border-t pt-4"
+                  >
+                    <h3 className="font-semibold">
+                      Consultation produit {index + 1} : {reading.snapshot.name}
+                    </h3>
+                    <CatalogueFood
+                      origin="product"
+                      hit={{
+                        snapshot: reading.snapshot,
+                        indexedAt: selected.indexedAt,
+                        reasons: reading.reasons,
+                      }}
+                    />
+                    <p>
+                      {reading.status === "ready"
+                        ? "Instantané v1 valide dans la base et l’état indiqués."
+                        : `Calcul bloqué : ${[...new Set(reading.reasons.map(reasonText))].join(" ; ")}.`}
+                    </p>
+                    <ProductSource detail={reading} />
+                  </section>
+                ))}
+              </>
+            )}
             <Button
               className="min-h-11"
               variant="outline"
-              onClick={() => setSelected(null)}
+              onClick={() => {
+                resetProduct()
+                setSelected(null)
+              }}
             >
               Retour aux résultats
             </Button>
@@ -304,6 +435,7 @@ export function CatalogueSearch({
                         else resultButtons.current.delete(index)
                       }}
                       onClick={() => {
+                        resetProduct()
                         selectedResultIndex.current = index
                         setSelected(hit)
                       }}
@@ -339,5 +471,51 @@ export function CatalogueSearch({
         .
       </p>
     </section>
+  )
+}
+
+function ProductSource({ detail }: { detail: ProductDetail }) {
+  const fields = detail.sourceFields
+  return (
+    <div className="space-y-2 text-sm">
+      <h4 className="font-semibold">Données déclarées par la source</h4>
+      <p>
+        Préparation :{" "}
+        {fields.preparation === "as_sold"
+          ? "tel que vendu"
+          : fields.preparation || "absente"}{" "}
+        · Base : {fields.aggregatePer || "absente"} · Unité du produit :{" "}
+        {fields.productQuantityUnit || "absente"}
+      </p>
+      <p>Éléments décrivant l’état : {fields.stateEvidence || "absents"}</p>
+      <p>Obsolescence déclarée : {fields.obsolete || "non indiquée"}</p>
+      <dl className="space-y-2">
+        {Object.entries(fields.nutrients).map(([key, value]) => (
+          <div key={key}>
+            <dt className="font-semibold">
+              {
+                (
+                  {
+                    proteins: "Protéines",
+                    carbohydrates: "Glucides",
+                    fat: "Lipides",
+                    "energy-kcal": "Calories",
+                  } as Record<string, string>
+                )[key]
+              }
+            </dt>
+            <dd className="break-words">
+              Valeur source : {value.value ?? "absente"} {value.unit ?? ""} ·
+              Origine :{" "}
+              {value.source === "packaging"
+                ? "étiquette"
+                : value.source || "absente"}{" "}
+              · Pour : {value.source_per || "absent"} · Qualificatif :{" "}
+              {value.modifier || "non indiqué"}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   )
 }
