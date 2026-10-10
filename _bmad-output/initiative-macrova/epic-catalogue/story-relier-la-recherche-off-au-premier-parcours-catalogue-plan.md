@@ -3,7 +3,7 @@ title: 'Relier la recherche OFF au premier parcours catalogue'
 type: feature
 ticket: 2
 created: '2026-10-10'
-status: built
+status: done
 baseline_revision: '5957dbc7fba582638f7bc7060620ca540bbaddcd'
 route: full
 route_source: auto
@@ -92,3 +92,7 @@ Revue quick indépendante du diff complet ; aucun autre constat, aucun report. L
 ## Verification
 
 Depuis app : `bun run test`, `bun run typecheck`, `bun run check` (zéro erreur/avertissement), `bun run build`. Replay recherche/produit identique aux classifications 3.1. Tests UI ciblés et recette identité réelle avec backend dev isolé, droit de test serveur ; enregistrer limites/panne réelle sans la masquer. Revue quick indépendante du diff complet incluant nouveaux fichiers.
+
+## Clôture
+
+Decision: 2026-10-10 — Story 3.2 marquée `done` via `tickets.py mark` à la demande explicite de l’utilisateur, sur la base du [walkthrough terminé](../../walkthrough-a010774/walkthrough-a010774.md) et de son [journal de clôture](../../walkthrough-a010774/walkthrough-a010774-log.md). Les sept blocs sont acceptés par délégation ; aucun point bloquant identifié. Les limites consignées restent applicables : inspection non exhaustive et recette auth/OFF réelle historique, non rejouée pendant le walkthrough.

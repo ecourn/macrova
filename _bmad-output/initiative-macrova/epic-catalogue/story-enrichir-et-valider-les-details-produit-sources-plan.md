@@ -3,7 +3,7 @@ title: Enrichir et valider les détails produit sourcés
 type: feature
 ticket: 3
 created: 2026-10-10
-status: built
+status: done
 baseline_revision: c6f983acee6d9eba40aa58dcfcb31fc39cef303c
 route: full
 route_source: auto
@@ -121,3 +121,7 @@ Les deux constats ont été corrigés : messages ciblés avec noms français des
 Chaque ligne de la matrice est couverte par des tests exécutés : captures et nutrition/base/état/préparation dans `src/domain/catalogue-product.test.ts`, réseau/accès/budgets/concurrence dans `convex/catalogue.test.ts`, interface/immutabilité dans `tests/e2e/catalogue.spec.ts`. Les replays audités sont également exécutés par `scripts/audit-off.test.ts`. Vérification finale de l’orchestrateur : 561 tests / 29 fichiers réussis, typecheck code 0, check code 0 sans erreur ni avertissement (181 fichiers), build code 0. Les avertissements de bundling de dépendances restent ceux documentés précédemment.
 
 Tests navigateur relancés par l’orchestrateur après corrections : 13/13 réussis (36,9 secondes), aucun skip. Revue et vérifications achevées ; statut built selon le workflow BMAD.
+
+## Clôture
+
+Decision: 2026-10-10 — Story 3.3 marquée `done` via `tickets.py mark` à la demande explicite de l’utilisateur, sur la base du [walkthrough terminé](../../walkthrough-6b8bb94/walkthrough-6b8bb94.md) et de son [journal de clôture](../../walkthrough-6b8bb94/walkthrough-6b8bb94-log.md). Les six blocs sont acceptés par délégation ; aucun constat bloquant ni travail ouvert dans le périmètre de la revue. Les limites consignées restent applicables : E2E hors réseau, régénération Convex avant publication et recette déploiement/auth réelle réservée à la story 3.10.
