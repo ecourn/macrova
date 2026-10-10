@@ -8,6 +8,8 @@ mode: batch
 approval: explicit-user-delegation
 ---
 
+> Historique : les obligations d’enquête, de recrutement, de bêta et de résultats commerciaux préalables sont remplacées par [la décision du 10 octobre 2026](../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Audit alimentaire et contrôles techniques conservés ; aucune validation utilisateur inventée. Les autres exigences restent applicables.
+
 # Correction de trajectoire — gouvernance à deux
 
 ## 1. Problème et mandat

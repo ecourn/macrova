@@ -43,7 +43,7 @@ Chaque exigence locale ci-dessous dérive de **CAP-1** ; la spécification reste
 
 Le calculateur possède la méthode estimative, son domaine pur, son parcours public et sa mesure publique. Il réutilise les contrats et la livraison du socle terminé, sans nouvelle API de calcul serveur. La cible reste journalière et estimative : aucune cible de repas, confirmation personnelle, sauvegarde de compte ou compensation automatique n'est introduite ici.
 
-Démonstration et offre appartiennent à leurs epics ; ne pas créer de parcours fictif ni de paywall dans le résultat gratuit. Leur navigation sera raccordée quand ces destinations seront livrées. Les entretiens, observations de terrain, politiques de lancement et ouverture publique appartiennent à epic-validation-lancement. Appliquer tous les Non-goals de la spécification, notamment aucune prescription ni garantie de santé.
+Démonstration et offre appartiennent à leurs epics ; ne pas créer de parcours fictif ni de paywall dans le résultat gratuit. Leur navigation sera raccordée quand ces destinations seront livrées. Les politiques de lancement et l’ouverture publique appartiennent à epic-validation-lancement ; les retours terrain deviennent facultatifs après livraison par décision du 10 octobre 2026. Appliquer tous les Non-goals de la spécification, notamment aucune prescription ni garantie de santé.
 
 ## References
 

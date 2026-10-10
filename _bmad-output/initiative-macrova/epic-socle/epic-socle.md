@@ -102,4 +102,4 @@ Cette acceptation porte sur le socle de test. Les validations de lancement, la
 réception humaine des alertes et la reprise cloud complète de production ne sont
 pas déclarées acquises.
 
-- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques, terrain et conditions d’activation restent exigées au moment pertinent selon la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.
+- Decision: 2026-10-08 — gouvernance à deux : les responsabilités de cet epic sont coordonnées par l’agent mandaté, avec l’utilisateur pour les interventions humaines et les accès. Aucune approbation externe organisationnelle n’est requise ; les preuves techniques et conditions d’activation restent exigées ; les retours terrain deviennent facultatifs après livraison par décision du 10 octobre 2026, qui remplace sur ce point la correction `../change-gouvernance-a-deux/change-gouvernance-a-deux.md`.

@@ -1,11 +1,13 @@
 ---
 type: epic
-status: in-progress
+status: dropped
 title: "Entretiens et repas de référence"
 parent: initiative-macrova
 covers: []
 risk: high
 ---
+
+> Archive du 10 octobre 2026 : epic abandonné pour le MVP, 10.1 conservée done, 10.2 dropped, 10.3–10.7 supprimées du découpage actif. Les exigences ENQ ci-dessous sont historiques ; protection requise uniquement si une collecte future est décidée. Voir [la décision courante](../change-mvp-sans-enquete/change-mvp-sans-enquete.md).
 
 # Entretiens et repas de référence
 
@@ -75,3 +77,7 @@ Le dépôt peut accueillir guides, schémas vierges et comptes rendus de décisi
 - Decision: 2026-10-08 — les responsables produit/enquête/catalogue/validation désignent les fonctions du binôme. L’utilisateur conduit les entretiens et administre le support ; l’agent prépare les documents, arbitre et contrôle les preuves qui lui sont accessibles. Aucune validation d’un tiers n’est exigée.
 - Decision: 2026-10-08 — 10.1 clôt le kit et le protocole documentaire adopté par l’agent ; hitl=false, done_checkpoint=false. Le choix effectif du support, ses essais d’accès/révocation/suppression, l’information finale avec contact, les canaux autorisés et l’accord du participant sont des tâches de 10.2 avant toute collecte. Les remises effectives restent en 10.5/10.7. Les anciennes conditions de clôture et questions demandant ces preuves en 10.1 sont remplacées.
 - Decision: 2026-10-08 — les checkpoints des stories terrain contrôlent une preuve réelle ou une intervention inaccessible à l’agent ; ils ne demandent aucun arbitrage supplémentaire déjà délégué. Aucun consentement, entretien ou résultat n’est inventé. Le support d’enquête ne bloque aucune story du calculateur.
+
+## Abandon — 10 octobre 2026
+
+Dropped: décision produit explicite de livrer sans enquête préalable. ENQ-2 et la transmission obligatoire sont abandonnées ; audit transféré à epic 3, apprentissage facultatif après livraison. Aucun entretien ni essai réel déclaré réalisé.

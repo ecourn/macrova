@@ -3,7 +3,7 @@ title: '10.2 — Éprouver le guide sur un entretien pilote réel'
 type: 'chore'
 ticket: 2
 created: '2026-10-09'
-status: 'in-progress'
+status: dropped
 baseline_revision: '34bd74a5317e944807e002084898bf497985d319'
 route: 'oneshot'
 route_source: 'auto'
@@ -16,6 +16,8 @@ context:
   - _bmad-output/initiative-macrova/epic-enquete/kit-enquete-v1/cadre-protection.md
   - _bmad-output/spec-macrova/protocole-validation.md
 ---
+
+> Historique remplacé pour le MVP par [la décision du 10 octobre 2026](../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune reprise terrain obligatoire ; les constats et preuves absentes ci-dessous restent historiques.
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
 
@@ -78,3 +80,7 @@ Préparation documentaire réalisée, vérifiée et revue. Le statut in-progress
 - Aucun support utilisateur désigné et accessible, résultat réel d'essai, information finale/contact, canal effectivement autorisé, accord volontaire, observation d'entretien ou extraction réelle n'a été fourni pour cette reprise. Le contrôle des capacités effectué par l'agent coordinateur n'a trouvé aucun outil connecté au support d'enquête ; les outils de prévisualisation ont indiqué l'absence de navigateur. Ces constats ne prouvent ni un accès refusé au support utilisateur ni son indisponibilité pour l'utilisateur.
 - Vérification documentaire : 19 liens locaux du README, de la conduite et du guide ont une cible existante. Le protocole canonique et le protocole bêta sont identiques octet par octet à HEAD ; SHA-256 respectifs `69ae0ca4d2a177ae91a6b623634f35578b0af4bdad1814fc9e633e9b46ef0a6d` et `4fb431879632906a68ff9882d9c5281dfccbb0f81c989dd4d7f7ae9ffcafb5f2`. `git diff --check` réussi. Aucun test applicatif ni essai réel du support exécuté.
 - Le statut vérifié dans le suivi du ticket reste `in-progress`. Les six preuves restantes ci-dessus restent non satisfaites ; aucun entretien n'est compté et aucun résultat de terrain n'est inventé. La reprise terrain suit la feuille existante avec preuves privées minimisées ; aucun contact externe effectué.
+
+## Décision de remplacement — 10 octobre 2026
+
+Dropped: l’utilisateur abandonne explicitement le pilote obligatoire et renégocie son intention historique figée. Les critères terrain ne sont pas satisfaits, ils sont retirés du périmètre MVP ; aucune preuve inventée et aucun passage à done. La procédure est conservée pour traçabilité, sans tâche de reprise obligatoire.

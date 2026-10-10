@@ -1,3 +1,7 @@
+
+
+> Historique : les obligations d’enquête, de recrutement, de bêta et de résultats commerciaux préalables sont remplacées par [la décision du 10 octobre 2026](change-mvp-sans-enquete/change-mvp-sans-enquete.md). Audit alimentaire et contrôles techniques conservés ; aucune validation utilisateur inventée. Les autres exigences restent applicables.
+
 # Validation du découpage — 2026-10-05
 
 ## Périmètre

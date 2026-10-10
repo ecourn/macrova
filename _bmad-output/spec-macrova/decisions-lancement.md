@@ -15,6 +15,6 @@ Ces vérifications restent ouvertes : cette spécification ne certifie aucune co
 
 ## Calendrier des validations
 
-L’agent instruit et consigne les décisions dans la gouvernance à deux définie par spec-macrova.md. Les décisions de test déjà prouvées ne sont pas rouvertes. La décision produit de 2.1 autorise CAP-1 en environnement isolé ; les validations de données, licences, conditions commerciales et exploitation restent à vérifier avant leur activation réelle.
+Les contrôles de méthode, catalogue, licences, données, paiement et exploitation restent exigés avant l’activation correspondante. Epic 3 produit et audite son corpus technique ; epic 9 vérifie la recette intégrée et les conditions d’ouverture. Aucun résultat d’entretien, quota bêta ou paiement utilisateur préalable n’est requis pour livrer le MVP.
 
-10.1 clôt la préparation du kit et le gel du protocole. La configuration effective du support, les essais autorisé/refusé/révocation/suppression, l’information finale et les autorisations des canaux appartiennent au début de 10.2, avant toute collecte réelle. Leur absence n’est pas un blocage de développement. 10.5 et 10.7 vérifient la remise privée des livrables au binôme ; les preuves de terrain ne sont jamais remplacées par une décision de l’agent.
+La [décision du 10 octobre 2026](../initiative-macrova/change-mvp-sans-enquete/change-mvp-sans-enquete.md) abandonne 10.2–10.7 comme obligations MVP ; 10.1 reste une préparation historique. Support privé, information/contact, consentement, accès/révocation/suppression et autorisations de canaux ne sont requis que si une collecte de retours est effectivement décidée après livraison. Leur absence ne bloque aucun développement sans collecte.

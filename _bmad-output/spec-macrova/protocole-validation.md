@@ -1,28 +1,36 @@
 # Protocole de validation
 
-## Ordre et mesures
+## Livraison et preuves techniques — 10 octobre 2026
 
-Construire d’abord le calculateur et observer ses usages ; expérimenter ensuite le parcours personnel complet. Mesurer séparément calcul terminé, démonstration, premier repas, réutilisation et paiement : le trafic du calculateur ne valide pas le premium.
+Construire le MVP CAP-1 à CAP-8 puis le mettre à disposition après recette et décisions d’ouverture. Aucun entretien pilote, enquête de quinze personnes, recrutement ou bêta imposée. La préparation historique 10.1 ne constitue ni une validation des besoins ni un prérequis de livraison. La présente version remplace les obligations antérieures selon la [décision produit](../initiative-macrova/change-mvp-sans-enquete/change-mvp-sans-enquete.md).
 
-Mener 15 entretiens sur des repas réels récents, puis une bêta de 20 à 30 adultes de la cible pendant deux semaines. Consigner les canaux de recrutement. Observer une tâche avec la méthode habituelle puis une tâche comparable avec Macrova ; relever durée, erreurs, corrections de portions et compréhension des écarts. Aucun gain de temps minimal n’est présumé.
-
-| Mesure | Définition fixée avant bêta | Seuil interne |
+| Domaine | Vérification objective obligatoire | Portée de la preuve |
 |---|---|---|
-| Activation | Personnes ayant enregistré un premier repas personnel, hors démonstration, pendant les deux semaines / toutes les personnes invitées | ≥ 60 % |
-| Réutilisation | Personnes ayant repris ou copié un repas enregistré entre J6 et J8 après leur invitation / toutes les personnes invitées | ≥ 30 % |
-| Paiement | Personnes distinctes ayant payé réellement 5,99 €, paiement encaissé et non remboursé au bilan de bêta | ≥ 5 |
-| Renouvellement | Paiements du mois suivant observés un mois après chaque premier paiement ; remboursements ultérieurs consignés | Observation sans seuil inventé |
+| Calculateur | Vecteurs exacts du dossier v1, frontières, exclusions, recalcul, invalidation, panne réseau et confidentialité ; tests du domaine et rendu/parcours | Conformité à la méthode adoptée, aucune validité clinique démontrée |
+| Catalogue | Cinquante requêtes versionnées, résultats sourcés/horodatés, replay déterministe, disponibilité, quatre valeurs, unités, état et provenance ; absence ≠ zéro, base ambiguë et densité absente bloquées | Couverture des cas retenus uniquement |
+| Moteur / portions | Cas documentés de 3–6 aliments, contraintes valides/invalides, pas, bornes, verrous, cible atteinte/non atteinte, impossibilité et interruption ; totaux exacts, départage stable et revalidation serveur | Respect des contraintes choisies, pas plausibilité réelle des besoins |
+| Repas / journal | Confirmation unique, copie indépendante, snapshots historiques, totaux, complétude et filiation ; erreurs et retries | Cohérence et absence de doublons |
+| Accès / paiement / données | Refus anonyme/autre compte/session expirée ou révoquée, droits backend, paiement signé et rapprochement, export/suppression/reprise/fermeture | Fonctionnement technique, pas conformité présumée |
+| Interface / exploitation | Recette intégrée mobile/clavier, reflow/zoom, erreurs/reprise, contrôles lecteur d’écran/appareil selon limites déclarées, sauvegarde/restauration, surveillance et rollback | Usabilité technique et preuves réellement observées, pas validation des besoins |
 
-Chaque invité compte une fois, y compris s’il ne commence pas. Une connexion seule ne compte pas comme réutilisation. Arrondir les nombres requis à l’entier supérieur. Le traitement des remboursements est un arbitrage autonome ; signaler tout remboursement survenu après le bilan. Consigner les coûts de service et d’acquisition ; aucune rentabilité ni préférence concurrentielle n’est prouvée par ces seuls seuils. Fixer les critères avant recrutement et tracer toute modification.
+Chaque preuve indique version/révision, commande ou procédure, jeu d’entrée, attendu, observé, date et limites. Conserver les échecs et réexécuter après correction. Les fixtures peuvent simuler une réponse réseau, jamais un retour utilisateur. Ne pas neutraliser l’authentification dans une recette prétendant vérifier l’identité réelle. Les rapports et reports techniques existants conservent leurs échéances.
 
-## Couverture et décision
+## Couverture et décision — corpus technique reproductible
 
-Examiner 50 recherches issues des repas de la cible : aliments bruts, produits français, états cru/cuit. Consigner requête, disponibilité, complétude des quatre valeurs, unités, provenance et capacité à produire une proposition. Documenter les échecs ; aucun seuil numérique de couverture n’est inventé. Résoudre les blocages des repas usuels avant lancement ; un complément sourcé exige une décision explicite et conserve Open Food Facts.
+Epic 3 possède la constitution et l’audit de **cinquante requêtes distinctes**, sans dépendance à 10.5. Documenter le choix de chaque cas : aliment brut, produit commercialisé en France ou exemple sourcé pertinent ; inclure états cru/cuit/inconnu, bases 100 g/100 ml, cas incomplets et absence de résultat. Ne pas revendiquer de représentativité de la cible ni de filiation à un repas réel observé.
 
-Si les trois seuils de bêta sont atteints, poursuivre l’observation du renouvellement et des coûts. Si la composition est peu réutilisée, corriger une fois le problème observé ; si favoris et copie seuls apportent la valeur, tester une offre simplifiée. Après cette correction ciblée, absence de réutilisation ou de paiement : abandonner l’offre par abonnement. Des seuils partiellement atteints justifient un bilan explicite, pas une poursuite automatique. Le calculateur peut être évalué séparément.
+Le manifeste versionné contient id technique stable, requête exacte, catégorie, marque pertinente, état recherché, base/unité attendue ou inconnue, justification/source du cas et résultat attendu documenté sans inventer sa disponibilité. Les catégories peuvent se recouper ; les échecs de réseau sont testés séparément, sans gonfler le compte des cinquante recherches. Séparer les cas négatifs synthétiques, explicitement étiquetés, des valeurs alimentaires sourcées.
 
-Les entretiens, paiements et tests n’ont pas encore été réalisés. Les personnages du forge sont fictifs. Les repères concurrentiels de l’addendum décrivent des offres existantes ; ils ne prouvent aucune exclusivité. Une bibliothèque de repas ajustables, puis variantes et recettes à plusieurs portions, restent conditionnées aux usages observés.
+Pour chaque interrogation OFF réelle, enregistrer endpoint/paramètres et version adaptateur, date, statut, identifiants des produits retournés, extrait des champs utiles et empreinte du contenu conservé selon les licences. Vérifier disponibilité, complétude P/G/L/kcal, base, état et provenance. Aucune valeur absente remplacée par zéro ; aucune nutrition inventée ni conversion/assimilation implicite. Un replay hors réseau relit les captures et produit les mêmes classifications ; le contrôle courant sur OFF, avec son horodatage, est distinct de ce replay et documente les évolutions.
 
-## Gouvernance et séquencement — 8 octobre 2026
+Documenter la faisabilité des exemples complets de 3–6 aliments avec quantités et contraintes de référence sourcées/confirmées, sans déclarer la faisabilité du moteur tant que celui-ci n’est pas construit. Les vérifications moteur communes seront exécutées par l’epic démonstration puis composition.
 
-L’utilisateur conduit les actions terrain ; l’agent prépare, arbitre, vérifie et consigne les résultats accessibles. Le kit de 10.1 et ses conventions de fenêtres/remboursements sont adoptés dans le cadre délégué, avant toute invitation. L’enquête suit sa chaîne propre et ne bloque pas 2.2. Les essais du support privé sont requis au début de 10.2 avant collecte ; le corpus réel de 10.5 reste nécessaire à l’audit de 50 recherches, pas à la construction du calculateur. La remise de 10.7 et les capacités techniques livrées restent nécessaires à la bêta finale.
+Avant gel du catalogue, produire une matrice par cas (utilisable / complétion privée sourcée nécessaire / non pris en charge / indisponible), les raisons, limites et actions ; résoudre les blocages des cas nécessaires à la démonstration et au parcours MVP ou tracer une limitation compatible avec CAP-3. Aucun seuil arbitraire de couverture n’est fixé. Tout catalogue complémentaire exige une décision explicite et conserve OFF. L’audit reste à réaliser, sa préparation ne vaut pas résultat.
+
+## Retours après mise à disposition — facultatifs
+
+Besoin récurrent, temps gagné, compréhension, plausibilité personnelle, valeur payante et rentabilité restent inconnus. Les retours spontanés ou observations volontaires peuvent motiver une correction après livraison. Aucun contact externe sans instruction explicite ; information, consentement, minimisation, accès et conservation doivent être définis avant collecte.
+
+Si une bêta comparative est décidée ultérieurement, définir avant invitations ses effectifs, durée, dénominateurs, fenêtres et critères ; séparer observations et déclarations, compter les invités uniques même sans usage, exclure démonstration/connexion de l’activation et réutilisation. AD-11 conserve les définitions métier et la déduplication. Les anciens repères 20–30 personnes / deux semaines / 60 % activation / 30 % réutilisation J6–J8 / cinq paiements de 5,99 € sont historiques, sans caractère obligatoire ni résultat atteint. Les renouvellements, remboursements et coûts nécessitent des faits réels ; ni le trafic gratuit ni les tests synthétiques ne prouvent le premium.
+
+Une décision de poursuite, correction ou arrêt ne peut prétendre reposer sur des données absentes. L’absence d’étude n’équivaut ni à un succès ni à un échec commercial et ne bloque pas la livraison du MVP fiable.

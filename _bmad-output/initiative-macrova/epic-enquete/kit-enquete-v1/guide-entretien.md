@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Guide d'entretien v1 — 7 octobre 2026
 
 **Guide vierge, utilisable seulement après les conditions du [cadre](cadre-protection.md).** L'enquête ne demande aucun usage de Macrova, achat ni diagnostic. Utiliser les [formats](formats-vierges.md) sur le support privé, sans enregistrement audio/vidéo prévu.

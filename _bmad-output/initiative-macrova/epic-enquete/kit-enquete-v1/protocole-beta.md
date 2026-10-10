@@ -1,3 +1,7 @@
+
+
+> Kit historique facultatif, hors chemin critique du MVP depuis le [10 octobre 2026](../../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune enquête, pilote, recrutement ou quota requis. À réexaminer avant une éventuelle collecte réelle ; aucun résultat utilisateur démontré.
+
 # Protocole bêta v1 — 7 octobre 2026
 
 **Protocole adopté par décision déléguée de l’agent le 8 octobre 2026, avant toute invitation.** Source : [protocole canonique](../../../spec-macrova/protocole-validation.md), [epic enquête](../epic-enquete.md) et [AD-11](../../architecture-app/architecture-app.md). La bêta est réalisée par la [validation de lancement](../../epic-validation-lancement/epic-validation-lancement.md), après ses conditions d'ouverture contrôlée. Ce kit ne crée aucune instrumentation.

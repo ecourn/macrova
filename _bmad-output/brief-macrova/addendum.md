@@ -16,11 +16,9 @@ Les arbitrages les plus récents priment : cible déjà habituée au suivi plut�
 
 ## Protocole d’apprentissage
 
-Recruter des adultes correspondant à la cible et documenter les canaux de recrutement. Observer un repas avec leur méthode habituelle puis une tâche comparable avec Macrova ; conserver durée, erreurs, corrections de portions et compréhension des écarts. Aucun gain minimal chiffré n’est affirmé avant cette observation.
+Depuis la [décision du 10 octobre 2026](../initiative-macrova/change-mvp-sans-enquete/change-mvp-sans-enquete.md), aucun recrutement, entretien ou bêta imposé. Livrer le MVP avec le protocole de vérification objective de spec-macrova/protocole-validation.md ; les retours réels après livraison sont facultatifs.
 
-Compter chaque personne invitée à la bêta une seule fois dans les taux, y compris si elle ne commence pas. Le premier repas personnel exclut la démonstration. La réutilisation correspond à la reprise ou copie d’un repas enregistré ; une simple connexion ne compte pas. La fenêtre J7 proposée va du jour 6 au jour 8 après invitation. Compter les paiements réellement encaissés et préciser le traitement des remboursements avant le test. Observer le renouvellement un mois après chaque premier paiement.
-
-Les seuils du brief autorisent une décision interne de poursuite ; ils ne remplacent ni une étude représentative ni la mesure des coûts. Fixer les critères avant la bêta et consigner toute modification ultérieure.
+Si une étude est décidée, préciser information/protection et critères avant invitations, distinguer observations et déclarations et documenter limites, durée, erreurs, corrections et compréhension. Les définitions métier demeurent : premier repas personnel hors démonstration, reprise/copie confirmée hors simple connexion, encaissements distincts des droits et remboursements/renouvellements rapprochés. Aucun gain de temps, valeur payante ou rentabilité n’est prouvé par des tests techniques. Les anciens quotas et seuils du brief sont historiques, sans condition de livraison.
 
 ## Repères concurrentiels vérifiés le 2 octobre 2026
 

@@ -21,6 +21,8 @@ context:
   - /home/ubuntu/.t3/worktrees/macrova/t3-c1aef171/_bmad-output/initiative-macrova/architecture-app/architecture-app.md
 ---
 
+> Historique remplacé pour le MVP par [la décision du 10 octobre 2026](../change-mvp-sans-enquete/change-mvp-sans-enquete.md). Aucune reprise terrain obligatoire ; les constats et preuves absentes ci-dessous restent historiques.
+
 ## Contrat courant renégocié — 8 octobre 2026
 
 Intent : clôturer la préparation documentaire et adopter le protocole par décision de l’agent mandaté, dans le fonctionnement à deux demandé par l’utilisateur. 10.1 est terminée ; son acceptation ne prétend pas vérifier un support privé ni autoriser une collecte immédiate.

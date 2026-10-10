@@ -14,7 +14,7 @@ La cible de repas comporte protéines, glucides et lipides non négatifs, confir
 
 Afficher une proposition « proche » seulement si chaque macro est dans une tolérance de max(10 % de la cible, 2 g). Cette tolérance provisoire n’est pas une recommandation de santé. Sinon, afficher « cible non atteinte » et les écarts signés ; la personne décide d’accepter ou de modifier ses contraintes. Une proposition doit toujours respecter bornes, pas et verrous. Si aucune combinaison admissible n’existe, ne pas présenter de repas valide ; distinguer entrée incorrecte, donnée manquante et contraintes incompatibles, puis suggérer une contrainte à réexaminer sans la changer.
 
-Le nombre d’aliments est compris entre 3 et 6 pour la composition. Aucune substitution ou variante automatique au premier périmètre. La plausibilité des portions doit être observée auprès de la cible ; un bon score ne suffit pas.
+Le nombre d’aliments est compris entre 3 et 6 pour la composition. Aucune substitution ou variante automatique au premier périmètre. La conformité des portions aux bornes, pas et verrous est vérifiée objectivement sur des cas documentés. Leur plausibilité personnelle auprès de la cible reste inconnue et peut être observée après mise à disposition, sans enquête préalable obligatoire ; un bon score ne démontre pas cette plausibilité.
 
 ## Confirmation et réutilisation — arbitrages autonomes
 
