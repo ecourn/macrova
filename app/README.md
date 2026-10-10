@@ -565,3 +565,58 @@ collecte minimale et replay/conflit, panne interceptée et refus backend ; les
 états de méthode indisponible restent vérifiés exclusivement localement.
 Le document décrit aussi le bilan interne paginé, l'ordre backend/frontend,
 le rollback compatible et les conditions de production non clôturées.
+
+## Premier parcours catalogue (story 3.2)
+
+`/dashboard` donne accès à `/aliments`. La recherche appelle
+`api.catalogue.search({ query })` uniquement après soumission. Le backend
+vérifie session Better Auth, compte ouvert et droit actif avant réservation,
+avant réseau et avant remise des résultats ; la garde SSR est complémentaire.
+Une panne du socle conserve son erreur, séparée d’une source OFF indisponible.
+
+Configurer **dans Convex** (aucune variable publique `VITE_*`) :
+
+```bash
+bunx convex env set OFF_SEARCH_ENDPOINT https://search.openfoodfacts.org/search
+bunx convex env set OFF_SEARCH_API_VERSION "Search-a-licious 0.1.0"
+bunx convex env set OFF_USER_AGENT "Macrova/1 (https://github.com/ecourn/macrova)"
+bun run convex:dev --once
+```
+
+Seul cet endpoint texte versionné est accepté ; pas de fallback legacy.
+La requête contient texte, français, première page de dix résultats et projection
+explicite des champs sources. Aucun profil, identifiant compte, cookie ou jeton
+Macrova n’est envoyé à OFF. Un appel réseau a un délai borné et ne réessaie pas.
+
+Le module réutilise le parsing sans perte de lexèmes et le normaliseur de
+l’audit 3.1. Le détail affiche le hit déjà reçu : quatre valeurs disponibles ou
+manquantes, base 100 g/100 ml ou ambiguë, état cru/cuit/inconnu, marque, lien
+produit, date de consultation et date d’index distinctes. Les valeurs invalides
+ne sont pas utilisables ; aucune énergie, densité ou unité n’est inférée.
+Les produits obsolètes sont écartés. Les données affichées ne garantissent pas
+la fiche actuelle : relecture produit v3.6, corrections et sélection sont les
+stories suivantes. Attribution OFF, ODbL et DbCL accompagne les résultats.
+
+Les réservations sont durables et partagées entre toutes les instances du
+déploiement. Huit recherches au maximum sur une minute ; le budget produit
+séparé de douze/minute est préparé mais aucun appel produit n’est encore fait.
+Le composant rateLimiter et le contrôle de fenêtre glissante limitent les
+rafales aux frontières des minutes. Deux demandes identiques en vol partagent
+un appel ; seuls leurs participants reçoivent le résultat terminal transitoire.
+Une nouvelle soumission après terminaison consomme un nouvel appel : **aucun
+cache**. Travaux et participants expirent après 90 secondes, sans relance.
+
+HTTP 429/503 suspend globalement la source. `Retry-After` secondes/date valide
+est respecté, sinon suspension d’au moins 60 secondes ; une suspension plus
+longue n’est jamais raccourcie. Reprendre exige une nouvelle soumission, même
+après délai. Liste vide, source indisponible, budget et suspension sont distincts.
+Une réponse ancienne ne remplace pas une recherche plus récente. Hors ligne,
+la saisie est conservée et aucune nouvelle opération n’est lancée.
+
+La [preuve 3.2](../_bmad-output/initiative-macrova/epic-catalogue/recherche-off-v1/sources.md)
+distingue fixtures hors réseau, observation OFF ponctuelle et recette identité
+réelle. Le backend de recette `dev/catalogue-story-3-2` est séparé du socle
+Render ; origine locale `http://localhost:3000`. Accorder les droits synthétiques
+uniquement par administration serveur de ce backend isolé ; aucune API publique
+n’accorde un droit. Ne pas employer un compte réel, un JWT forgé ou le mode E2E
+qui neutralise Convex pour prétendre valider l’authentification.

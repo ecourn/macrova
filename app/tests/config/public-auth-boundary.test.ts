@@ -30,7 +30,13 @@ function routerAt(initialPath: string, calculatorLoader?: () => Promise<void>) {
   const root = createRootRoute({
     beforeLoad: ({ location }) => loadRootAuthContext(location.pathname),
   })
-  const children = ["/", "/login", "/dashboard", "/calculateur"].map((path) =>
+  const children = [
+    "/",
+    "/login",
+    "/dashboard",
+    "/aliments",
+    "/calculateur",
+  ].map((path) =>
     createRoute({
       getParentRoute: () => root,
       path,
@@ -47,7 +53,7 @@ function routerAt(initialPath: string, calculatorLoader?: () => Promise<void>) {
     defaultPendingMs: 60_000,
   })
 }
-test.each(["/dashboard/", "/login/"])(
+test.each(["/dashboard/", "/login/", "/aliments/"])(
   "slash final %s : vrai pont auth et matches privés",
   async (path) => {
     const fetchMock = vi

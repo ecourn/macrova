@@ -1,0 +1,303 @@
+[
+  {
+    "key": "[\"flocons avoine\",\"fr\",\"Search-a-licious 0.1.0\"]",
+    "pending": false,
+    "result": {
+      "capturedAt": 1791625448553,
+      "hits": [
+        {
+          "indexedAt": "2024-12-16T17:27:33.771542",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Carrefour",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "59",
+              "energy": "363",
+              "fat": "6.6",
+              "protein": "12"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3560071006587"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3560071006587",
+            "state": "cooked",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-12-17T01:31:47.009670",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Chabrior",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "58.1",
+              "energy": "365",
+              "fat": "6.8",
+              "protein": "12.1"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3250391896554"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3250391896554",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-10-26T18:56:17.907057",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Quaker",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "60",
+              "energy": "375",
+              "fat": "8",
+              "protein": "11"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/8710398169594"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "8710398169594",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-12-16T22:03:53.683631",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Grainéa, Marque Repère",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "59",
+              "energy": "372",
+              "fat": "7",
+              "protein": "14"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3564706624467"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3564706624467",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-12-17T00:59:10.587387",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Bjorg",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "58",
+              "energy": "362",
+              "fat": "7.1",
+              "protein": "11"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3229820019307"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3229820019307",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-12-17T03:53:41.201325",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Carrefour Bio, Carrefour",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "59",
+              "energy": "372",
+              "fat": "7",
+              "protein": "14"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3560071190965"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3560071190965",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-10-26T16:33:34.027022",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Maison des Bistrots",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'Avoine",
+            "nutrition": {
+              "carbohydrate": "56",
+              "energy": "364",
+              "fat": "6.9",
+              "protein": "14"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3700146208755"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3700146208755",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-10-26T16:48:48.099584",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Bloch, auguste bloch",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "58",
+              "energy": "344",
+              "fat": "7",
+              "protein": "13"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3090070105023"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3090070105023",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-10-25T08:08:28.995116",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Leader Price",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "62.2",
+              "energy": "387",
+              "fat": "7",
+              "protein": "13.7"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/3263850805813"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "3263850805813",
+            "state": "unknown",
+            "version": 1
+          }
+        },
+        {
+          "indexedAt": "2024-10-26T16:16:57.494322",
+          "reasons": [
+            "AMBIGUOUS_BASIS"
+          ],
+          "snapshot": {
+            "basis": {
+              "kind": "ambiguous",
+              "sourceField": "nutrition_data_per"
+            },
+            "brand": "Muesli land",
+            "capturedAt": 1791625448553,
+            "name": "Flocons d'avoine",
+            "nutrition": {
+              "carbohydrate": "57",
+              "energy": "360",
+              "fat": "7",
+              "protein": "12.5"
+            },
+            "provenance": {
+              "name": "Open Food Facts",
+              "reference": "https://world.openfoodfacts.org/product/4008569040723"
+            },
+            "revision": "76994cc4a5ed8e977a93f17793130441d8f1378a230609024903f0cb32cedfd7",
+            "sourceId": "4008569040723",
+            "state": "unknown",
+            "version": 1
+          }
+        }
+      ],
+      "kind": "results"
+    },
+    "startedAt": 1791625447824
+  }
+]
