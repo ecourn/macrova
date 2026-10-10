@@ -2,19 +2,21 @@ import { defineSchema, defineTable } from "convex/server"
 import { v } from "convex/values"
 import { closureValidator, entitlementValidator } from "./contracts/access"
 
-import { catalogueResultValidator } from "./contracts/catalogue"
+import { catalogueWorkResultValidator } from "./contracts/catalogue"
 
 // Les tables d'authentification appartiennent au composant Better Auth.
 export default defineSchema({
   catalogueJobs: defineTable({
     key: v.string(),
+    workType: v.optional(v.union(v.literal("search"), v.literal("product"))),
     pending: v.boolean(),
     startedAt: v.number(),
     expiresAt: v.number(),
-    result: v.union(catalogueResultValidator, v.null()),
+    result: v.union(catalogueWorkResultValidator, v.null()),
   })
     .index("by_key_and_pending", ["key", "pending"])
-    .index("by_startedAt", ["startedAt"]),
+    .index("by_startedAt", ["startedAt"])
+    .index("by_workType_and_startedAt", ["workType", "startedAt"]),
   catalogueParticipants: defineTable({
     jobId: v.id("catalogueJobs"),
     ownerId: v.string(),

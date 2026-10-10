@@ -9,6 +9,8 @@ const app = defineApp({
     SITE_URL: v.string(),
     OFF_SEARCH_ENDPOINT: v.optional(v.string()),
     OFF_SEARCH_API_VERSION: v.optional(v.string()),
+    OFF_PRODUCT_ENDPOINT: v.optional(v.string()),
+    OFF_PRODUCT_API_VERSION: v.optional(v.string()),
     OFF_USER_AGENT: v.optional(v.string()),
     BETTER_AUTH_SECRET: v.string(),
   },

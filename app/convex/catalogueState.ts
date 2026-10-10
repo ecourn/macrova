@@ -7,7 +7,7 @@ import {
 } from "../src/domain/catalogue"
 import { components, internal } from "./_generated/api"
 import { internalMutation } from "./_generated/server"
-import { catalogueResultValidator } from "./contracts/catalogue"
+import { catalogueWorkResultValidator } from "./contracts/catalogue"
 import { deny, requirePersonalWrite } from "./lib/access"
 const limiter = new RateLimiter(components.rateLimiter, {
   offSearch: {
@@ -24,8 +24,11 @@ const limiter = new RateLimiter(components.rateLimiter, {
   },
 })
 export const reserve = internalMutation({
-  args: { key: v.string() },
-  handler: async (ctx, { key }) => {
+  args: {
+    key: v.string(),
+    workType: v.optional(v.union(v.literal("search"), v.literal("product"))),
+  },
+  handler: async (ctx, { key, workType = "search" }) => {
     const ownerId = await requirePersonalWrite(ctx)
     const now = Date.now()
     const suspension = await ctx.db
@@ -37,29 +40,52 @@ export const reserve = internalMutation({
     const previous = await ctx.db
       .query("catalogueJobs")
       .withIndex("by_key_and_pending", (q) =>
-        q.eq("key", key).eq("pending", true)
+        q
+          .eq("key", workType === "product" ? `product:${key}` : key)
+          .eq("pending", true)
       )
       .unique()
     let jobId = previous && previous.expiresAt > now ? previous._id : null
     const leader = jobId === null
     if (!jobId) {
       // La fenêtre glissante empêche un double budget à la frontière des minutes.
+      const maximum = workType === "product" ? PRODUCT_BUDGET : SEARCH_BUDGET
       const recent = await ctx.db
         .query("catalogueJobs")
-        .withIndex("by_startedAt", (q) => q.gt("startedAt", now - MINUTE))
-        .take(SEARCH_BUDGET)
-      if (recent.length >= SEARCH_BUDGET)
+        .withIndex("by_workType_and_startedAt", (q) =>
+          q.eq("workType", workType).gt("startedAt", now - MINUTE)
+        )
+        .take(maximum)
+      // Les travaux antérieurs à 3.3 ne portent pas workType et restent des recherches.
+      const legacy =
+        workType === "search"
+          ? await ctx.db
+              .query("catalogueJobs")
+              .withIndex("by_workType_and_startedAt", (q) =>
+                q.eq("workType", undefined).gt("startedAt", now - MINUTE)
+              )
+              .take(maximum)
+          : []
+      const reservations = [...recent, ...legacy].sort(
+        (a, b) => a.startedAt - b.startedAt
+      )
+      if (reservations.length >= maximum)
         return {
           kind: "limited",
-          retryAt: recent[0].startedAt + MINUTE,
+          retryAt:
+            reservations[reservations.length - maximum].startedAt + MINUTE,
         } as const
-      const budget = await limiter.limit(ctx, "offSearch")
+      const budget = await limiter.limit(
+        ctx,
+        workType === "product" ? "offProduct" : "offSearch"
+      )
       if (!budget.ok)
         return { kind: "limited", retryAt: now + budget.retryAfter } as const
       if (previous)
         await ctx.db.patch("catalogueJobs", previous._id, { pending: false })
       jobId = await ctx.db.insert("catalogueJobs", {
-        key,
+        key: workType === "product" ? `product:${key}` : key,
+        workType,
         pending: true,
         startedAt: now,
         expiresAt: now + TRANSIENT_TTL_MS,
@@ -116,7 +142,7 @@ export const receive = internalMutation({
 export const finish = internalMutation({
   args: {
     jobId: v.id("catalogueJobs"),
-    result: catalogueResultValidator,
+    result: catalogueWorkResultValidator,
     suspendUntil: v.union(v.number(), v.null()),
   },
   handler: async (ctx, { jobId, result, suspendUntil }) => {
