@@ -3,7 +3,7 @@ title: 'Corpus reproductible et audit Open Food Facts'
 type: 'feature'
 ticket: '1'
 created: '2026-10-10'
-status: 'built'
+status: done
 baseline_revision: 'a7356935f43691944990d2af45bc20c11ed5bf4d'
 route: 'full'
 route_source: 'auto'

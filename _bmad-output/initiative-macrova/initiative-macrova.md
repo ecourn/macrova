@@ -62,3 +62,8 @@ Decision: l’utilisateur délègue les arbitrages et leur application à l’ag
 ## Stratégie courante — 10 octobre 2026
 
 Decision: les obligations terrain et prochaines stories mentionnées dans les notes historiques sont remplacées par [la correction MVP sans enquête](change-mvp-sans-enquete/change-mvp-sans-enquete.md). Epic 10 dropped ; 10.1 done conservée, 10.2 dropped, 10.3–10.7 retirées. Socle et calculateur déjà done ; prochain ticket 3.1. Besoin et valeur commerciale restent inconnus, sans gate MVP.
+
+
+## Inception du catalogue — 10 octobre 2026
+
+Decision: à la demande de l’utilisateur, 3.1 est done après livraison de l’audit OFF et l’epic 3 est intégralement découpé en 3.1–3.10 ; l’epic reste in-progress. La prochaine story est 3.2, premier parcours applicatif recherche et détail sourcé. Le droit de test serveur du socle permet les corrections sans dépendance circulaire au paiement. Les références techniques de 3.1 sont disponibles pour epic 4 mais ne valident pas la plausibilité de sa démonstration ni son moteur. Les remises catalogue pour epics 6/8/9 sont précisées dans les Notes de l’epic 3 et seront épinglées dans leurs stories lors de leur inception.

@@ -1,5 +1,4 @@
-# Premier ticket débloqué par la décision du 2026-10-10 ; ids stables.
-# Découpage partiel : reste de CAP-3 à détailler après cet audit, pas une inception complète.
+# Inception complète du 2026-10-10 ; ids stables, story 3.1 livrée conservée.
 [[entry]]
 id = 1
 type = "story"
@@ -12,5 +11,131 @@ hitl = false
 risk = "high"
 unknown = "Complétude et disponibilité OFF, conditions de conservation/réutilisation et adéquation aux limites numériques restent à vérifier ; aucun résultat de couverture ni catalogue complémentaire présumé."
 references = ["_bmad-output/spec-macrova/protocole-validation.md", "_bmad-output/initiative-macrova/epic-catalogue/epic-catalogue.md", "_bmad-output/initiative-macrova/architecture-app/architecture-app.md"]
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 2
+type = "story"
+title = "Relier la recherche OFF au premier parcours catalogue"
+description = "Créer le module catalogue et sa surface Aliments accessible dans l’espace personnel isolé, relier une soumission texte à Search-a-licious via action Convex, réutiliser le normaliseur audité pour afficher liste et détail source sans nutrition inventée, et fournir dès ce parcours les contrats de résultat, gardes du socle, réservations de budget, déduplication des appels identiques en vol sans cache ni reprise générale des réservations, et suspension nécessaires aux étapes suivantes en réutilisant contrat v1 et parsing/normalisation de l’audit."
+verify = "Sur le backend isolé avec droit de test, exécuter une recherche et ouvrir un détail sourcé, vérifier par tests les appels uniquement à la soumission, liste vide distincte de panne, rejet des données ambiguës, attribution et absence de données privées envoyées, puis prouver que concurrence et 429/503 respectent budgets et suspension sans retry automatique."
+covers = ["CAT-4", "CAT-5", "CAT-6", "CAT-8"]
+after = [1, "1.2", "1.3"]
+hitl = false
+risk = "high"
+unknown = "Disponibilité et configuration texte à recontrôler au démarrage avec preuves datées ; staging/fixtures pour tests répétables, observation réelle distincte et panne explicitement recevable."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Enrichir et valider les détails produit sourcés"
+description = "Étendre l’adaptateur de 3.2 par lecture produit v3.6 à partir d’un code OFF retourné et budget produit centralisé, conserver champs et dates sources distincts et produire FoodSnapshot v1 ou blocages précis pour base, préparation, obsolescence, numérique et conversion, sans remplacer automatiquement un snapshot sélectionné."
+verify = "Rejouer les captures recherche/produit de l’audit et les négatifs séparés pour vérifier tofu complet, précision excessive, produit obsolète, préparations, quatre valeurs null ou zéro, bases g/ml, états et densité, puis prouver par tests que timeout/malformation/suspension ne créent aucune nutrition ni actualisation silencieuse."
+covers = ["CAT-3", "CAT-5", "CAT-6"]
+after = [2]
+hitl = false
+risk = "high"
+unknown = "Lecture produit peut rester incomplète ou indisponible ; aucune recherche par nom ni requête utilisateur ne prouve base ou état, et aucune v3.6 computed/estimate ne complète une absence."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 4
+type = "story"
+title = "Conserver le cache public et maîtriser les appels concurrents"
+description = "Compléter les budgets et la déduplication de 3.2/3.3 par cache public Convex indexé et versionné, fraîcheur/éviction configurables, dates de consultation et d’index visibles, rafraîchissement explicite et reprise des réservations abandonnées, avec conservation des notices et exclusion de toute correction ou donnée de compte."
+verify = "Avec horloge contrôlée et actions concurrentes, vérifier clés, TTL 24 h et éviction 7 jours, cache ancien lors de panne, une seule requête partagée, budgets recherche/produit globaux, Retry-After et reprise explicite après suspension ou réservation abandonnée, puis inspecter cache et logs pour exclure contenu privé."
+covers = ["CAT-4", "CAT-5", "CAT-6"]
+after = [3]
+hitl = false
+risk = "high"
+unknown = "Durées retenues sont hypothèses techniques à éprouver ; sorties cloud partagées ne garantissent pas le quota IP OFF, et fraîcheur de consultation ne rajeunit pas l’index."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 5
+type = "story"
+title = "Enregistrer des révisions alimentaires privées sécurisées"
+description = "Créer le modèle et les commandes de correction ou saisie d’aliment privé sourcé sur le contrat v1, avec source/date/base/état/densité et filiation OFF éventuelle, révisions attendues et clés d’intention du socle, gardes identité/propriété/droit actif/ouverture sur les opérations interactives, ainsi qu’inventaire et opérations internes paginées remis à epic 8 avec propriétaire relu depuis le travail durable sans session ni droit actif, contrôle de fermeture sur création/modification et nettoyage autorisé après fermeture."
+verify = "Tester les commandes réelles du module avec deux propriétaires, droits actifs/inactifs, anonyme et sessions invalides, fermeture concurrente, conflit de révision, retry identique ou contenu différent, absence versus zéro et source manquante, puis vérifier qu’aucune révision ne rejoint OFF/cache et que les opérations internes paginées isolent le propriétaire et terminent export/nettoyage sans droit actif après révocation, avec nettoyage après fermeture et refus de recréation."
+covers = ["CAT-5", "CAT-7"]
+after = [4, "1.3", "1.4"]
+hitl = false
+risk = "high"
+unknown = "La conservation juridique finale appartient aux politiques avant ouverture ; réutiliser le droit de test serveur et le contrat de fermeture sans contourner l’autorité des droits."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 6
+type = "story"
+title = "Compléter les données privées dans le parcours alimentaire"
+description = "Relier le détail et les recherches sans résultat aux formulaires shadcn de correction/saisie privée de 3.5, afficher champs manquants et preuves source/date/base/état/densité, normaliser les décimales françaises et montrer l’accusé backend ainsi que conflits, erreurs et accès refusés en conservant les saisies."
+verify = "Par tests de parcours, compléter un produit incomplet et créer un aliment privé sans résultat OFF, refuser absence de source/base et conversion sans densité, vérifier zéro explicite, conflit puis relecture/confirmation, perte réseau et expiration de session, et constater la correction uniquement pour son compte après accusé backend."
+covers = ["CAT-7", "CAT-8", "CAT-9"]
+after = [5]
+hitl = false
+risk = "high"
+unknown = "Référence de source textuelle identifiable obligatoire sans stockage d’image ; une saisie conservée après panne n’est jamais annoncée enregistrée."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Remettre les snapshots sélectionnés aux consommateurs du catalogue"
+description = "Fournir depuis Aliments et Données privées une sélection explicite de FoodSnapshot v1 et de sa révision via état de session en mémoire testable, bloquer toute remise calculable incomplète/ambiguë et demander confirmation de remplacement après correction ou rafraîchissement, puis documenter les remises vers composition, démonstration et données personnelles sans construire moteur ni repas persistés."
+verify = "Exercer le parcours recherche puis complétion puis sélection dans un consommateur de test du contrat, vérifier snapshots complets et calcul exact de portion avec domaine existant, retour conservant saisies, sélection initiale immuable après évolution source et remplacement confirmé, produit ancien devenu obsolète après relecture explicite via 3.3/3.4 refusé à une nouvelle sélection sans modifier le snapshot déjà sélectionné, puis consigner les références 3/6 techniques et interfaces attendues par epics 4/6/8."
+covers = ["CAT-3", "CAT-5", "CAT-7", "CAT-8"]
+after = [6]
+hitl = false
+risk = "high"
+unknown = "Composition réelle et solver appartiennent aux epics 4/6 ; le consommateur de test vérifie une remise fonctionnelle sans prétendre à une composition ou plausibilité alimentaire livrée."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 8
+type = "story"
+title = "Finaliser les états et l’accessibilité du catalogue"
+description = "Finaliser les surfaces Aliments/Données privées et navigation de 3.2 à 3.7 selon DESIGN/EXPERIENCE et shadcn existant, avec mobile, focus, annonces, sources lisibles, chargement, cache ancien, hors ligne, reprise explicite et refus de session/droit sans masquer une véritable erreur backend."
+verify = "Vérifier clavier complet, retour et fermeture de dialogues, reflow 320 px, zoom 200 %, tailles tactiles et annonces de résultats/erreurs, plus réponses tardives, hors ligne, reconnexion et absence de mutation rejouée automatiquement, en documentant les limites des essais lecteur d’écran et appareil réellement effectués."
+covers = ["CAT-4", "CAT-6", "CAT-8", "CAT-9"]
+after = [7]
+hitl = false
+risk = "medium"
+unknown = "Les contrôles automatisés ne démontrent pas seuls WCAG 2.2 AA ; conserver les limites de lecteur d’écran/appareil dans les preuves."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 9
+type = "story"
+title = "Nettoyage de clôture du catalogue"
+description = "Relire les plans et constats de 3.1 à 3.8 puis nettoyer duplications, interfaces et documentation du catalogue sans élargir le périmètre ni changer FoodSnapshot, droits, règles numériques, données sourcées ou remises aux consommateurs."
+verify = "Exécuter les tests pertinents du catalogue/domaine, check et typecheck après nettoyage, vérifier absence de reports fonctionnels dissimulés et invariants cache/corrections/snapshots inchangés, puis documenter les constats traités ou limités pour la recette finale."
+covers = ["CAT-4", "CAT-5", "CAT-6", "CAT-7", "CAT-8", "CAT-9"]
+after = [1, 2, 3, 4, 5, 6, 7, 8]
+hitl = false
+risk = "medium"
+unknown = "Périmètre fixé à partir des plans et constats au démarrage ; tout manque fonctionnel devient une nouvelle entrée et ne passe pas comme nettoyage."
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 10
+type = "story"
+title = "Livrer et vérifier le catalogue sur la cible isolée"
+description = "Publier le backend catalogue compatible avant le frontend sur la cible isolée du socle puis réaliser la recette intégrée OFF et corrections privées avec identité réelle et droits de test serveur, vérifier retour arrière et limites d’exploitation, consigner un bilan daté des cas MVP résolus ou limités et une décision explicite de gel ou maintien ouvert du catalogue, puis remettre preuves CAP-3 et contrôles d’ouverture à epic 9 sans activer le paiement ni la production publique."
+verify = "Suivre README pour test:e2e:auth sur backend dev et SITE_URL/port cohérents avec deux comptes, vérifier recherche/détail/complétion/sélection et refus anonyme/autre compte/session expirée ou révoquée/droit absent/fermeture, observer OFF réel séparément des fixtures panne/cache, puis vérifier le bilan par cas MVP et la décision de gel au regard des protections CAP-3, et consigner révision, attendu/observé, déploiement, rollback et limites sans clore automatiquement l’epic."
+covers = ["CAT-1", "CAT-2", "CAT-3", "CAT-4", "CAT-5", "CAT-6", "CAT-7", "CAT-8", "CAT-9"]
+after = [9, "1.5"]
+hitl = true
+risk = "high"
+unknown = "Accès à comptes et secrets backend peuvent demander présence humaine ; conformité publique, licences actuelles et activation restent chez epic 9, une source indisponible ne vaut pas zéro résultat."
 plan_checkpoint = false
 done_checkpoint = false
